@@ -1,0 +1,48 @@
+<!--
+  Generated template for the ExamsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>成绩单</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="banner" *ngIf="waterball">
+    <h3>{{latest.name}}</h3>
+    <p ion-text color="gray9">发布时间：{{latest.time}}</p>
+    <echarts-ng2 [option]="waterball" [style]="{'height': '210px'}"></echarts-ng2>
+    <ion-row justify-content-between>
+      <ion-col col-6>
+        <button ion-button outline block [navPush]='pages.report' [navParams]="latest">学情报告</button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button outline block color="green" [navPush]='pages.doctor' [navParams]="latest">{{latest.payment?'错题诊断':'答题情况'}}</button>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-list no-lines>
+    <!-- <ion-item-divider>历史考试</ion-item-divider> -->
+    <ion-card *ngFor="let exam of exams">
+      <ion-item class="card-header" no-lines>
+        {{exam.name}}
+        <ion-note item-right color="gray6">
+        </ion-note>
+      </ion-item>
+      <ion-row nowrap justify-content-start class="desc">
+        <ion-col col-auto text-left>
+          <ion-icon name="time-outline"></ion-icon> 发布时间：{{exam.time}}</ion-col>
+        <!-- <ion-col col-auto>
+          <ion-icon name="person-outline"></ion-icon> 1242名考生 </ion-col>
+        <ion-col col-auto>
+          <ion-icon name="apps-outline"></ion-icon> 4个科目 </ion-col>[navParams]="{guid:latest.guid}" -->
+      </ion-row>
+      <ion-row class="footer">
+        <a [navPush]='pages.report' [navParams]="exam">学情报告</a>
+        <a [navPush]='pages.doctor' [navParams]="exam">{{exam.payment?'错题诊断':'答题情况'}}</a>
+      </ion-row>
+    </ion-card>
+  </ion-list>
+</ion-content>

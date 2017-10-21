@@ -1,0 +1,23 @@
+page-personal {
+  // .picker-opt {
+  //   padding-left: 1.6rem;
+  //   font-size: 1.8rem;
+  // }
+  ion-item.item {
+    color: color($colors, gray9);
+  }
+  .agreement {
+
+    ion-icon {
+      vertical-align: -0.04em;
+      color: color($colors, primary);
+    }
+    .label {
+      color: color($colors, gray9);
+    }
+  }
+  p.agreement {
+    color: color($colors, gray9);
+    padding: 0 16px;
+  }
+}

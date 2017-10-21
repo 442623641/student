@@ -1,0 +1,49 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IView } from '../../model/view';
+import { ExamsProvider } from '../../providers/exams/exams';
+import { ChartsProvider } from '../../providers/charts/charts';
+
+import { REPORT_PAGE, DOCTOR_PAGE } from '../pages.constants';
+/**
+ * Generated class for the ExamsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
+@Component({
+  selector: 'page-exams',
+  templateUrl: 'exams.html',
+})
+export class ExamsPage {
+  pages: any = {
+    report: REPORT_PAGE,
+    doctor: DOCTOR_PAGE
+  }
+  view: IView = { viewindex: 0, viewlength: 10 };
+  latest: any = {};
+  exams: any[] = [];
+  total: number;
+  waterball: any;
+  option: any;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public examsPro: ExamsProvider,
+    public chartsPro: ChartsProvider,
+  ) {}
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ExamsPage');
+  }
+  ngAfterViewInit() {
+    this.examsPro.exams(this.view).then(res => {
+      console.log(res);
+      this.latest = res.latest;
+      this.waterball = this.chartsPro.ball(this.latest.percent, this.latest.score);
+      this.exams = res.exams;
+    });
+  }
+}

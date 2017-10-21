@@ -1,0 +1,41 @@
+<!--
+  Generated template for the PersonalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的信息</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-item-group>
+    <ion-item-divider color="light"><span ion-text color="primary">欢迎您，张雪峰</span></ion-item-divider>
+    <button ion-item>
+      <ion-icon item-left name="pin"></ion-icon>
+      <p>请选择省市，选择后不可修改</p>
+    </button>
+    <button ion-item>
+      <ion-icon item-left name="school"></ion-icon>
+      <p>请选择学校，选择后不可修改</p>
+    </button>
+    <button ion-item>
+      <ion-icon item-left name="people"></ion-icon>
+      <p>请选择年级，选择后不可修改</p>
+    </button>
+    <ion-row radio-group no-lines>
+      <ion-item class="col" no-border no-lines>
+        <ion-label>我是家长</ion-label>
+        <ion-checkbox></ion-checkbox>
+      </ion-item>
+      <ion-item class="col" no-border>
+        <ion-label>我是学生</ion-label>
+        <ion-checkbox></ion-checkbox>
+      </ion-item>
+    </ion-row>
+  </ion-item-group>
+  <p padding>
+    <button ion-button block>保 存</button>
+  </p>
+</ion-content>

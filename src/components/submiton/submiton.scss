@@ -1,0 +1,95 @@
+submiton {
+  //$btn-bgColor: #0EBEFF;
+  $btn-bgColor-active: #fff;
+  $btn-borderRadius: 30px;
+  $processing-color: #4CAF50;
+  $processing-duration: 5s;
+  button {
+    border-radius: $btn-borderRadius; //box-shadow: 1px 1px 6px 1px transparent;
+    transition: box-shadow 300ms ease-in-out;
+
+    color: #fff;
+
+    .icon {
+      font-size: 4.3em;
+      width: 0;
+      overflow: hidden;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 10%;
+      opacity: 0;
+      height: 100%;
+      overflow: hidden;
+      background-color: color($colors, primary); //border-radius: $btn-borderRadius;
+      transition: width 10ms 600ms ease-in-out,
+      background-color 300ms ease-in,
+      opacity 250ms 300ms ease-in,
+      border-radius 250ms 300ms ease-in;
+    }
+  }
+
+
+  .processing {
+    //border: 0.55px solid $processing;
+    border-radius: $btn-borderRadius;
+    transform: rotateX(180deg);
+    background-color: $btn-bgColor-active; //box-shadow: 1px 1px 4px 1px transparent !important;
+    transition: transform 450ms ease-in-out,
+    background-color 250ms ease-in,
+    border-radius 550ms 350ms ease-in;
+
+    &:after {
+      opacity: 1;
+      background-color: $processing-color;
+      width: 90%;
+      z-index: -1;
+      border-radius: $btn-borderRadius;
+      transition: width $processing-duration 650ms ease-in-out,
+      background-color 300ms 300ms ease-in,
+      opacity 250ms 300ms ease-in;
+    }
+    .text {
+      width: 0;
+      overflow: hidden;
+    }
+  }
+
+  .success {
+    background-color: $btn-bgColor-active;
+    &:after {
+      z-index: -1;
+      opacity: 1;
+      background-color: $processing-color;
+      width: 100%;
+      transition: width 1s ease-in-out;
+      border-radius: $btn-borderRadius;
+    }
+    .icon {
+      //transform: rotateX(180deg);
+      width: 70px;
+      line-height: 45px; //height: 45px;
+      font-style: italic;
+      transition: width 550ms ease-in 1s;
+    }
+    .text {
+      width: 0;
+      overflow: hidden;
+    }
+  }
+
+
+  @-webkit-keyframes show {
+    0% {
+      width: 0;
+      opacity: 0;
+    }
+    100% {
+      width: 40px;
+      opacity: 1;
+    }
+  }
+}

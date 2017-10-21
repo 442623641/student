@@ -1,0 +1,70 @@
+  page-usercenter {
+    .fixed-content {
+      margin-top: 0 !important;
+    }
+    .scroll-content {
+      padding-top: 0 !important;
+    }
+    .banner {
+      padding-top: 44px;
+      color: #fff;
+      background: url(../assets/images/usercenter-bg.jpg);
+      height: 26.5vh;
+      transform: translateY(-1px);
+      background-size: contain;
+      .avatar {
+        padding: 10px;
+      }
+      p {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+      }
+    }
+    ion-item-group {
+      margin-top: 20px;
+      // .item>ion-icon,
+      // .item-inner>ion-icon {
+      //   min-height: 2.2rem;
+      //   font-size: 2.2rem;
+      // }
+      .item-ios ion-icon[item-left],
+      .item-ios ion-icon[item-right],
+      .item-ios ion-icon[item-start],
+      .item-ios ion-icon[item-end] {
+        margin-top: 12px;
+      }
+    }
+
+    [name=icopper] {
+      color: #f98700;
+    }
+
+    [name=ipiggy] {
+      color: #7a88f3;
+    }
+
+    [name=icoupon] {
+      color: #ec6a63;
+    }
+
+    [name=itrade] {
+      color: #ea6c4e;
+    }
+
+    [name=ichange] {
+      color: #10aeff;
+    }
+
+    [name=lock-outline] {
+      color: #1aadc9;
+    }
+
+    [name=isecurity] {
+      color: #51ba96;
+    }
+
+    [name=ifeedback] {
+      color: #78be54;
+    }
+  }

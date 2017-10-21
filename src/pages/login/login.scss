@@ -1,0 +1,45 @@
+page-login {
+  .content {
+    background: #fff;
+  }
+  .banner {
+    height: 36.5vh;
+    background-color: color($colors, primary);
+    background-image: url(../assets/images/cloud.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 0 100%;
+    &:after {
+      content: '';
+      height: 1px;
+      width: 100%;
+      background: #fff;
+      top: -1px;
+      bottom: top;
+      align-self: flex-end;
+    }
+  }
+
+  .app-name {
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    color: #fff;
+    font-size: 3.2rem;
+  }
+  form {
+    width: 100%;
+  }
+  .item .label {
+    // text-align: center; // width: 25px;
+
+    .icon {
+      font-size: 1.8em;
+    }
+  }
+  .forgot {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+}

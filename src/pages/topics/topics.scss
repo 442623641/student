@@ -1,0 +1,34 @@
+page-topics {
+  .card-header {
+    position: relative;
+    padding: 8px 12px;
+    &:after {
+      @extend .border-bottom;
+    }
+    .col {
+      &:first-child {
+        padding-left: 0;
+        i {
+          background: color($colors, primary);
+          padding: 0 2px;
+          margin-right: 8px;
+        }
+      }
+      &:nth-child(2) i,
+      &:nth-child(3) i {
+        height: 12px;
+        width: 12px;
+        display: inline-flex;
+        margin-right: 6px;
+        background: rgba(#ccc, .8);
+        vertical-align: -0.105em;
+      }
+      &:nth-child(3) i {
+        background: color($colors, primary);
+      }
+    }
+  }
+  [blur] {
+    background: #fff;
+  }
+}

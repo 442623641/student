@@ -1,0 +1,130 @@
+<!--
+  Generated template for the ReportPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-shadow>
+  <ion-navbar>
+    <ion-title>{{name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button>
+        错题诊断
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <scroll-header [items]="categorys" (selectedChange)="changeSlide($event)" *ngIf="categorys.length>1" [(selected)]="reportIndex"></scroll-header>
+</ion-header>
+<ion-content [fullscreen]="true" #content>
+  <ng-template #frame [ngIf]="categorys.length<2" [ngIfElse]="tslider" let-indexNum="indexNum">
+    <ng-template [ngIf]="reports[indexNum]" [ngIfElse]="loadingc
+">
+      <p line-bottom line-top class="tip">总计{{reports[indexNum].studentCount}}名考生 领先{{reports[indexNum].percent}}考生</p>
+      <ion-card class="score-card">
+        <ion-card-header text-center color="primary">
+          我的成绩
+        </ion-card-header>
+        <ion-row line-top class='score-header'>
+          <ion-col col-4 col-sm></ion-col>
+          <ion-col *ngFor="let item of reports[indexNum].fields">{{item}}</ion-col>
+        </ion-row>
+        <ion-row line-top *ngFor="let score of reports[indexNum].scores" class='score-item'>
+          <ion-col col-4 col-sm>
+            <ion-icon name="{{score.name|subcon}}"></ion-icon>
+            {{score.name | slice:0:2}}
+          </ion-col>
+          <ion-col no-padding>
+            <ion-row>
+              <ion-col *ngFor="let item of score.subjects">
+                {{item}}
+              </ion-col>
+            </ion-row>
+            <p><span>排名 {{score.rank}}</span> 领先 {{score.percent | percent}} 的考生</p>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card *ngIf="reports[indexNum].subjects.length>2">
+        <ion-card-header text-center color="primary">
+          学情分析
+        </ion-card-header>
+        <ion-card-content>
+          <echarts-ng2 [option]="reports[indexNum].learnanalysis" [style]="{'height': '210px'}"></echarts-ng2>
+        </ion-card-content>
+        <p text-center>
+          <button ion-button round>查看学情分析</button>
+        </p>
+      </ion-card>
+      <ion-card>
+        <ion-card-header text-center color="primary">
+          层次分析
+        </ion-card-header>
+        <ion-card-content>
+          <echarts-ng2 [option]="reports[indexNum].levelanalysis" [style]="{'height': '210px'}"></echarts-ng2>
+        </ion-card-content>
+        <p text-center>
+          <button ion-button round>查看层次分析</button>
+        </p>
+      </ion-card>
+      <ion-card>
+        <ion-card-header text-center color="primary">
+          排名对比
+        </ion-card-header>
+        <scroll-header [items]="reports[indexNum].subjects" (selectedChange)="comranks(reports[indexNum].subjects[$event])" *ngIf="reports[indexNum].subjects.length>1" [(selected)]="reports[indexNum].comranksIndex"></scroll-header>
+        <ion-card-content class="rank-list">
+          <ng-template [ngIf]="reports[indexNum]?.activityComranks" [ngIfElse]="loadingb">
+            <div *ngFor="let rank of reports[indexNum].activityComranks;let i =index;" class="rank-item" [attr.self]="rank.sort=='我'?'':null">
+              <span>{{rank.sort}}</span>
+              <div>{{rank.score}}</div>
+            </div>
+          </ng-template>
+          <ng-template #loadingb>
+            <loading [status]="reports[indexNum].activityComranks"></loading>
+          </ng-template>
+        </ion-card-content>
+        <p text-center>
+          <button ion-button round>查看排名对比</button>
+        </p>
+      </ion-card>
+      <ng-template [ngIf]="reports[indexNum].level<3">
+        <ng-container *ngTemplateOutlet="card;context:{title:'成绩趋势',name:'Scoretrends',indexNum:indexNum}">
+        </ng-container>
+      </ng-template>
+      <ng-container *ngTemplateOutlet="card;context:{title:'排名趋势',indexNum:indexNum,name:'Ranktrends'}">
+      </ng-container>
+    </ng-template>
+    <ng-template [ngIf]="!reports[indexNum]" #loadingc>
+      <loading [status]="reports[indexNum]"></loading>
+      <!-- <ng-container *ngTemplateOutlet="loading;context:{state:reports[indexNum]}">
+      </ng-container> -->
+    </ng-template>
+  </ng-template>
+  <ng-template #tslider>
+    <ion-slides *ngIf="categorys.length>1" #slider (ionSlideWillChange)="onSlideChanged($event)">
+      <ion-slide *ngFor="let ball of categorys;let i=index;">
+        <iscroll scrollY="true">
+          <ng-container *ngTemplateOutlet="frame;context:{indexNum: i}">
+          </ng-container>
+        </iscroll>
+      </ion-slide>
+    </ion-slides>
+  </ng-template>
+</ion-content>
+<ng-template let-title="title" let-indexNum="indexNum" let-name="name" #card>
+  <ion-card>
+    <ion-card-header text-center color="primary">
+      {{title}}
+    </ion-card-header>
+    <scroll-header [items]="reports[indexNum].subjects" (selectedChange)="scrollChange(name.toLowerCase(),reports[indexNum].subjects[$event])" *ngIf="reports[indexNum].subjects.length>1" [(selected)]="reports[indexNum][name.toLowerCase()+'Index']"></scroll-header>
+    <ion-card-content style="height:220px;padding-right:0;">
+      <ng-template [ngIf]="reports[indexNum]['activity'+name]" [ngIfElse]="loadinga">
+        <echarts-ng2 [option]="reports[indexNum]['activity'+name]" [style]="{'height': '195px'}"></echarts-ng2>
+      </ng-template>
+      <ng-template #loadinga>
+        <loading [status]="reports[indexNum]['activity'+name]"></loading>
+      </ng-template>
+    </ion-card-content>
+    <p text-center>
+      <button ion-button round>查看{{title}}</button>
+    </p>
+  </ion-card>
+</ng-template>

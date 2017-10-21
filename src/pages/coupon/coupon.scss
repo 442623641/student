@@ -1,0 +1,59 @@
+page-coupon {
+  .card {
+    // background: url(../assets/images/coupon.png) center center no-repeat;
+    // background-size: 100%;
+    border-radius: 4px;
+    box-shadow: none;
+    font-size: 1.4rem;
+    &.expire {
+      background: #dedede;
+      &:first-child {
+        color: color($colors, text) !important;
+      }
+    }
+  }
+  .coupon-content {
+    .col {
+      &:first-child {
+        text-align: center;
+        color: color($colors, primary);
+        span {
+          font-size: 5rem;
+        }
+      }
+      &:last-child {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  .coupon-date {
+    position: relative;
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      background: $background-color;
+      border-radius: 20px;
+      top: 0;
+    }
+    &:before {
+      left: 0;
+      transform: translate(-50%, -50%);
+      box-shadow: -8px 0 4px -6px transparentize(color($colors, gray6), 0.75) inset;
+    }
+
+    &:after {
+      right: 0;
+      transform: translate(50%, -50%);
+      box-shadow: 8px 0 4px -6px transparentize(color($colors, gray6), 0.75) inset;
+    }
+    .col {
+      padding: 10px 0 10px 0;
+      border-top: 0.55px dotted rgba(0, 0, 0, .2);
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<!--
+  Generated template for the RegisterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>获取验证码</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding-top>
+  <ion-list no-lines>
+    <ion-item>
+      <ion-label fixed>手机号码</ion-label>
+      <ion-input placeholder="输入手机号" type="tel"></ion-input>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label color="dark3" fixed w-80>验证码</ion-label>
+      <ion-input max="6" type="number" name="vcode" placeholder="输入验证码"></ion-input>
+      <button item-right ion-button input-button-right clear style="font-size: 1.5rem">发送验证码</button>
+    </ion-item>
+    <ion-item-divider color="light" class="agreement" [navPush]="pages.agreement">
+      <ion-label>我已阅读并同意<a [navPush]="pages.agreement">《七天网络数据增值服务支付协议》</a></ion-label>
+      <ion-checkbox checked="true"></ion-checkbox>
+    </ion-item-divider>
+  </ion-list>
+  <p padding>
+    <button ion-button block [navPush]="pages.confirm">下一步</button>
+  </p>
+</ion-content>

@@ -1,0 +1,18 @@
+page-payment {
+
+  .item-radio-checked ion-radio.radio[check-icon] {
+    transition: background .12s;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    background: color($colors, primary);
+    color: #fff;
+    .radio-checked .radio-inner {
+      left: 9px;
+      border-width: 1px;
+      border-color: #fff;
+      border-top-width: 0;
+      border-left-width: 0;
+    }
+  }
+}

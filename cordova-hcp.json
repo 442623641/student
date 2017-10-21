@@ -1,0 +1,7 @@
+{
+  "name": "student",
+  "ios_identifier": "",
+  "android_identifier": "com.sepnet.student",
+  "update": "start",
+  "content_url": "http://10.7.6.17:8100/"
+}

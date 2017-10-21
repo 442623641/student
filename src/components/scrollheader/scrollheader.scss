@@ -1,0 +1,43 @@
+scroll-header {
+  .scroll-x {
+    .col {
+      touch-action: pan-x !important;
+    }
+  }
+  iscroll {
+    font-size: 1.5rem;
+    width: 100%;
+    height: 43px;
+    .row {
+
+      height: 43px;
+      line-height: 36px;
+      .col {
+        white-space: nowrap;
+        margin: 0;
+        padding: 5px 12px;
+        &:after {
+          content: ''; // background: transparent;
+          height: 2px;
+          width: 100%;
+          max-width: 0;
+          background: color($colors, primary);
+          bottom: 3px;
+          left: 0;
+          position: absolute; //transform: translate3d(0, 0, 0);
+          transition: max-width .28s;
+        }
+      }
+    }
+    background: rgba(#fff, .85);
+    .col:not([select=true]) {
+      color: inherit;
+    }
+    [select=true].col {
+      color: color($colors, primary);
+      &:after {
+        max-width: 100%; //transform: translate3d(0, 0, 0);
+      }
+    }
+  }
+}

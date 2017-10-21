@@ -1,0 +1,35 @@
+page-exams {
+  .banner {
+    background: #fff;
+    padding: 16px;
+    h3 {
+      margin: 0;
+      text-align: center;
+      font-size: 1.8rem;
+      padding-bottom: 10px;
+    }
+    p {
+      text-align: center;
+    }
+  }
+  .card {
+
+    .desc {
+      padding: 0 16px;
+      color: color($colors, gray9);
+      .col {
+        padding-left: 0;
+        padding-right: 10px;
+      }
+      .icon {
+        vertical-align: -0.08em;
+      }
+    }
+    .footer {
+      padding: 8px 0;
+      a:last-child {
+        color: color($colors, green);
+      }
+    }
+  }
+}

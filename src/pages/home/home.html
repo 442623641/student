@@ -1,17 +1,126 @@
-<ion-header>
+<!--
+  Generated template for the HomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>首页</ion-title>
   </ion-navbar>
 </ion-header>
-
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+ -->
+<param hook="home">
+<ion-content>
+  <!-- <div class="banner"> -->
+  <ng-template [ngIf]="package&&userInfo" [ngIfElse]="loading">
+    <ng-container [ngSwitch]="package.open">
+      <ion-row class="header" padding-vertical align-items-center justify-content-between>
+        <!-- <echarts-ng2 [option]="optionWaterball" #ball></echarts-ng2> -->
+        <a class="avatar" text-center [navPush]="pages.personal">
+      <img src="../assets/images/avatar.png">
+    </a>
+        <ion-col nowrap text-left col-6 class="user-info">
+          <span [navPush]="pages.personal">{{userInfo.name}} | {{userInfo.gradeName}}</span>
+          <span [navPush]="pages.personal"> {{userInfo.cityName}} {{userInfo.school}}</span>
+        </ion-col>
+        <ion-col class="coin" text-right>
+          <div>{{userInfo.coin}} 学贝</div>
+          <a class="button" [navPush]="pages.recharge">
+        充值学贝
+        <!-- <span>充值学贝</span> -->
+        <!-- <ion-icon name="arrow-forward"></ion-icon> -->
+      </a>
+        </ion-col>
+      </ion-row>
+      <ion-row class="charge-tip" *ngSwitchCase="true">
+        <ion-col text-center col-9>
+          学情套餐{{package.expires | date:'yyyy年M月d日'}}到期
+        </ion-col>
+        <ion-icon name="idivision"></ion-icon>
+        <a text-center class="col" [navPush]="pages.recharge">
+      续费
+    </a>
+      </ion-row>
+      <ion-row class="charge-tip" *ngSwitchCase="false">
+        <a text-center class="col" [navPush]="pages.recharge">点击开通学情套餐 >> </a>
+      </ion-row>
+      <ion-row class="banner">
+        <a no-padding>
+    <img src="http://7netpublic.oss-cn-hangzhou.aliyuncs.com/market/xueqing_640x160.png">
+  </a>
+      </ion-row>
+      <div class="card">
+        <div class="card-header">
+          <i></i>
+          <span>基础数据服务</span>
+        </div>
+        <ion-row class="card-content">
+          <a [navPush]="pages.exams" href="javascript:void(0);">
+            <svg colorful aria-hidden="true" item-left>
+              <use xlink:href="#icon-ianalysis"></use>
+            </svg>
+            <!-- <ion-icon name="headset"></ion-icon> -->
+            <div>成绩趋势</div>
+          </a>
+          <a [navPush]="pages.analysis">
+            <svg colorful aria-hidden="true" item-left>
+              <use xlink:href="#icon-icause"></use>
+            </svg>
+            <div>错题分析</div>
+          </a>
+          <a>
+            <svg colorful aria-hidden="true" item-left>
+              <use xlink:href="#icon-iset"></use>
+            </svg>
+            <div>名校试题</div>
+          </a>
+          <a>
+            <svg colorful aria-hidden="true" item-left>
+              <use xlink:href="#icon-iclaim"></use>
+            </svg>
+            <div>认领考试</div>
+          </a>
+        </ion-row>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <i></i>
+          <span>个性地址服务</span>
+          <span>成绩如何提升？</span>
+        </div>
+        <ion-row class="card-content">
+          <a>
+            <svg colorful aria-hidden="true" item-left>
+              <use xlink:href="#icon-ierrorbook"></use>
+            </svg>
+            <div>错题本
+              <br>（纸质版）</div>
+          </a>
+          <a>
+            <svg colorful aria-hidden="true" item-left>
+              <use xlink:href="#icon-ieerrorbook"></use>
+            </svg>
+            <div>错题本
+              <br>（电子版）</div>
+          </a>
+          <a>
+            <svg colorful aria-hidden="true" item-left>
+              <use xlink:href="#icon-istrengthening"></use>
+            </svg>
+            <div>提分课堂</div>
+          </a>
+          <a>
+            <svg colorful aria-hidden="true" item-left>
+              <use xlink:href="#icon-idiagnose"></use>
+            </svg>
+            <div>知识点诊断</div>
+          </a>
+        </ion-row>
+      </div>
+    </ng-container>
+  </ng-template>
+  <ng-template #loading>
+    <loading [status]="package"></loading>
+  </ng-template>
 </ion-content>

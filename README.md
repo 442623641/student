@@ -1,5 +1,34 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+This is a septnet student projects.
 
+
+## Create a new repository
+```bash
+git clone https://git.septnet.cn/surface/student.git
+cd student
+touch README.md
+git add README.md
+git commit -m "add README"
+git push -u origin master
+```
+
+## Existing folder
+```bash
+cd student
+git init
+git remote add origin https://git.septnet.cn/surface/student.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+```
+
+## Existing Git repository
+```bash
+cd studnet
+git remote add origin https://git.septnet.cn/surface/student.git
+git push -u origin --all
+git push -u origin --tags
+```
+<!-- 
 ## How to use this template
 
 *This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
@@ -23,4 +52,4 @@ $ ionic cordova run ios
 ```
 
 Substitute ios for android if not on a Mac.
-
+ -->

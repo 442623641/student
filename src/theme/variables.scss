@@ -1,6 +1,5 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
-
 // Font path is used to include ionicons,
 // roboto, and noto sans fonts
 $font-path: "../assets/fonts";
@@ -21,10 +20,6 @@ $app-direction: ltr;
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
-
-
-
-
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -32,44 +27,34 @@ $app-direction: ltr;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-
-$colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222
+$colors: ( primary: #f66e4f,
+secondary: #32db64,
+danger: #f53d3d,
+light: #f4f4f4,
+dark: #222,
+gray6:#666666,
+gray9: #999999,
+transparent:transparent,
+white:#ffffff,
+text:#414a60,
+yellow:#fae100,
+green:#6adcb7,
 );
-
-
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
-
-
-
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-
-
-
-
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
-
-
-
-
 // App Theme
 // --------------------------------------------------
 // Ionic apps can have different themes applied, which can
 // then be future customized. This import comes last
 // so that the above variables are used and Ionic's
 // default are overridden.
-
 @import "ionic.theme.default";
 
 
@@ -77,12 +62,32 @@ $colors: (
 // --------------------------------------------------
 // The premium icon font for Ionic. For more info, please see:
 // http://ionicframework.com/docs/ionicons/
-
 @import "ionic.ionicons";
+
+// Iconfonts
+@import "../assets/iconfonts/iconfont";
 
 
 // Fonts
 // --------------------------------------------------
-
 @import "roboto";
 @import "noto-sans";
+
+// Variables
+// --------------------------------------------------
+// Overriding Ionic Sass 
+$text-color:color($colors, text);
+$toolbar-background:color($colors, primary);
+$background-color:#f2f3f4;
+$item-ios-body-text-font-size:1.6rem;
+$item-ios-divider-background:color($colors, transparent);
+$item-ios-divider-color:color($colors, gray9);
+$item-ios-divider-font-size:1.2rem;
+$tabs-background:#fff;
+
+$segment-button-md-font-size:1.4rem;
+$segment-button-md-font-weight:400;
+$segment-button-md-height:3.6rem;
+$card-ios-header-font-weight:normal;
+
+$button-ios-height:2.5em;

@@ -1,0 +1,50 @@
+page-feedback {
+  .content-inner {
+    position: relative;
+    margin: 16px 0;
+    background: #fff;
+    height: 40vh;
+    &:after {
+      @extend .border-bottom;
+    }
+    &:before {
+      @extend .border-top;
+    }
+    ion-textarea {
+      font-size: 1.6rem;
+      text-align: right;
+      &:after {
+        content: attr(length)'/'attr(max);
+        color: color($colors, gray9);
+        padding: 0 16px;
+        position: relative;
+        top: -16px;
+        font-size: 1.2rem;
+      }
+    }
+    .text-input {
+      text-align: left;
+      padding: 16px 16px 0 16px;
+      width: 100%;
+      margin: 0;
+    }
+    .line {
+      position: relative;
+      &:before {
+        width: calc(100% - 32px);
+        margin: 0 16px;
+        @extend .border-top;
+      }
+    }
+    .images {
+      height: 7.43rem;
+      a:last-child {
+        text-align: center;
+        line-height: 4rem;
+        font-size: 2.5rem;
+        color: rgba(0, 0, 0, .2);
+        border: 0.55px solid rgba(0, 0, 0, .1);
+      }
+    }
+  }
+}

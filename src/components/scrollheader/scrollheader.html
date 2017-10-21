@@ -1,0 +1,8 @@
+<!-- Generated template for the ScrollheaderComponent component,add by leo zhang 201710010101 -->
+<iscroll [scrollX]="true" [scrollY]="false">
+  <ion-row col-auto nowrap align-items-center justify-content-between>
+    <ion-col interactive *ngFor="let item of items;let i=index;" [attr.select]="i===selectedValue" (tap)="tap(i)">
+      {{item}}
+    </ion-col>
+  </ion-row>
+</iscroll>

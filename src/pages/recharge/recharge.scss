@@ -1,0 +1,62 @@
+page-recharge {
+  .amount-buttons {
+    background: #fff;
+    .row {
+      padding: 10px 0;
+    }
+    a {
+      transition: background-color, opacity, border-color 100ms linear;
+      border-radius: 4px;
+      border: 0.55px solid rgba(0, 0, 0, .07);
+      color: color($colors, gray6);
+      padding: 8px 5px;
+      margin: 5px;
+      &:first-child {
+        margin-left: 0
+      }
+      &:last-child {
+        margin-right: 0
+      }
+      &:active,
+      &.checked {
+        background-color: rgba(color($colors, primary), .2);
+        border-color: color($colors, primary);
+        color: color($colors, primary);
+      }
+      &>span {
+        font-size: 1.7rem;
+      }
+    }
+  }
+  .custom {
+    input {
+      border: 0.55px solid rgba(0, 0, 0, .1);
+      width: 8rem;
+      line-height: 2.3rem;
+      border-radius: 5px;
+      margin: 0 8px 0 16px;
+      padding-left: 16px;
+    } // span {
+    //   vertical-align: -.2em;
+    // }
+    line-height: 2.5rem;
+  }
+  .footer .row {
+    position: relative;
+    &:before {
+      @extend .border-top;
+    }
+    background: #fff;
+    height: 48px;
+    font-size: 1.6rem;
+    line-height: 38px;
+    ion-col {
+      padding-left: 16px;
+      color: color($colors, gray6);
+    }
+    a {
+      background: color($colors, primary);
+      color: rgba(#fff, .7);
+    }
+  }
+}

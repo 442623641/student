@@ -1,0 +1,214 @@
+rocket {
+  $readyduration: .58s;
+  $launchduration: 2s;
+  $launchtop: 42vh;
+  .loader {
+    position: absolute;
+    width: 105px;
+    left: 0;
+    top: 20vh;
+  }
+
+  .rocket-wrapper {
+    transition: transform $readyduration ease;
+    position: absolute;
+    left: 44px; // top: -30px;
+    top: 40px;
+    height: 100px; //transition: top $readyduration ease;
+  }
+
+  .rocket {
+    width: 25px;
+    height: auto;
+  }
+
+  .trail-wrapper {
+    transition: opacity $readyduration ease;
+    width: 100%;
+    transform: translate3d(0, -7px, 0); // transform: none;
+    opacity: 0;
+    transform-origin: top center;
+    text-align: center;
+  }
+
+  .trail {
+
+    width: 9px;
+    height: auto;
+    transform: translateZ(0); // animation: jet 0.02s ease alternate infinite;
+    transform-origin: top center;
+    background-image: linear-gradient(to bottom, #fff, transparent);
+  }
+
+  .clouds-wrapper {
+    transition: opacity $readyduration linear .1s;
+    position: absolute; // top: 13px;
+    opacity: 0;
+    top: 10px;
+    left: 10px;
+    width: 88px;
+    height: 85px; // g {
+    //   fill: #fff;
+    //   clip-path: none;
+    // }
+  }
+
+  .clouds {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+  }
+
+  [state=ready],
+  [state=launch],
+  [state=landing] {
+    .rocket-wrapper {
+      will-change: transform;
+      transition: transform $readyduration ease;
+      transform: translateY(-30px); //top: -20px;
+    }
+    .trail-wrapper {
+      transition: opacity $readyduration ease;
+      opacity: 1;
+      .trail {
+        will-change: transform;
+        animation: jet 0.02s ease alternate infinite;
+      }
+    }
+    .clouds-wrapper {
+      will-change: opacity;
+      transition: opacity $readyduration linear .1s;
+      opacity: 1;
+    }
+    ellipse {
+      will-change: transform;
+      @extend .cloud-active;
+    }
+  }
+  [state=launch] {
+    .rocket-wrapper {
+      will-change: transform; //
+      transform: translateY(-$launchtop);
+      transition: transform $launchduration ease-in; // animation: launch $launchduration infinite alternate linear forwards;
+    }
+    .clouds-wrapper {
+      will-change: opacity;
+      transition: opacity $launchduration linear;
+      opacity: 0;
+    }
+  }
+  [state=landing] {
+    .rocket-wrapper {
+      transform: translateY(0);
+      will-change: transform;
+      animation: rocket-landing $launchduration ease-out alternate; //transform: translateY(0);
+      //transition: transform $launchduration ease-out;
+    }
+    .clouds-wrapper,
+    .trail-wrapper {
+      will-change: opacity; //transition: opacity $launchduration*0.5 linear $launchduration*0.5;
+      animation: clouds-landing $launchduration ease-out alternate;
+      opacity: 0;
+    }
+    .clouds-wrapper {
+      animation-delay: $readyduration;
+    }
+  }
+
+  .cloud-active {
+    animation: kaboom 0.4s ease alternate infinite;
+    transform-origin: center center;
+    opacity: 0.9;
+    &:nth-child(odd) {
+      animation: kaboom 0.3s ease alternate infinite;
+    }
+    &:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+    &:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+    &:nth-child(5) {
+      animation-delay: 0.5s;
+    }
+    &:nth-child(6) {
+      animation-delay: 0.6s;
+    }
+    &:nth-child(7) {
+      animation-delay: 0.7s;
+    }
+  } // @keyframes fadeIn
+  //{
+  //   from {
+  //     opacity: 0;
+  //   }
+  //   to {
+  //     opacity: 1;
+  //   }
+  // }
+  @keyframes kaboom {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.2);
+    }
+  }
+
+  @keyframes jet {
+    0% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1.2);
+    }
+  }
+  @keyframes launch {
+    0% {
+      transform: translate(0px, 0) rotate(0) scale(1);
+    }
+    20% {
+      transform: translate(0px, -70px) rotate(20deg) scale(1);
+    }
+    100% {
+      transform: translate(80vw, -50vh) rotate(100deg) scale(.2);
+    }
+  }
+
+  @keyframes rocket-landing {
+    0% {
+      transform: translateY(-42vh);
+    }
+    60% {
+      transform: translateY(-30px);
+    }
+    80% {
+      transform: translateY(-30px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  @keyframes clouds-landing {
+    0% {
+      opacity: 0
+    }
+    45% {
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}

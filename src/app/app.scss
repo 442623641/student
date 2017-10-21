@@ -1,16 +1,263 @@
-// http://ionicframework.com/docs/theming/
+  // http://ionicframework.com/docs/theming/
+  // App Global Sass
+  // --------------------------------------------------
+  // Put style rules here that you want to apply globally. These
+  // styles are for the entire app and not just one component.
+  // Additionally, this file can be also used as an entry point
+  // to import other Sass files to be included in the output CSS.
+  //
+  // Shared Sass variables, which can be used to adjust Ionic's
+  // default Sass variables, belong in "theme/variables.scss".
+  //
+  // To declare rules for a specific mode, create a child rule
+  // for the .md, .ios, or .wp mode classes. The mode class is
+  // automatically applied to the <body> element in the app.
+  // --------------------------------------------------
+  //colorful icon style
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  ion-app {
+    color: color($colors, text);
+  }
+
+  [colorful] {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+    font-size: 3rem;
+  }
+
+  .toolbar-background-ios {
+    -webkit-backdrop-filter: blur(15px);
+  }
+
+  .blur {
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, .85);
+  } // a.activated,
+  a:active,
+  [interactive]:active {
+    opacity: .4;
+  }
+
+  .header .toolbar:last-child:not([border]) .toolbar-background {
+    border: none !important;
+  }
+  /* border style */
+
+  .border-top {
+    height: 0.55px;
+    content: '';
+    width: 100%; // border-bottom: 1px solid rgba(color($colors, gray6), .8);
+    background: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    right: 0;
+    top: 0px;
+    transform: scaleY(0.35); // z-index: 10;
+  }
 
 
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
+  .border-bottom {
+    height: 0.55px;
+    content: '';
+    width: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.2);
+    right: 0;
+    top: calc(100% - 1px);
+    transform: scaleY(0.35); // z-index: 10;
+  }
+
+
+  .tabbar,
+  [line-top] {
+    border-top: none !important;
+    &:before {
+      @extend .border-top;
+    }
+  }
+
+  .list-header-ios,
+  [line-bottom] {
+    border-bottom: none !important;
+    &:after {
+      @extend .border-bottom;
+    }
+  }
+
+  [line-top],
+  [line-bottom] {
+    position: relative;
+  }
+
+  .item-ios.item-block:not([no-lines]) .item-inner {
+    border-bottom: none !important;
+    &:after {
+      @extend .border-bottom;
+      width: calc(100% - 32px);
+      margin: 0 16px;
+    }
+  }
+
+  ion-list .item-ios.item-block:last-child .item-inner,
+  .group .item-ios.item-block:last-child .item-inner,
+  ion-item-group .item-ios.item-block:last-child .item-inner {
+    &:after {
+      content: none;
+    }
+  }
+
+
+  .item {
+    color: color($colors, text);
+    .input-wrapper>ion-label[fixed] {
+      flex: 0 0 80px;
+      width: 80px;
+      min-width: 80px;
+      max-width: 200px;
+    }
+  }
+
+  .divider {
+    padding-left: 16px;
+    color: color($colors, gray9);
+    background-color: transparent;
+    margin-bottom: 10px;
+  }
+
+  .agreement {
+    font-size: 1.3rem;
+    .checkbox {
+      margin: 8px 4px 8px 0px !important;
+      .checkbox-icon {
+        border-color: color($colors, primary);
+        border-radius: 3px;
+        transform: scale(.7);
+        background-color: transparent;
+        &.checkbox-checked {
+          background-color: color($colors, primary);
+        }
+      }
+    }
+  }
+
+  a {
+    text-decoration: none !important;
+  }
+
+  .row>a {
+    //transition: background-color, opacity, border-color 100ms linear;
+    text-align: center;
+    padding: 5px;
+    position: relative; // width: 100%;
+    margin: 0;
+    min-height: 1px;
+    flex-basis: 0;
+    flex-grow: 1; // max-width: 100%;
+  }
+
+  .col {
+    text-align: center;
+  }
+  /*
+  // --------------------------------------------------
+  //icon bounce*/
+
+  @keyframes icon-bounce {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(15deg);
+    }
+
+    50% {
+      transform: rotate(-15deg);
+    }
+
+    75% {
+
+      transform: rotate(5deg);
+    }
+
+    85% {
+
+      transform: rotate(-5deg);
+    }
+  }
+
+  .activated .tab-button-icon:before {
+    animation: icon-bounce 0.5s alternate;
+  }
+  /* // --------------------------------------------------
+  //address picker*/
+
+  .picker-ios {
+    .picker-opt {
+      font-size: 1.6rem;
+      color: color($colors, text);
+    }
+    .picker-below-highlight {
+      top: 120px;
+      border-top: none !important;
+      &:after {
+        @extend .border-top;
+      }
+    }
+    .picker-above-highlight {
+      height: 91px;
+      border-bottom: none !important;
+      &:after {
+        @extend .border-bottom;
+      }
+    }
+    .picker-toolbar {
+      border-bottom: none !important;
+      &:after {
+        @extend .border-bottom;
+      }
+    }
+    .picker-opts-right {
+      .picker-opt {
+        padding-left: 16px;
+      }
+    }
+    .picker-opts-left {
+      .picker-opt {
+        padding-right: 16px;
+      }
+    }
+  }
+  /*
+  //override segment style*/
+
+  .segment-md .segment-button {
+    border-bottom-color: rgba(#fff, .85);
+    opacity: 1;
+    background-color: rgba(#fff, .85);
+    &.segment-activated {
+      border-color: color($colors, primary) !important;
+      color: color($colors, primary) !important;
+    }
+  }
+  /**
+  *loading style
+  */
+
+  .row[loading] {
+    height: 100%;
+    min-height: 200px;
+    align-items: center;
+    justify-content: center;
+    color: darken($background-color, 25%);
+    font-size: 3em;
+    .spinner-ios-bubbles circle {
+      fill: darken($background-color, 25%);
+    }
+  }

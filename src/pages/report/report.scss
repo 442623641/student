@@ -1,0 +1,150 @@
+page-report {
+  .tip {
+    height: 40px;
+    line-height: 40px;
+    background: rgba(#fff, 0.85);
+    text-align: center;
+  }
+  .slides {
+    iscroll {
+      height: 100%;
+    } //height: calc(100% - 146px);
+    scroll-header iscroll {
+      height: 43px;
+      .row {
+        border: none;
+        font-size: 1.4rem;
+      }
+    }
+  }
+
+  .swiper-slide {
+    font-size: inherit;
+    .slide-zoom {
+      height: 100%;
+    }
+  }
+
+
+  .card {
+    .card-header {
+      padding-bottom: 10px;
+    }
+    padding-bottom: 16px;
+    &.score-card {
+      &>.row {
+        padding: 5px 0;
+        margin: 0 16px;
+        border-left: 0.55px solid rgba(0, 0, 0, .15);
+        border-right: 0.55px solid rgba(0, 0, 0, .15);
+        font-size: 1.6rem;
+        &:last-child {
+          &:after {
+            @extend .border-bottom;
+          }
+        }
+      }
+      .score-item {
+        .col {
+          text-align: center;
+          align-self: center;
+          &:first-child {}
+          .icon {
+            font-size: 1.8em; //background: #FFEB3B;
+            padding: 5px;
+            border-radius: 50%;
+            color: #fff;
+            vertical-align: -0.1em;
+          }
+        }
+        p {
+          text-align: left;
+          padding-left: 26px;
+          color: color($colors, gray9);
+          span {
+            padding: 2px 5px;
+            background: #f66e4f;
+            color: #fff;
+            border-radius: 3px;
+          }
+        }
+      }
+    }
+  }
+  .rank-list {
+    $color: #7cb5ec;
+    padding-top: 10px;
+    .rank-item {
+      font-size: 1.6rem;
+      line-height: 36px;
+      padding: 7px 0;
+      height: 50px;
+      span {
+        color: #fff;
+        background: $color;
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        display: inline-block;
+        float: left;
+        text-align: center;
+        margin-top: -4px;
+        line-height: 45px;
+      }
+      div {
+
+        margin-left: 23px;
+        height: 100%; //margin: 8px 0 8px 24px;
+        background: rgba($color, 0.4);
+        text-align: center; //height: 34px; //width: calc(100% - 60px);
+      }
+      &[self] {
+        span {
+          background: color($colors, primary);
+        }
+        div {
+          background: rgba(color($colors, primary), 0.4);
+        }
+      }
+    }
+  }
+  [ng-reflect-name=star-outline] {
+    background: #f56d4e;
+  }
+  [ng-reflect-name=ichinese] {
+    background: #ff8820;
+  }
+  [ng-reflect-name=imath] {
+    background: #04b8d9;
+  }
+  [ng-reflect-name=ienglish] {
+    background: #b564ef;
+  }
+  [ng-reflect-name=ibulb] {
+    background: #7788f2;
+  }
+  [ng-reflect-name=ichemistry] {
+    background: #3ad1a4;
+  }
+  [ng-reflect-name=ibiology] {
+    background: #ffc001;
+  }
+  [ng-reflect-name=ipolitics] {
+    background: #d74ce8;
+  }
+  [ng-reflect-name=ihistory] {
+    background: #3ac8d1;
+  }
+  [ng-reflect-name=igeography] {
+    background: #54adff;
+  }
+  [ng-reflect-name=iscience] {
+    background: #5872f8;
+  }
+  [ng-reflect-name=iliterature] {
+    background: #ff5454;
+  }
+  [ng-reflect-name=icustom] {
+    background: #f56d4e;
+  }
+}

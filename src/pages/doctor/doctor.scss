@@ -1,0 +1,140 @@
+page-doctor {
+  ion-navbar.toolbar {
+    position: relative;
+    z-index: 1;
+  }
+  .card {
+    margin: 16px 0;
+    background: color($colors, white);
+    .card-header {
+      position: relative;
+      padding: 8px 12px;
+      &:after {
+        @extend .border-bottom;
+      }
+      .col {
+        &:first-child {
+          padding-left: 0;
+          i {
+            background: color($colors, primary);
+            padding: 0 2px;
+            margin-right: 8px;
+          }
+        }
+        &:nth-child(2) i,
+        &:nth-child(3) i {
+          height: 12px;
+          width: 12px;
+          display: inline-flex;
+          margin-right: 6px;
+          background: rgba(#ccc, .8);
+          vertical-align: -0.105em;
+        }
+        &:nth-child(3) i {
+          background: color($colors, primary);
+        }
+      }
+    }
+    .card-footer {
+      padding: 5px 16px;
+      position: relative;
+      &:before {
+        @extend .border-top;
+      }
+    }
+  }
+  .fixed-button {
+    //background: color($colors, primary);
+    background: #ddd;
+    color: #fff;
+    height: 43px;
+    line-height: 36px;
+  }
+  .swiper-slide {
+    font-size: inherit;
+  }
+  .slide-zoom,
+  iscroll {
+    height: 100%;
+  }
+  .header iscroll,
+  .topics iscroll {
+    height: 43px;
+    .row {
+      // height: 100%;
+      line-height: 36px;
+      .col {
+        white-space: nowrap;
+      }
+    }
+    background: rgba(#fff, .85);
+    .col:not([select=true]) {
+      color: inherit;
+    }
+    [select=true].col {
+      color: color($colors, primary);
+    }
+  }
+  .topics-header,
+  .topics {
+    font-size: 1.5rem;
+    width: 100%;
+    .row {
+      height: 43px;
+    }
+  }
+  .topics {
+    min-height: 100vh;
+    background: #fff; //height: 100vh;
+    .topics-content {
+      p {
+        padding: 12px 16px;
+      }
+    }
+    .topics-item {
+      p:not([footer]) {
+        font-weight: 500;
+      }
+      .item-content {
+        padding: 10px;
+        text-align: center;
+      }
+    }
+  }
+  .percents.card {
+    margin- &.open {
+      .drop {
+        padding-top: 8px;
+      }
+      .card-content {
+        padding-bottom: 70px;
+      }
+    }
+
+    .drop {
+      padding: 60px 0 8px 0;
+      background: linear-gradient(to top, #fff 0%, rgba(#fff, .1) 100%);
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      transition: padding 0.3s;
+      .button {
+        padding: 0 2.3em;
+      }
+    }
+    .card-content {
+      padding-bottom: 0px;
+      max-height: 200px;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+    }
+  }
+  .sub-header {
+    will-change: transform;
+    transition: transform 0.38s;
+    transform: translate3d(0, 0, 0);
+  }
+  .transformY-45 {
+    transform: translate3d(0, -43px, 0);
+  }
+}

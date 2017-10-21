@@ -1,0 +1,26 @@
+<!--
+  Generated template for the FeedbackPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar no-border>
+    <ion-title>意见反馈</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="content-inner">
+    <ion-textarea placeholder="输入您的反馈..." [(ngModel)]="text" max="300" maxLength="300" rows="8" [attr.length]="text?text.length:0">
+    </ion-textarea>
+    <div class="line"></div>
+    <ion-row padding class="images">
+      <a col-2>
+        <ion-icon name="ios-camera-outline"></ion-icon>
+      </a>
+    </ion-row>
+  </div>
+  <p padding>
+    <button ion-button block>提交反馈</button>
+  </p>
+</ion-content>

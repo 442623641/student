@@ -1,0 +1,79 @@
+[
+{
+  "name": "   高中  ",
+  "code": "G",
+  "children": [
+  {
+    "name": "",
+    "code": "G",
+    "children": [
+    {
+      "name": "   高三   ",
+      "code": "G3"
+    },
+    {
+      "name": "高二",
+      "code": "G2"
+    },
+    {
+      "name": "高一",
+      "code": "G1"
+    }]
+  }]
+},
+{
+  "name": "初中",
+  "code": "C",
+  "children": [
+  {
+    "name": "",
+    "code": "C",
+    "children": [
+    {
+      "name": "初三",
+      "code": "C3"
+    },
+    {
+      "name": "初二",
+      "code": "C2"
+    },
+    {
+      "name": "初一",
+      "code": "C1"
+    }]
+  }]
+},
+{
+  "name": "小学",
+  "code": "X",
+  "children": [
+  {
+    "name": "",
+    "code": "X",
+    "children": [
+    {
+      "name": "六年级",
+      "code": "X6"
+    },
+    {
+      "name": "五年级",
+      "code": "X5"
+    },
+    {
+      "name": "四年级",
+      "code": "X4"
+    },
+    {
+      "name": "三年级",
+      "code": "X3"
+    },
+    {
+      "name": "二年级",
+      "code": "X2"
+    },
+    {
+      "name": "一年级",
+      "code": "X1"
+    }]
+  }]
+}]
