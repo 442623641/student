@@ -27,5 +27,9 @@
   {
     "path": "/question",
     "proxyUrl": "http://studentapp.septnet.cn/question"
-  }]
+  },
+  {
+    "path": "/errorbook",
+    "proxyUrl": "http://studentapp.septnet.cn/errorbook"
+  } ]
 }

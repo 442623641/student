@@ -1,0 +1,38 @@
+<!-- Generated template for the ModalComponent component,add by leo zhang 201710010101 -->
+<div class="modal-container out" [class.out]="!openValue" [style.opacity]="opacity" *ngIf="ready">
+  <div class="modal-background">
+    <div class="modal">
+      <ion-list no-lines class="modal-content">
+        <ion-list-header>
+          <h2>开通学情套餐</h2>
+          <p>历史考试错题分析尽在掌握</p>
+        </ion-list-header>
+        <ion-item>
+          <ion-icon name="istatistics" item-start color="primary"></ion-icon>
+          <h3>丢分统计</h3>
+          <p>错题数量和丢分趋势，一目了然</p>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="ilevel" item-start color="primary"></ion-icon>
+          <h3>难度分析</h3>
+          <p>错题按难度分类，发现自我能力不足</p>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="ilookup" item-start color="primary"></ion-icon>
+          <h3>找出错误</h3>
+          <p>避免无谓失分，逐渐改变做题习惯</p>
+        </ion-item>
+        <div class="strong">您共有 <span ion-text color="primary">{{option.total}}</span> 场考试，还有 <span ion-text color="primary">{{option.unauthorized}}</span> 次学情报告未生成。建议开通学情套餐，错题分析更准确！</div>
+        <p text-center style="padding-bottom: 10px;">
+          <button ion-button round>立即开通</button>
+        </p>
+      </ion-list>
+      <svg class="modal-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
+        <rect x="0" y="0" fill="none" width="85vw" height="420" rx="3" ry="3"></rect>
+      </svg>
+    </div>
+    <button ion-button clear icon-only color="white" (tap)="close()">
+      <ion-icon name="close-circle-outline"></ion-icon>
+    </button>
+  </div>
+</div>

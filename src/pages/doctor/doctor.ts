@@ -4,6 +4,7 @@ import { DoctorProvider } from '../../providers/doctor/doctor';
 import { ChartsProvider } from '../../providers/charts/charts';
 import { TopicsPage } from '../topics/topics';
 import { Subjecte } from '../../model/subjecte';
+import { REPORT_PAGE } from '../pages.constants';
 /**
  * Generated class for the DoctorPage page.
  *
@@ -17,6 +18,9 @@ import { Subjecte } from '../../model/subjecte';
   templateUrl: 'doctor.html',
 })
 export class DoctorPage {
+  pages: any = {
+    report: REPORT_PAGE
+  }
 
   @ViewChild('content') content: Content;
   @ViewChild('subjectSlider') subjectSlider: Slides;
@@ -24,6 +28,7 @@ export class DoctorPage {
   @ViewChild('topicSlider') topicSlider: Slides;
   @ViewChild('percentsElement') percentsElement: any;
 
+  showNavButton: boolean;
   subjects: Subjecte[] = [];
   subjectIndex: number = 0;
 
@@ -61,6 +66,7 @@ export class DoctorPage {
   }
 
   ngAfterViewInit() {
+    this.showNavButton = this.navCtrl.getPrevious().id != REPORT_PAGE;
     this.doctorPro.subject({ guid: this.exam.guid }).then(res => {
       this.balls = res.subjects;
       this.tucker(res.subject, res.subjects[this.subjectIndex]);

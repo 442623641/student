@@ -28,7 +28,7 @@ export class LoginPage {
   private state: string;
   private processing: boolean;
 
-  private account: { usercode: any, pwd: string } = { usercode: '17000001022', pwd: '123456' };
+  private account: { usercode: any, pwd: string } = { usercode: '17000001023', pwd: '123456' };
 
   constructor(
     private navCtrl: NavController,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http';
-import { IView } from '../../model/view';
+import { Pageview } from '../../model/pageview';
 import 'rxjs/add/operator/map';
 
 /*
@@ -19,7 +19,7 @@ export class ExamsProvider {
   /**
    *考试列表
    */
-  exams(page: IView) {
+  exams(page: Pageview) {
     return this.http.get('exam');
   }
 

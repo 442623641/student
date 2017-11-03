@@ -1,0 +1,83 @@
+<!--
+  Generated template for the EnalyzingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-menu [content]="mycontent" type="overlay" side="right" (ionOpen)="openMenu()" persistent="true"> -->
+<ion-header>
+  <ion-navbar>
+    <ion-title>错题分析</ion-title>
+    <ion-buttons end *ngIf="enalyzingOpt?.state">
+      <button ion-button (tap)="showMenu=true">
+        筛选
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <p class="affix" line-bottom *ngIf="affixOpt">
+    <span>{{affixOpt.name}}</span>
+    <span><span ion-text color="primary">{{affixOpt.count}}</span>道错题</span>
+    <span float-right>{{affixOpt.time | date:'yyyy年M月d日'}}</span>
+  </p>
+</ion-header>
+<ion-content (ionScrollStart)="scrollStart($event)" (ionScrollEnd)="scrollEnd($event)" #content padding-top>
+  <ng-template [ngIf]="enalyzingOpt?.state" [ngIfElse]="loading">
+    <ng-container *ngFor="let exam of enalyzingOpt.exams;let e = index;">
+      <p class="affix" line-bottom *ngIf="exam.count"><span>{{exam.name}}</span><span><span ion-text color="primary">
+      {{exam.count}}</span>道错题</span><span float-right>{{exam.time | date:'yyyy年M月d日'}}</span></p>
+      <transition name="block" [if]="!que.delete" *ngFor="let que of exam.questions;let q = index;" (afterLeave)="del(e,q)">
+        <div class="block-card">
+          <ion-row justify-content-between class="block-card-header" nowrap line-bottom padding-right>
+            <ion-col col-3>第{{que.no}}题</ion-col>
+            <ion-col col-auto><span>满分:{{que.tofull}}分</span><span>我的得分:{{que.tofull}}分</span><span>难度:{{que.tolevel}}</span></ion-col>
+            <a padding-right interactive (tap)="que.delete=true" class="col">
+              <ion-icon name="close"></ion-icon>
+            </a>
+          </ion-row>
+          <div class="content-img">
+            <img-lazy [src]="img" *ngFor="let img of que.paper"> </img-lazy>
+          </div>
+          <ion-row padding-vertical-10>
+            <ng-template [ngIf]="que.objective" [ngIfElse]="objective">
+              <a *ngIf="que.reply?.length" (tap)="toast(que.replyString)">我的答案</a>
+              <a *ngIf="que.answer?.length" (tap)="toast(que.answerString)">标准答案</a>
+            </ng-template>
+            <ng-template #objective>
+              <a [imgviewer]="{title:exam.name,images:que.reply}" *ngIf="que.reply?.length">我的答案</a>
+              <a (tap)="excellent(e,q)">优秀答卷</a>
+              <a [imgviewer]="{title:exam.name,images:que.answer}" *ngIf="que.answer?.length">标准答案</a>
+            </ng-template>
+          </ion-row>
+        </div>
+      </transition>
+    </ng-container>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!enalyzingOpt.end">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-template>
+  <ng-template #loading>
+    <loading [status]="enalyzingOpt?enalyzingOpt.state:undefined"></loading>
+  </ng-template>
+</ion-content>
+<sidenav [(open)]="showMenu" *ngIf="enalyzingOpt">
+  <ion-item-group>
+    <ion-item-divider color="light">科目</ion-item-divider>
+    <ion-row justify-content-between>
+      <a col-3 *ngFor="let item of subjectNames" [attr.seleted]="tempOption.subject == item" (tap)="tempOption.subject = item">{{item}}</a>
+    </ion-row>
+  </ion-item-group>
+  <ion-item-group margin-top>
+    <ion-item-divider color="light">时间</ion-item-divider>
+    <ion-row justify-content-between>
+      <a col-3 *ngFor="let item of times" [attr.seleted]="tempOption.month == item.month" (tap)="tempOption.month = item.month">{{item.name}}</a>
+    </ion-row>
+  </ion-item-group>
+  <!-- </ion-content> -->
+  <ion-footer>
+    <p margin>
+      <button ion-button block (tap)="save()">确 定</button>
+    </p>
+  </ion-footer>
+</sidenav>
+<modal [(open)]="package" [option]="{total:enalyzingOpt.total,unauthorized:enalyzingOpt.unauthorized}" *ngIf="enalyzingOpt"></modal>
+<!-- <ion-nav [root]="rootPage" #mycontent miana></ion-nav> -->

@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { RECHARGE_PAGE, PERSONAL_PAGE, EXAMS_PAGE, ANALYSIS_PAGE } from '../pages.constants';
+import { RECHARGE_PAGE, PERSONAL_PAGE, EXAMS_PAGE, ENALYZING_PAGE, EXCELLENT_PAGE, LOST_PAGE } from '../pages.constants';
 import { HomeProvider } from "../../providers/home";
-//import { TabsProvider } from '../../providers/tabs/tabs';
 import { UserProvider } from '../../providers/user';
 import { StaticProvider } from '../../providers/static/static';
 import { Package } from '../../model/package';
-import { UserInfo } from '../../model/userInfo'
+import { UserInfo } from '../../model/userInfo';
+
 
 /**
  * Generated class for the HomePage page.
@@ -26,10 +26,11 @@ export class HomePage {
     recharge: RECHARGE_PAGE,
     personal: PERSONAL_PAGE,
     exams: EXAMS_PAGE,
-    analysis: ANALYSIS_PAGE
-
+    enalyzing: ENALYZING_PAGE,
+    excellent: EXCELLENT_PAGE,
+    lost: LOST_PAGE,
   }
-  @ViewChild('ball') ballEl: any
+  @ViewChild('ball') ballEl: any;
   private option: any;
   private optionWaterball: any;
   private scene: any;

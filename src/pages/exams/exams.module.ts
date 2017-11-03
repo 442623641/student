@@ -4,6 +4,8 @@ import { ExamsPage } from './exams';
 import { ReportPageModule } from '../report/report.module';
 import { DoctorPageModule } from '../doctor/doctor.module';
 //import { ScrollheaderComponent } from '../../components/scrollheader/scrollheader';
+import { ComponentsModule } from '../../components';
+import { DirectivesModule } from '../../directives/directives.module';
 import { ExamsProvider } from '../../providers/exams/exams';
 import { ChartsProvider } from '../../providers/charts/charts';
 /**
@@ -22,6 +24,8 @@ import 'echarts-liquidfill';
     IonicPageModule.forChild(ExamsPage),
     ReportPageModule,
     DoctorPageModule,
+    ComponentsModule,
+    DirectivesModule
 
   ],
   exports: [

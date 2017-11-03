@@ -1,0 +1,65 @@
+<!--
+  Generated template for the LostoptionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{elost?.name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button (tap)="save()">
+        确定
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding-top padding-left>
+  <ng-template [ngIf]="elost?.state" [ngIfElse]="loading">
+    <p>共 <span ion-text color="primary"> {{elost.count}} </span> 次考试，其中部分考试等待学校上传试卷。请从下方列表选购考试错题（支持多选）</p>
+    <ion-list margin-top>
+      <div class="block" *ngFor="let exam of elost.exams">
+        <div *ngIf="exam.timekey" class="line-month">{{exam.timekey | date:'yyyy年M月'}}</div>
+        <p class="line-day"><i></i><span>{{exam.day}}日</span></p>
+        <ion-card>
+          <ion-item class="card-header" no-lines icon-right (tap)="exam.checked=!exam.checked">
+            {{exam.name}}
+            <ion-icon name='checkmark-circle-outline' color="green" item-end *ngIf="exam.checked"></ion-icon>
+          </ion-item>
+          <p padding-horizontal>共有<span ion-text color="primary"> {{exam.qcount}} </span>道错题
+            <span *ngIf="exam.pcount"><br>该考试已定制过</span>
+          </p>
+          <ion-row>
+            <ion-col align-self-center>{{exam.score}}分</ion-col>
+            <ion-col>
+              <button [color]="exam.checked?'green':'primary'" ion-button icon-left clear small (click)="exam.checked=!exam.checked;" [navPush]="pages.lostpay" [navParams]="">
+                <ion-icon name='cart-outline'></ion-icon>加入订购</button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </div>
+    </ion-list>
+  </ng-template>
+  <!-- loadding -->
+  <ng-template #loading>
+    <loading [status]="elost?.state"></loading>
+  </ng-template>
+  <!-- loading end -->
+</ion-content>
+<ion-footer *ngIf="elost">
+  <ion-row confirm>
+    <ion-col col-8 padding-left>
+      已选择&nbsp;<span ion-text color="primary">{{elost.echeckeds}}</span>&nbsp;场考试，共<span ion-text color="primary">  {{elost.icheckeds}} </span>道错题
+    </ion-col>
+    <ion-col col-4 no-padding [ngSwitch]="elost.echeckeds<elost.exams.length">
+      <button ion-button clear *ngSwitchCase="true" (click)="elost.checkedAll=true">
+        <ion-icon name="radio-button-off-outline"></ion-icon>
+        &nbsp;全选
+      </button>
+      <button ion-button clear *ngSwitchCase="false" (click)="elost.checkedAll=false">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        &nbsp;取消全选
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

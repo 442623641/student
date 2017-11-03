@@ -3,6 +3,10 @@
  */
 export class CategoryOptions {
   /**
+   *题号
+   */
+  no ? : string;
+  /**
    *原始卷
    */
   paper: string[];
@@ -10,12 +14,12 @@ export class CategoryOptions {
   /**
    *知识点
    */
-  topic: string;
+  topic ? : string;
 
   /**
    *解析
    */
-  resolve: string[];
+  resolve ? : string[];
 
   /**
    *满分
@@ -70,12 +74,12 @@ export class CategoryOptions {
   /**
    *优秀答卷列表
    */
-  excellent: any[];
+  excellent ? : any[];
 
   /**
    *优秀答卷索引列表
    */
-  excellentNums: number[] = [0];
+  excellentNums ? : number[] = [0];
 
   /**
    *是否主观题
@@ -92,6 +96,8 @@ export class CategoryOptions {
     this.score = obj.score || [];
     this.level = obj.level || [];
     this.objective = obj.objective;
+    this.no = obj.no;
+
 
 
     this.excellent = obj.excellent || [];
@@ -131,6 +137,26 @@ export class CategoryOptions {
   }
   get levelString() {
     return this.level.join(",");
+  }
+  /**
+   *满分总分
+   */
+  get tofull() {
+    return this.full.reduce((a, b) => { return a + b; });
+  }
+
+  /**
+   *得分总分
+   */
+  get toscore() {
+    return this.score.reduce((a, b) => { return a + b; });
+  }
+
+  /**
+   *平均难度
+   */
+  get tolevel() {
+    return (this.level.reduce((a, b) => { return a + b; }) / this.level.length).toFixed(1);
   }
 
 }
@@ -185,7 +211,7 @@ export class Category extends CategoryOptions {
 
   private setOpt(category, series) {
     return {
-      color: ['#f66e4f', '#3398DB'],
+      color: ['#f66e4f'],
       grid: {
         top: 16,
         left: '3%',
@@ -198,11 +224,21 @@ export class Category extends CategoryOptions {
         data: category,
         axisTick: {
           alignWithLabel: true
+        },
+        axisLine: {
+          lineStyle: {
+            color: 'rgba(0,0,0,.05)'
+          }
         }
       }],
       yAxis: [{
         axisTick: {
           alignWithLabel: true
+        },
+        axisLine: {
+          lineStyle: {
+            color: 'rgba(0,0,0,.05)'
+          }
         }
       }],
       series: [{

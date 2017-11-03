@@ -1,0 +1,64 @@
+<!--
+  Generated template for the EnalyzingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-menu [content]="mycontent" type="overlay" side="right" (ionOpen)="openMenu()" persistent="true"> -->
+<ion-header>
+  <ion-navbar>
+    <ion-title>名校试题</ion-title>
+    <ion-buttons end *ngIf="excellentsOpts">
+      <button ion-button (tap)="showMenu=true">
+        筛选
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content #content padding-top>
+  <ng-template [ngIf]="excellentsOpts" [ngIfElse]="loading">
+    <div class="block-card excellent" *ngFor="let que of excellentsOpts;let q = index;">
+      <ion-row class="block-card-header" nowrap line-bottom padding-right align-items-center>
+        <ion-col col-2 class="no">{{q+1}}</ion-col>
+        <ion-col col-auto>共有{{que.total}}人参加考试&nbsp;&nbsp;{{que.count}}人答错&nbsp;&nbsp;得分率{{que.percent}}%</ion-col>
+      </ion-row>
+      <div class="content-img">
+        <img-lazy [src]="img" *ngFor="let img of que.paper"> </img-lazy>
+      </div>
+      <ion-row padding-vertical-10>
+        <ng-template [ngIf]="que.objective" [ngIfElse]="objective">
+          <a *ngIf="que.answer?.length" (tap)="toast(que.answerString)">标准答案</a>
+        </ng-template>
+        <ng-template #objective>
+          <a (tap)="excellent(q)" *ngIf="que.excellent?.length">优秀答卷</a>
+          <a [imgviewer]="{title:option.subject,images:que.answer}" *ngIf="que.answer?.length">标准答案</a>
+        </ng-template>
+      </ion-row>
+    </div>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="excellentsOpts.length<total">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-template>
+  <ng-template #loading>
+    <loading [status]="excellentsOpts"></loading>
+  </ng-template>
+</ion-content>
+<sidenav [(open)]="showMenu" *ngIf="excellentsOpts">
+  <ion-item-group>
+    <ion-item-divider color="light">科目</ion-item-divider>
+    <ion-row justify-content-between>
+      <a col-3 *ngFor="let item of subjectNames" [attr.seleted]="tempOption.subject == item" (tap)="tempOption.subject = item">{{item}}</a>
+    </ion-row>
+  </ion-item-group>
+  <ion-item-group margin-top>
+    <ion-item-divider color="light">年级</ion-item-divider>
+    <ion-row justify-content-between>
+      <a col-auto *ngFor="let item of grades" [attr.seleted]="tempOption.grade == item.code" (tap)="tempOption.grade = item.code">{{item.name}}</a>
+    </ion-row>
+  </ion-item-group>
+  <ion-footer>
+    <p margin>
+      <button ion-button block (tap)="save()">确 定</button>
+    </p>
+  </ion-footer>
+</sidenav>

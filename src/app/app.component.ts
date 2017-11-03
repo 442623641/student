@@ -1,30 +1,34 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from '../core/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { UserProvider } from '../providers/user';
+import { HttpHandler } from '../providers/httpHandler';
 @Component({
-  template: '<ion-nav [root]="rootPage"></ion-nav>'
+  template: '<ion-nav [root]="rootPage" #rootNav></ion-nav>'
 })
 
 export class StudentApp {
+  @ViewChild('rootNav') rootNav: NavController;
   rootPage: any; //= TabsPage;
 
   constructor(
     platform: Platform,
     statusBar: StatusBar,
     private splashScreen: SplashScreen,
-    private userProvider: UserProvider) {
+    private userProvider: UserProvider,
+    public httpHandler: HttpHandler) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       //splashScreen.hide();
-      this.login();
+      this.httpHandler.handleAuth$.subscribe(info => this.rootNav.setRoot(LoginPage, {}, { animation: 'md-transition', animate: true }));
 
+      this.login();
     });
   }
 
@@ -57,4 +61,6 @@ export class StudentApp {
     //this.rootPage = WelcomePage;
     setTimeout(() => this.splashScreen.hide(), 300);
   }
+
+
 }

@@ -8,6 +8,9 @@ import { Iscroll } from './iscroll';
 import { ScrollheaderComponent } from './scrollheader/scrollheader';
 import { SubmitonComponent } from './submiton/submiton';
 import { Loading } from './loading/loading';
+import { ModalComponent } from './modal/modal';
+import { SidenavComponent } from './sidenav/sidenav';
+//import { PhotosviewerComponent } from './photosviewer/photosviewer';
 // import { RocketComponent } from './rocket/rocket';
 
 @NgModule({
@@ -19,6 +22,9 @@ import { Loading } from './loading/loading';
     SubmitonComponent,
     Transition,
     Loading,
+    ModalComponent,
+    SidenavComponent,
+    //PhotosviewerComponent,
     // RocketComponent,
   ],
   imports: [
@@ -33,6 +39,9 @@ import { Loading } from './loading/loading';
     SubmitonComponent,
     Transition,
     Loading,
+    ModalComponent,
+    SidenavComponent,
+    //PhotosviewerComponent,
     // RocketComponent,
   ],
 })

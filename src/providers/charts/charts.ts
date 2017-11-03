@@ -87,9 +87,8 @@ export class ChartsProvider {
   }
 
   percents(category: any[], series: any[]) {
-    const lineColor = "rgba(0,0,0,.04)";
-    const textColor = "#666";
     return {
+      color: [this.colors.primary],
       backgroundColor: '#fff',
       grid: {
         top: 16,
@@ -105,19 +104,19 @@ export class ChartsProvider {
         position: 'top',
         axisLabel: {
           textStyle: {
-            color: textColor,
+            color: this.colors.label,
           },
           formatter: '{value}%',
         },
         axisLine: {
           lineStyle: {
-            color: lineColor
+            color: this.colors.line
           }
         },
         splitLine: {
           lineStyle: {
             type: 'solid',
-            color: lineColor
+            color: this.colors.line,
           }
         },
       },
@@ -127,7 +126,7 @@ export class ChartsProvider {
         axisLabel: {
           //formatter: '{value}',
           textStyle: {
-            color: textColor,
+            color: this.colors.label,
           },
           show: true
         },
@@ -136,9 +135,15 @@ export class ChartsProvider {
         },
         axisLine: {
           lineStyle: {
-            color: lineColor
+            color: this.colors.line
           }
         },
+        splitLine: {
+          lineStyle: {
+            type: 'solid',
+            color: this.colors.line,
+          }
+        }
       },
       series: [{
           type: 'bar',
@@ -147,11 +152,11 @@ export class ChartsProvider {
           //barCategoryGap: "10%",
           itemStyle: {
             normal: {
-              color: this.colors.label,
+              color: this.colors.primary,
               label: {
                 show: true,
                 textStyle: {
-                  color: textColor,
+                  color: this.colors.label,
                 },
                 position: 'right',
                 formatter: '{c}%',
@@ -170,7 +175,7 @@ export class ChartsProvider {
               label: {
                 show: true,
                 textStyle: {
-                  color: textColor,
+                  color: this.colors.label,
                 },
                 position: 'right',
                 formatter: '{c}%',
@@ -197,12 +202,22 @@ export class ChartsProvider {
         data: category,
         axisTick: {
           alignWithLabel: true
-        }
+        },
+        axisLine: {
+          lineStyle: {
+            color: this.colors.line
+          }
+        },
       }],
       yAxis: [{
         axisTick: {
           alignWithLabel: true
-        }
+        },
+        axisLine: {
+          lineStyle: {
+            color: this.colors.line
+          }
+        },
       }],
       series: [{
         type: 'bar',

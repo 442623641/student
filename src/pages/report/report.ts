@@ -4,6 +4,7 @@ import { ExamsProvider } from '../../providers/exams/exams';
 import { EchartsNg2Module } from 'echarts-ng2';
 import { ChartsProvider } from '../../providers/charts/charts';
 import { ReportOptions, ReportCategory } from '../../model/report';
+import { DOCTOR_PAGE } from '../pages.constants';
 /**
  * Generated class for the ReportPage page.
  *
@@ -17,10 +18,12 @@ import { ReportOptions, ReportCategory } from '../../model/report';
   templateUrl: 'report.html',
 })
 export class ReportPage {
+  pages: any = { doctor: DOCTOR_PAGE };
   @ViewChild('content') content: Content;
   @ViewChild('slider') slider: Slides;
+  showNavButton: any;
   _categorys: any[] = [];
-  name: string;
+  exam: any = {};
   reportIndex: number = 0;
   reports: ReportOptions[] = [];
 
@@ -35,7 +38,9 @@ export class ReportPage {
   }
 
   ngAfterViewInit() {
-    this.name = this.navParams.get('name');
+    this.showNavButton = this.navCtrl.getPrevious().id != DOCTOR_PAGE;
+    this.exam = this.navParams.data;
+
 
     this.getReport(this.reportIndex).then(res => {
 
@@ -64,7 +69,7 @@ export class ReportPage {
    *请求学情报告数据
    */
   getReport(reportIndex, level ? : number) {
-    return this.examsPro.report({ guid: this.navParams.get('guid'), level: level }).then(res => {
+    return this.examsPro.report({ guid: this.exam.guid, level: level }).then(res => {
       this.fill(reportIndex, res);
       return res;
     });
@@ -107,7 +112,7 @@ export class ReportPage {
     }
     this.report.activityComranks = undefined;
     this.examsPro.comrank({
-      guid: this.navParams.get('guid'),
+      guid: this.exam.guid,
       level: this.report.level,
       subject: name
     }).then(res => {
@@ -143,13 +148,17 @@ export class ReportPage {
     }
     this.report.activityScoretrends = undefined;
     this.examsPro.scoretrend({
-      guid: this.navParams.get('guid'),
+      guid: this.exam.guid,
       level: this.report.level,
       subject: name
     }).then(res => {
       this.report.activityScoretrends = this.chartsPro.scoretrend(res);
       console.log(res);
     }).catch(ex => this.report.activityScoretrends = null);
+  }
+
+  doInfinite(event) {
+    console.log(event);
   }
 
 }

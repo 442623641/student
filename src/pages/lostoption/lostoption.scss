@@ -1,0 +1,52 @@
+page-lostoption {
+  .card {
+    .footer {
+      padding: 8px 0;
+      a:last-child {
+        color: color($colors, green);
+      }
+    }
+  }
+  .block {
+    // &:before {
+    //   position: absolute;
+    //   content: '';
+    //   width: 4px;
+    //   top: 0;
+    //   height: 4px;
+    //   background: color($colors, primary);
+    //   left: 0;
+    // }
+  }
+  .list {
+    position: relative;
+    .line-day {
+      color: color($colors, primary);
+      i {
+        position: relative;
+        left: -5px;
+        background: color($colors, primary);
+        border-radius: 50%;
+        display: inline-block;
+        height: 10px;
+        width: 10px;
+      }
+    }
+    .line-month {
+      background: color($colors, primary);
+      padding: 5px;
+      border-radius: 3px;
+      color: #fff;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+    &:before {
+      position: absolute;
+      content: '';
+      width: 0.55px;
+      background: color($colors, primary);
+      height: 100%;
+      left: 0;
+    }
+  }
+}

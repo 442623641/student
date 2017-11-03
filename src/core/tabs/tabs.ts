@@ -13,7 +13,7 @@ import { NEWS_PAGE, USERCENTER_PAGE, HOME_PAGE } from '../../pages/pages.constan
 })
 export class TabsPage {
 
-  tab1Root = HOME_PAGE;
+  tab1Root = HomePage;
   tab2Root = NEWS_PAGE;
   tab3Root = USERCENTER_PAGE;
   private msgCount: number = 0;

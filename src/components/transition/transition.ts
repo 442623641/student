@@ -13,7 +13,7 @@ import { Component, Input, Output, ElementRef, Renderer, NgZone, EventEmitter } 
   template: `<ng-content *ngIf="active"></ng-content>`,
   styles: [`
     :host{
-      display:none;
+      // display:none;
     }
   `]
 })
@@ -51,11 +51,11 @@ export class Transition {
   @Input() set if(isShow: boolean) {
 
     this.clearTm();
-    this.zone.run(() => isShow ? this.setEnter() : this.active && this.setLeave());
+    this.zone.run(() => isShow ? this.setEnter() : this.active ? this.setLeave() : this.renderer.setElementStyle(this.el.nativeElement, 'display', 'none'));
   }
   @Input() set show(isShow: boolean) {
     this.clearTm();
-    this.zone.run(() => isShow ? this.setEnter() : this.active && this.setLeave(false));
+    this.zone.run(() => isShow ? this.setEnter() : this.active ? this.setLeave(false) : this.renderer.setElementStyle(this.el.nativeElement, 'display', 'none'));
   }
   constructor(
     private el: ElementRef,
@@ -76,8 +76,9 @@ export class Transition {
     //this.renderer.setElementStyle(content, 'display', 'none');
     setTimeout(() => {
       let content = this.el.nativeElement.firstElementChild;
-      this.renderer.setElementStyle(this.el.nativeElement, 'display', 'initial');
+      this.renderer.setElementStyle(this.el.nativeElement, 'display', '');
       this.renderer.setElementStyle(content, 'will-change', 'all');
+      this.renderer.setElementStyle(content, 'display', '');
       this.renderer.setElementClass(content, this.transitionClass[0], true);
       this.onTimout = setTimeout(() => {
         this.renderer.setElementClass(content, this.transitionClass[1], true);
@@ -110,6 +111,7 @@ export class Transition {
       } else {
         this.renderer.setElementStyle(content, 'display', 'none');
       }
+      this.renderer.setElementStyle(this.el.nativeElement, 'display', 'none');
       setTimeout(() => (
         this.renderer.setElementClass(content, this.transitionClass[2], false),
         this.renderer.setElementClass(content, this.transitionClass[3], false)), 60);

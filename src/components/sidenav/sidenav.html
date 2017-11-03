@@ -1,0 +1,19 @@
+<!-- Generated template for the SidenavComponent component,add by leo zhang 201710010101 -->
+<transition name="nav" [if]="open">
+  <ion-backdrop role="presentation" tappable class="show-backdrop" (tap)="open=false"></ion-backdrop>
+  <div class="menu-inner">
+    <ion-header no-border>
+      <ion-toolbar color="white">
+        <ion-buttons start>
+          <button ion-button icon-only clear color="text" (tap)="open=false">
+            <ion-icon name="arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
+        <ion-title>筛选</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div class="menu-inner-content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</transition>

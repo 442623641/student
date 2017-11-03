@@ -6,9 +6,9 @@
 -->
 <ion-header no-shadow>
   <ion-navbar>
-    <ion-title>{{name}}</ion-title>
+    <ion-title>{{exam.name}}</ion-title>
     <ion-buttons end>
-      <button ion-button>
+      <button ion-button [navPush]="pages.doctor" [navParams]="exam" *ngIf="showNavButton">
         错题诊断
       </button>
     </ion-buttons>
@@ -65,31 +65,33 @@
           <button ion-button round>查看层次分析</button>
         </p>
       </ion-card>
-      <ion-card>
-        <ion-card-header text-center color="primary">
-          排名对比
-        </ion-card-header>
-        <scroll-header [items]="reports[indexNum].subjects" (selectedChange)="comranks(reports[indexNum].subjects[$event])" *ngIf="reports[indexNum].subjects.length>1" [(selected)]="reports[indexNum].comranksIndex"></scroll-header>
-        <ion-card-content class="rank-list">
-          <ng-template [ngIf]="reports[indexNum]?.activityComranks" [ngIfElse]="loadingb">
-            <div *ngFor="let rank of reports[indexNum].activityComranks;let i =index;" class="rank-item" [attr.self]="rank.sort=='我'?'':null">
-              <span>{{rank.sort}}</span>
-              <div>{{rank.score}}</div>
-            </div>
-          </ng-template>
-          <ng-template #loadingb>
-            <loading [status]="reports[indexNum].activityComranks"></loading>
-          </ng-template>
-        </ion-card-content>
-        <p text-center>
-          <button ion-button round>查看排名对比</button>
-        </p>
-      </ion-card>
-      <ng-template [ngIf]="reports[indexNum].level<3">
-        <ng-container *ngTemplateOutlet="card;context:{title:'成绩趋势',name:'Scoretrends',indexNum:indexNum}">
+      <ng-container>
+        <ion-card>
+          <ion-card-header text-center color="primary">
+            排名对比
+          </ion-card-header>
+          <scroll-header [items]="reports[indexNum].subjects" (selectedChange)="comranks(reports[indexNum].subjects[$event])" *ngIf="reports[indexNum].subjects.length>1" [(selected)]="reports[indexNum].comranksIndex"></scroll-header>
+          <ion-card-content class="rank-list">
+            <ng-template [ngIf]="reports[indexNum]?.activityComranks" [ngIfElse]="loadingb">
+              <div *ngFor="let rank of reports[indexNum].activityComranks;let i =index;" class="rank-item" [attr.self]="rank.sort=='我'?'':null">
+                <span>{{rank.sort}}</span>
+                <div>{{rank.score}}</div>
+              </div>
+            </ng-template>
+            <ng-template #loadingb>
+              <loading [status]="reports[indexNum].activityComranks"></loading>
+            </ng-template>
+          </ion-card-content>
+          <p text-center>
+            <button ion-button round>查看排名对比</button>
+          </p>
+        </ion-card>
+        <ng-template [ngIf]="reports[indexNum].level<3">
+          <ng-container *ngTemplateOutlet="card;context:{title:'成绩趋势',name:'Scoretrends',indexNum:indexNum}">
+          </ng-container>
+        </ng-template>
+        <ng-container *ngTemplateOutlet="card;context:{title:'排名趋势',indexNum:indexNum,name:'Ranktrends'}">
         </ng-container>
-      </ng-template>
-      <ng-container *ngTemplateOutlet="card;context:{title:'排名趋势',indexNum:indexNum,name:'Ranktrends'}">
       </ng-container>
     </ng-template>
     <ng-template [ngIf]="!reports[indexNum]" #loadingc>

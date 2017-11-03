@@ -7,8 +7,8 @@
 <ion-header no-shadow>
   <ion-navbar>
     <ion-title>{{exam.name}}</ion-title>
-    <ion-buttons end>
-      <button ion-button>
+    <ion-buttons end *ngIf="showNavButton">
+      <button ion-button [navPush]='pages.report' [navParams]="exam">
         学情报告
       </button>
     </ion-buttons>

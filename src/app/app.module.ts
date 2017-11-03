@@ -15,12 +15,11 @@ Icon.enableColorful();
  *page module
  */
 // import { HomePageModule } from '../pages/home/home.module';
-//import { LoginPageModule } from '../pages/login/login.module';
+import { LoginPageModule } from '../pages/login/login.module';
 // import { UsercenterPageModule } from '../pages/usercenter/usercenter.module';
 // import { NewsPageModule } from '../pages/news/news.module';
 
 import { TabsModule } from '../core/tabs/tabs.module';
-
 /* 
  * native plugins 
  */
@@ -38,7 +37,7 @@ import { Dialogs } from '@ionic-native/dialogs';
  */
 // import { Loading } from '../components/loading/loading'
 import { ComponentsModule } from '../components';
-
+import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
 /**
  *provider
  */
@@ -53,6 +52,9 @@ import { NativeProvider } from '../providers/native';
 import { PersonalProvider } from '../providers/personal/personal';
 import { StaticProvider } from '../providers/static/static';
 import { SharedProvider } from '../providers/shared/shared';
+import { EnalyzingProvider } from '../providers/enalyzing/enalyzing';
+import { ExcellentProvider } from '../providers/excellent/excellent';
+import { LostProvider } from '../providers/lost/lost';
 //import { AnalysisProvider } from '../providers/analysis/analysis';
 //import { ReportProvider } from '../providers/report/report';
 
@@ -63,6 +65,7 @@ import { SharedProvider } from '../providers/shared/shared';
 @NgModule({
   declarations: [
     StudentApp,
+    PhotosviewerComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,7 +83,7 @@ import { SharedProvider } from '../providers/shared/shared';
       }
     }),
     ComponentsModule,
-    //LoginPageModule,
+    LoginPageModule,
     TabsModule,
     // HomePageModule,
     // UsercenterPageModule,
@@ -94,6 +97,7 @@ import { SharedProvider } from '../providers/shared/shared';
   bootstrap: [IonicApp],
   entryComponents: [
     StudentApp,
+    PhotosviewerComponent,
   ],
   providers: [
     StatusBar,
@@ -117,6 +121,11 @@ import { SharedProvider } from '../providers/shared/shared';
     PersonalProvider,
     StaticProvider,
     SharedProvider,
+    EnalyzingProvider,
+    ExcellentProvider,
+    ExcellentProvider,
+    ExcellentProvider,
+    LostProvider,
     //AnalysisProvider,
     //GradeProvider,
   ]

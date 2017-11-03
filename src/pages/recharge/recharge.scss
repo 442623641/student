@@ -41,22 +41,4 @@ page-recharge {
     // }
     line-height: 2.5rem;
   }
-  .footer .row {
-    position: relative;
-    &:before {
-      @extend .border-top;
-    }
-    background: #fff;
-    height: 48px;
-    font-size: 1.6rem;
-    line-height: 38px;
-    ion-col {
-      padding-left: 16px;
-      color: color($colors, gray6);
-    }
-    a {
-      background: color($colors, primary);
-      color: rgba(#fff, .7);
-    }
-  }
 }

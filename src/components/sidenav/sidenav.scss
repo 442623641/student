@@ -1,0 +1,63 @@
+sidenav {
+  transition {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    contain: strict;
+    z-index: 80;
+  }
+
+  .menu-inner {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    left: auto;
+    right: 0;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.3s cubic-bezier(0, 0, 0.3, 1);
+    .header {
+      max-height: 45px;
+      .toolbar-title {
+        color: color($colors, text);
+        font-weight: normal;
+      }
+    }
+
+    .menu-inner-content {
+      margin-top: 45px;
+    }
+  }
+
+
+  ion-backdrop {
+    opacity: 0.35;
+    transition: opacity 0.3s cubic-bezier(0, 0, 0.3, 1);
+    transition-delay: 0.1s;
+    z-index: -1;
+  }
+  .enter-active-nav,
+  .leave-nav {
+    transform: translate3d(0, 0, 0);
+    &~ion-backdrop {
+      opacity: 0.35;
+    }
+  }
+  .leave-active-nav,
+  .enter-nav {
+    transform: translate3d(110%, 0, 0);
+    &~ion-backdrop {
+      opacity: 0.01;
+    }
+  }
+
+  [side=left] {
+    .menu-inner {
+      left: 0;
+      right: auto;
+    }
+    .leave-active-nav,
+    .enter-nav {
+      transform: translate3d(-110%, 0, 0);
+    }
+  }
+}

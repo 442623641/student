@@ -63,13 +63,13 @@
             <!-- <ion-icon name="headset"></ion-icon> -->
             <div>成绩趋势</div>
           </a>
-          <a [navPush]="pages.analysis">
+          <a [navPush]="pages.enalyzing">
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-icause"></use>
             </svg>
             <div>错题分析</div>
           </a>
-          <a>
+          <a [navPush]="pages.excellent">
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-iset"></use>
             </svg>
@@ -97,7 +97,7 @@
             <div>错题本
               <br>（纸质版）</div>
           </a>
-          <a>
+          <a [navPush]="pages.lost">
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-ieerrorbook"></use>
             </svg>

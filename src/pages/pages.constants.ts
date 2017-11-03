@@ -26,6 +26,12 @@ export const REPORT_PAGE = 'ReportPage';
 
 export const DOCTOR_PAGE = 'DoctorPage';
 export const TOPICS_PAGE = 'TopicsPage';
-export const ANALYSIS_PAGE = 'AnalysisPage';
 
-export const ANALYSISCONTENT_PAGE = 'AnalysiscontentPage';
+export const ENALYZING_PAGE = 'EnalyzingPage';
+export const EXCELLENT_PAGE = 'ExcellentPage';
+
+export const LOST_PAGE = 'LostPage';
+export const LOSTOPTION_PAGE = 'LostoptionPage';
+
+export const LOSTORDER_PAGE = 'LostorderPage';
+export const LOSTPAY_PAGE = 'LostpayPage';

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Toast } from '@ionic-native/toast';
 import { Dialogs } from '@ionic-native/dialogs';
-import { ToastController, LoadingController, Platform, AlertController } from 'ionic-angular';
+import { ToastController, LoadingController, Platform, AlertController, ModalController } from 'ionic-angular';
 import { Observable } from "rxjs";
+import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
 
 /**
  * added by 442623641@qq.com 201703161032.
@@ -14,14 +15,17 @@ export class NativeProvider {
   private loadRunning: boolean = false;
   public native: boolean;
   private loading: any;
+  private imageShowing: boolean;
 
 
-  constructor(private platform: Platform,
+  constructor(
+    private platform: Platform,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
     private ntoast: Toast,
-    private dialogs: Dialogs) {
+    private dialogs: Dialogs,
+    private modalCtrl: ModalController) {
     this.native = platform.is('mobile') && !platform.is('mobileweb');
   }
 
@@ -185,37 +189,38 @@ export class NativeProvider {
    * @param url
    * @param title
    */
-  // showImage(urls: string[], title: string, orientation ? : string) {
-  //   if (this.imageShowing) {
-  //     return;
-  //   }
-  //   let url = '';
-  //   if (this.native && urls.length === 1) {
-  //     //无签名
-  //     if (urls[0].indexOf('Signature') == -1) {
-  //       url = encodeURI(urls[0]);
-  //     } else {
-  //       //b包含中文
-  //       if (/[\u4E00-\u9FA5\uF900-\uFA2D]/.test(url)) {
-  //         this.showToast('图片非法');
-  //         return;
-  //       }
-  //       let temps = (urls[0]).split('?');
-  //       url = encodeURI(temps[0]) + (temps[1] ? ('?' + temps[1]) : '');
-  //     }
-  //     let options = { share: false };
-  //     orientation && (options[orientation] = true);
-  //     this.photoViewer.show(url, title, options);
-  //   } else {
-  //     let modal = this.modalCtrl.create(PhotosViewer, {
-  //       photos: urls, //.map(item=>{return {url:item}}),
-  //       title: title,
-  //     });
-  //     modal.present();
-  //   }
-  //   this.imageShowing = true;
-  //   setTimeout(() => this.imageShowing = false, 2000);
-  // }
+  showImage(urls: string[], title: string, orientation ? : string) {
+    if (this.imageShowing) {
+      return;
+    }
+    let url = '';
+    if (this.native && urls.length === 1) {
+      //无签名
+      if (urls[0].indexOf('Signature') == -1) {
+        url = encodeURI(urls[0]);
+      } else {
+        //b包含中文
+        if (/[\u4E00-\u9FA5\uF900-\uFA2D]/.test(url)) {
+          this.toast('图片非法');
+          return;
+        }
+        let temps = (urls[0]).split('?');
+        url = encodeURI(temps[0]) + (temps[1] ? ('?' + temps[1]) : '');
+      }
+      let options = { share: false };
+      orientation && (options[orientation] = true);
+      //this.photoViewer.show(url, title, options);
+    } else {
+      let modal = this.modalCtrl.create(PhotosviewerComponent, {
+        photos: urls, //.map(item=>{return {url:item}}),
+        title: title,
+      });
+      modal.present();
+    }
+    this.imageShowing = true;
+    setTimeout(() => this.imageShowing = false, 2000);
+  }
+
 
 
 
