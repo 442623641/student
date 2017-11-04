@@ -58,6 +58,10 @@ git branch --set-upstream-to origin/[branch] [branch]
 git reset --hard HEAD^
 ```
 
+## pull master
+```bash
+git pull origin/master
+```
 <!-- 
 ## How to use this template
 
