@@ -38,9 +38,14 @@ git merge origin/[branch] --allow-unrelated-histories
 git checkout [branch]
 ```
 
-## Merge Checkout
+## Branch push
 ```bash
 git push origin branch:[branch]
+```
+
+## Create Branch and Switch 
+```bash
+git checkout -b [branch] origin/[branch]
 ```
 
 <!-- 
