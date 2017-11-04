@@ -48,6 +48,16 @@ git push origin branch:[branch]
 git checkout -b [branch] origin/[branch]
 ```
 
+## Make connections between the local branch and the remote branch 
+```bash
+git branch --set-upstream-to origin/[branch] [branch]
+```
+
+## reset latest version
+```bash
+git reset --hard HEAD^
+```
+
 <!-- 
 ## How to use this template
 
