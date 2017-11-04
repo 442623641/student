@@ -19,7 +19,7 @@ export class CouponPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CouponPage');
-  } 
+  }
 
 
 }
