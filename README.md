@@ -53,6 +53,11 @@ git checkout -b [branch] origin/[branch]
 git branch --set-upstream-to origin/[branch] [branch]
 ```
 
+## reset latest version
+```bash
+git reset --hard HEAD^
+```
+
 <!-- 
 ## How to use this template
 
