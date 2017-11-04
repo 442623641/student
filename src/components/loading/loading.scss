@@ -18,6 +18,16 @@ loading {
     .spinner-ios-bubbles circle {
       fill: darken($background-color, 25%);
     }
+    .col {
+      img {
+        max-width: 50%;
+        width: 14rem;
+      }
+      span {
+        display: block;
+        font-size: 1.6rem;
+      }
+    }
   }
 
   .animated-background {
