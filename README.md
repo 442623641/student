@@ -28,6 +28,21 @@ git remote add origin https://git.septnet.cn/surface/student.git
 git push -u origin --all
 git push -u origin --tags
 ```
+## Merge Branch
+```bash
+git merge origin/[branch] --allow-unrelated-histories
+```
+
+## Merge Checkout
+```bash
+git checkout [branch]
+```
+
+## Merge Checkout
+```bash
+git push origin branch:[branch]
+```
+
 <!-- 
 ## How to use this template
 
