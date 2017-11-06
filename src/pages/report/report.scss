@@ -147,4 +147,11 @@ page-report {
   [ng-reflect-name=icustom] {
     background: #f56d4e;
   }
+  modal {
+    .swiper-slide {
+      img {
+        height: 150px;
+      }
+    }
+  }
 }

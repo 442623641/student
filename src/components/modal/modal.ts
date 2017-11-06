@@ -16,7 +16,19 @@ export class ModalComponent {
   openValue: boolean;
   opacity: number = 0;
   @Output() openChange = new EventEmitter();
-  @Input() option: { total: number, unauthorized: number } = { total: 0, unauthorized: 0 };
+  @Input() option: {
+    total: number,
+    unauthorized: number,
+    text: string,
+    title: string,
+    subtitle: string,
+  } = {
+    total: 0,
+    unauthorized: 0,
+    title: '',
+    subtitle: '',
+    text: ''
+  };
 
   @Input()
   get open() {

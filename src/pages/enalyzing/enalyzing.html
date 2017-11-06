@@ -79,5 +79,21 @@
     </p>
   </ion-footer>
 </sidenav>
-<modal [(open)]="package" [option]="{total:enalyzingOpt.total,unauthorized:enalyzingOpt.unauthorized}" *ngIf="enalyzingOpt"></modal>
+<modal [(open)]="package" [option]="{total:enalyzingOpt.total,unauthorized:enalyzingOpt.unauthorized,title:'开通学情套餐',subtitle:'历次错题分析尽在掌握'}" *ngIf="enalyzingOpt">
+  <ion-item>
+    <ion-icon name="istatistics" item-start color="primary"></ion-icon>
+    <h3>丢分统计</h3>
+    <p>错题数量和丢分趋势，一目了然</p>
+  </ion-item>
+  <ion-item>
+    <ion-icon name="ilevel" item-start color="primary"></ion-icon>
+    <h3>难度分析</h3>
+    <p>错题按难度分类，发现自我能力不足</p>
+  </ion-item>
+  <ion-item>
+    <ion-icon name="ilookup" item-start color="primary"></ion-icon>
+    <h3>找出错误</h3>
+    <p>避免无谓失分，逐渐改变做题习惯</p>
+  </ion-item>
+</modal>
 <!-- <ion-nav [root]="rootPage" #mycontent miana></ion-nav> -->
