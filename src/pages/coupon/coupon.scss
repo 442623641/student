@@ -1,4 +1,37 @@
 page-coupon {
+  .coupon-search{
+    padding:14px 12px 0 12px;
+    input[type='text']{
+      border: none;
+      outline: none;
+      width: 81%;
+      padding: 8px 0 8px 16px;
+      border-radius: 4px 0 0 4px;
+      float: left;
+    }
+    .button{
+      width: 19%;
+      border:none;
+      height: 33px;
+      line-height: 33px;
+      color: white;
+      text-align: center;
+      background-color: color($colors,primary);
+      border-radius: 0 4px 4px 0;
+      outline: none;
+      float: left;
+    }
+    &:after{
+      content: '';
+      display: block;
+      height: 0;
+      clear: both;
+    }
+  }
+  .searchbar-ios{
+    border: none;
+    background: white;
+  }
   .card {
     // background: url(../assets/images/coupon.png) center center no-repeat;
     // background-size: 100%;
@@ -14,6 +47,8 @@ page-coupon {
   }
   .coupon-content {
     .col {
+       text-align: left;
+       line-height: 1.6rem;
       &:first-child {
         text-align: center;
         color: color($colors, primary);
@@ -55,5 +90,11 @@ page-coupon {
       padding: 10px 0 10px 0;
       border-top: 0.55px dotted rgba(0, 0, 0, .2);
     }
+  }
+  .expired{
+    color: color($colors,text);
+  }
+  .normal{
+    font-style: normal;
   }
 }

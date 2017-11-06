@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ConfirmPage } from './confirm';
-
+import { NewPwdProvider } from '../../providers/newpwd/newpwd';
 @NgModule({
   declarations: [
     ConfirmPage,
@@ -9,5 +9,8 @@ import { ConfirmPage } from './confirm';
   imports: [
     IonicPageModule.forChild(ConfirmPage),
   ],
+  providers: [
+    NewPwdProvider
+  ]
 })
 export class ConfirmPageModule {}

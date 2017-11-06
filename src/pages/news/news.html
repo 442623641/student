@@ -1,9 +1,3 @@
-<!--
-  Generated template for the NewsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
     <ion-title>消息</ion-title>
@@ -11,26 +5,21 @@
 </ion-header>
 <ion-content>
   <ion-item-group padding-vertical>
-    <button ion-item>
-      <!-- <ion-icon item-left name="ichange"></ion-icon> -->
-      <ion-avatar item-start style="background:#4baaf3">
-        <ion-icon item-left name="paper" color="white"></ion-icon>
-        <!-- <img src="img/avatar-cher.png"> -->
+    <button ion-item [navPush]="pages.unclaimedexams" >
+      <ion-avatar item-start class="circle-blue" text-end>
+        <ion-icon item-left name="paper" color="white" class="relative"></ion-icon>
       </ion-avatar>
       <h2>认领消息</h2>
-      <p>共50条认领消息</p>
-      <ion-badge item-end>5</ion-badge>
+      <p>共n条认领消息</p>
+      <ion-badge item-end>{{unclaimednum}}</ion-badge>
     </button>
-    <button ion-item>
-      <!-- <ion-icon item-left name="iunlock"></ion-icon> -->
-      <ion-avatar item-start style="background: #f3aa4b">
-        <ion-icon item-left name="chatbubbles" color="white"></ion-icon>
-        <!-- <img src="img/avatar-cher.png"> -->
+    <button [navPush]="pages.message" ion-item >
+      <ion-avatar item-start class="circle-yellow">
+        <ion-icon item-left name="chatbubbles" color="white" class="relative-left"></ion-icon>
       </ion-avatar>
       <h2>系统消息</h2>
-      <p>共150条系统消息</p>
-      <ion-badge item-end>32</ion-badge>
+      <p>共{{countall}}条系统消息</p>
+      <ion-badge item-end>{{unreadnum}}</ion-badge>
     </button>
-    <submiton></submiton>
   </ion-item-group>
 </ion-content>
