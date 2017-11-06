@@ -31,10 +31,18 @@
     <ion-list no-lines>
       <!-- <ion-item-divider>历史考试</ion-item-divider> -->
       <ion-card *ngFor="let exam of exams">
+        <!-- <ion-item>
+  <ion-label>
+    Item Label
+  </ion-label>
+  <div item-content>
+    Item Content next to the label
+  </div>
+</ion-item>
+ -->
         <ion-item class="card-header" no-lines>
-          {{exam.name}}
-          <ion-note item-right color="gray6">
-          </ion-note>
+          <ion-label>{{exam.name}}</ion-label>
+          <span item-right *ngIf="exam.payment">已生成</span>
         </ion-item>
         <ion-row nowrap justify-content-start class="desc">
           <ion-col col-auto text-left>

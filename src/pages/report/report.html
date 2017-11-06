@@ -130,3 +130,31 @@
     </p>
   </ion-card>
 </ng-template>
+<modal [(open)]="showAd" [option]="{total:10,unauthorized:1,title:'生产学情报告提供以下数据服务'}" *ngIf="categorys">
+  <ion-slides pager="true">
+    <ion-slide>
+      <p>层次分析</p>
+      <img src="../assets/images/mlanalyse.png">
+    </ion-slide>
+    <ion-slide>
+      <p>学科分析</p>
+      <img src="../assets/images/msanalyse.png">
+    </ion-slide>
+    <ion-slide>
+      <p>错题诊断</p>
+      <img src="../assets/images/mdoctor.png">
+    </ion-slide>
+    <ion-slide>
+      <p>名校试题</p>
+      <img src="../assets/images/mexcellent.png">
+    </ion-slide>
+    <ion-slide>
+      <p>成绩对比</p>
+      <img src="../assets/images/mcomrank.png">
+    </ion-slide>
+    <ion-slide>
+      <p>成长曲线</p>
+      <img src="../assets/images/mgrowth.png">
+    </ion-slide>
+  </ion-slides>
+</modal>

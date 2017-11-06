@@ -18,6 +18,7 @@ import { DOCTOR_PAGE } from '../pages.constants';
   templateUrl: 'report.html',
 })
 export class ReportPage {
+  showAd: boolean = true;
   pages: any = { doctor: DOCTOR_PAGE };
   @ViewChild('content') content: Content;
   @ViewChild('slider') slider: Slides;
@@ -161,4 +162,9 @@ export class ReportPage {
     console.log(event);
   }
 
+
+  modalChanged(slider) {
+
+
+  }
 }
