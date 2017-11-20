@@ -1,0 +1,38 @@
+<!-- Generated template for the MreportComponent component -->
+<ion-card>
+  <ion-card-header>
+    生成学情报告提供一下数据服务
+  </ion-card-header>
+  <ion-card-content>
+    <ion-slides pager="true">
+      <ion-slide>
+        <h6>层次分析</h6>
+        <img src="assets/images/mlanalyse.png">
+      </ion-slide>
+      <ion-slide>
+        <h6>学科分析</h6>
+        <img src="assets/images/msanalyse.png">
+      </ion-slide>
+      <ion-slide>
+        <h6>错题诊断</h6>
+        <img src="assets/images/mdoctor.png">
+      </ion-slide>
+      <ion-slide>
+        <h6>名校试题</h6>
+        <img src="assets/images/mexcellent.png">
+      </ion-slide>
+      <ion-slide>
+        <h6>成绩对比</h6>
+        <img src="assets/images/mcomrank.png">
+      </ion-slide>
+      <ion-slide>
+        <h6>成长曲线</h6>
+        <img src="assets/images/mgrowth.png">
+      </ion-slide>
+    </ion-slides>
+  </ion-card-content>
+  <div class="strong">您共有<span primary>1</span>场考试，还有<span primary>2</span> 次学情报告未生成。建议开通学情套餐，错题分析更准确！</div>
+  <p text-center style="padding-bottom: 10px;">
+    <button ion-button round (click)="tap()">立即开通</button>
+  </p>
+</ion-card>

@@ -1,40 +1,40 @@
 page-coupon {
-  .coupon-search{
-    padding:14px 12px 0 12px;
-    input[type='text']{
+  .coupon-search {
+    padding: 14px 12px 0 12px;
+    input[type=text] {
       border: none;
       outline: none;
       width: 81%;
-      padding: 8px 0 8px 16px;
+      padding-left: 16px;
       border-radius: 4px 0 0 4px;
       float: left;
+      height: 35px;
+      line-height: 35px;
     }
-    .button{
+    .button {
       width: 19%;
-      border:none;
-      height: 33px;
-      line-height: 33px;
+      border: none;
+      height: 35px;
+      line-height: 35px;
       color: white;
       text-align: center;
-      background-color: color($colors,primary);
+      background-color: color($colors, primary);
       border-radius: 0 4px 4px 0;
       outline: none;
       float: left;
     }
-    &:after{
+    &:after {
       content: '';
       display: block;
       height: 0;
       clear: both;
     }
   }
-  .searchbar-ios{
+  .searchbar-ios {
     border: none;
     background: white;
   }
   .card {
-    // background: url(../assets/images/coupon.png) center center no-repeat;
-    // background-size: 100%;
     border-radius: 4px;
     box-shadow: none;
     font-size: 1.4rem;
@@ -44,16 +44,27 @@ page-coupon {
         color: color($colors, text) !important;
       }
     }
+    &[checked=true] {
+      background: rgba(color($colors, primary), .4);
+      .col.row {
+        .icon {
+          display: block;
+        }
+      }
+      .col {
+        color: #fff !important;
+      }
+    }
   }
   .coupon-content {
     .col {
-       text-align: left;
-       line-height: 1.6rem;
+      text-align: left;
+      line-height: 1.6rem;
       &:first-child {
         text-align: center;
         color: color($colors, primary);
         span {
-          font-size: 5rem;
+          font-size: 4rem;
         }
       }
       &:last-child {
@@ -91,10 +102,17 @@ page-coupon {
       border-top: 0.55px dotted rgba(0, 0, 0, .2);
     }
   }
-  .expired{
-    color: color($colors,text);
+  .expired {
+    color: color($colors, text);
   }
-  .normal{
+  .normal {
     font-style: normal;
+  }
+  .col.row {
+    .icon {
+      display: none;
+      font-size: 2.5em;
+      padding-right: 11px;
+    }
   }
 }

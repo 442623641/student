@@ -13,40 +13,42 @@
   <ion-item-group margin-top>
     <ion-item>
       <span item-left>支付金额</span>
-      <span ion-text color="primary" item-end>305 元</span>
+      <ion-label item-end><span primary>{{amount/10}}</span>元</ion-label>
     </ion-item>
   </ion-item-group>
   <ion-item-group radio-group [(ngModel)]="payType">
-    <!-- <ion-item-divider> -->
-    <p class="divider"> 选择支付方式</p>
-    <!-- </ion-item-divider> -->
-    <ion-item>
-      <svg colorful aria-hidden="true" item-left>
-        <use xlink:href="#icon-wepay"></use>
-      </svg>
-      <ion-label>微信支付</ion-label>
-      <ion-radio value="wepay" check-icon></ion-radio>
-    </ion-item>
+    <ion-item-divider no-border>
+      选择支付方式
+      <!-- <p class="divider"> 选择支付方式</p> -->
+    </ion-item-divider>
     <ion-item>
       <svg colorful aria-hidden="true" item-left>
         <use xlink:href="#icon-alipay"></use>
       </svg>
       <ion-label>支付宝支付</ion-label>
-      <ion-radio value="alipay" check-icon></ion-radio>
+      <ion-radio value="za" check-icon></ion-radio>
     </ion-item>
     <ion-item no-lines>
+      <svg colorful aria-hidden="true" item-left>
+        <use xlink:href="#icon-wepay"></use>
+      </svg>
+      <ion-label>微信支付</ion-label>
+      <ion-radio value="wa" check-icon></ion-radio>
+    </ion-item>
+    <!-- <ion-item no-lines>
       <svg colorful aria-hidden="true" item-left>
         <use xlink:href="#icon-unionpay"></use>
       </svg>
       <ion-label>银联支付</ion-label>
       <ion-radio value="unionpay" check-icon></ion-radio>
-    </ion-item>
+    </ion-item> -->
     <ion-item-divider class="agreement" [navPush]="pages.agreement">
       <ion-label>本人已阅读并同意<a [navPush]="pages.agreement">《七天网络数据增值服务支付协议》</a></ion-label>
       <ion-checkbox checked="true"></ion-checkbox>
     </ion-item-divider>
   </ion-item-group>
   <p padding>
-    <button ion-button block>确认支付 </button>
+    <submiton (stateChange)="pay()" [(state)]="processing">确认支付</submiton>
+    <!-- <button ion-button block (click)="pay()">确认支付</button> -->
   </p>
 </ion-content>

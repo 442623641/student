@@ -16,23 +16,23 @@
   <div *ngIf="balls.length>1||stickTopicHeader" [class.transformY-45]="stickTopicHeader&&balls.length>1" class="sub-header" line-bottom>
     <scroll-header [items]="balls" (selectedChange)="subjectSlider.slideTo($event)" *ngIf="balls.length>1" line-bottom></scroll-header>
     <ion-row class="topics-header" *ngIf="stickTopicHeader">
-      <a col-3 class="fixed-button" (tap)="subject.showAll=!subject.showAll">{{subject.showAll?'查看错题':'查看全部'}}</a>
+      <a col-2 class="fixed-button" (click)="subject.showAll=!subject.showAll">{{subject.showAll?'错题':'全部'}}</a>
       <ion-col no-padding>
         <scroll-header [items]="subject.nos" [(selected)]="subject.categoryIndex" (selectedChange)="topic($event)"></scroll-header>
       </ion-col>
     </ion-row>
   </div>
 </ion-header>
-<ion-content #content [fullscreen]="true" (ionScrollStart)="scrollStart($event)" (ionScrollEnd)="scrollEnd($event)" padding-bottom>
-  <div class="subjects">
+<ion-content #content [fullscreen]="true" (ionScroll)="scrollHandler($event)" padding-bottom>
+  <ng-template [ngIf]="subject" [ngIfElse]="loading">
     <ion-slides #subjectSlider (ionSlideDidChange)="onSlideChanged($event)">
       <ion-slide *ngFor="let ball of balls">
-        <div *ngIf="subject?.name">
-          <div class="card">
+        <ng-container *ngIf="subject?.name">
+          <div class="card origin">
             <ion-row class="card-header" justify-content-between>
               <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
             </ion-row>
-            <img-lazy [src]='subject.paper'></img-lazy>
+            <img-lazy [src]='subject.paper' [imgviewer]="subject.paper"></img-lazy>
           </div>
           <div class="card percents">
             <ion-row class="card-header" justify-content-between>
@@ -43,78 +43,80 @@
             <div class="card-content">
               <echarts-ng2 [option]='subject?.percents' [style]="{'height': 210+'px'}"></echarts-ng2>
             </div>
-            <ion-row class="card-footer" (tap)="openPercentModal()">
-              <a>
-          查看更多
-        </a>
+            <ion-row class="card-footer">
+              <a (click)="openPercentModal()">查看更多</a>
             </ion-row>
           </div>
-        </div>
+        </ng-container>
       </ion-slide>
     </ion-slides>
-  </div>
-  <div class="topics" *ngIf="subject?.name&&subject.category?.length">
-    <ion-row class="topics-header" line-bottom *ngIf="!stickTopicHeader">
-      <a col-3 class="fixed-button" (tap)="subject.showAll=!subject.showAll">{{subject.showAll?'查看错题':'查看全部'}}</a>
-      <ion-col no-padding>
-        <scroll-header [items]="subject.nos" [(selected)]="subject.categoryIndex" (selectedChange)="topic($event)"></scroll-header>
-      </ion-col>
-    </ion-row>
-    <div class="topics-content" *ngIf="subject.activity">
-      <div class="topics-item">
-        <div class="item-content">
-          <img-lazy [src]="url" *ngFor="let url of subject.activity.paper"></img-lazy>
-        </div>
-        <p footer>
-          满分：<span color="primary" ion-text>{{subject.activity.fullString}}</span>分&nbsp;&nbsp;&nbsp;我的得分：<span color="primary" ion-text>{{subject.activity.scoreString}}</span>分&nbsp;&nbsp;&nbsp;难度：<span color="primary" ion-text>{{subject.activity.levelString}}</span>
-        </p>
-        <p line-top footer *ngIf="subject.activity.objective&&subject.activity.reply?.length">
-          我的答案：<span ion-text [color]="primary">{{subject.activity.replyString}}</span>&nbsp;
-          <ion-icon name="checkmark"></ion-icon>&nbsp;&nbsp;&nbsp; 正确答案：
-          <span>{{subject.activity.answerString}}</span>
-        </p>
-      </div>
-      <div class="topics-item" *ngIf="!subject.activity.objective&&subject.activity.reply?.length">
-        <p line-bottom>我的答案</p>
-        <div class="item-content">
-          <img-lazy [src]="reply.link" *ngFor="let reply of subject.activity.reply"></img-lazy>
-        </div>
-      </div>
-      <div class="topics-item" *ngIf="subject.activity.topic">
-        <p line-bottom>【知识点】</p>
-        <p footer>{{subject.activity.topic}}</p>
-      </div>
-      <div class="topics-item" *ngIf="subject.activity.resolve?.length">
-        <p line-bottom>【解析】</p>
-        <div class="item-content">
-          <img-lazy [src]="url" *ngFor="let url of subject.activity.resolve"></img-lazy>
-        </div>
-      </div>
-      <div class="topics-item" *ngIf="subject.activity.excellent?.length==1">
-        <p line-bottom *ngIf="subject.activity.excellent.length==1">【优秀答案】
-          <button ion-button clear small float-right style="height: auto" (tap)="excellent(subject.activity.excellent[0].no)">
-            <ion-icon name="refresh"></ion-icon>&nbsp; 换一个
-          </button>
-        </p>
-        <div class="item-content">
-          <img-lazy [src]="url" *ngFor="let url of subject.activity.excellent[0].value[subject.activity.excellentNums[0]]">
-          </img-lazy>
-        </div>
-      </div>
-      <ng-template #analyse [ngIf]="subject.activity.analyse.length===1" [ngIfElse]="analyseSlider">
+    <!-- </div> -->
+    <div class="topics" *ngIf="subject?.name&&subject.category?.length">
+      <ion-row class="topics-header" line-bottom *ngIf="!stickTopicHeader">
+        <a col-3 class="fixed-button" (tap)="subject.showAll=!subject.showAll">{{subject.showAll?'错题':'全部'}}</a>
+        <ion-col no-padding>
+          <scroll-header [items]="subject.nos" [(selected)]="subject.categoryIndex" (selectedChange)="topic($event)"></scroll-header>
+        </ion-col>
+      </ion-row>
+      <div class="topics-content" *ngIf="subject.activity">
         <div class="topics-item">
-          <p line-bottom text-left>【{{subject.activity.analyse[0].no}} 题得分率】</p>
-          <echarts-ng2 [option]="subject.activity.analyse[0].options" [style]="{'height': 150+'px'}"></echarts-ng2>
+          <div class="item-content">
+            <img-lazy [src]="url" *ngFor="let url of subject.activity.paper"></img-lazy>
+          </div>
+          <p footer>
+            满分：<span color="primary" ion-text>{{subject.activity.fullString}}</span>分&nbsp;&nbsp;&nbsp;我的得分：<span color="primary" ion-text>{{subject.activity.scoreString}}</span>分&nbsp;&nbsp;&nbsp;难度：<span color="primary" ion-text>{{subject.activity.levelString}}</span>
+          </p>
+          <p line-top footer *ngIf="subject.activity.objective&&subject.activity.reply?.length">
+            我的答案：<span ion-text [color]="primary">{{subject.activity.replyString}}</span>&nbsp;
+            <ion-icon name="checkmark"></ion-icon>&nbsp;&nbsp;&nbsp; 正确答案：
+            <span>{{subject.activity.answerString}}</span>
+          </p>
         </div>
-      </ng-template>
-      <ng-template #analyseSlider>
-        <ion-slides spaceBetween="10" pager="true" *ngIf="subject.activity.analyse.length>1">
-          <ion-slide *ngFor="let item of subject.activity.analyse;let y=index">
-            <ng-container *ngTemplateOutlet="analyse">
-            </ng-container>
-          </ion-slide>
-        </ion-slides>
-      </ng-template>
+        <div class="topics-item" *ngIf="!subject.activity.objective&&subject.activity.reply?.length">
+          <p line-bottom>我的答案</p>
+          <div class="item-content">
+            <img-lazy [src]="reply.link" *ngFor="let reply of subject.activity.reply"></img-lazy>
+          </div>
+        </div>
+        <div class="topics-item" *ngIf="subject.activity.topic">
+          <p line-bottom>【知识点】</p>
+          <p footer>{{subject.activity.topic}}</p>
+        </div>
+        <div class="topics-item" *ngIf="subject.activity.resolve?.length">
+          <p line-bottom>【解析】</p>
+          <div class="item-content">
+            <img-lazy [src]="url" *ngFor="let url of subject.activity.resolve"></img-lazy>
+          </div>
+        </div>
+        <div class="topics-item" *ngIf="subject.activity.excellent?.length==1">
+          <p line-bottom *ngIf="subject.activity.excellent.length==1">【优秀答案】
+            <button ion-button clear small float-right style="height: auto" (tap)="excellent(subject.activity.excellent[0].no)">
+              <ion-icon name="refresh"></ion-icon>&nbsp; 换一个
+            </button>
+          </p>
+          <div class="item-content">
+            <img-lazy [src]="url" *ngFor="let url of subject.activity.excellent[0].value[subject.activity.excellentNums[0]]">
+            </img-lazy>
+          </div>
+        </div>
+        <ng-template #analyse [ngIf]="subject.activity.analyse.length===1" [ngIfElse]="analyseSlider">
+          <div class="topics-item">
+            <p line-bottom text-left>【{{subject.activity.analyse[0].no}} 题得分率】</p>
+            <echarts-ng2 [option]="subject.activity.analyse[0].options" [style]="{'height': 150+'px'}"></echarts-ng2>
+          </div>
+        </ng-template>
+        <ng-template #analyseSlider>
+          <ion-slides spaceBetween="10" pager="true" *ngIf="subject.activity.analyse.length>1">
+            <ion-slide *ngFor="let item of subject.activity.analyse;let y=index">
+              <ng-container *ngTemplateOutlet="analyse">
+              </ng-container>
+            </ion-slide>
+          </ion-slides>
+        </ng-template>
+      </div>
     </div>
-  </div>
+  </ng-template>
+  <ng-template #loading>
+    <loading [status]="subject"></loading>
+  </ng-template>
 </ion-content>

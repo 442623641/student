@@ -40,6 +40,8 @@ text:#414a60,
 yellow:#fae100,
 green:#6adcb7,
 );
+
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
@@ -64,14 +66,15 @@ green:#6adcb7,
 // http://ionicframework.com/docs/ionicons/
 @import "ionic.ionicons";
 
-// Iconfonts
-@import "../assets/iconfonts/iconfont";
-
 
 // Fonts
 // --------------------------------------------------
 @import "roboto";
 @import "noto-sans";
+
+
+// Iconfonts
+@import "../assets/iconfonts/iconfont";
 
 // Variables
 // --------------------------------------------------
@@ -96,3 +99,4 @@ $refresher-border-color:color($colors, transparent);
 $refresher-icon-color:color($colors, gray9);
 $refresher-text-color:color($colors, gray9);
 $refresher-text-font-size:14px;
+$card-ios-font-size:1.5rem;

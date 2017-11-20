@@ -1,54 +1,47 @@
 page-home {
+  .content {
+    background: linear-gradient(to bottom, color($colors, primary) 0%, color($colors, primary) 30%, $background-color 31%, $background-color 100%);
+  }
   .header {
-    // padding: 16px 0 16px 0px;
+    padding: 0 16px;
     color: white;
-    height: 18.7%;
+    height: 13rem;
     background: color($colors, primary);
     .col {
       padding: 5px 0;
     }
     .coin {
-      div {
-        font-size: 1.25rem;
-        text-align: center;
+      padding: 16px;
+      background: url(../assets/images/badge.png) center no-repeat;
+      background-size: contain;
+      height: 80%;
+      img {
+        height: 70%;
+        padding-top: 14px;
       }
+
       .button {
-        margin-top: 3px;
-        color: color($colors, text);
-        background: color($colors, yellow);
-        height: 2.5rem;
-        line-height: 2.5rem;
-        border-radius: 20px 0 0 20px;
-        padding: 0 16px 0 30px;
+        background: #fae100;
+        display: block;
+        border-radius: 16px;
+        padding: 3px;
+        margin: 3px 16px;
         box-shadow: 0 0.4rem 0.8rem rgba(197, 38, 4, 0.49);
-        .icon {
-          vertical-align: middle;
-        }
+        color: #f66e4f;
       }
     }
     .user-info {
       span {
         display: block;
-        &:first-child {
-          font-size: 1.35rem;
-        }
-        &:last-child {
-          font-size: 1.2rem;
+        padding: 4px;
+        .icon {
+          font-size: 1.3em;
         }
       }
     }
   }
-  .charge-tip {
-    //height: 4rem; //
-    line-height: 3rem;
-    background: color($colors, yellow); //   .col:first-child {
-    //   border-right: .55px dashed rgba(color($colors, text), .5);
-    // }
-  }
 
   .banner {
-
-    // max-height: 15.7%;
     margin-bottom: 10px;
     a {
       padding: 0;
@@ -91,41 +84,5 @@ page-home {
         color: color($colors, text);
       }
     }
-  } // h3 {
-  //   margin: 0;
-  // }
-  .box {
-    width: 100%; // height: 25%;
-  }
-  .g1 {
-    background: linear-gradient(90deg, #69b7eb, #b3dbd3, #f4d6db);
-  }
-  /* Gradient 2 */
-  .g2 {
-    background: linear-gradient(90deg, #cfecd0, #ffc5ca);
-  }
-  /* Gradient 3 */
-  .g3 {
-    background: linear-gradient(90deg, #f598a8, #f6edb2);
-  }
-  /* Gradient 4 */
-  .g4 {
-    background: linear-gradient(90deg, #ee5c87, #f1a4b5, #d587b3);
-  }
-  /* Gradient 5 */
-  .g5 {
-    background: linear-gradient(90deg, #b9deed, #efefef);
-  }
-  /* Gradient 6 */
-  .g6 {
-    background: linear-gradient(90deg, #aea4e3, #d3ffe8);
-  }
-  /* Gradient 7 */
-  .g7 {
-    background: linear-gradient(90deg, #faf0cd, #fab397);
-  }
-  /* Gradient 8 */
-  .g8 {
-    background: linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db);
   }
 }

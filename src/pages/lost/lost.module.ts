@@ -5,7 +5,7 @@ import { LostPage } from './lost';
 import { LostoptionPageModule } from '../lostoption/lostoption.module';
 import { LostpayPageModule } from '../lostpay/lostpay.module';
 import { LostorderPageModule } from '../lostorder/lostorder.module';
-import { ComponentsModule } from '../../components';
+import { ComponentsModule } from '../../components/components.module';
 @NgModule({
   declarations: [
     LostPage,

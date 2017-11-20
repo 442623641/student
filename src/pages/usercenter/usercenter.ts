@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone, Renderer } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FeedbackPage } from '../feedback/feedback';
 import { SetupPage } from '../setup/setup';
@@ -14,7 +14,6 @@ import {
   COUPON_PAGE,
   RECHARGE_PAGE
 } from '../pages.constants';
-//Icon.enableColorful();
 /**
  * Generated class for the UsercenterPage page.
  *
@@ -42,14 +41,17 @@ export class UsercenterPage {
   userInfo: UserInfo = {};
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public userPro: UserProvider
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private userPro: UserProvider,
+    private zone: NgZone,
+    private renderer: Renderer
   ) {
     console.log('UsercenterPage');
   }
   ngAfterViewInit() {
     this.userPro.getUserInfo().then(res => this.userInfo = res);
+    //this.toolbarBackground = document.querySelector('page-usercenter .header .toolbar-background');
   }
 
   ionViewDidLoad() {
@@ -64,6 +66,4 @@ export class UsercenterPage {
     let grade = this.userInfo.gradeName ? `【${this.userInfo.gradeName} 】` : '';
     return `${this.userInfo.cityName} ${this.userInfo.school} ${grade}`;
   }
-
-
 }

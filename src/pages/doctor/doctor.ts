@@ -7,7 +7,7 @@ import { Subjecte } from '../../model/subjecte';
 import { REPORT_PAGE } from '../pages.constants';
 /**
  * Generated class for the DoctorPage page.
- *
+ * Add by Leo Zhang
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
@@ -24,9 +24,9 @@ export class DoctorPage {
 
   @ViewChild('content') content: Content;
   @ViewChild('subjectSlider') subjectSlider: Slides;
-  @ViewChild('segmentSlider') segmentSlider: Slides;
-  @ViewChild('topicSlider') topicSlider: Slides;
-  @ViewChild('percentsElement') percentsElement: any;
+  //@ViewChild('segmentSlider') segmentSlider: Slides;
+  // @ViewChild('topicSlider') topicSlider: Slides;
+  //@ViewChild('percentsElement') percentsElement: any;
 
   showNavButton: boolean;
   subjects: Subjecte[] = [];
@@ -62,7 +62,7 @@ export class DoctorPage {
   }
   ngOnInit() {
     this.exam = this.navParams.data;
-    this.subjectSlider.autoHeight = true;
+    //this.subjectSlider.autoHeight = true;
   }
 
   ngAfterViewInit() {
@@ -102,7 +102,9 @@ export class DoctorPage {
       return items.filter((item, index) => { return index < 4 });
     })));
 
+
     setTimeout(() => {
+
       this.subjectSlider.resize();
       this.content.resize();
     }, 60);
@@ -158,21 +160,28 @@ export class DoctorPage {
   set subject(val: Subjecte) {
     this.subjects[this.subjectIndex] = val;
   }
-
-
-
-
-  scrollEnd(event) {
-    clearInterval(this.scrollTimer);
+  scrollHandler(event) {
+    this.zone.run(() => {
+      //let dvalue = event.scrollTop > this.scrollYStart ? 0 : 45;
+      //this.stickTopicHeader = event.scrollTop > (this.subjectSlider.container.offsetHeight + dvalue);
+      this.stickTopicHeader = event.scrollTop > this.subjectSlider.container.offsetHeight;
+    });
   }
-  scrollStart(event) {
-    this.scrollYStart = event.scrollTop;
-    this.scrollTimer = setInterval(() => {
-      this.zone.run(() => {
-        let dvalue = event.scrollTop > this.scrollYStart ? 0 : 45;
-        this.stickTopicHeader = event.scrollTop > (this.subjectSlider.container.offsetHeight + dvalue);
-      });
-    }, 60);
-  }
+
+
+
+
+  // scrollEnd(event) {
+  //   clearInterval(this.scrollTimer);
+  // }
+  // scrollStart(event) {
+  //   this.scrollYStart = event.scrollTop;
+  //   this.scrollTimer = setInterval(() => {
+  //     this.zone.run(() => {
+  //       let dvalue = event.scrollTop > this.scrollYStart ? 0 : 45;
+  //       this.stickTopicHeader = event.scrollTop > (this.subjectSlider.container.offsetHeight + dvalue);
+  //     });
+  //   }, 60);
+  // }
 
 }

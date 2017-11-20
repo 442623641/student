@@ -5,5 +5,4 @@ export const Grade = [{ code: "G", name: '高中（全部）' },
   { code: "C", name: '初中（全部）' },
   { code: "C3", name: '初三' },
   { code: "C2", name: '初二' },
-  { code: "C1", name: '初一' }
-];
+  { code: "C1", name: '初一' }];

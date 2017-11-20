@@ -8,7 +8,7 @@ modal {
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 10;
     .modal-background {
       background: rgba(0, 0, 0, .0);
       animation: fadeIn .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
@@ -54,8 +54,9 @@ modal {
         width: 85vw; // margin: 16px;
         border-radius: 5px;
         background: transparent; //padding: 50px;
-        display: inline-block;
+        display: block;
         font-weight: 300;
+        margin: 0 auto;
         position: relative; // h2 {
         //   font-size: 25px;
         //   line-height: 25px;

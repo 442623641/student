@@ -203,9 +203,9 @@ export class Category extends CategoryOptions {
 
     if (!obj) return;
 
-    obj.analyse = obj.analyse.map(item => {
+    obj.analyse && (obj.analyse = obj.analyse.map(item => {
       return { no: item.no, options: this.setOpt(item.category, item.series) };
-    });
+    }));
     Object.assign(this, new CategoryOptions(obj));
   }
 

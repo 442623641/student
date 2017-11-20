@@ -1,0 +1,27 @@
+page-package {
+  .item {
+    &[checked=true] {
+      background: rgba(color($colors, primary), .4);
+    }
+    .note {
+      i {
+        text-decoration: line-through;
+      }
+      span {
+        margin-left: 16px;
+        color: color($colors, text);
+      }
+    }
+  }
+  .desc {
+    li {
+      &:first-child {
+        padding-top: 0;
+      }
+      padding: 3px 16px;
+      color: color($colors, gray9);
+      list-style-type: disc;
+      font-size: 1.3rem;
+    }
+  }
+}

@@ -14,36 +14,24 @@
 <ion-content>
   <!-- <div class="banner"> -->
   <ng-template [ngIf]="package&&userInfo" [ngIfElse]="loading">
-    <ng-container [ngSwitch]="package.open">
-      <ion-row class="header" padding-vertical align-items-center justify-content-between>
-        <!-- <echarts-ng2 [option]="optionWaterball" #ball></echarts-ng2> -->
-        <a class="avatar" text-center [navPush]="pages.personal">
-      <img src="../assets/images/avatar.png">
-    </a>
+    <ng-container>
+      <ion-row class="header" justify-content-between align-items-center>
         <ion-col nowrap text-left col-6 class="user-info">
-          <span [navPush]="pages.personal">{{userInfo.name}} | {{userInfo.gradeName}}</span>
-          <span [navPush]="pages.personal"> {{userInfo.cityName}} {{userInfo.school}}</span>
+          <span><ion-icon name="icontact"></ion-icon> {{userInfo.name}}</span>
+          <span><ion-icon name="school"></ion-icon>  {{userInfo.school}}</span>
+          <span><ion-icon name="icoin"></ion-icon> {{userInfo.coin}} 学贝</span>
         </ion-col>
-        <ion-col class="coin" text-right>
-          <div>{{userInfo.coin}} 学贝</div>
-          <a class="button" [navPush]="pages.recharge">
-        充值学贝
-        <!-- <span>充值学贝</span> -->
-        <!-- <ion-icon name="arrow-forward"></ion-icon> -->
-      </a>
+        <ion-col class="coin" [ngSwitch]="package.open">
+          <ng-container *ngSwitchCase="false">
+            <img src="assets/images/diamond.png">
+            <a class="button" [navPush]="pages.package" (click)="open()">立即开通</a>
+          </ng-container>
+          <ng-container *ngSwitchCase="true">
+            <div style="font-size: 1.2rem;padding-top: 18px;"><span style="font-size: 1.7rem;font-weight: 500">{{package.days}}</span>天</div>
+            <div style="font-size: 1.2rem;padding-bottom: 10px;">剩余天数</div>
+            <a class="button" [navPush]="pages.recharge">立即充值</a>
+          </ng-container>
         </ion-col>
-      </ion-row>
-      <ion-row class="charge-tip" *ngSwitchCase="true">
-        <ion-col text-center col-9>
-          学情套餐{{package.expires | date:'yyyy年M月d日'}}到期
-        </ion-col>
-        <ion-icon name="idivision"></ion-icon>
-        <a text-center class="col" [navPush]="pages.recharge">
-      续费
-    </a>
-      </ion-row>
-      <ion-row class="charge-tip" *ngSwitchCase="false">
-        <a text-center class="col" [navPush]="pages.recharge">点击开通学情套餐 >> </a>
       </ion-row>
       <ion-row class="banner">
         <a no-padding>
@@ -75,7 +63,7 @@
             </svg>
             <div>名校试题</div>
           </a>
-          <a>
+          <a [navPush]="pages.unclaimed">
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-iclaim"></use>
             </svg>
@@ -87,24 +75,24 @@
         <div class="card-header">
           <i></i>
           <span>个性地址服务</span>
-          <span>成绩如何提升？</span>
+          <!-- <span>成绩如何提升？</span> -->
         </div>
         <ion-row class="card-content">
-          <a>
+          <a col-3 [navPush]="pages.lost">
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-ierrorbook"></use>
             </svg>
             <div>错题本
               <br>（纸质版）</div>
           </a>
-          <a [navPush]="pages.lost">
+          <a [navPush]="pages.lost" col-3>
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-ieerrorbook"></use>
             </svg>
             <div>错题本
               <br>（电子版）</div>
           </a>
-          <a>
+          <!-- <a>
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-istrengthening"></use>
             </svg>
@@ -115,7 +103,7 @@
               <use xlink:href="#icon-idiagnose"></use>
             </svg>
             <div>知识点诊断</div>
-          </a>
+          </a> -->
         </ion-row>
       </div>
     </ng-container>

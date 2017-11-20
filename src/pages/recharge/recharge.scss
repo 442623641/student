@@ -1,19 +1,21 @@
 page-recharge {
   .amount-buttons {
     background: #fff;
-    .row {
-      padding: 10px 0;
-    }
+    padding: 10px 11px;
     a {
+      flex: 0 0 46%;
+      width: 46%;
+      max-width: 46%;
+      line-height: 3.8rem;
+      height: 3.8rem;
       transition: background-color, opacity, border-color 100ms linear;
       border-radius: 4px;
       border: 0.55px solid rgba(0, 0, 0, .07);
       color: color($colors, gray6);
-      padding: 8px 5px;
-      margin: 5px;
-      &:first-child {
-        margin-left: 0
-      }
+      padding: 0;
+      margin: 5px; // &:first-child {
+      //   margin-left: 0
+      // }
       &:last-child {
         margin-right: 0
       }
@@ -23,22 +25,33 @@ page-recharge {
         border-color: color($colors, primary);
         color: color($colors, primary);
       }
+      i {
+        line-height: 3.7rem;
+        height: 3.7rem;
+        writing-mode: tb-rl;
+        display: inline-block;
+        float: left;
+        background: color($colors, primary);
+        color: #fff;
+        text-align: center;
+        border-radius: 4px 0 0 4px;
+      }
+
       &>span {
-        font-size: 1.7rem;
+        font-size: 1.8rem;
       }
     }
-  }
-  .custom {
-    input {
-      border: 0.55px solid rgba(0, 0, 0, .1);
-      width: 8rem;
-      line-height: 2.3rem;
-      border-radius: 5px;
-      margin: 0 8px 0 16px;
-      padding-left: 16px;
-    } // span {
-    //   vertical-align: -.2em;
-    // }
-    line-height: 2.5rem;
-  }
+  } // .custom {
+  //   input {
+  //     border: 0.55px solid rgba(0, 0, 0, .1);
+  //     width: 9rem;
+  //     line-height: 2.5rem;
+  //     border-radius: 5px;
+  //     margin: 0 8px 0 16px;
+  //     padding-left: 8px;
+  //   } // span {
+  //   //   vertical-align: -.2em;
+  //   // }
+  //   line-height: 2.5rem;
+  // }
 }

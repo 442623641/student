@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
 /**
  * Generated class for the ScrollheaderComponent component.
@@ -11,8 +11,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   templateUrl: 'scrollheader.html'
 })
 export class ScrollheaderComponent {
+
+  @ViewChild('scroll') scroll: any;
   @Input() items: string[] = [];
   @Output() selectedChange = new EventEmitter();
+  @Output() onChanged = new EventEmitter();
 
   selectedValue: number = 0;
 
@@ -22,21 +25,37 @@ export class ScrollheaderComponent {
   }
 
   set selected(val: number) {
+    if (this.selectedValue == val) return;
     this.selectedValue = val;
     this.selectedChange.emit(this.selectedValue);
+    setTimeout(() => this.onChanged.emit(this.selectedValue), 120);
   }
+  offsetLeft: number;
 
-  constructor() {
+  constructor(private el: ElementRef) {
     console.log('Hello ScrollheaderComponent Component');
   }
 
   ngAfterViewInit() {
-
+    this.offsetLeft = this.el.nativeElement.offsetParent.offsetLeft;
   }
 
-  tap(i) {
-    if (this.selected === i) return;
-    this.selected = i;
+  tap(event) {
+    //console.log(event);
+    let index = event.target.getAttribute('index');
+    if (this.selected == index || !index && index !== "0") return;
+    this.selected = index;
+    this.scrollTo(event.target);
     //this.onChanged.emit(i);
+  }
+  scrollTo(target) {
+
+    let middle = this.scroll.scrollElement.offsetWidth / 2 - target.offsetWidth / 2;
+    let rect = target.getBoundingClientRect();
+    let x = rect.left - this.offsetLeft - middle;
+    console.log(x);
+    this.scroll.scrollToX(x);
+    //console.log(rect);
+    //this.scroll.
   }
 }

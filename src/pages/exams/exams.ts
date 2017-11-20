@@ -4,7 +4,7 @@ import { Pageview } from '../../model/pageview';
 import { ExamsProvider } from '../../providers/exams/exams';
 import { ChartsProvider } from '../../providers/charts/charts';
 
-import { REPORT_PAGE, DOCTOR_PAGE } from '../pages.constants';
+import { REPORT_PAGE, DOCTOR_PAGE, REPLY_PAGE } from '../pages.constants';
 /**
  * Generated class for the ExamsPage page.
  *
@@ -20,11 +20,12 @@ import { REPORT_PAGE, DOCTOR_PAGE } from '../pages.constants';
 export class ExamsPage {
   pages: any = {
     report: REPORT_PAGE,
-    doctor: DOCTOR_PAGE
+    doctor: DOCTOR_PAGE,
+    reply: REPLY_PAGE,
   }
   view: Pageview;
-  latest: any = {};
-  exams: any[];
+  latest: any;
+  exams: any[] = [];
   total: number;
   waterball: any;
   option: any;
@@ -47,6 +48,10 @@ export class ExamsPage {
     this.view = new Pageview();
 
     this.examsPro.exams(this.view).then(res => {
+      if (!res || !res.latest) {
+        this.latest = null;
+        return;
+      }
       console.log(res);
       this.latest = res.latest;
       this.waterball = this.chartsPro.ball(this.latest.percent, this.latest.score);

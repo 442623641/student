@@ -16,6 +16,9 @@ page-report {
         font-size: 1.4rem;
       }
     }
+    h6 {
+      font-weight: 400;
+    }
   }
 
   .swiper-slide {
@@ -27,6 +30,7 @@ page-report {
 
 
   .card {
+    position: relative;
     .card-header {
       padding-bottom: 10px;
     }
@@ -50,6 +54,7 @@ page-report {
           align-self: center;
           &:first-child {}
           .icon {
+            margin-right: 5px;
             font-size: 1.8em; //background: #FFEB3B;
             padding: 5px;
             border-radius: 50%;
@@ -108,49 +113,69 @@ page-report {
       }
     }
   }
-  [ng-reflect-name=star-outline] {
+  .ion-ios-star-outline {
     background: #f56d4e;
   }
-  [ng-reflect-name=ichinese] {
+  .ion-ios-ichinese {
     background: #ff8820;
   }
-  [ng-reflect-name=imath] {
+  .ion-ios-imath {
     background: #04b8d9;
   }
-  [ng-reflect-name=ienglish] {
+  .ion-ios-ienglish {
     background: #b564ef;
   }
-  [ng-reflect-name=ibulb] {
+  .ion-ios-ibulb {
     background: #7788f2;
   }
-  [ng-reflect-name=ichemistry] {
+  .ion-ios-ichemistry {
     background: #3ad1a4;
   }
-  [ng-reflect-name=ibiology] {
+  .ion-ios-ibiology {
     background: #ffc001;
   }
-  [ng-reflect-name=ipolitics] {
+  .ion-ios-ipolitics {
     background: #d74ce8;
   }
-  [ng-reflect-name=ihistory] {
+  .ion-ios-ihistory {
     background: #3ac8d1;
   }
-  [ng-reflect-name=igeography] {
+  .ion-ios-igeography {
     background: #54adff;
   }
-  [ng-reflect-name=iscience] {
+  .ion-ios-iscience {
     background: #5872f8;
   }
-  [ng-reflect-name=iliterature] {
+  .ion-ios-iliterature {
     background: #ff5454;
   }
-  [ng-reflect-name=icustom] {
+  .ion-ios-icustom {
     background: #f56d4e;
   }
-  modal {
-    .swiper-slide {
-      img {
-        height: 150px;
+
+  .card-modal {
+    // align-items: center;
+    z-index: 3; // top: 48px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 90px;
+    margin: auto;
+    right: 0;
+    position: absolute; // height: calc(100% - 48px);
+    // width: 100%; //background: rgba(255, 255, 255, .85);
+    &~ion-backdrop {
+      @extend .blur;
+      top: 48px;
+      background: #fff;
+      opacity: .87;
+      filter: blur(15px);
+      height: calc(100% - 48px);
+    }
+    p {
+      .button {
+        padding: 0 3.6rem;
+        box-shadow: 0 5px 5px rgba(color($colors, primary), .45);
       }
     }
   }

@@ -1,9 +1,20 @@
 import { Component, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { RECHARGE_PAGE, PERSONAL_PAGE, EXAMS_PAGE, ENALYZING_PAGE, EXCELLENT_PAGE, LOST_PAGE } from '../pages.constants';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import {
+  RECHARGE_PAGE,
+  PERSONAL_PAGE,
+  EXAMS_PAGE,
+  ENALYZING_PAGE,
+  EXCELLENT_PAGE,
+  LOST_PAGE,
+  UNCLAIMEDEXAMS_PAGE,
+  PACKAGE_PAGE
+} from '../pages.constants';
 import { HomeProvider } from "../../providers/home";
 import { UserProvider } from '../../providers/user';
+import { NativeProvider } from '../../providers/native';
+import { PaymentProvider } from '../../providers/payment/payment';
 import { StaticProvider } from '../../providers/static/static';
 import { Package } from '../../model/package';
 import { UserInfo } from '../../model/userInfo';
@@ -23,12 +34,14 @@ import { UserInfo } from '../../model/userInfo';
 })
 export class HomePage {
   pages: any = {
+    package: PACKAGE_PAGE,
     recharge: RECHARGE_PAGE,
     personal: PERSONAL_PAGE,
     exams: EXAMS_PAGE,
     enalyzing: ENALYZING_PAGE,
     excellent: EXCELLENT_PAGE,
     lost: LOST_PAGE,
+    unclaimed: UNCLAIMEDEXAMS_PAGE
   }
   @ViewChild('ball') ballEl: any;
   private option: any;
@@ -47,26 +60,53 @@ export class HomePage {
   */
   private userInfo: UserInfo;
 
+  listen: any = {};
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private homeProvider: HomeProvider,
     private userProvider: UserProvider,
-    private staticPro: StaticProvider) {}
+    private staticPro: StaticProvider,
+    private paymentPro: PaymentProvider,
+    private viewCtrl: ViewController,
+    private nativePro: NativeProvider,
+  ) {}
   ngAfterViewInit() {
     this.userProvider.getUserInfo().then((userInfo: UserInfo) => {
       this.userInfo = userInfo;
       console.log(this.userInfo);
     });
-    this.homeProvider.index().then(res => {
 
-      this.package = res.package;
+    this.loadData();
+  }
+
+  loadData() {
+    return this.homeProvider.index().then(res => {
+      this.package = new Package(res.package);
       this.homeProvider.setBadge(res.msgCount);
       console.log(res);
 
     }).catch(ex => {
+      console.log(ex);
       this.package = null;
+      return Promise.resolve();
     });
+  }
+
+  open() {
+    this.ionViewWillEnter();
+    this.listen = this.paymentPro.achieve$.subscribe(res => {
+      let start = this.navCtrl.indexOf(this.viewCtrl);
+      this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
+        this.nativePro.showLoading();
+        this.loadData().then(() => this.nativePro.hideLoading());
+      })
+    });
+  }
+
+  ionViewWillEnter() {
+    this.listen.unsubscribe && this.listen.unsubscribe();
   }
 
 }

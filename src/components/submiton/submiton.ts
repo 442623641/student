@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 /**
  * Generated class for the SubmitonComponent component.
@@ -11,17 +11,24 @@ import { Component, Input } from '@angular/core';
   templateUrl: 'submiton.html'
 })
 export class SubmitonComponent {
-  state: string;
-  @Input() text: string = '保 存';
   constructor() {
     console.log('Hello SubmitonComponent Component');
   }
 
-  onTap() {
-    this.state = this.state ? '' : "processing";
-    setTimeout(() => {
-      //this.state = 'success';
-    }, 3000);
-  }
+  stateValue: boolean;
+  @Output() stateChange = new EventEmitter();
 
+  @Input()
+  get state() {
+    return this.stateValue;
+  }
+  set state(val: boolean) {
+    if (this.stateValue == val) return;
+    this.stateValue = val;
+    val && this.stateChange.emit(this.stateValue);
+  }
+  onTap() {
+    if (this.stateValue) return;
+    this.state = true;
+  }
 }

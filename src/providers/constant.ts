@@ -16,6 +16,7 @@ export class Constant {
     USERINFO: "userInfo",
     ACCOUNT: "account",
     TOPICS: "topics",
+    COUPON: "coupon"
   };
 
 

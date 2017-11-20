@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { RechargePage } from './recharge';
 import { PaymentPageModule } from '../payment/payment.module';
+import { ComponentsModule } from '../../components/components.module';
 @NgModule({
   declarations: [
     RechargePage,
@@ -9,6 +10,7 @@ import { PaymentPageModule } from '../payment/payment.module';
   imports: [
     IonicPageModule.forChild(RechargePage),
     PaymentPageModule,
+    ComponentsModule,
   ],
 })
 export class RechargePageModule {}

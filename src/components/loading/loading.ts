@@ -34,17 +34,17 @@ export class Loading {
       }
     });
 
-    this.httpHandler.handleAuth$.subscribe(info => {
-      this.navCtrl.setRoot(LoginPage, {}, { animation: 'md-transition', animate: true });
-    })
+    // this.httpHandler.handleAuth$.subscribe(info => {
+    //   this.navCtrl.setRoot(LoginPage, {}, { animation: 'md-transition', animate: true });
+    // })
 
-    this.httpHandler.$invoke.subscribe(() => {
-      this.state = 0;
-    });
+    // this.httpHandler.$invoke.subscribe(() => {
+    //   this.state = 0;
+    // });
 
-    this.httpHandler.$complete.subscribe(() => {
-      this.state = 200;
-    });
+    // this.httpHandler.$complete.subscribe(() => {
+    //   this.state = 200;
+    // });
   }
 
   complete() {

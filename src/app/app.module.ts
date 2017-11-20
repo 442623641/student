@@ -3,11 +3,13 @@ import { IonicStorageModule } from '@ionic/storage';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
+//import {HttpClientModule} from '@angular/common/http';
 import { StudentApp } from './app.component';
 import * as Icon from 'iconcolorful';
 
-//enableProdMode();
+enableProdMode();
 Icon.enableColorful();
+
 // import { AboutPage } from '../pages/about/about';
 // import { ContactPage } from '../pages/contact/contact';
 
@@ -25,7 +27,6 @@ import { TabsModule } from '../core/tabs/tabs.module';
  */
 
 import { HTTP } from '@ionic-native/http';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Toast } from '@ionic-native/toast';
@@ -36,7 +37,7 @@ import { Dialogs } from '@ionic-native/dialogs';
  *Components module
  */
 // import { Loading } from '../components/loading/loading'
-import { ComponentsModule } from '../components';
+import { ComponentsModule } from '../components/components.module';
 import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
 /**
  *provider
@@ -54,7 +55,11 @@ import { StaticProvider } from '../providers/static/static';
 import { SharedProvider } from '../providers/shared/shared';
 import { EnalyzingProvider } from '../providers/enalyzing/enalyzing';
 import { ExcellentProvider } from '../providers/excellent/excellent';
+import { PaymentProvider } from '../providers/payment/payment';
+import { SeptnetpayProvider } from '../providers/payment/septnetpay';
 import { LostProvider } from '../providers/lost/lost';
+import { PackageProvider } from '../providers/package/package';
+
 //import { AnalysisProvider } from '../providers/analysis/analysis';
 //import { ReportProvider } from '../providers/report/report';
 
@@ -69,11 +74,16 @@ import { LostProvider } from '../providers/lost/lost';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    //HttpClientModule,
     IonicModule.forRoot(StudentApp, {
       backButtonText: '',
+      mode: 'ios',
       iconMode: 'ios',
       tabsPlacement: 'bottom',
-      pageTransition: 'ios-transition',
+      modalEnter: 'modal-md-slide-in',
+      modalLeave: 'modal-md-slide-out',
+      //pageTransition: 'ios-transition',
       tabsHideOnSubPages: true,
       menuType: 'push',
       platforms: {
@@ -89,7 +99,7 @@ import { LostProvider } from '../providers/lost/lost';
     // UsercenterPageModule,
     // NewsPageModule,
     IonicStorageModule.forRoot(),
-    HttpModule,
+
 
 
 
@@ -108,6 +118,8 @@ import { LostProvider } from '../providers/lost/lost';
     HttpHandler,
     Constant,
     UserProvider,
+    PaymentProvider,
+    SeptnetpayProvider,
     NativeProvider,
 
     /* 
@@ -123,9 +135,9 @@ import { LostProvider } from '../providers/lost/lost';
     SharedProvider,
     EnalyzingProvider,
     ExcellentProvider,
-    ExcellentProvider,
-    ExcellentProvider,
     LostProvider,
+    PackageProvider,
+    //PaymentProvider,
     //AnalysisProvider,
     //GradeProvider,
   ]

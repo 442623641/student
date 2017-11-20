@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+//import { HttpClient, HttpHeaders, } from '@angular/common/http';
+import { Headers, Http } from '@angular/http';
 import { HTTP } from '@ionic-native/http';
 
 import { HttpHandler } from "./httpHandler";
@@ -20,7 +21,7 @@ import 'rxjs/add/operator/map';
 export class HttpProvider {
   private version: string = "1.0.0";
 
-  private isNative: boolean;
+  isNative: boolean;
   domin: string = 'http://studentapp.septnet.cn/';
   token: string;
 
@@ -32,6 +33,7 @@ export class HttpProvider {
    * @param headers:Headers
    */
   get: Function;
+
   /**
    * http 请求
    *
@@ -66,6 +68,7 @@ export class HttpProvider {
 
 
   initialize(version: string) {
+    console.log('HttpProvider initialize');
     this.setVersion(version);
     if (this.isNative) {
       //真机环境
@@ -100,7 +103,6 @@ export class HttpProvider {
     let data = {};
     try {
       if (res.status >= 400) {
-        //return this.handleService.handleMessage('请查看网络是否已经链接');
         throw { status: 600, message: '请查看网络是否连接' }
       }
       if (res.data) {
@@ -118,7 +120,6 @@ export class HttpProvider {
 
   /*
    * http get sdk 请求
-   *
    * @param url: string,
    * @param body:object，
    * @param headers:Headers
@@ -145,8 +146,7 @@ export class HttpProvider {
     headers.append('Content-Type', 'application/json; charset=utf-8');
     headers.append('Version', this.version);
     this.token && headers.append('Token', this.token);
-    let options = new RequestOptions({ headers: headers });
-    return this.http.get(url + '?' + this.toParams(body), options)
+    return this.http.get(url + '?' + this.toParams(body), { headers })
       .toPromise()
       .then(res => this.json(res))
       .catch(err => this.catchError(err, inject));
@@ -182,8 +182,8 @@ export class HttpProvider {
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
     headers.append('Version', this.version);
     this.token && headers.append('Token', this.token);
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(url, this.toParams(body), options)
+    //let options = new RequestOptions({ headers: headers });
+    return this.http.post(url, this.toParams(body), { headers })
       .toPromise()
       .then(res => this.json(res))
       .catch(err => this.catchError(err, inject));
@@ -221,11 +221,7 @@ export class HttpProvider {
   }
   catchError(err, inject) {
     //autoCompletethis.han
-    if (inject) {
-      throw err;
-    } else {
-      this.handleService.handleError(err);
-    }
+    this.handleService.handleError(err);
   }
 
 }

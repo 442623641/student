@@ -19,6 +19,7 @@ export class SidenavComponent {
     return this.openValue;
   }
   set open(val: boolean) {
+    if (this.openValue == val) return;
     this.openValue = val;
     this.openChange.emit(this.openValue);
   }

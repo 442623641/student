@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ConfirmPage } from './confirm';
 import { NewPwdProvider } from '../../providers/newpwd/newpwd';
+import { ComponentsModule } from '../../components/components.module';
 @NgModule({
   declarations: [
     ConfirmPage,

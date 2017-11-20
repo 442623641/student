@@ -1,0 +1,34 @@
+<!--
+  Generated template for the EnalyzingmodalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-card>
+  <ion-card-header>
+    开通学情套餐
+    <p>历次考试错题分析尽在掌握</p>
+  </ion-card-header>
+  <ion-item>
+    <ion-icon name="istatistics" item-start color="primary"></ion-icon>
+    <h3>丢分统计</h3>
+    <p>错题数量和丢分趋势，一目了然</p>
+  </ion-item>
+  <ion-item>
+    <ion-icon name="ilevel" item-start color="primary"></ion-icon>
+    <h3>难度分析</h3>
+    <p>错题按难度分类，发现自我能力不足</p>
+  </ion-item>
+  <ion-item>
+    <ion-icon name="ilookup" item-start color="primary"></ion-icon>
+    <h3>找出错误</h3>
+    <p>避免无谓失分，逐渐改变做题习惯</p>
+  </ion-item>
+  <div class="strong">开通学情套餐历次考试错题分析尽在掌握您共有<span>{{option.total}}</span>次考试，还有<span>{{option.unauthorized}}</span>次学情报告未生成。建议开通学情套餐，错题分析更为精确！</div>
+  <p text-center style="padding-bottom: 10px;">
+    <button ion-button round (click)="onTap()">立即开通</button>
+  </p>
+</ion-card>
+<button ion-button clear icon-only color="white" (click)="viewCtrl.dismiss()">
+  <ion-icon name="close-circle-outline"></ion-icon>
+</button>

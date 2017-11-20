@@ -24,17 +24,24 @@ export const REPORT_PAGE = 'ReportPage';
 
 export const DOCTOR_PAGE = 'DoctorPage';
 export const TOPICS_PAGE = 'TopicsPage';
-export const ANALYSIS_PAGE = 'AnalysisPage';
 
 export const NEWS_PAGE = 'NewsPage';
 export const MESSAGE_PAGE = 'MessagePage';
 export const MESSAGEINFO_PAGE = 'MessageInfoPage';
-export const UNCLAIMEDEXAMS_PAGE ='UnclaimedexamsPage';
+export const UNCLAIMEDEXAMS_PAGE = 'UnclaimedexamsPage';
 
-export const ANALYSISCONTENT_PAGE = 'AnalysiscontentPage';
 export const EXCELLENT_PAGE = 'ExcellentPage';
 export const ENALYZING_PAGE = 'EnalyzingPage';
 export const LOST_PAGE = 'LostPage';
 export const LOSTOPTION_PAGE = 'LostoptionPage';
 export const LOSTORDER_PAGE = 'LostorderPage';
 export const LOSTPAY_PAGE = 'LostpayPage';
+export const LOSTORDERMODAL_PAGE = 'LostordermodalPage';
+
+export const PACKAGE_PAGE = 'PackagePage';
+
+export const REPORTMODAL_PAGE = 'ReportmodalPage';
+
+export const REPLY_PAGE = 'ReplyPage';
+
+export const LOSTGUIDE_PAGE = 'LostguidePage';

@@ -1,0 +1,45 @@
+<!--
+  Generated template for the PackagePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>开通学情套餐</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-item-group margin-top>
+    <ion-item>
+      <span item-left>当前余额</span>
+      <label item-right>
+        <span primary>{{package?.balance}}</span> 学贝</label>
+    </ion-item>
+  </ion-item-group>
+  <ng-container *ngIf='package?.option'>
+    <ion-item-group>
+      <p class="break">选择学情套餐类型</p>
+      <a ion-item detail-none *ngFor="let item of options" [attr.checked]="package.option.year==item.year" (click)="tap(item)">
+      {{item.name}}
+        <label item-right><span primary>{{item.value}}</span>学贝</label>
+    </a>
+    </ion-item-group>
+    <p class="break" text-right>
+      <label>还需充值<span primary>{{package.dvalue}}</span>学贝
+        <br>小计：<span primary>{{package.dvalue/10}}</span>元（1元=10学贝）</label>
+    </p>
+    <coupon type="1" [value]="package.option.value" (onChange)="couponChange($event)" (fulfill)="complete($event)"></coupon>
+  </ng-container>
+  <ion-item-group class="desc">
+    <p class="break">开通学情套餐说明</p>
+    <ul>
+      <li>1.一经开通，在套餐有效期内，可免费享受平台提供的考试学情报告、错题分析、名校试题等基础数据服务。</li>
+      <li>2.开通成功后，可在首页查看学情套餐到期时间</li>
+      <li>3.如果所在学校停止使用七天网络，请及时联系客服。小七会根据套餐未使用时长进行退费。</li>
+    </ul>
+  </ion-item-group>
+</ion-content>
+<ion-footer>
+  <payment [options]="paymentOption" [amount]="paymentOption.amount" *ngIf="paymentOption"></payment>
+</ion-footer>

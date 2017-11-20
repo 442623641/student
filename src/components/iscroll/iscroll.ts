@@ -38,6 +38,7 @@ export class Iscroll {
   @Input() scrollY: boolean = true;
   @Input() scrollX: boolean = false;
   public scrollElement: any;
+  width: number;
   constructor(private el: ElementRef) {}
 
   ngAfterViewInit() {
@@ -77,14 +78,14 @@ export class Iscroll {
    *滚动到左边
    */
   scrollToLeft(duration: number = 350) {
-    return this.scrollTo(-this.getScrollLeft(), duration)
+    return this.scrollToX(-this.getScrollLeft(), duration)
 
   }
   /* 
    *滚动到顶部
    */
   scrollToTop(duration: number = 350) {
-    return this.scrollTo(-this.getScrollTop(), duration)
+    return this.scrollToY(-this.getScrollTop(), duration)
 
   }
 
@@ -92,7 +93,7 @@ export class Iscroll {
    *滚动到底部
    */
   scrollToBottom(duration: number = 350) {
-    return this.scrollTo(this.getMaxScrollTop(), duration);
+    return this.scrollToY(this.getMaxScrollTop(), duration);
   }
 
   scrollToTarget(querySelector: string, duration: number = 350) {
@@ -117,13 +118,13 @@ export class Iscroll {
         return new Promise(reslove => reslove(false));
       }
     }
-    return this.scrollTo(top, duration);
+    return this.scrollToY(top, duration);
   }
 
   /* 
    *滚动动画处理
    */
-  scrollTo(offsetY: number, duration: number = 350) {
+  scrollToY(offsetY: number, duration: number = 350) {
     return new Promise(reslove => {
       let maxTop = this.getMaxScrollTop();
       if (Math.abs(offsetY) < 5 || maxTop < 0) {
@@ -150,6 +151,46 @@ export class Iscroll {
         this.setTop(Math.max(top, 0))
         // scrollElement.scrollTop = ;
         if (interval > 0 && frames >= offsetY || interval < 0 && frames <= offsetY) {
+          cancel();
+        } else {
+          _raf();
+        }
+      }
+      _raf();
+    });
+  }
+
+  /* 
+   *滚动动画处理
+   */
+  scrollToX(offsetX: number, duration: number = 350) {
+    return new Promise(reslove => {
+      let maxLeft = this.getMaxScrollLeft();
+      if (Math.abs(offsetX) < 5 || maxLeft < 0) {
+        return reslove(false);
+      }
+      let currentFrameId = null,
+        frames = 0,
+        interval = Math.ceil(offsetX * 50 / duration),
+        start = this.getScrollLeft();
+
+      offsetX = offsetX < 0 ? Math.max(-start, offsetX) : Math.min(maxLeft, offsetX);
+
+      let cancel = () => {
+        window.cancelAnimationFrame(currentFrameId);
+        currentFrameId = null;
+        reslove(true);
+        console.log('scrollToX end');
+      }
+      let _raf = () => {
+        currentFrameId = window.requestAnimationFrame(() => _nextFrame());
+      }
+      let _nextFrame = () => {
+        frames += interval;
+        let top = start + frames;
+        this.setLeft(Math.max(top, 0))
+        // scrollElement.scrollTop = ;
+        if (interval > 0 && frames >= offsetX || interval < 0 && frames <= offsetX) {
           cancel();
         } else {
           _raf();

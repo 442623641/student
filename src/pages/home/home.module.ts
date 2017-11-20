@@ -3,11 +3,15 @@ import { IonicPageModule } from 'ionic-angular';
 import { HomePage } from './home';
 import { ExamsPageModule } from '../exams/exams.module';
 import { EnalyzingPageModule } from '../enalyzing/enalyzing.module';
+import { PackagePageModule } from '../package/package.module';
 import { ExcellentPageModule } from '../excellent/excellent.module';
+import { UnclaimedexamsPageModule } from '../unclaimedexams/unclaimedexams.module';
 import { HomeProvider } from '../../providers/home';
 import { EnalyzingProvider } from '../../providers/enalyzing/enalyzing';
 import { LostProvider } from '../../providers/lost/lost';
-import { ComponentsModule } from '../../components';
+import { CouponProvider } from '../../providers/coupon/coupon';
+
+import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
@@ -17,9 +21,11 @@ import { DirectivesModule } from '../../directives/directives.module';
   imports: [
     EnalyzingPageModule,
     ExcellentPageModule,
+    PackagePageModule,
     IonicPageModule.forChild(HomePage),
 
     ExamsPageModule,
+    UnclaimedexamsPageModule,
     //ChartsModule,
     //EchartsNg2Module,
     ComponentsModule,
@@ -30,6 +36,7 @@ import { DirectivesModule } from '../../directives/directives.module';
     HomeProvider,
     EnalyzingProvider,
     LostProvider,
+    CouponProvider,
   ]
 })
 export class HomePageModule {}

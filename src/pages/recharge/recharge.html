@@ -13,32 +13,21 @@
   <ion-item-group margin-top>
     <ion-item>
       <span item-left>当前余额</span>
-      <span ion-text color="primary" item-end>305 学贝</span>
+      <span ion-text color="primary" item-end>{{balance}} 学贝</span>
     </ion-item>
   </ion-item-group>
   <ion-item-group>
-    <p class="divider"> 选择充值学贝 （<span ion-text color="primary">1元=10学贝</span>）</p>
-    <div class="amount-buttons">
-      <ion-row justify-content-center margin-horizontal line-bottom nowrap>
-        <a [class.checked]="amount==10" (tap)="amount=10"><span>100</span>/10元</a>
-        <a [class.checked]="amount==20" (tap)="amount=20"><span>200</span>/20元</a>
-        <a [class.checked]="amount==50" (tap)="amount=50"><span>500</span>/50元</a>
-        <a [class.checked]="amount==80" (tap)="amount=80"><span>800</span>/80元</a>
-      </ion-row>
-    </div>
+    <p class="break">选择或输入学贝 （<span ion-text color="primary">1元=10学贝</span>）<span style='font-size: 1.2rem;padding: 0 6px;'>10-10000学贝</span></p>
     <ion-item>
-      <p class="custom">
-        自定义充值
-        <input type="number" max="1000" />
-        <span ion-text color="primary"> * </span>
-        <span ion-text color="primary">10-10000学贝</span>
-      </p>
+      <ion-label>充值学贝</ion-label>
+      <ion-input placeholder="选择或输入金额" [(ngModel)]="amount" maxlength="10000" max="10000" min="10" type="number"></ion-input>
+      <ion-note item-right>学贝</ion-note>
     </ion-item>
+    <ion-row justify-content-between line-bottom class="amount-buttons">
+      <a *ngFor='let item of options' [class.checked]="amount==item" (click)="tap(item)" [attr.disabled]="need>item?'':null"><i *ngIf="need==item">所需</i><span>{{item}}</span>/{{item/10}}元</a>
+    </ion-row>
   </ion-item-group>
 </ion-content>
 <ion-footer>
-  <ion-row confirm>
-    <ion-col col-8>应付金额 <span ion-text color="primary">24.50</span> 元</ion-col>
-    <a [navPush]="pages.payment">去支付</a>
-  </ion-row>
+  <payment [options]="{ ordertype: 'coin', selectxbz: amount, amount: amount }" [amount]="amount"></payment>
 </ion-footer>

@@ -64,6 +64,7 @@ export class NativeProvider {
    */
   toast = (message: string = '操作完成', duration: number = 2000, positon: string = "top") => {
     if (this.native) {
+      console.log('positon:' + positon);
       this.ntoast.show(message, String(duration), positon).subscribe();
       return new Observable(observer => {
         setTimeout(() => {

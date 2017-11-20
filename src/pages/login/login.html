@@ -28,7 +28,7 @@
       </form>
     </ion-row>
     <ion-row padding>
-      <button ion-button block (tap)="login()">
+      <button ion-button block (click)="login()">
         <span *ngIf="!processing">登 录</span>
         <ion-spinner *ngIf="processing" name="dots" color="white"></ion-spinner>
       </button>

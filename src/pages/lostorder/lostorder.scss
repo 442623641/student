@@ -1,3 +1,24 @@
 page-lostorder {
 
+  .card {
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
+    width: 100%;
+  }
+  .card-footer {
+    padding: 5px 16px;
+    .button {
+      height: 2em;
+      .spinner {
+        width: 20px;
+      }
+      &[disabled] {
+        padding-left: 16px;
+        .spinner {
+          opacity: 1;
+        }
+      }
+    }
+  }
 }

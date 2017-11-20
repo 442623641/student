@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+//import { Http } from '@angular/http';
+import { HttpProvider } from '../http';
 import 'rxjs/add/operator/map';
 
 /*
@@ -11,13 +12,11 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class PersonalProvider {
 
-  constructor(public http: Http) {
+  constructor(public http: HttpProvider) {
     console.log('Hello PersonalProvider Provider');
   }
   address() {
     return this.http.get('../assets/data/address.json')
-      .toPromise()
-      .then(response => response.json())
       .catch(err => {
         return Promise.reject(err)
       })
@@ -26,8 +25,6 @@ export class PersonalProvider {
 
   grade() {
     return this.http.get('../assets/data/grade.json')
-      .toPromise()
-      .then(response => response.json())
       .catch(err => {
         return Promise.reject(err)
       })

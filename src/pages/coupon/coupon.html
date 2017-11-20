@@ -7,25 +7,39 @@
 <ion-header>
   <ion-navbar>
     <ion-title>我的优惠卷</ion-title>
+    <ion-buttons *ngIf="showButton" end>
+      <button ion-button clear (click)="save()">确定</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content>
-   <div class="coupon-search">
-     <input type="text" placeholder="请输入优惠码" [(ngModel)]="codes">
-     <a class="button" (click)="search()">添加</a>
-   </div>
-  <ion-card *ngFor="let v of listdata" [class.expire]=" v.expired ">
-    <ion-row padding-vertical class="coupon-content" align-items-center>
-      <ion-col col-4><span [class.expired]="v.expired">{{ v.money }}</span><i class="normal" [class.expired]="v.expired">元</i></ion-col>
-      <ion-col>{{ v.couponName }}
-        <br>适用范围：{{ v.range }}
-        <br>通过活动获得
-      </ion-col>
-    </ion-row>
-    <ion-row class="coupon-date" padding-horizontal>
-      <ion-col text-left>有效期至{{ v.expiredtime | date:'yyyy年M月dd日' }}</ion-col>
-      <ion-col text-right ion-text color="primary" *ngIf=" !v.expired ">{{ v.days }}天后过期</ion-col>
-      <ion-col text-right ion-text *ngIf=" v.expired " [class.expired]=" v.expired ">已过期</ion-col>
-    </ion-row>
-  </ion-card>
+  <div class="coupon-search">
+    <input type="text" placeholder="请输入优惠码" [(ngModel)]="codes">
+    <a class="button" (click)="search()">添加</a>
+  </div>
+  <ng-template [ngIf]="coupons" [ngIfElse]="loading">
+    <ion-card *ngFor="let v of coupons;let i=index;" [class.expire]="v.expired" [attr.checked]="v.couponCode==checked">
+      <ion-row padding-vertical class="coupon-content" align-items-center (click)="setChecked(v.couponCode)" [ngSwitch]="v.couponType>0">
+        <ion-col col-4 *ngSwitchCase="true"><span [class.expired]="v.expired">{{ v.money }}</span><i class="normal" [class.expired]="v.expired">元</i>
+        </ion-col>
+        <ion-col col-4 *ngSwitchCase="false"><span [class.expired]="v.expired">{{ v.rate*100 }}</span><i class="normal" [class.expired]="v.expired">折</i>
+        </ion-col>
+        <ion-col class="row" justify-content-between>
+          <span>{{ v.couponName }}
+          <br>适用范围：{{ v.range }}
+          <br>通过活动获得
+        </span>
+          <ion-icon name='checkmark-circle-outline' color="white"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row class="coupon-date" padding-horizontal nowrap [ngSwitch]="!!v.expired">
+        <ion-col text-left col-7>有效期至{{ v.expiredtime | date:'yyyy年M月dd日' }}</ion-col>
+        <ion-col text-right primary *ngSwitchCase="false">{{ v.days }}天后过期</ion-col>
+        <ion-col text-right ion-text *ngSwitchCase="true" class='expired'>已过期</ion-col>
+      </ion-row>
+    </ion-card>
+  </ng-template>
+  <ng-template #loading>
+    <loading [status]="coupons"></loading>
+  </ng-template>
 </ion-content>

@@ -4,7 +4,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { HttpProvider } from "./http";
-import { Constant } from "./constant";
+import { USERINFO, ACCOUNT } from './providers.constants';
 import { HttpHandler } from "./httpHandler";
 import { UserInfo } from "../model/userInfo";
 import { StaticProvider } from "./static/static";
@@ -15,7 +15,6 @@ export class UserProvider {
   constructor(
     private http: HttpProvider,
     private storage: Storage,
-    private constant: Constant,
     private httpHandler: HttpHandler,
     private staticPro: StaticProvider,
   ) {}
@@ -48,8 +47,8 @@ export class UserProvider {
   logout() {
     //友盟登出统计
     //this.mobclickAgent.profileSignOff();
-    this.storage.remove(this.constant.storage.USERINFO);
-    this.storage.remove(this.constant.storage.ACCOUNT);
+    this.storage.remove(USERINFO);
+    this.storage.remove(ACCOUNT);
     this.httpHandler.handleAuth();
     return this.getLogin().then(res => {
       return res && this.setLogin({ usercode: res.usercode });
@@ -58,18 +57,18 @@ export class UserProvider {
 
 
   setUserInfo(userInfo: UserInfo) {
-    this.storage.set(this.constant.storage.USERINFO, userInfo);
+    this.storage.set(USERINFO, userInfo);
   }
 
   setLogin(login) {
-    return this.storage.set(this.constant.storage.ACCOUNT, login);
+    return this.storage.set(ACCOUNT, login);
   }
 
   getLogin() {
-    return this.storage.get(this.constant.storage.ACCOUNT);
+    return this.storage.get(ACCOUNT);
   }
 
   getUserInfo(): Promise < UserInfo > {
-    return this.storage.get(this.constant.storage.USERINFO);
+    return this.storage.get(USERINFO);
   }
 }

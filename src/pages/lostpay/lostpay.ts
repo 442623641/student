@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LostProvider } from '../../providers/lost/lost';
-import {} from '../pages.constants';
-
+import { PAYMENT_PAGE, COUPON_PAGE } from '../pages.constants';
+import { PaymentOption, Order } from '../../model/payment';
+import { UserProvider } from '../../providers/user';
+import { Elost } from '../../model/elost';
 /**
  * Generated class for the LostpayPage page.
  * Add by leo zhang 201710010101
@@ -16,41 +18,83 @@ import {} from '../pages.constants';
   templateUrl: 'lostpay.html',
 })
 export class LostpayPage {
+
+  subjects: Elost[];
+  subjectNames: any[];
   /**
    * 单价
    */
-  price: number;
-
-  /**
-   * 支付学贝
-   */
-  coin: number;
+  price: number = 80;
 
   /**
    * child pages
    */
   pages: any = {
-
+    payment: PAYMENT_PAGE,
+    coupon: COUPON_PAGE
   }
 
-  subjectNames: string[] = [];
+  balance: number;
+
+  /**
+   * 订单信息
+   */
+  payOptions: PaymentOption;
+
+  order: Order = new Order();
+
+  eguids: { name: string, exams: string }[];
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public lostPro: LostProvider,
+    private userPro: UserProvider
   ) {
-    this.subjectNames = this.navParams.get('subjects');
+    this.subjects = this.navParams.get('subjects');
+    this.subjectNames = this.subjects.map(item => { return item.name });
+
+    this.eguids = this.subjects.map(item => {
+      return {
+        name: item.name,
+        exams: item.exams.map(e => {
+          return e.guid;
+        }).join(',')
+      }
+    });
+    console.log(this.eguids);
+    //this.eguids = this.navParams.get('guids');
   }
 
   ngAfterViewInit() {
-    this.setPrice(80);
+    this.userPro.getUserInfo().then(res => {
+      this.order = new Order(res.coin, this.subjects.length * this.price);
+      this.setPrice(this.price);
+    });
+
     console.log('ionViewDidLoad LostpayPage');
 
   }
 
   setPrice(val: number) {
     this.price = val;
-    this.coin = this.subjectNames.length * this.price;
+    //this.order = new Order(this.balance, this.subjects.length * this.price);
+    this.order.setValue(this.subjects.length * this.price);
+    this.setParams(this.order);
   }
+
+  /**
+   *确认下单
+   */
+  couponChange(event) {
+    this.order.setCoupon(event);
+    this.setParams(this.order);
+  }
+
+  setParams(obj: Order) {
+    this.payOptions = { ordertype: 'elecerrorbook', amount: obj.amount, product: 0, examguids: this.eguids }
+    if (obj.coupon) this.payOptions.couponcode = obj.coupon;
+  }
+
 
 }

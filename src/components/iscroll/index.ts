@@ -1,1 +1,0 @@
-export { Iscroll } from './iscroll';

@@ -96,6 +96,16 @@ export class ReportOptions {
    */
   comranksIndex: number = 0;
 
+  /**
+   *科目列表
+   */
+  subjects: string[];
+
+  /**
+   *成绩趋势科目列表,无总分
+   */
+  scoreSubjects: string[];
+
   constructor(obj: any = { percent: 0, level: 1, studentCount: 1, scores: [], levelanalysis: null, learnanalysis: null }) {
     this.level = obj.level;
     this.studentCount = obj.studentCount;
@@ -106,6 +116,8 @@ export class ReportOptions {
     this.comranks = obj.comranks || [];
     this.ranktrends = obj.ranktrends || [];
     this.scoretrends = obj.scoretrends || [];
+    this.subjects = this.getSubjects();
+    this.scoreSubjects = this.subjects.filter(item => { return item != '总分' });
   }
 
   /**
@@ -138,10 +150,10 @@ export class ReportOptions {
     this.comranks[this.comranksIndex] = val;
   }
 
-  get subjects() {
+  private getSubjects() {
     return this.scores.map(item => {
       return item.name;
-    }).filter((item, index) => { return index > 0 });
+    }); //.filter((item, index) => { return index > 0 });
   }
 }
 

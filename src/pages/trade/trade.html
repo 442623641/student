@@ -4,20 +4,21 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-   <ion-list>
-	 <ion-item margin-vertical-12>
-     <h3 item-start>当前余额</h3>
-     <h3 item-end>385学贝</h3>
-   </ion-item>
- <ion-item *ngFor="let v of tradeinfo">
-    <div item-start>
-      <h3>{{ v.method }}</h3>
-      <p>交易单号：{{ v.id }}</p>
-    </div>
-   <div item-end>
-     <h3 text-end class="minus" [class.plus]="v.type">{{ v.money }}</h3>
-     <P>{{v.time}}</P>
-   </div>
- </ion-item>
-   </ion-list>
+  <ion-list>
+    <ion-item no-lines>
+      <ion-label item-start>当前余额</ion-label>
+      <ion-label item-end text-right><span primary>385</span>学贝</ion-label>
+    </ion-item>
+    <ion-item-divider></ion-item-divider>
+    <ion-item *ngFor="let v of tradeinfo">
+      <div item-start>
+        <h3>{{ v.method }}</h3>
+        <p>交易单号：{{ v.id }}</p>
+      </div>
+      <div item-end>
+        <h3 text-end class="minus" [class.plus]="v.type">{{ v.money }}</h3>
+        <P>{{v.time}}</P>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>

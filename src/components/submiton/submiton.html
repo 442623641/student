@@ -1,3 +1,11 @@
 <!-- Generated template for the SubmitonComponent component -->
-<button ion-button block (tap)="onTap()" [ngClass]="{'processing':state=='processing','success':state=='success'}">
-  <ion-icon item-left name="checkmark"></ion-icon> <span class="text">{{text}}</span></button>
+<!-- <button ion-button block (tap)="onTap()" [ngClass]="{'processing':state=='processing','success':state=='success'}">
+  <ion-icon item-left name="checkmark"></ion-icon> <span class="text">{{text}}</span></button> -->
+<button ion-button block (click)="state=true" [attr.disabled]="state===undefined?'':null">
+  <ng-template [ngIf]="state" [ngIfElse]="bubbles">
+    <ion-spinner name="bubbles" color="white"></ion-spinner>
+  </ng-template>
+  <ng-template #bubbles>
+    <ng-content></ng-content>
+  </ng-template>
+</button>

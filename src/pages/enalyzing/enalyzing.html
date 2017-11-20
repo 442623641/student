@@ -8,7 +8,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>错题分析</ion-title>
-    <ion-buttons end *ngIf="enalyzingOpt?.state">
+    <ion-buttons end *ngIf="enalyzingOpt">
       <button ion-button (tap)="showMenu=true">
         筛选
       </button>
@@ -21,44 +21,52 @@
   </p>
 </ion-header>
 <ion-content (ionScrollStart)="scrollStart($event)" (ionScrollEnd)="scrollEnd($event)" #content padding-top>
-  <ng-template [ngIf]="enalyzingOpt?.state" [ngIfElse]="loading">
-    <ng-container *ngFor="let exam of enalyzingOpt.exams;let e = index;">
-      <p class="affix" line-bottom *ngIf="exam.count"><span>{{exam.name}}</span><span><span ion-text color="primary">
+  <ng-template [ngIf]="enalyzingOpt" [ngIfElse]="loading">
+    <ng-template [ngIf]="enalyzingOpt.unauthorized<enalyzingOpt.total" [ngIfElse]="guide">
+      <ng-container *ngFor="let exam of enalyzingOpt.exams;let e = index;">
+        <p class="affix" line-bottom *ngIf="exam.count"><span>{{exam.name}}</span><span><span ion-text color="primary">
       {{exam.count}}</span>道错题</span><span float-right>{{exam.time | date:'yyyy年M月d日'}}</span></p>
-      <transition name="block" [if]="!que.delete" *ngFor="let que of exam.questions;let q = index;" (afterLeave)="del(e,q)">
-        <div class="block-card">
-          <ion-row justify-content-between class="block-card-header" nowrap line-bottom padding-right>
-            <ion-col col-3>第{{que.no}}题</ion-col>
-            <ion-col col-auto><span>满分:{{que.tofull}}分</span><span>我的得分:{{que.tofull}}分</span><span>难度:{{que.tolevel}}</span></ion-col>
-            <a padding-right interactive (tap)="que.delete=true" class="col">
-              <ion-icon name="close"></ion-icon>
-            </a>
-          </ion-row>
-          <div class="content-img">
-            <img-lazy [src]="img" *ngFor="let img of que.paper"> </img-lazy>
+        <transition name="block" [if]="!que.delete" *ngFor="let que of exam.questions;let q = index;" (afterLeave)="del(e,q)">
+          <div class="block-card">
+            <ion-row justify-content-between class="block-card-header" nowrap line-bottom padding-right>
+              <ion-col col-3>第{{que.no}}题</ion-col>
+              <ion-col col-auto><span>满分:{{que.tofull}}分</span><span>我的得分:{{que.tofull}}分</span><span>难度:{{que.tolevel}}</span></ion-col>
+              <a padding-right interactive (tap)="que.delete=true" class="col">
+                <ion-icon name="close"></ion-icon>
+              </a>
+            </ion-row>
+            <div class="content-img">
+              <img-lazy [src]="img" *ngFor="let img of que.paper"> </img-lazy>
+            </div>
+            <ion-row padding-vertical-10>
+              <ng-template [ngIf]="que.objective" [ngIfElse]="objective">
+                <a *ngIf="que.reply?.length" (tap)="toast(que.replyString)">我的答案</a>
+                <a *ngIf="que.answer?.length" (tap)="toast(que.answerString)">标准答案</a>
+              </ng-template>
+              <ng-template #objective>
+                <a [imgviewer]="{title:exam.name,images:que.reply}" *ngIf="que.reply?.length">我的答案</a>
+                <a (tap)="excellent(e,q)">优秀答卷</a>
+                <a [imgviewer]="{title:exam.name,images:que.answer}" *ngIf="que.answer?.length">标准答案</a>
+              </ng-template>
+            </ion-row>
           </div>
-          <ion-row padding-vertical-10>
-            <ng-template [ngIf]="que.objective" [ngIfElse]="objective">
-              <a *ngIf="que.reply?.length" (tap)="toast(que.replyString)">我的答案</a>
-              <a *ngIf="que.answer?.length" (tap)="toast(que.answerString)">标准答案</a>
-            </ng-template>
-            <ng-template #objective>
-              <a [imgviewer]="{title:exam.name,images:que.reply}" *ngIf="que.reply?.length">我的答案</a>
-              <a (tap)="excellent(e,q)">优秀答卷</a>
-              <a [imgviewer]="{title:exam.name,images:que.answer}" *ngIf="que.answer?.length">标准答案</a>
-            </ng-template>
-          </ion-row>
-        </div>
-      </transition>
-    </ng-container>
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!enalyzingOpt.end">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+        </transition>
+      </ng-container>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!enalyzingOpt.end">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ng-template>
+    <ng-template #guide>
+      <img src="assets/iamges/enalyzingbg.png">
+    </ng-template>
   </ng-template>
   <ng-template #loading>
-    <loading [status]="enalyzingOpt?enalyzingOpt.state:undefined"></loading>
+    <loading [status]="enalyzingOpt"></loading>
   </ng-template>
 </ion-content>
+<ion-footer *ngIf="enalyzingOpt&&enalyzingOpt.unauthorized==enalyzingOpt.total">
+  <button ion-button full [navPush]="pages.package">立即开通</button>
+</ion-footer>
 <sidenav [(open)]="showMenu" *ngIf="enalyzingOpt">
   <ion-item-group>
     <ion-item-divider color="light">科目</ion-item-divider>
@@ -79,21 +87,3 @@
     </p>
   </ion-footer>
 </sidenav>
-<modal [(open)]="package" [option]="{total:enalyzingOpt.total,unauthorized:enalyzingOpt.unauthorized,title:'开通学情套餐',subtitle:'历次错题分析尽在掌握'}" *ngIf="enalyzingOpt">
-  <ion-item>
-    <ion-icon name="istatistics" item-start color="primary"></ion-icon>
-    <h3>丢分统计</h3>
-    <p>错题数量和丢分趋势，一目了然</p>
-  </ion-item>
-  <ion-item>
-    <ion-icon name="ilevel" item-start color="primary"></ion-icon>
-    <h3>难度分析</h3>
-    <p>错题按难度分类，发现自我能力不足</p>
-  </ion-item>
-  <ion-item>
-    <ion-icon name="ilookup" item-start color="primary"></ion-icon>
-    <h3>找出错误</h3>
-    <p>避免无谓失分，逐渐改变做题习惯</p>
-  </ion-item>
-</modal>
-<!-- <ion-nav [root]="rootPage" #mycontent miana></ion-nav> -->

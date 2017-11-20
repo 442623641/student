@@ -4,8 +4,8 @@
     <div class="modal">
       <ion-list no-lines class="modal-content">
         <ion-list-header>
-          <h2>{{title}}</h2>
-          <p *ngIf="subtitle">{{title}}</p>
+          <h2>开通学情套餐</h2>
+          <p *ngIf="option.subtitle">{{option.subtitle}}</p>
         </ion-list-header>
         <ng-content>
           <!-- <ion-item>
@@ -25,16 +25,16 @@
 </ion-item>
  -->
         </ng-content>
-        <div class="strong">您共有 <span ion-text color="primary">{{option.total}}</span> 场考试，还有 <span ion-text color="primary">{{option.unauthorized}}</span> 次学情报告未生成。建议开通学情套餐，错题分析更准确！</div>
+        <div class="strong">您共有 <span ion-text color="primary">{{option.total}}</span> 场考试，还有 <span primary>{{option.unauthorized}}</span> 次学情报告未生成。建议开通学情套餐，错题分析更准确！</div>
         <p text-center style="padding-bottom: 10px;">
-          <button ion-button round>立即开通</button>
+          <button ion-button round (click)="tap()">立即开通</button>
         </p>
       </ion-list>
       <svg class="modal-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
         <rect x="0" y="0" fill="none" width="85vw" height="420" rx="3" ry="3"></rect>
       </svg>
     </div>
-    <button ion-button clear icon-only color="white" (tap)="close()">
+    <button ion-button clear icon-only color="white" (click)="close()">
       <ion-icon name="close-circle-outline"></ion-icon>
     </button>
   </div>

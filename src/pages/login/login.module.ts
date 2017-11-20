@@ -4,7 +4,7 @@ import { LoginPage } from './login';
 //import { RegisterPageModule } from '../register/register.module';
 import { ValidationPageModule } from '../validation/validation.module';
 import { Rocket } from '../../components/rocket/rocket';
-
+import { ComponentsModule } from '../../components/components.module';
 @NgModule({
   declarations: [
     LoginPage,

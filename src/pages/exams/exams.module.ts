@@ -3,17 +3,19 @@ import { IonicPageModule } from 'ionic-angular';
 import { ExamsPage } from './exams';
 import { ReportPageModule } from '../report/report.module';
 import { DoctorPageModule } from '../doctor/doctor.module';
+import { ReplyPageModule } from '../reply/reply.module';
+
 //import { ScrollheaderComponent } from '../../components/scrollheader/scrollheader';
-import { ComponentsModule } from '../../components';
+import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
 import { ExamsProvider } from '../../providers/exams/exams';
 import { ChartsProvider } from '../../providers/charts/charts';
+
 /**
  *echarts module
  */
 import { EchartsNg2Module } from 'echarts-ng2';
 import 'echarts-liquidfill';
-
 @NgModule({
   declarations: [
     ExamsPage,
@@ -24,12 +26,10 @@ import 'echarts-liquidfill';
     IonicPageModule.forChild(ExamsPage),
     ReportPageModule,
     DoctorPageModule,
+    ReplyPageModule,
     ComponentsModule,
     DirectivesModule
 
-  ],
-  exports: [
-    //ScrollheaderComponent,
   ],
   providers: [
     ExamsProvider,

@@ -24,7 +24,8 @@ export class StudentApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
+
+      platform.is('ios') ? statusBar.styleLightContent() : statusBar.styleDefault();
       //splashScreen.hide();
       this.httpHandler.handleAuth$.subscribe(info => this.rootNav.setRoot(LoginPage, {}, { animation: 'md-transition', animate: true }));
 

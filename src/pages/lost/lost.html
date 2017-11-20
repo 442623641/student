@@ -8,7 +8,7 @@
   <ion-navbar>
     <ion-title>错题本</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="dopay()">订单</button>
+      <button ion-button [navPush]="pages.lostOrder">订单</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>

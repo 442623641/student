@@ -7,11 +7,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>{{elost?.name}}</ion-title>
-    <ion-buttons end>
+    <!-- <ion-buttons end>
       <button ion-button (tap)="save()">
         确定
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-navbar>
 </ion-header>
 <ion-content padding-top padding-left>
@@ -32,7 +32,7 @@
           <ion-row>
             <ion-col align-self-center>{{exam.score}}分</ion-col>
             <ion-col>
-              <button [color]="exam.checked?'green':'primary'" ion-button icon-left clear small (click)="exam.checked=!exam.checked;" [navPush]="pages.lostpay" [navParams]="">
+              <button [color]="exam.checked?'green':'primary'" ion-button icon-left clear small (click)="exam.checked=!exam.checked;">
                 <ion-icon name='cart-outline'></ion-icon>加入订购</button>
             </ion-col>
           </ion-row>

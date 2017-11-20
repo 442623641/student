@@ -2,15 +2,15 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons start>
-      <button ion-button icon-only (tap)="viewCtrl.dismiss()" color="text" clear>
+      <button ion-button icon-only (tap)="viewCtrl.dismiss()" clear>
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>{{title}}</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content [fullscreen]='true'>
-  <ion-slides zoom="true" [pager]="images.length>1">
+<ion-content [fullscreen]='true' color="white">
+  <ion-slides zoom="true" [pager]="images.length">
     <ion-slide *ngFor="let url of images">
       <div class="swiper-zoom-container">
         <img-lazy [src]="url?.link||url?.value||url" [alt]="url?.link||url?.value||url"></img-lazy>

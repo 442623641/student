@@ -1,0 +1,108 @@
+<!--
+  Generated template for the ReportPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-shadow>
+  <ion-navbar>
+    <ion-title>{{exam.name}}</ion-title>
+    <ion-buttons end *ngIf="showNavButton">
+      <button ion-button [navPush]='pages.report' [navParams]="exam">
+        学情报告
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <div *ngIf="balls.length>1||stickTopicHeader" [class.transformY-45]="stickTopicHeader&&balls.length>1" class="sub-header" line-bottom>
+    <scroll-header [items]="balls" (selectedChange)="subjectSlider.slideTo($event)" *ngIf="balls.length>1" line-bottom></scroll-header>
+    <ion-row class="topics-header" *ngIf="stickTopicHeader">
+      <a col-3 class="fixed-button" (tap)="subject.showAll=!subject.showAll">{{subject.showAll?'查看错题':'查看全部'}}</a>
+      <ion-col no-padding>
+        <scroll-header [items]="subject.nos" [(selected)]="subject.categoryIndex" (selectedChange)="topic($event)"></scroll-header>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-header>
+<ion-content #content [fullscreen]="true" (ionScroll)="scrollHandler($event)" padding-bottom>
+  <ng-template [ngIf]="subject" [ngIfElse]="loading">
+    <ng-template [ngIf]="balls.length>1" [ngIfElse]="noslider">
+      <ion-slides #subjectSlider (ionSlideDidChange)="onSlideChanged($event)">
+        <ion-slide *ngFor="let ball of balls">
+          <div class="card origin" *ngIf="subject?.name">
+            <ion-row class="card-header" justify-content-between>
+              <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
+            </ion-row>
+            <img-lazy [src]='subject.paper'></img-lazy>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </ng-template>
+    <ng-template #noslider>
+      <div class="card origin" *ngIf="subject?.name" #subjectCard>
+        <ion-row class="card-header" justify-content-between>
+          <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
+        </ion-row>
+        <img-lazy [src]='subject.paper'></img-lazy>
+      </div>
+    </ng-template>
+    <!-- </div> -->
+    <div class="topics" *ngIf="subject?.name&&subject.category?.length">
+      <ion-row class="topics-header" line-bottom *ngIf="!stickTopicHeader">
+        <a col-2 class="fixed-button" (click)="subject.showAll=!subject.showAll">{{subject.showAll?'错题':'全部'}}</a>
+        <ion-col no-padding>
+          <scroll-header [items]="subject.nos" [(selected)]="subject.categoryIndex" (selectedChange)="topic($event)"></scroll-header>
+        </ion-col>
+      </ion-row>
+      <ng-template [ngIf]="subject.activity" [ngIfElse]="loadinga">
+        <div class="topics-content" *ngIf="subject.activity">
+          <div class="topics-item">
+            <p footer>
+              满分：<span color="primary" ion-text>{{subject.activity.fullString}}</span>分&nbsp;&nbsp;&nbsp;我的得分：<span color="primary" ion-text>{{subject.activity.scoreString}}</span>分&nbsp;&nbsp;&nbsp;难度：<span color="primary" ion-text>{{subject.activity.levelString}}</span>
+            </p>
+            <p line-top footer *ngIf="subject.activity.objective&&subject.activity.reply?.length">
+              我的答案：<span ion-text [color]="primary">{{subject.activity.replyString}}</span>&nbsp;
+              <ion-icon name="checkmark"></ion-icon>&nbsp;&nbsp;&nbsp; 正确答案：
+              <span>{{subject.activity.answerString}}</span>
+            </p>
+          </div>
+          <div class="topics-item" *ngIf="!subject.activity.objective&&subject.activity.reply?.length">
+            <p line-bottom>我的答案</p>
+            <div class="item-content">
+              <img-lazy [src]="reply.link" *ngFor="let reply of subject.activity.reply"></img-lazy>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #loadinga>
+        <loading [status]="subject.activity"></loading>
+      </ng-template>
+    </div>
+  </ng-template>
+  <ng-template #loading>
+    <loading [status]="subject"></loading>
+  </ng-template>
+  <ion-footer text-center>
+    <p>
+      <button ion-button block round>开通学情套餐&nbsp;&nbsp;查看错题诊断</button>
+    </p>
+    <button style="height: 2rem" ion-button clear color="white" icon-only (click)="lantern=true">
+      <ion-icon name="arrow-down"></ion-icon>
+    </button>
+  </ion-footer>
+  <transition name="lantern" [if]="lantern">
+    <div class="lantern">
+      <p><span>深入挖掘</span>
+        <a (click)="lantern=false" float-right padding-horizontal>
+          <ion-icon name="close"></ion-icon>
+        </a>
+      </p>
+      <p>正式利用每一道错题的途径</p>
+      <p padding-12>
+        <button ion-button round [navPush]="pages.package">开通学情套餐</button>
+      </p>
+      <div class="lantern-card">
+        <img src="assets/images/mreply.png">
+      </div>
+    </div>
+  </transition>
+</ion-content>

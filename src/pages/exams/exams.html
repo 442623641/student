@@ -14,7 +14,7 @@
     <ion-refresher-content pullingText="" refreshingSpinner="circles" refreshingText="">
     </ion-refresher-content>
   </ion-refresher>
-  <ng-template [ngIf]="exams?.length" [ngIfElse]="loading">
+  <ng-template [ngIf]="latest" [ngIfElse]="loading">
     <div class="banner" *ngIf="waterball">
       <h3>{{latest.name}}</h3>
       <p ion-text color="gray9">发布时间：{{latest.time}}</p>
@@ -23,23 +23,14 @@
         <ion-col col-6>
           <button ion-button outline block [navPush]='pages.report' [navParams]="latest">学情报告</button>
         </ion-col>
-        <ion-col col-6>
-          <button ion-button outline block color="green" [navPush]='pages.doctor' [navParams]="latest">{{latest.payment?'错题诊断':'答题情况'}}</button>
+        <ion-col col-6 [ngSwitch]="!!latest.payment">
+          <button *ngSwitchCase="true" ion-button outline block color="green" [navPush]='pages.doctor' [navParams]="latest">错题诊断</button>
+          <button *ngSwitchCase="false" ion-button outline block color="green" [navPush]='pages.reply' [navParams]="latest">答题情况</button>
         </ion-col>
       </ion-row>
     </div>
-    <ion-list no-lines>
-      <!-- <ion-item-divider>历史考试</ion-item-divider> -->
+    <ion-list no-lines *ngIf="exams.length">
       <ion-card *ngFor="let exam of exams">
-        <!-- <ion-item>
-  <ion-label>
-    Item Label
-  </ion-label>
-  <div item-content>
-    Item Content next to the label
-  </div>
-</ion-item>
- -->
         <ion-item class="card-header" no-lines>
           <ion-label>{{exam.name}}</ion-label>
           <span item-right *ngIf="exam.payment">已生成</span>
@@ -48,9 +39,10 @@
           <ion-col col-auto text-left>
             <ion-icon name="time-outline"></ion-icon> 发布时间：{{exam.time}}</ion-col>
         </ion-row>
-        <ion-row class="footer">
+        <ion-row class="footer" [ngSwitch]="!!latest.payment">
           <a [navPush]='pages.report' [navParams]="exam">学情报告</a>
-          <a [navPush]='pages.doctor' [navParams]="exam">{{exam.payment?'错题诊断':'答题情况'}}</a>
+          <a *ngSwitchCase="true" [navPush]='pages.doctor' [navParams]="exam">错题诊断</a>
+          <a *ngSwitchCase="false" [navPush]='pages.reply' [navParams]="exam">答题情况</a>
         </ion-row>
       </ion-card>
     </ion-list>
@@ -59,6 +51,6 @@
     </ion-infinite-scroll>
   </ng-template>
   <ng-template #loading>
-    <loading [status]="exams"></loading>
+    <loading [status]="latest"></loading>
   </ng-template>
 </ion-content>

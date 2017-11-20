@@ -13,7 +13,7 @@ export class HookDirective {
   @Input('hook') hook: string;
   @Input() loading: boolean = true;
   constructor(private httpHandler: HttpHandler) {
-    this.loading && this.httpHandler.invoke();
+    //this.loading && this.httpHandler.invoke();
 
   }
 

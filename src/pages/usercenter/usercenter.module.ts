@@ -11,7 +11,7 @@ import { CouponPageModule } from '../coupon/coupon.module';
 import { RechargePageModule } from '../recharge/recharge.module';
 import { ValidationPageModule } from '../validation/validation.module';
 
-import { ComponentsModule } from '../../components';
+import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({

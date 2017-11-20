@@ -56,12 +56,17 @@ export class ExcellentPage {
     this.processing = true;
     this.excellentsOpts && this.nativePro.showLoading();
     this.excellentPro.excellents(Object.assign({}, this.pageview, this.option)).then(res => {
-      console.log(res);
+      this.nativePro.hideLoading();
+      if (!res || !res.questions || !res.questions.length) return this.excellentsOpts = null;
       this.total = res.total;
       this.excellentsOpts = res.questions.map((item) => { return new ExcellentOptions(item) });
       this.tempOption = this.option.clone();
-      this.nativePro.hideLoading();
+
       this.processing = false;
+    }).catch(ex => {
+      console.error(ex);
+      this.nativePro.hideLoading();
+      this.excellentsOpts = null;
     });
   }
 

@@ -1,21 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
-import { Transition } from './transition';
-import { ElasticLine } from './elasticLine';
-import { LazyLoader } from './lazyLoader';
-import { Iscroll } from './iscroll';
+import { Transition } from './transition/transition';
+import { LazyLoader } from './lazyloader/lazyloader';
+import { Iscroll } from './iscroll/iscroll';
 import { ScrollheaderComponent } from './scrollheader/scrollheader';
 import { SubmitonComponent } from './submiton/submiton';
 import { Loading } from './loading/loading';
 import { ModalComponent } from './modal/modal';
 import { SidenavComponent } from './sidenav/sidenav';
-//import { PhotosviewerComponent } from './photosviewer/photosviewer';
-// import { RocketComponent } from './rocket/rocket';
+import { CouponComponent } from './coupon/coupon';
+import { PaymentComponent } from './payment/payment';
 
 @NgModule({
   declarations: [
-    ElasticLine,
     LazyLoader,
     Iscroll,
     ScrollheaderComponent,
@@ -24,15 +22,14 @@ import { SidenavComponent } from './sidenav/sidenav';
     Loading,
     ModalComponent,
     SidenavComponent,
-    //PhotosviewerComponent,
-    // RocketComponent,
+    CouponComponent,
+    PaymentComponent,
   ],
   imports: [
     CommonModule,
     IonicModule,
   ],
   exports: [
-    ElasticLine,
     LazyLoader,
     Iscroll,
     ScrollheaderComponent,
@@ -41,8 +38,8 @@ import { SidenavComponent } from './sidenav/sidenav';
     Loading,
     ModalComponent,
     SidenavComponent,
-    //PhotosviewerComponent,
-    // RocketComponent,
+    CouponComponent,
+    PaymentComponent,
   ],
 })
 export class ComponentsModule {}

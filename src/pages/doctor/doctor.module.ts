@@ -5,7 +5,8 @@ import { DoctorPage } from './doctor';
 import { EchartsNg2Module } from 'echarts-ng2';
 import { DoctorProvider } from '../../providers/doctor/doctor';
 import { PipesModule } from '../../pipes/pipes.module';
-import { ComponentsModule } from '../../components';
+import { ComponentsModule } from '../../components/components.module';
+import { DirectivesModule } from '../../directives/directives.module';
 //import { ScrollheaderComponent } from '../../components/scrollheader/scrollheader';
 //import { LazyLoader } from '../../components/lazyLoader';
 //import { TopicsPageModule } from '../topics/topics.module';
@@ -25,12 +26,9 @@ import { ComponentsModule } from '../../components';
     EchartsNg2Module,
     PipesModule,
     ComponentsModule,
+    DirectivesModule,
     //TopicsPageModule,
 
-  ],
-  exports: [
-    //ScrollheaderComponent,
-    //LazyLoader,
   ],
   providers: [
     DoctorProvider

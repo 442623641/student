@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { HookDirective } from './hook/hook';
 import { ImgviewerDirective } from './imgviewer/imgviewer';
+import { ElasticheaderDirective } from './elasticheader/elasticheader';
 
 @NgModule({
   declarations: [HookDirective,
-    ImgviewerDirective
+    ImgviewerDirective,
+    ElasticheaderDirective
   ],
   imports: [],
   exports: [
     HookDirective,
-    ImgviewerDirective
+    ImgviewerDirective,
+    ElasticheaderDirective
   ]
 })
 export class DirectivesModule {}

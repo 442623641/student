@@ -2,7 +2,14 @@ photosviewer {
   .toolbar-background {
     background: rgba(0, 0, 0, .1);
   }
-  .toolbar-title-ios {
-    color: color($colors, text);
+  .content {
+    background: #000;
+  }
+  .swiper-pagination-bullet,
+  .swiper-pagination-bullet-active {
+    background: #fff;
+  }
+  .loader p {
+    color: #fff;
   }
 }

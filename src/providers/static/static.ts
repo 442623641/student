@@ -12,10 +12,10 @@ import 'rxjs/add/operator/map';
 export class StaticProvider {
 
   constructor(public http: Http) {
-    console.log('Hello AdressProvider Provider');
+    //console.log('Hello AdressProvider Provider');
   }
   address() {
-    return this.http.get('../assets/data/address.json')
+    return this.http.get('assets/data/address.json')
       .toPromise()
       .then(response => response.json())
       .catch(err => {
@@ -50,7 +50,7 @@ export class StaticProvider {
   }
 
   grade() {
-    return this.http.get('../assets/data/grade.json')
+    return this.http.get('assets/data/grade.json')
       .toPromise()
       .then(response => response.json())
       .catch(err => {

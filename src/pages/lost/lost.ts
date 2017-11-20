@@ -72,7 +72,7 @@ export class LostPage {
       }
       this.losts = res.map(item => { return new Elost(item) });
       console.log(res);
-    });
+    }).catch(e => this.losts = null);
   }
 
 
@@ -85,9 +85,7 @@ export class LostPage {
    */
   dopay() {
     let subjects = [];
-    this.checkeds.forEach(item => {
-      item.echeckeds & subjects.push(item.name);
-    })
+    this.checkeds.forEach(item => item.echeckeds && subjects.push({ name: item.name, exams: item.exams.filter(i => { return i.checked; }) }))
     this.navCtrl.push(this.pages.lostpay, { subjects: subjects });
   }
 }

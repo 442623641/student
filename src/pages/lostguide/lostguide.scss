@@ -1,0 +1,11 @@
+page-lostguide {
+  .scroll-content {
+    padding-top: 46px;
+    background-image: url(../assets/images/lostguidebg.png);
+    background-size: cover;
+  }
+  .swiper-pagination-bullet,
+  .swiper-pagination-bullet-active {
+    background: #fff;
+  }
+}

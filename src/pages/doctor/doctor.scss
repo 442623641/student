@@ -3,7 +3,15 @@ page-doctor {
     position: relative;
     z-index: 1;
   }
+  .slides {
+    height: auto;
+  }
   .card {
+    &.origin {
+      img {
+        max-height: 120px;
+      }
+    }
     margin: 16px 0;
     background: color($colors, white);
     .card-header {
@@ -45,7 +53,7 @@ page-doctor {
   }
   .fixed-button {
     //background: color($colors, primary);
-    background: #ddd;
+    background: color($colors, primary);
     color: #fff;
     height: 43px;
     line-height: 36px;
@@ -84,7 +92,7 @@ page-doctor {
     }
   }
   .topics {
-    min-height: 100vh;
+    //min-height: 100vh;
     background: #fff; //height: 100vh;
     .topics-content {
       p {

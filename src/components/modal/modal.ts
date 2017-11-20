@@ -15,6 +15,7 @@ export class ModalComponent {
   ready: boolean;
   openValue: boolean;
   opacity: number = 0;
+  @Output() onTap = new EventEmitter();
   @Output() openChange = new EventEmitter();
   @Input() option: {
     total: number,
@@ -67,6 +68,11 @@ export class ModalComponent {
 
   close() {
     this.open = false;
+  }
+
+  tap() {
+    this.onTap.emit();
+    this.close();
   }
 
 

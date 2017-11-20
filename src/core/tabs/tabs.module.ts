@@ -9,7 +9,7 @@ import { NewsPageModule } from '../../pages/news/news.module';
 /**
  *Components module
  */
-import { LoadingModule } from '../../components/loading/loading.module'
+//import { LoadingModule } from '../../components/loading/loading.module'
 //import { Loading } from '../../components/loading/loading'
 //import { DirectivesModule } from '../../directives/directives.module';
 
@@ -18,7 +18,7 @@ import { LoadingModule } from '../../components/loading/loading.module'
     TabsPage,
   ],
   imports: [
-    LoadingModule,
+    //LoadingModule,
     IonicPageModule.forChild(TabsPage),
     HomePageModule,
     UsercenterPageModule,

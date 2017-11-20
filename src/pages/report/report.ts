@@ -1,10 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, Content, ModalController, ViewController } from 'ionic-angular';
 import { ExamsProvider } from '../../providers/exams/exams';
-import { EchartsNg2Module } from 'echarts-ng2';
 import { ChartsProvider } from '../../providers/charts/charts';
+import { PaymentProvider } from '../../providers/payment/payment';
 import { ReportOptions, ReportCategory } from '../../model/report';
-import { DOCTOR_PAGE } from '../pages.constants';
+
+import { DOCTOR_PAGE, PACKAGE_PAGE, RECHARGE_PAGE } from '../pages.constants';
+
+import { NativeProvider } from '../../providers/native';
+import { ReportmodalPage } from '../reportmodal/reportmodal';
 /**
  * Generated class for the ReportPage page.
  *
@@ -19,7 +23,7 @@ import { DOCTOR_PAGE } from '../pages.constants';
 })
 export class ReportPage {
   showAd: boolean = true;
-  pages: any = { doctor: DOCTOR_PAGE };
+  pages: any = { doctor: DOCTOR_PAGE, package: PACKAGE_PAGE, recharge: RECHARGE_PAGE };
   @ViewChild('content') content: Content;
   @ViewChild('slider') slider: Slides;
   showNavButton: any;
@@ -27,16 +31,18 @@ export class ReportPage {
   exam: any = {};
   reportIndex: number = 0;
   reports: ReportOptions[] = [];
+  achieveSub: any;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public examsPro: ExamsProvider,
-    public chartsPro: ChartsProvider) {}
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ReportPage');
-  }
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private examsPro: ExamsProvider,
+    private chartsPro: ChartsProvider,
+    private nativePro: NativeProvider,
+    private modalCtrl: ModalController,
+    private paymentPro: PaymentProvider,
+    private viewCtrl: ViewController,
+  ) {}
 
   ngAfterViewInit() {
     this.showNavButton = this.navCtrl.getPrevious().id != DOCTOR_PAGE;
@@ -46,11 +52,34 @@ export class ReportPage {
     this.getReport(this.reportIndex).then(res => {
 
       this._categorys = ReportCategory.filter(item => { return item.code <= res.level }).reverse();
-      setTimeout(() => this.content.resize(), 300);
+      setTimeout(() => {
+        this.exam.payment && this.openPackageModal();
+        this.content.resize();
+      }, 500);
       console.log(this.report);
+    });
 
-    })
-    //this.reportPro.
+    this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
+      let start = this.navCtrl.indexOf(this.viewCtrl);
+      this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
+        //this.nativePro.showLoading();
+        //this.loadData().then(() => this.nativePro.hideLoading());
+        this.exam.payment = true;
+      });
+    });
+  }
+
+  /**
+   *查看
+   */
+  openPackageModal() {
+    let modal = this.modalCtrl.create(ReportmodalPage);
+    modal.present();
+    modal.onDidDismiss(res => {
+      res && res.open &&
+        this.navCtrl.push(RECHARGE_PAGE, { params: { ordertype: 'exam', selectxbz: res.dvalue, skucode: `exam|${this.exam.guid}` } })
+      //.then(() => this.viewCtrl.dismiss(true));
+    });
   }
 
   changeSlide($event) {
@@ -72,8 +101,11 @@ export class ReportPage {
   getReport(reportIndex, level ? : number) {
     return this.examsPro.report({ guid: this.exam.guid, level: level }).then(res => {
       this.fill(reportIndex, res);
+      this.comranks(this.report.subjects[0]);
+      this.ranktrends(this.report.subjects[0]);
+      this.scoretrends(this.report.subjects[1]);
       return res;
-    });
+    })
   }
 
   /**
@@ -84,12 +116,12 @@ export class ReportPage {
       percent: res.percent,
       studentCount: res.studentcount,
       scores: res.myscore,
-      learnanalysis: this.chartsPro.radar(res.learnanalysis),
-      levelanalysis: this.chartsPro.level(res.levelanalysis),
+      learnanalysis: res.learnanalysis ? this.chartsPro.radar(res.learnanalysis) : null,
+      levelanalysis: res.levelanalysis ? this.chartsPro.level(res.levelanalysis) : null,
       level: res.level,
       fields: res.fields,
     });
-    console.log(this.report.scores.shift());
+    //console.log(this.report.scores.shift());
   }
 
   get categorys() {
@@ -117,24 +149,25 @@ export class ReportPage {
       level: this.report.level,
       subject: name
     }).then(res => {
+      if (!res) this.report.activityComranks = null;
       this.report.activityComranks = res;
       console.log(res);
     }).catch(ex => this.report.activityComranks = null);
   }
 
   /**
-   *排名趋势
+   *排名趋势,level=3联考时没有排名趋势
    */
   ranktrends(name) {
-    if (this.report.activityRanktrends) {
-      return;
-    }
-    this.report.activityComranks = undefined;
+    if (this.report.level == 3) return this.report.activityRanktrends = false;
+    if (this.report.activityRanktrends) return;
+    this.report.activityRanktrends = undefined;
     this.examsPro.ranktrend({
       guid: this.navParams.get('guid'),
       level: this.report.level,
       subject: name
     }).then(res => {
+      if (!res) this.report.activityRanktrends = null;
       this.report.activityRanktrends = this.chartsPro.scoretrend(res);
       console.log(res);
     }).catch(ex => this.report.activityRanktrends = null);
@@ -153,9 +186,14 @@ export class ReportPage {
       level: this.report.level,
       subject: name
     }).then(res => {
+      if (!res) this.report.activityScoretrends = null;
       this.report.activityScoretrends = this.chartsPro.scoretrend(res);
       console.log(res);
     }).catch(ex => this.report.activityScoretrends = null);
+  }
+
+  ngOnDestroy() {
+    this.achieveSub.unsubscribe();
   }
 
   doInfinite(event) {
@@ -163,8 +201,9 @@ export class ReportPage {
   }
 
 
-  modalChanged(slider) {
+  // ionViewWillEnter() {
+  //   this.achieveSub.unsubscribe();
+  // }
 
 
-  }
 }
