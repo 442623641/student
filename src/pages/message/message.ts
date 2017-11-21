@@ -43,6 +43,9 @@ export class MessagePage {
       }).catch(err=>{
         console.log(err);
       });
+      /*
+       将未读设置为读过
+       */
       document.getElementById(guid).className='block-read-circle';
       this.navCtrl.push(MESSAGEINFO_PAGE,{ guid:guid });
     }
