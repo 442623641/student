@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {  } from '../pages.constants';
 
 /**
  * Generated class for the OrdermorePage page.
@@ -21,9 +20,9 @@ export class OrdermorePage {
    */
   pages:any={
 
-  }
+  };
   constructor(
-  	public navCtrl: NavController, 
+  	public navCtrl: NavController,
   	public navParams: NavParams
   ) {
   }

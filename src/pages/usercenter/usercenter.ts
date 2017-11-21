@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FeedbackPage } from '../feedback/feedback';
-import { SetupPage } from '../setup/setup';
 import { UserProvider } from '../../providers/user';
 import { UserInfo } from '../../model/userInfo';
 import {

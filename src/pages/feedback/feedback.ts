@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController,NavParams } from 'ionic-angular';
 import { ValidationProvider } from "../../providers/validation/validation";
-
+import { NativeProvider } from "../../providers/native"
 /**
  * Generated class for the FeedbackPage page.
  *
@@ -25,7 +25,8 @@ export class FeedbackPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private validate: ValidationProvider
+    private validate: ValidationProvider,
+    private nativepro: NativeProvider
   ) {}
 
   imgsrc(e){
@@ -49,15 +50,19 @@ export class FeedbackPage {
       // console.log(picjson);
       this.validate.back({"desc": this.text, "imgs": JSON.stringify(this.pic)}).then(res => {
         console.log(res);
+        this.nativepro.toast('反馈上传成功');
       }).catch(err => {
         console.log(err);
+        this.nativepro.toast(err.message);
       });
       this.pic = [];
       } else{
         this.validate.back({"desc": this.text,"imgs":""}).then(res=>{
           console.log(res);
+          this.nativepro.toast('反馈上传成功');
         }).catch(err=>{
           console.log(err);
+          this.nativepro.toast(err.message);
         })
       }
   }

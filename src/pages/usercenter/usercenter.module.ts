@@ -15,7 +15,7 @@ import { ComponentsModule } from '../../components';
 import { DirectivesModule } from '../../directives/directives.module';
 
 
-import { UploadImgProvider} from "../../providers/uploadimg/uploadimg";
+
 @NgModule({
   declarations: [
     UsercenterPage,
@@ -30,17 +30,11 @@ import { UploadImgProvider} from "../../providers/uploadimg/uploadimg";
     CouponPageModule,
     RechargePageModule,
     ValidationPageModule,
-
     ComponentsModule,
     DirectivesModule,
-
-
   ],
   exports: [
     ComponentsModule
-  ],
-  providers: [
-    UploadImgProvider
   ]
 })
 export class UsercenterPageModule {}

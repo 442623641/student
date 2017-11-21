@@ -27,7 +27,7 @@ import { AgreecheckComponent } from './agreecheck/agreecheck';
     SidenavComponent,
     CouponComponent,
     PaymentComponent,
-	PhonecodeComponent,
+	  PhonecodeComponent,
     UploadimgComponent,
     AgreecheckComponent
   ],
@@ -46,7 +46,7 @@ import { AgreecheckComponent } from './agreecheck/agreecheck';
     SidenavComponent,
     CouponComponent,
     PaymentComponent,
-	PhonecodeComponent,
+  	PhonecodeComponent,
     UploadimgComponent,
     AgreecheckComponent
   ],

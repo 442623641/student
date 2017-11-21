@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { FeedbackPage } from './feedback';
 import { ComponentsModule } from '../../components';
-import { ValidationProvider } from "../../providers/validation/validation";
 @NgModule({
   declarations: [
     FeedbackPage,
@@ -10,9 +9,6 @@ import { ValidationProvider } from "../../providers/validation/validation";
   imports: [
     IonicPageModule.forChild(FeedbackPage),
     ComponentsModule
-  ],
-  providers:[
-    ValidationProvider
   ]
 })
 export class FeedbackPageModule {}

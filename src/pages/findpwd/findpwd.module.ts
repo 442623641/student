@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { FindpwdPage } from './findpwd';
 import { ComponentsModule } from '../../components';
-import { ValidationProvider } from "../../providers/validation/validation";
 @NgModule({
   declarations: [
     FindpwdPage,
@@ -10,9 +9,6 @@ import { ValidationProvider } from "../../providers/validation/validation";
   imports: [
     IonicPageModule.forChild(FindpwdPage),
     ComponentsModule
-  ],
-  providers: [
-    ValidationProvider
   ]
 })
 export class FindPwdPageModule {}

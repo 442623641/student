@@ -24,8 +24,8 @@ import { LoginPageModule } from '../pages/login/login.module';
 // import { NewsPageModule } from '../pages/news/news.module';
 
 import { TabsModule } from '../core/tabs/tabs.module';
-/* 
- * native plugins 
+/*
+ * native plugins
  */
 
 import { HTTP } from '@ionic-native/http';
@@ -61,7 +61,15 @@ import { PaymentProvider } from '../providers/payment/payment';
 import { SeptnetpayProvider } from '../providers/payment/septnetpay';
 import { LostProvider } from '../providers/lost/lost';
 import { PackageProvider } from '../providers/package/package';
+/*
+add by chen 17-11-21
+ */
+import { MessageProvider } from '../providers/message/message';
+import { ValidationProvider } from '../providers/validation/validation';
+import { UploadImgProvider } from "../providers/uploadimg/uploadimg";
 
+
+/*----------------------------------------------*/
 //import { AnalysisProvider } from '../providers/analysis/analysis';
 //import { ReportProvider } from '../providers/report/report';
 
@@ -123,9 +131,14 @@ import { PackageProvider } from '../providers/package/package';
     PaymentProvider,
     SeptnetpayProvider,
     NativeProvider,
-
-    /* 
-     * native plugins 
+    /*
+     added by chen
+     */
+    MessageProvider,
+    ValidationProvider,
+    UploadImgProvider,
+    /*
+     * native plugins
      */
     SplashScreen,
     Toast,
