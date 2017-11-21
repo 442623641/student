@@ -3,7 +3,6 @@ page-feedback {
     position: relative;
     margin: 16px 0;
     background: #fff;
-    height: 40vh;
     &:after {
       @extend .border-bottom;
     }
@@ -36,15 +35,15 @@ page-feedback {
         @extend .border-top;
       }
     }
-    .images {
-      height: 7.43rem;
-      a:last-child {
-        text-align: center;
-        line-height: 4rem;
-        font-size: 2.5rem;
-        color: rgba(0, 0, 0, .2);
-        border: 0.55px solid rgba(0, 0, 0, .1);
-      }
-    }
+  }
+  .pics{
+    position: fixed;
+    top:0;
+    left: 0;
+    z-index:10000;
+    bottom: 0;
+    right: 0;
+    margin: auto auto;
+    width: 100%;
   }
 }

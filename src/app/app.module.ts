@@ -4,12 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 //import {HttpClientModule} from '@angular/common/http';
+
 import { StudentApp } from './app.component';
+/*
 import * as Icon from 'iconcolorful';
 
 enableProdMode();
 Icon.enableColorful();
-
+*/
 // import { AboutPage } from '../pages/about/about';
 // import { ContactPage } from '../pages/contact/contact';
 

@@ -55,7 +55,22 @@
     {
       "path": "/freepayment",
       "proxyUrl": "http://studentapp.septnet.cn/freepayment"
+    },
+	{
+    "path": "/register",
+    "proxyUrl": "http://studentapp.septnet.cn/register"
+    },
+	  {
+		"path": "/Register",
+		"proxyUrl": "http://studentapp.septnet.cn/Register"
+	  },
+	  {
+		"path": "/findpwd",
+		"proxyUrl": "http://studentapp.septnet.cn/findpwd"
+	  },
+    {
+      "path": "/verifyImage",
+      "proxyUrl": "http://studentapp.septnet.cn/verifyImage"
     }
-
   ]
 }

@@ -28,14 +28,14 @@
       </form>
     </ion-row>
     <ion-row padding>
-      <button ion-button block (click)="login()">
+      <button ion-button block (tap)="login()">
         <span *ngIf="!processing">登 录</span>
         <ion-spinner *ngIf="processing" name="dots" color="white"></ion-spinner>
       </button>
       <button ion-button block outline [navPush]="pages.validation">注 册</button>
     </ion-row>
     <p text-center class="forgot">
-      <a ion-text color="gray9" [navPush]="pages.validation">忘记密码？</a>
+      <a ion-text color="gray9" [navPush]="pages.findpwd">忘记密码？</a>
     </p>
   </ion-grid>
 </ion-content>

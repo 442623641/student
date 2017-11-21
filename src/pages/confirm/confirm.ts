@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { NewPwdProvider } from '../../providers/newpwd/newpwd';
+import { ValidationProvider } from '../../providers/validation/validation';
+import { NativeProvider } from '../../providers/native';
 /**
  * Generated class for the ConfirmPage page.
  *
@@ -14,20 +15,40 @@ import { NewPwdProvider } from '../../providers/newpwd/newpwd';
   templateUrl: 'confirm.html',
 })
 export class ConfirmPage {
-  pwd: any;
-  confirmpwd: any;
+  password: any='';
+  confirmpwd: any='';
+  tokenss: any;
+  yzmss: any;
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
-    private newpwdpro: NewPwdProvider
+    public params: NavParams,
+    private validation: ValidationProvider,
+    private nativepro: NativeProvider
   ) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ConfirmPage');
-  }
-  ngAfterViewInit(){
-    this.newpwdpro.update({ pwd: this.pwd, rpwd: this.confirmpwd }).then(res=>{
-      console.log(res);
-    })
+  ngAfterViewInit(){}
+  confirm(){
+    /**
+     注册
+     */
+    this.tokenss=this.params.get('token');
+    this.yzmss=this.params.get('yzm');
+    console.log(this.tokenss,this.yzmss);
+    console.log(this.password,this.confirmpwd);
+    if(this.password.length>=6 && this.confirmpwd.length>=6){
+      this.validation.register({ token:this.tokenss,code:this.yzmss,pwd: this.password, rpwd: this.confirmpwd }).then(res=>
+      {
+        console.log(res);
+        this.nativepro.toast('注册成功');
+      }).catch(err=>
+      {
+        console.log(err);
+        this.nativepro.toast(err.message);
+      });
+    }else{
+      this.nativepro.toast('密码长度不少于6位');
+    }
+
+
   }
 }

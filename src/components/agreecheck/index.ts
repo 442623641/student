@@ -1,0 +1,1 @@
+export { AgreecheckComponent } from './agreecheck';

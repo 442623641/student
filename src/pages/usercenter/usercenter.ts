@@ -1,4 +1,4 @@
-import { Component, NgZone, Renderer } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FeedbackPage } from '../feedback/feedback';
 import { SetupPage } from '../setup/setup';
@@ -12,8 +12,10 @@ import {
   VALIDATION_PAGE,
   TRADE_PAGE,
   COUPON_PAGE,
-  RECHARGE_PAGE
+  RECHARGE_PAGE,
+  ORDERMORE_PAGE,
 } from '../pages.constants';
+//Icon.enableColorful();
 /**
  * Generated class for the UsercenterPage page.
  *
@@ -31,27 +33,23 @@ export class UsercenterPage {
     personal: PERSONAL_PAGE,
     feedback: FEEDBACK_PAGE,
     setup: SETUP_PAGE,
-    password: VALIDATION_PAGE,
+    password: PASSWORD_PAGE,
     trade: TRADE_PAGE,
     recharge: RECHARGE_PAGE,
     coupon: COUPON_PAGE,
-
-  }
-
+    order: ORDERMORE_PAGE,
+  };
   userInfo: UserInfo = {};
 
   constructor(
-    private navCtrl: NavController,
-    private navParams: NavParams,
-    private userPro: UserProvider,
-    private zone: NgZone,
-    private renderer: Renderer
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public userPro: UserProvider
   ) {
     console.log('UsercenterPage');
   }
   ngAfterViewInit() {
     this.userPro.getUserInfo().then(res => this.userInfo = res);
-    //this.toolbarBackground = document.querySelector('page-usercenter .header .toolbar-background');
   }
 
   ionViewDidLoad() {
@@ -66,4 +64,6 @@ export class UsercenterPage {
     let grade = this.userInfo.gradeName ? `【${this.userInfo.gradeName} 】` : '';
     return `${this.userInfo.cityName} ${this.userInfo.school} ${grade}`;
   }
+
+
 }

@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ValidationPage } from './validation';
-import { ConfirmPageModule } from '../confirm/confirm.module';
+import { ComponentsModule } from '../../components';
+import { ValidationProvider } from "../../providers/validation/validation";
+
 @NgModule({
   declarations: [
     ValidationPage,
   ],
   imports: [
     IonicPageModule.forChild(ValidationPage),
-    ConfirmPageModule,
+    ComponentsModule
   ],
+  providers: [
+    ValidationProvider
+  ]
 })
 export class ValidationPageModule {}

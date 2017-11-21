@@ -9,18 +9,24 @@
     <ion-title>意见反馈</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content id="aboutContent">
   <div class="content-inner">
     <ion-textarea placeholder="输入您的反馈..." [(ngModel)]="text" max="300" maxLength="300" rows="8" [attr.length]="text?text.length:0">
     </ion-textarea>
     <div class="line"></div>
-    <ion-row padding class="images">
-      <a col-2>
-        <ion-icon name="ios-camera-outline"></ion-icon>
-      </a>
-    </ion-row>
+    <uploadimg (ImgFileChange)="imgsrc($event)" [(previewImgFile)]="previewImgFile" (imgscale)="picscale($event)"></uploadimg>
   </div>
   <p padding>
-    <button ion-button block>提交反馈</button>
+    <button ion-button block (click)="submit()">提交反馈</button>
   </p>
+
+  <!--自定义蒙层-->
+  <div *ngIf='isShow' class="backdrop-div" (click)="backdropclick($event)" ontouchmove="event.preventDefault();event.stopPropagation();">
+    <ion-backdrop disable-activated role="presentation" tappable style="opacity: 0.5; transition-delay: initial; transition-property: none;"></ion-backdrop>
+  </div>
+  <div class="aboutPage-isShowDiv" *ngIf="isShow">
+    <img src="{{img}}" [class.pics]="isShow">
+  </div>
+
+
 </ion-content>

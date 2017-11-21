@@ -11,9 +11,11 @@ import { CouponPageModule } from '../coupon/coupon.module';
 import { RechargePageModule } from '../recharge/recharge.module';
 import { ValidationPageModule } from '../validation/validation.module';
 
-import { ComponentsModule } from '../../components/components.module';
+import { ComponentsModule } from '../../components';
 import { DirectivesModule } from '../../directives/directives.module';
 
+
+import { UploadImgProvider} from "../../providers/uploadimg/uploadimg";
 @NgModule({
   declarations: [
     UsercenterPage,
@@ -37,5 +39,8 @@ import { DirectivesModule } from '../../directives/directives.module';
   exports: [
     ComponentsModule
   ],
+  providers: [
+    UploadImgProvider
+  ]
 })
 export class UsercenterPageModule {}
