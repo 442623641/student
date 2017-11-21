@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { CityPickerModule } from "ionic2-city-picker";
 import { PersonalPage } from './personal';
+import { BindingPageModule } from '../binding/binding.module';
+
+
 //import { ComponentsModule } from '../../components';
 //import { SubmitonComponent } from '../../components/submiton/submiton';
 @NgModule({
@@ -12,7 +14,7 @@ import { PersonalPage } from './personal';
   ],
   imports: [
     IonicPageModule.forChild(PersonalPage),
-    CityPickerModule,
+    BindingPageModule
     //ComponentsModule,
   ]
 })

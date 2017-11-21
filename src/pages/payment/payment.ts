@@ -22,7 +22,7 @@ export class PaymentPage {
     agreement: AGREEMENT_PAGE
   }
   params: PaymentOption;
-  amount: number;
+  amount: any;
   orderCode: string;
   processing: boolean = false;
   payType: string = 'za';
@@ -33,7 +33,7 @@ export class PaymentPage {
     private nativePro: NativeProvider
   ) {
     this.params = this.navParams.get('params');
-    this.amount = this.navParams.get('amount');
+    this.amount = (this.navParams.get('amount') / 10).toFixed(2);
   }
 
   ngAfterViewInit() {

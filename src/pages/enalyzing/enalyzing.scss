@@ -1,4 +1,7 @@
 page-enalyzing {
+  .content~.footer {
+    background: color($colors, primary);
+  }
   sidenav {
     ion-item-group {
       .row {

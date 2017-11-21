@@ -5,22 +5,23 @@ import { StaticProvider } from '../../providers/static/static';
 import { Picker } from '../../model/picker';
 import { UserInfo } from '../../model/userInfo';
 import { UserProvider } from '../../providers/user';
-import { BINDING_PAGE } from '../pages.constants'
+import { SCHOOLS_PAGE } from '../pages.constants';
 
 /**
- * Generated class for the PersonalPage page.
- *
+ * Generated class for the BindingPage page.
+ * Add by leo zhang 201711010101
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
 @IonicPage()
 @Component({
-  selector: 'page-personal',
-  templateUrl: 'personal.html',
+  selector: 'page-binding',
+  templateUrl: 'binding.html',
 })
-export class PersonalPage {
-  pages = { binding: BINDING_PAGE };
+export class BindingPage {
+  pages: any = { schools: SCHOOLS_PAGE }
+
   address: Picker = { data: [], name: '', code: '' };
   grade: Picker = { data: [], name: '', code: '' };
   userInfo: UserInfo;
@@ -53,10 +54,6 @@ export class PersonalPage {
       this.grade.code = this.userInfo.grade;
       this.address.code = this.userInfo.city;
     });
-    // this.userPro.userInfo().then(res => {
-    //   this.graduated = res.graduated;
-    //   console.log(res);
-    // });
   }
 
   /**

@@ -11,11 +11,6 @@ import { Component, Input, Output, ElementRef, Renderer, NgZone, EventEmitter } 
 @Component({
   selector: 'transition',
   template: `<ng-content *ngIf="active"></ng-content>`,
-  styles: [`
-    :host{
-      // display:none;
-    }
-  `]
 })
 
 export class Transition {

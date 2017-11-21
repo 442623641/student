@@ -45,3 +45,6 @@ export const REPORTMODAL_PAGE = 'ReportmodalPage';
 export const REPLY_PAGE = 'ReplyPage';
 
 export const LOSTGUIDE_PAGE = 'LostguidePage';
+
+export const BINDING_PAGE = 'BindingPage';
+export const SCHOOLS_PAGE = 'SchoolsPage';

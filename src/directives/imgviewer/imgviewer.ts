@@ -16,6 +16,7 @@ export class ImgviewerDirective {
   gesture: Gesture;
 
   processing: boolean;
+  binded: boolean;
 
   constructor(public modalCtrl: ModalController,
     private el: ElementRef) {}
@@ -26,21 +27,36 @@ export class ImgviewerDirective {
   /**
    *查看更多哦小题得分情况
    */
-  openModal(obj ? ) {
-    this.gesture.unlisten();
-    let modal = this.modalCtrl.create(PhotosviewerComponent, obj || this.imgviewer, { enterAnimation: 'modal-md-slide-in', leaveAnimation: 'modal-md-slide-out' });
+  openModal(event) {
+    this.ionViewDidLeave();
+    let modal = this.modalCtrl.create(PhotosviewerComponent, this.imgviewer);
     modal.present();
-    modal.onDidDismiss(() => { this.bind() });
+    modal.onDidDismiss(() => { this.ionViewDidEnter() });
   }
 
   private bind() {
+    if (this.binded) return;
     this.gesture = this.gesture || new Gesture(this.el.nativeElement);
     this.gesture.listen();
-    this.gesture.on('tap', e => this.openModal());
+    this.gesture.on('tap', this.openModal.bind(this));
+    this.binded = true;
+  }
+  ionViewDidLeave() {
+    this.binded = false;
+    this.gesture.off('tap', this.openModal);
+    this.gesture.unlisten();
+  }
+
+  ionViewDidEnter() {
+    this.bind();
   }
 
   ngOnDestroy() {
-    this.gesture && this.gesture.destroy();
+    if (this.gesture) {
+      //this.gesture.off && this.gesture.off('tap', this.openModal);
+      this.gesture.unlisten();
+      this.gesture.destroy();
+    }
   }
 
 

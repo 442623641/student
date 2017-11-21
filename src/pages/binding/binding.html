@@ -1,4 +1,10 @@
 <!--
+  Generated template for the BindingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!--
   Generated template for the PersonalPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
@@ -12,16 +18,31 @@
 <ion-content>
   <ion-item-group *ngIf="userInfo">
     <ion-item-divider color="light"><span ion-text color="primary">{{userInfo.name?'欢迎您，'+userInfo.name:'还差一步，成功绑定信息就可以查看成绩了!'}}</span></ion-item-divider>
-    <ion-item>
-      {{userInfo.cityName}}
+    <ion-item *ngIf="!userInfo.name">
+      <ion-label color="primary">姓名</ion-label>
+      <ion-input placeholder="实名修改，绑定后不可修改"></ion-input>
     </ion-item>
-    <ion-item>
-      {{userInfo.school}}
-    </ion-item>
-    <ion-item>
-      {{userInfo.gradeName}}
-    </ion-item>
-    <ion-row radio-group no-lines>
+    <button ion-item>
+      <!-- <ion-icon item-left name="pin"></ion-icon> -->
+      <!-- <ion-label item-right>请选择省市，选择后不可修改</ion-label> -->
+      <city-picker item-content cancelText='取消' doneText='完成' separator=' ' [citiesData]="address.data" [(ngModel)]="address.name" (ionChange)="addressChange($event)">
+      </city-picker>
+    </button>
+    <button ion-item [navPush]="pages.schools">
+      <p>请选择学校，选择后不可修改</p>
+    </button>
+    <button ion-item>
+      <!-- <ion-icon item-left name="people"></ion-icon> -->
+      <ion-select [(ngModel)]="userInfo.gradeName" placeholder="请选择年级，选择后不可修改">
+        <ion-option>高三</ion-option>
+        <ion-option>高二</ion-option>
+        <ion-option>高一</ion-option>
+        <ion-option>初三</ion-option>
+        <ion-option>初二</ion-option>
+        <ion-option>初一</ion-option>
+      </ion-select>
+    </button>
+    <ion-row radio-group *ngIf="userInfo" no-lines>
       <ion-item class="col" no-border no-lines (tap)="userInfo.role='p'">
         <ion-label>我是家长</ion-label>
         <ion-checkbox [checked]="userInfo.role==='p'"></ion-checkbox>
@@ -43,5 +64,4 @@
     <!-- <submiton></submiton> -->
     <button ion-button block>{{graduated?'重新绑定':'保 存'}}</button>
   </p>
-  <button ion-button block [navPush]="pages.binding">{{'重新绑定'}}</button>
 </ion-content>

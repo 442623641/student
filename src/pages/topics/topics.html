@@ -12,14 +12,7 @@
   </ion-row>
 </ion-header>
 <ion-content [fullscreen]="true">
-  <!-- <div class="card percents" style="margin-top: 0;">
-    <ion-row class="card-header" justify-content-between>
-      <ion-col col-5 text-left><i></i>小题得分情况</ion-col>
-      <ion-col><i></i>年级得分率</ion-col>
-      <ion-col><i></i>我的得分率</ion-col>
-    </ion-row> -->
   <echarts-ng2 [option]='options' [style]="{'height': 45*options.yAxis.data.length+'px'}"></echarts-ng2>
-  <!-- </div> -->
 </ion-content>
 <ion-footer class="blur">
   <p text-center ion-text (tap)="viewCtrl.dismiss()" style="padding:12px" line-top>

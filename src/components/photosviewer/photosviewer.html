@@ -2,7 +2,7 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons start>
-      <button ion-button icon-only (tap)="viewCtrl.dismiss()" clear>
+      <button ion-button icon-only (click)="viewCtrl.dismiss()" clear>
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
@@ -10,10 +10,10 @@
   </ion-navbar>
 </ion-header>
 <ion-content [fullscreen]='true' color="white">
-  <ion-slides zoom="true" [pager]="images.length">
-    <ion-slide *ngFor="let url of images">
+  <ion-slides zoom="true" [pager]="urls.length>1">
+    <ion-slide *ngFor="let img of urls">
       <div class="swiper-zoom-container">
-        <img-lazy [src]="url?.link||url?.value||url" [alt]="url?.link||url?.value||url"></img-lazy>
+        <img-lazy [src]="img" [alt]="img"></img-lazy>
       </div>
     </ion-slide>
   </ion-slides>

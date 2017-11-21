@@ -45,15 +45,15 @@ export class ReportPage {
   ) {}
 
   ngAfterViewInit() {
-    this.showNavButton = this.navCtrl.getPrevious().id != DOCTOR_PAGE;
-    this.exam = this.navParams.data;
 
+    this.exam = this.navParams.data;
+    this.showNavButton = this.navCtrl.getPrevious().id != DOCTOR_PAGE && this.exam.payment;
 
     this.getReport(this.reportIndex).then(res => {
 
       this._categorys = ReportCategory.filter(item => { return item.code <= res.level }).reverse();
       setTimeout(() => {
-        this.exam.payment && this.openPackageModal();
+        this.exam.payment || this.openPackageModal();
         this.content.resize();
       }, 500);
       console.log(this.report);
@@ -100,6 +100,7 @@ export class ReportPage {
    */
   getReport(reportIndex, level ? : number) {
     return this.examsPro.report({ guid: this.exam.guid, level: level }).then(res => {
+      this.exam.payment = res.buy;
       this.fill(reportIndex, res);
       this.comranks(this.report.subjects[0]);
       this.ranktrends(this.report.subjects[0]);

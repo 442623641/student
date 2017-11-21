@@ -20,7 +20,7 @@
     <span float-right>{{affixOpt.time | date:'yyyy年M月d日'}}</span>
   </p>
 </ion-header>
-<ion-content (ionScrollStart)="scrollStart($event)" (ionScrollEnd)="scrollEnd($event)" #content padding-top>
+<ion-content (ionScrollStart)="scrollStart($event)" (ionScrollEnd)="scrollEnd($event)" #content>
   <ng-template [ngIf]="enalyzingOpt" [ngIfElse]="loading">
     <ng-template [ngIf]="enalyzingOpt.unauthorized<enalyzingOpt.total" [ngIfElse]="guide">
       <ng-container *ngFor="let exam of enalyzingOpt.exams;let e = index;">
@@ -57,7 +57,9 @@
       </ion-infinite-scroll>
     </ng-template>
     <ng-template #guide>
-      <img src="assets/iamges/enalyzingbg.png">
+      <div text-center style="width: 100%;">
+        <img src="assets/images/enalyzingbg.png">
+      </div>
     </ng-template>
   </ng-template>
   <ng-template #loading>

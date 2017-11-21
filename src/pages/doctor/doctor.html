@@ -32,7 +32,7 @@
             <ion-row class="card-header" justify-content-between>
               <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
             </ion-row>
-            <img-lazy [src]='subject.paper' [imgviewer]="subject.paper"></img-lazy>
+            <img-lazy [src]='subject.paper' [imgviewer]="{title:exam.name+subject.name,images:subject.paper}"></img-lazy>
           </div>
           <div class="card percents">
             <ion-row class="card-header" justify-content-between>
@@ -53,7 +53,7 @@
     <!-- </div> -->
     <div class="topics" *ngIf="subject?.name&&subject.category?.length">
       <ion-row class="topics-header" line-bottom *ngIf="!stickTopicHeader">
-        <a col-3 class="fixed-button" (tap)="subject.showAll=!subject.showAll">{{subject.showAll?'错题':'全部'}}</a>
+        <a col-2 class="fixed-button" (tap)="subject.showAll=!subject.showAll">{{subject.showAll?'错题':'全部'}}</a>
         <ion-col no-padding>
           <scroll-header [items]="subject.nos" [(selected)]="subject.categoryIndex" (selectedChange)="topic($event)"></scroll-header>
         </ion-col>

@@ -9,28 +9,36 @@
     <ion-title>已购错题本</ion-title>
     <ion-buttons end>
       <!-- [navPush]="pages.guide" -->
-      <button ion-button [navPush]="pages.guide" >帮助&nbsp;
+      <button ion-button [navPush]="pages.guide">帮助&nbsp;
         <ion-icon name="help-circle"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-list>
-    <ion-card>
-      <ion-card-header line-bottom>
-        订单号：ZM839019291939013
-      </ion-card-header>
-      <ion-card-content>
-        <p padding-top-10>订购科目：语文／数学／外语</p>
-        <p>订购类型：基础班（80学贝／科）</p>
-        <p>消耗学贝：240学贝</p>
-        <p>下单时间：2017-01-01 13:13:00</p>
-      </ion-card-content>
-      <p text-right class="card-footer" line-top>
-        <button ion-button round icon-left [attr.disabled]="!processing?'':null">
-          <ion-spinner *ngIf="!processing" color="white"></ion-spinner>获取下载地址</button>
-      </p>
-    </ion-card>
-  </ion-list>
+  <ng-template [ngIf]="orders?.length" [ngIfElse]="loading">
+    <ion-list>
+      <ion-card *ngFor="let item of orders">
+        <ion-card-header line-bottom>
+          订单号：{{item.guid}}
+        </ion-card-header>
+        <ion-card-content>
+          <p padding-top-10>订购科目：{{item.km}}</p>
+          <p>订购类型：{{item.type}}</p>
+          <p>消耗学贝：{{item.xbz}}学贝</p>
+          <p>下单时间：{{item.time}}</p>
+        </ion-card-content>
+        <p text-right class="card-footer" line-top>
+          <button ion-button round icon-left [attr.disabled]="item.processing?'':null" (click)="download(item)">
+            <ion-spinner *ngIf="item.processing" color="white"></ion-spinner>获取下载地址</button>
+        </p>
+      </ion-card>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!end">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-template>
+  <ng-template #loading>
+    <loading [status]="orders"></loading>
+  </ng-template>
 </ion-content>

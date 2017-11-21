@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { LostProvider } from '../../providers/lost/lost';
 import { PAYMENT_PAGE, LOSTGUIDE_PAGE } from '../pages.constants';
 import { LostguidePage } from '../lostguide/lostguide';
+import { IView } from '../../model/view';
+
 /**
  * Generated class for the LostorderPage page.
  * Add by leo zhang 201710010101
@@ -16,7 +18,8 @@ import { LostguidePage } from '../lostguide/lostguide';
   templateUrl: 'lostorder.html',
 })
 export class LostorderPage {
-
+  orders: any[];
+  end: boolean;
   /**
    * child pages
    */
@@ -24,6 +27,7 @@ export class LostorderPage {
     payment: PAYMENT_PAGE,
     guide: LOSTGUIDE_PAGE
   }
+  page: IView = { viewindex: 1, viewlength: 8 };
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -33,12 +37,30 @@ export class LostorderPage {
 
   ngAfterViewInit() {
     console.log('ionViewDidLoad LostorderPage');
-    //this.lostPro.lastOrder().then(res => console.log(res));
+    this.lostPro.order(this.page).then(res => {
+      if (!res || !res.length) {
+        this.orders = null;
+      }
+      this.orders = res;
+    }).catch(ex => {
+      console.log(ex);
+      this.orders = null;
+    })
+  }
+  download(item) {
+    item.processing = true;
+    setTimeout(() => item.processing = false, 2000);
   }
 
-  /**
-   *查看
-   */
+  doInfinite($event) {
+    this.page.viewindex++;
+    this.lostPro.order(this.page).then(res => {
+      //$event.complete();
+      this.end = res ? res.length : false;
+      this.orders = this.orders.concat(res);
+    });
+  }
+
   // openGuide() {
   //   let modal = this.modalCtrl.create(LostguidePage);
   //   modal.present();

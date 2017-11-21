@@ -5,7 +5,7 @@ import { Elost } from '../../model/elost';
 import 'rxjs/add/operator/map';
 
 /*
-	import { Http } from '@angular/http';
+  import { Http } from '@angular/http';
   Generated class for the LostProvider provider.
   Add by leo zhang 201710010101
   See https://angular.io/guide/dependency-injection for more info on providers
@@ -37,6 +37,10 @@ export class LostProvider {
   }
   lastOrder() {
     return this.http.get('errorbook/lastorder');
+  }
+
+  order(data ? ) {
+    return this.http.get('errorbook/orderelec', data);
   }
 
 

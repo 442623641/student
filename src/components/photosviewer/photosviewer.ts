@@ -11,7 +11,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'photosviewer.html'
 })
 export class PhotosviewerComponent {
-  images: string[] = [];
+  urls: any[] = [];
   title: any;
   constructor(public navParams: NavParams,
     public viewCtrl: ViewController) {
@@ -20,7 +20,13 @@ export class PhotosviewerComponent {
 
   ngOnInit() {
     this.title = this.navParams.get('title');
-    this.images = this.navParams.get('images');
+    let images = this.navParams.get('images') || [];
+    images = typeof images === "string" ? [images] : images;
+    images.forEach(item => {
+      let us = typeof item === "string" ? [item] : item.link || item.value;
+      this.urls = this.urls.concat(us);
+    });
+    console.log(this.urls);
   }
 
   ngAfterViewInit() {
