@@ -1,0 +1,16 @@
+
+
+<ion-row padding class="images">
+  <label class="preview-label lable-img" *ngFor="let img of previewImgSrcs let i = index" no-padding margin-right-12>
+      <img src="{{img}}" style="width: 100%;height: 100%" (click)="bigpic($event)">
+      <ion-icon ios="ios-close" md="md-close" (click)="remove(i)" class="uploadimgremove"></ion-icon>
+  </label>
+
+  <label #upload class="preview-label">
+    <input accept="image/*" mutiple="mutiple" capture="camera" type="file" (change)="previewPic($event)">
+    <ion-icon name="ios-camera-outline"></ion-icon>
+    <span class="count">{{count}}/5</span>
+  </label>
+</ion-row>
+
+

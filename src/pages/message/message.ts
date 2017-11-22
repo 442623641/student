@@ -1,6 +1,5 @@
 import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
 import { MessageProvider } from '../../providers/message/message';
 import { MESSAGEINFO_PAGE } from '../pages.constants';
 import { IView } from '../../model/view';
@@ -15,7 +14,6 @@ export class MessagePage {
   };
   view: IView={ viewindex: 1, viewlength: 10 };
   messagedate: any[];
-  switch: number=0;
   constructor(
   	public navCtrl: NavController,
   	public navParams: NavParams,
@@ -26,16 +24,29 @@ export class MessagePage {
   ngAfterViewInit() {
     this.messagepro.message(this.view).then(res=>
     {
-      this.messagedate=res;
-      console.log(res);
+      /**
+      获取某个用户的所有系统消息（已读和未读）
+       */
+      if(!res || !res.length){
+         this.messagedate=null;
+      }else{
+        this.messagedate=res;
+      }
     });
   };
   message(state,guid){
     if(state==0){
-      this.switch=1;
       this.messagepro.readed({
         guid : guid
+      }).then(res=>{
+        console.log(res);
+      }).catch(err=>{
+        console.log(err);
       });
+      /*
+       将未读设置为读过
+       */
+      document.getElementById(guid).className='block-read-circle';
       this.navCtrl.push(MESSAGEINFO_PAGE,{ guid:guid });
     }
     if(state==1){

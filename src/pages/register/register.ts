@@ -17,11 +17,9 @@ export class RegisterPage {
   pages: any = {
     agreement: AGREEMENT_PAGE,
     login: LOGIN_PAGE,
-  }
+  };
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
-  }
+
 
 }

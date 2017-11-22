@@ -48,4 +48,12 @@ export const LOSTGUIDE_PAGE = 'LostguidePage';
 
 export const BINDING_PAGE = 'BindingPage';
 export const SCHOOLS_PAGE = 'SchoolsPage';
+
 export const DOWNLINK_PAGE = 'DownlinkPage';
+
+export const FINDPWD_PAGE = 'FindpwdPage';
+export const SETPWD_PAGE = 'SetpwdPage';
+
+
+export const ORDERMORE_PAGE = 'OrdermorePage';
+export const ABOUTUS_PAGE = 'AboutusPage';

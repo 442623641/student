@@ -1,14 +1,9 @@
 page-login {
   .content {
-    //color($colors, primary);
-    background: linear-gradient(to bottom, color($colors, primary) 0%,color($colors, primary) 50%, #fff 51%,#fff 100%);
-  }
-  .grid {
-    height: 100%;
     background: #fff;
   }
   .banner {
-    height: 30.5vh;
+    height: 36.5vh;
     background-color: color($colors, primary);
     background-image: url(../assets/images/cloud.png);
     background-repeat: no-repeat;
@@ -26,7 +21,6 @@ page-login {
   }
 
   .app-name {
-    
     width: 100%;
     text-align: center;
     padding: 0;
@@ -35,17 +29,17 @@ page-login {
   }
   form {
     width: 100%;
-    background: #fff;
   }
   .item .label {
     // text-align: center; // width: 25px;
+
     .icon {
       font-size: 1.8em;
     }
   }
   .forgot {
     position: absolute;
-    bottom: 10px;
+    bottom: 0;
     width: 100%;
   }
 }

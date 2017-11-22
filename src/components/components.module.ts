@@ -11,6 +11,9 @@ import { ModalComponent } from './modal/modal';
 import { SidenavComponent } from './sidenav/sidenav';
 import { CouponComponent } from './coupon/coupon';
 import { PaymentComponent } from './payment/payment';
+import { PhonecodeComponent } from './phonecode';
+import { UploadimgComponent } from './uploadimg/uploadimg';
+import { AgreecheckComponent } from './agreecheck/agreecheck';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { PaymentComponent } from './payment/payment';
     SidenavComponent,
     CouponComponent,
     PaymentComponent,
+	  PhonecodeComponent,
+    UploadimgComponent,
+    AgreecheckComponent
   ],
   imports: [
     CommonModule,
@@ -40,6 +46,9 @@ import { PaymentComponent } from './payment/payment';
     SidenavComponent,
     CouponComponent,
     PaymentComponent,
+  	PhonecodeComponent,
+    UploadimgComponent,
+    AgreecheckComponent
   ],
 })
 export class ComponentsModule {}

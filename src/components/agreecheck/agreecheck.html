@@ -1,0 +1,8 @@
+<!-- Generated template for the AgreecheckComponent component -->
+<ion-item-divider color="light" class="agreement">
+  <ion-label>我已阅读并同意
+    <a (click)="agree()"  class="relative" *ngIf="type === 'user'">《七天网络用户协议》</a>
+    <a (click)="agree()"  class="relative" *ngIf="type === 'payment'">《七天网络增值服务使用协议》</a>
+  </ion-label>
+  <ion-checkbox [(ngModel)]="choose"></ion-checkbox>
+</ion-item-divider>

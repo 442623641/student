@@ -9,9 +9,6 @@ import { ComponentsModule } from '../../components/components.module';
   imports: [
     IonicPageModule.forChild(CouponPage),
     ComponentsModule
-  ],
-  // providers: [
-  //   CouponProvider
-  // ]
+  ]
 })
 export class CouponPageModule {}

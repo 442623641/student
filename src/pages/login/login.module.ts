@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { LoginPage } from './login';
-//import { RegisterPageModule } from '../register/register.module';
+//import { RegisterPageModule } from '../validation/validation.module';
 import { ValidationPageModule } from '../validation/validation.module';
 import { Rocket } from '../../components/rocket/rocket';
-import { ComponentsModule } from '../../components/components.module';
+
 @NgModule({
   declarations: [
     LoginPage,

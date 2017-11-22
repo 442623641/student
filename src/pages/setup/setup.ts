@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 import { UserProvider } from '../../providers/user';
+import { ABOUTUS_PAGE } from '../pages.constants';
 /**
  * Generated class for the SetupPage page.
  *
@@ -14,9 +15,12 @@ import { UserProvider } from '../../providers/user';
   templateUrl: 'setup.html',
 })
 export class SetupPage {
-
+  pages:any={
+    aboutus: ABOUTUS_PAGE
+  };
   constructor(
-    private userProvider: UserProvider) {}
+    private userProvider: UserProvider
+  ) {}
   logout() {
     this.userProvider.logout();
     //this.navCtrl.setRoot(LoginPage, {}, { animation: 'wp-transition', animate: true });

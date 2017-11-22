@@ -14,6 +14,8 @@ import { PersonalProvider } from '../../providers/personal/personal';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
 
+
+
 @NgModule({
   declarations: [
     UsercenterPage,
@@ -28,11 +30,8 @@ import { DirectivesModule } from '../../directives/directives.module';
     CouponPageModule,
     RechargePageModule,
     ValidationPageModule,
-
     ComponentsModule,
     DirectivesModule,
-
-
   ],
   providers: [
     PersonalProvider
