@@ -3,7 +3,7 @@ page-login {
     background: #fff;
   }
   .banner {
-    height: 36.5vh;
+    height: 30.5vh;
     background-color: color($colors, primary);
     background-image: url(../assets/images/cloud.png);
     background-repeat: no-repeat;
@@ -29,10 +29,10 @@ page-login {
   }
   form {
     width: 100%;
+    background: #fff;
   }
   .item .label {
     // text-align: center; // width: 25px;
-
     .icon {
       font-size: 1.8em;
     }
