@@ -1,4 +1,5 @@
 export interface UserInfo {
+  graduated ? : boolean;
   /*
   用户名称
   */
@@ -23,6 +24,8 @@ export interface UserInfo {
    学校
    */
   school ? : string;
+
+  schoolGuid ? : string;
 
   /*
   学贝

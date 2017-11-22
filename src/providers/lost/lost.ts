@@ -32,8 +32,8 @@ export class LostProvider {
   exams(data) {
     return this.http.get('errorbook/subjectexams', data);
   }
-  code() {
-    return this.http.get('errorbook/extractcode');
+  downlink(data) {
+    return this.http.get('errorbook/extractcode', data);
   }
   lastOrder() {
     return this.http.get('errorbook/lastorder');

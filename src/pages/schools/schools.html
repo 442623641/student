@@ -6,9 +6,28 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-searchbar [(ngModel)]="myInput" showCancelButton="true" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" cancelButtonText="取消" placeholder="输入学校名称查询">
-    </ion-searchbar>
+    <ion-toolbar color="primary">
+      <ion-searchbar [(ngModel)]="input" (ionInput)="onInput($event)" placeholder="输入学校名称查询">
+      </ion-searchbar>
+      <ion-buttons right>
+        <button ion-button clear (click)="save()">确定</button>
+      </ion-buttons>
+    </ion-toolbar>
   </ion-navbar>
 </ion-header>
-<ion-content padding>
+<ion-content>
+  <ng-template [ngIf]="tempSchools" [ngIfElse]="loading">
+    <ion-list radio-group [(ngModel)]="checked" no-lines>
+      <ion-item *ngFor="let item of tempSchools">
+        <ion-label> {{item.name}}</ion-label>
+        <ion-radio [value]="item"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="tempSchools.length<schoolsCache.length">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-template>
+  <ng-template #loading>
+    <loading [status]="tempSchools"></loading>
+  </ng-template>
 </ion-content>

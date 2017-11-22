@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-//import { Http } from '@angular/http';
 import { HttpProvider } from '../http';
-import 'rxjs/add/operator/map';
-
+import { Subject } from 'rxjs/Subject';
 /*
   Generated class for the PersonalProvider provider.
 
@@ -11,23 +9,27 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class PersonalProvider {
-
+  private schoolSource = new Subject < any > ();
+  private refreshSource = new Subject < any > ();
+  schoolChecked$ = this.schoolSource.asObservable();
+  refresh$ = this.refreshSource.asObservable();
   constructor(public http: HttpProvider) {
     console.log('Hello PersonalProvider Provider');
   }
-  address() {
-    return this.http.get('../assets/data/address.json')
-      .catch(err => {
-        return Promise.reject(err)
-      })
 
+  schoolChecked(obj ? ) {
+    this.schoolSource.next(obj);
+  }
+  refresh(obj ? ) {
+    this.refreshSource.next(obj);
   }
 
-  grade() {
-    return this.http.get('../assets/data/grade.json')
-      .catch(err => {
-        return Promise.reject(err)
-      })
-
+  schools(data) {
+    return this.http.get('userinfo/schools', data);
   }
+
+  update(data) {
+    return this.http.post('userinfo/updateinfo', data);
+  }
+
 }

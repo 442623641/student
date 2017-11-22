@@ -15,8 +15,9 @@ export class SubmitonComponent {
     console.log('Hello SubmitonComponent Component');
   }
 
-  stateValue: boolean;
+  @Input() stateValue: boolean;
   @Output() stateChange = new EventEmitter();
+  @Output() onClick = new EventEmitter();
 
   @Input()
   get state() {
@@ -29,6 +30,7 @@ export class SubmitonComponent {
   }
   onTap() {
     if (this.stateValue) return;
-    this.state = true;
+    if (this.onClick.observers.length) this.onClick.emit();
+    if (this.stateChange.observers.length) this.state = true;
   }
 }

@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { PersonalPage } from './personal';
 import { BindingPageModule } from '../binding/binding.module';
+import { CityPickerModule } from "ionic2-city-picker";
+import { SchoolsPageModule } from '../schools/schools.module';
 
-
-//import { ComponentsModule } from '../../components';
+import { ComponentsModule } from '../../components/components.module';
 //import { SubmitonComponent } from '../../components/submiton/submiton';
 @NgModule({
   declarations: [
@@ -14,8 +15,12 @@ import { BindingPageModule } from '../binding/binding.module';
   ],
   imports: [
     IonicPageModule.forChild(PersonalPage),
-    BindingPageModule
-    //ComponentsModule,
-  ]
+    CityPickerModule,
+    SchoolsPageModule,
+    ComponentsModule,
+  ],
+  // providers: [
+  //   PersonalProvider
+  // ]
 })
 export class PersonalPageModule {}

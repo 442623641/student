@@ -39,7 +39,7 @@
           <ion-col col-auto text-left>
             <ion-icon name="time-outline"></ion-icon> 发布时间：{{exam.time}}</ion-col>
         </ion-row>
-        <ion-row class="footer" [ngSwitch]="!!latest.payment">
+        <ion-row class="footer" [ngSwitch]="!!exam.payment">
           <a [navPush]='pages.report' [navParams]="exam">学情报告</a>
           <a *ngSwitchCase="true" [navPush]='pages.doctor' [navParams]="exam">错题诊断</a>
           <a *ngSwitchCase="false" [navPush]='pages.reply' [navParams]="exam">答题情况</a>

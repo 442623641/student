@@ -5,6 +5,15 @@ page-personal {
   // }
   ion-item.item {
     color: color($colors, gray9);
+    .item-button {
+      font-size: 1.5rem;
+    }
+    .button {
+      .icon {
+        font-size: 1.5em;
+        margin-right: 16px;
+      }
+    }
   }
   .agreement {
 
@@ -18,6 +27,6 @@ page-personal {
   }
   p.agreement {
     color: color($colors, gray9);
-    padding: 0 16px;
+    padding: 16px;
   }
 }

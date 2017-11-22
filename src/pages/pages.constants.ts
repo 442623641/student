@@ -48,3 +48,4 @@ export const LOSTGUIDE_PAGE = 'LostguidePage';
 
 export const BINDING_PAGE = 'BindingPage';
 export const SCHOOLS_PAGE = 'SchoolsPage';
+export const DOWNLINK_PAGE = 'DownlinkPage';

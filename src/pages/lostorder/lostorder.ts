@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { LostProvider } from '../../providers/lost/lost';
-import { PAYMENT_PAGE, LOSTGUIDE_PAGE } from '../pages.constants';
+import { PAYMENT_PAGE, LOSTGUIDE_PAGE, DOWNLINK_PAGE } from '../pages.constants';
 import { LostguidePage } from '../lostguide/lostguide';
 import { IView } from '../../model/view';
 
@@ -25,9 +25,10 @@ export class LostorderPage {
    */
   pages: any = {
     payment: PAYMENT_PAGE,
-    guide: LOSTGUIDE_PAGE
+    guide: LOSTGUIDE_PAGE,
+    downlink: DOWNLINK_PAGE
   }
-  page: IView = { viewindex: 1, viewlength: 8 };
+  page: IView;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -37,29 +38,53 @@ export class LostorderPage {
 
   ngAfterViewInit() {
     console.log('ionViewDidLoad LostorderPage');
+    this.doRefresh();
+
+  }
+  doRefresh(event ? ) {
+    this.page = { viewindex: 1, viewlength: 8 };
     this.lostPro.order(this.page).then(res => {
+      event && event.complete();
       if (!res || !res.length) {
         this.orders = null;
       }
       this.orders = res;
     }).catch(ex => {
+      event && event.complete();
       console.log(ex);
       this.orders = null;
     })
   }
   download(item) {
+    if (item.processing) return;
     item.processing = true;
-    setTimeout(() => item.processing = false, 2000);
-  }
-
-  doInfinite($event) {
-    this.page.viewindex++;
-    this.lostPro.order(this.page).then(res => {
-      //$event.complete();
-      this.end = res ? res.length : false;
-      this.orders = this.orders.concat(res);
+    this.lostPro.downlink({ guid: item.guid }).then(res => {
+      item.processing = false;
+      if (!res || !res.url) {
+        return;
+      }
+      item.url = res.url;
+      item.code = res.code;
+      this.navCtrl.push(this.pages.downlink, { order: item });
+      console.log(res);
+    }).catch(ex => {
+      item.processing = false;
+      console.log(ex);
     });
   }
+
+  doInfinite(event) {
+    this.page.viewindex++;
+    this.lostPro.order(this.page).then(res => {
+      event.complete();
+      this.end = res ? !!res.length : false;
+      this.orders = this.orders.concat(res);
+    }).catch(ex => {
+      event.complete();
+      console.log(ex);
+    });
+  }
+
 
   // openGuide() {
   //   let modal = this.modalCtrl.create(LostguidePage);

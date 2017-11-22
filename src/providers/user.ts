@@ -40,7 +40,7 @@ export class UserProvider {
   }
 
   userInfo() {
-    return this.http.get(this.URL + 'userinfo/getinfo');
+    return this.http.get(this.URL + 'userinfo/info');
   }
 
 

@@ -10,7 +10,7 @@ import { TradePageModule } from '../trade/trade.module';
 import { CouponPageModule } from '../coupon/coupon.module';
 import { RechargePageModule } from '../recharge/recharge.module';
 import { ValidationPageModule } from '../validation/validation.module';
-
+import { PersonalProvider } from '../../providers/personal/personal';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
 
@@ -34,8 +34,8 @@ import { DirectivesModule } from '../../directives/directives.module';
 
 
   ],
-  exports: [
-    ComponentsModule
-  ],
+  providers: [
+    PersonalProvider
+  ]
 })
 export class UsercenterPageModule {}

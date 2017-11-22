@@ -8,7 +8,6 @@
   <ion-navbar>
     <ion-title>已购错题本</ion-title>
     <ion-buttons end>
-      <!-- [navPush]="pages.guide" -->
       <button ion-button [navPush]="pages.guide">帮助&nbsp;
         <ion-icon name="help-circle"></ion-icon>
       </button>
@@ -16,11 +15,14 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ng-template [ngIf]="orders?.length" [ngIfElse]="loading">
     <ion-list>
       <ion-card *ngFor="let item of orders">
         <ion-card-header line-bottom>
-          订单号：{{item.guid}}
+          订单号：{{item.num}}
         </ion-card-header>
         <ion-card-content>
           <p padding-top-10>订购科目：{{item.km}}</p>
@@ -28,9 +30,11 @@
           <p>消耗学贝：{{item.xbz}}学贝</p>
           <p>下单时间：{{item.time}}</p>
         </ion-card-content>
-        <p text-right class="card-footer" line-top>
-          <button ion-button round icon-left [attr.disabled]="item.processing?'':null" (click)="download(item)">
-            <ion-spinner *ngIf="item.processing" color="white"></ion-spinner>获取下载地址</button>
+        <p text-right class="card-footer" line-top [ngSwitch]="!!item.code">
+          <button class="processing" ion-button round icon-left *ngSwitchCase="false" disabled>
+            <ion-spinner color="white"></ion-spinner>&nbsp;&nbsp;正在生成错题本中...</button>
+          <button ion-button round icon-left [navPush]="pages.downlink" [navParams]="{order:item}" *ngSwitchCase="true">
+            查看下载地址</button>
         </p>
       </ion-card>
     </ion-list>
