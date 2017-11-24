@@ -45,7 +45,7 @@ export class PaymentComponent {
 
     } else {
       this.paymentPro.sa(this.options).then(res => {
-        this.paymentPro.achieve({ len: this.navCtrl.length(), result: res });
+        this.paymentPro.achieve({ len: this.navCtrl.length(), result: res, type: this.options.ordertype });
         this.nativePro.toast('开通成功');
         this.processing = false;
       }).catch(ex => this.catchError(ex));

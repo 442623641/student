@@ -45,7 +45,6 @@ export class PackagePage {
   tap(opt: PackageOption) {
     this.package.setPackage(opt);
     this.setParams(this.package);
-
   }
 
 

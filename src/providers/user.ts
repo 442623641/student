@@ -14,7 +14,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class UserProvider {
   private userInfoSource = new Subject < any > ();
-  private userInfo$ = this.userInfoSource.asObservable();
+  userInfo$ = this.userInfoSource.asObservable();
   private URL = ""; //this.http.domin + "login";
   constructor(
     private http: HttpProvider,
@@ -71,13 +71,11 @@ export class UserProvider {
 
 
   setUserInfo(userInfo: UserInfo) {
-
     return this.storage.set(USERINFO, userInfo).then(res => this.userInfoSource.next(res));
   }
 
 
-  getUserInfo(): Observable < UserInfo > {
-    this.storage.get(USERINFO).then(res => this.userInfoSource.next(res));
-    return this.userInfo$;
+  getUserInfo(): Promise < UserInfo > {
+    return this.storage.get(USERINFO); //.then(res => this.userInfoSource.next(res));
   }
 }

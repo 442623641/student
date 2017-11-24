@@ -60,6 +60,7 @@ export class HomePage {
   */
   private userInfo: UserInfo;
   listen: any;
+  packageSub: any;
 
   constructor(
     public navCtrl: NavController,
@@ -72,11 +73,13 @@ export class HomePage {
     private nativePro: NativeProvider,
   ) {}
   ngAfterViewInit() {
-    this.userProvider.getUserInfo().subscribe((userInfo: UserInfo) => {
+
+    this.userProvider.getUserInfo().then((userInfo: UserInfo) => {
       this.userInfo = userInfo;
       this.paymentPro.setLocalBalance(this.userInfo.coin);
       console.log(this.userInfo);
     });
+    this.userProvider.userInfo$.subscribe((userInfo: UserInfo) => this.userInfo = userInfo);
     this.loadData();
   }
 
@@ -84,9 +87,13 @@ export class HomePage {
     return this.homeProvider.index().then(res => {
       this.package = new Package(res.package);
       this.homeProvider.setBadge(res.msgCount);
-
-      console.log(res);
-
+      if (!this.package.open) {
+        this.packageSub = this.paymentPro.package$.subscribe(res => this.loadData());
+        console.log(res);
+      } else {
+        this.packageSub && this.packageSub.unsubscribe();
+        this.packageSub = undefined;
+      }
     }).catch(ex => {
       console.log(ex);
       this.package = null;
@@ -95,6 +102,7 @@ export class HomePage {
   }
 
   open() {
+    this.packageSub && this.packageSub.unsubscribe();
     this.listen = this.paymentPro.achieve$.subscribe(res => {
       let start = this.navCtrl.indexOf(this.viewCtrl);
       this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
@@ -105,8 +113,9 @@ export class HomePage {
     });
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
     this.listen && this.listen.unsubscribe();
+    this.packageSub = this.packageSub ? this.paymentPro.package$.subscribe(res => this.loadData()) : this.packageSub;
   }
 
 }

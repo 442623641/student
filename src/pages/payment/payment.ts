@@ -41,7 +41,7 @@ export class PaymentPage {
       this.processing = false;
       this.paymentPro[this.payType](res).then(res => {
         this.nativePro.toast('支付成功');
-        this.paymentPro.achieve({ len: this.navCtrl.length(), result: res });
+        this.paymentPro.achieve({ len: this.navCtrl.length(), result: res, type: this.params.ordertype });
       }, error => {
         //this.paymentPro.achieve({ len: this.navCtrl.length(), result: res });
         this.nativePro.toast('支付失败');

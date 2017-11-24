@@ -47,7 +47,8 @@ export class UsercenterPage {
     console.log('UsercenterPage');
   }
   ngAfterViewInit() {
-    this.userPro.getUserInfo().subscribe(res => this.userInfo = res);
+    this.userPro.getUserInfo().then(res => this.userInfo = res);
+    this.userPro.userInfo$.subscribe((userInfo: UserInfo) => this.userInfo = userInfo);
   }
 
   ionViewDidLoad() {

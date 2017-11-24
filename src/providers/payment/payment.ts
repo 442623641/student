@@ -21,8 +21,10 @@ declare let Wechat: any;
 export class PaymentProvider {
   private achieveSource = new Subject < any > ();
   private balanceSource = new Subject < any > ();
+  private packageSource = new Subject < any > ();
   achieve$ = this.achieveSource.asObservable();
   balance$ = this.balanceSource.asObservable();
+  package$ = this.packageSource.asObservable();
 
   constructor(
     private http: HttpProvider,
@@ -35,12 +37,11 @@ export class PaymentProvider {
   achieve(obj) {
     this.achieveSource.next(obj);
     this.balance();
+    obj.type == "package" && this.packageSource.next(obj);
   }
 
   code(data) {
-
     return this.http.post('payment/getOrderCode', data);
-
   }
 
   params(data) {

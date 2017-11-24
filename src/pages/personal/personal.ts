@@ -44,44 +44,40 @@ export class PersonalPage {
   ) {}
 
   ngOnInit() {
-
     this.initialize();
-
-  }
-
-  ngAfterViewInit() {
-    //this.initialize();
   }
 
   /**
    * 获取城市数据
    */
   initialize() {
+    let pickerSource = () => Promise.all([this.staticPro.address(), this.staticPro.grade()]).then(res => {
+      this.picker = {
+        city: res[0],
+        grade: res[1],
+        text: ''
+      };
+    });
+
     this.personalPro.schoolChecked$.subscribe(res => {
       res = res || {};
       this.userInfo.school = res.name;
       this.userInfo.schoolGuid = res.guid;
     })
 
-    Promise.all([this.getUserInfo(), this.staticPro.address(), this.staticPro.grade()]).then(res => {
-      this.userInfo = res[0] || {};
-      this.db = {} || JSON.parse(JSON.stringify(res[0]));
-      this.picker = {
-        city: res[1],
-        grade: res[2],
-        text: ''
-      };
+    this.userPro.getUserInfo().then(res => {
+      this.userInfo = res || {};
+      this.db = JSON.parse(JSON.stringify(res));
+      this.db.school ?
+        this.userPro.userInfo().then((info) => {
+          //this.graduated = true;
+          this.graduated && pickerSource();
+          return Object.assign({ schoolGuid: info.school }, res)
+        }) : pickerSource();
     });
+
   }
 
-  getUserInfo() {
-    return this.userPro.getUserInfo().subscribe(res => {
-      return res && res.school ? this.userPro.userInfo().then((info) => {
-        this.graduated = !info.graduated;
-        return Object.assign({ schoolGuid: info.school }, res)
-      }) : res;
-    });
-  }
 
   openPicker(name) {
     this.pickerName = name;
@@ -125,7 +121,6 @@ export class PersonalPage {
         this.processing = undefined;
         this.nativePro.toast('信息更新成功');
         this.userPro.setUserInfo(this.userInfo);
-        //this.personalPro.refresh(this.userInfo);
         setTimeout(() => this.navCtrl.parent ? this.navCtrl.pop() : this.navCtrl.setRoot(TABS_PAGE, {}, { animate: true, animation: 'ios-transition', direction: 'forward' }), 1000);
       }).catch(ex => {
         this.processing = undefined;
@@ -138,13 +133,5 @@ export class PersonalPage {
     this.db = { name: this.userInfo.name };
     this.userInfo = { name: this.db.name };
     this.graduated = false;
-    // this.navCtrl.push(this.pages.binding, { user: { name: this.userInfo.name } }).then(res => {
-    //   this.personalPro.refresh$.subscribe(user => {
-    //     this.userInfo = this.db = user;
-    //     this.graduated = false;
-    //     console.log('refresh:' + user);
-    //   });
-    //   console.log(res);
-    // })
   }
 }

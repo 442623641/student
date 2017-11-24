@@ -55,7 +55,7 @@ export class ExamsPage {
     let error = (res) => {
       console.error(res);
       this.latest = null;
-      event ? this.nativePro.hideLoading() : event.complete();
+      event ? event.complete() : this.nativePro.hideLoading();
     }
 
     this.examsPro.exams(this.view).then(res => {

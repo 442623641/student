@@ -56,7 +56,6 @@ export class StaticProvider {
       .catch(err => {
         return Promise.reject(err)
       })
-
   }
 
   getGradeName(code) {
@@ -71,7 +70,7 @@ export class StaticProvider {
         });
         return name;
       });
-      return name;
+      return (name || '').trim();
     });
 
   }
