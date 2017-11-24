@@ -76,27 +76,17 @@ export class CouponPage {
   search() {
     if (!this.codes) return;
     // 判断用户添加的是否是已经用过的优惠券
-    this.coupons.forEach((v, i) => {
+    this.coupons && this.coupons.length && this.coupons.forEach((v, i) => {
       if (this.codes === v.couponCode) {
         this.nativePro.toast('该优惠券已存在');
         this.values = v.couponCode;
       }
     });
 
-    if (typeof this.values === 'string') {
-      return false;
-    }
     //不是则判断优惠券是否合法 合法则添加 不合法报错
     this.couponpro.wincoupon({ code: this.codes }).then(res => {
-      console.log(typeof res);
-      if (typeof res === 'string') {
-        this.nativePro.toast(res);
-      } else {
-        this.coupons.unshift(res);
-      }
-    }).catch(err => {
-      this.nativePro.toast('无效的优惠码');
-    })
+      res && res.couponCode ? this.coupons.unshift(res) : this.nativePro.toast('该优惠劵不存在');
+    }).catch(err => this.nativePro.toast('该优惠劵不存在'));
   }
 
   /**

@@ -9,7 +9,7 @@ import { Subject } from 'rxjs/Subject';
 export class HttpHandler {
   private handleAuthSource = new Subject < any > ();
   private handleMessageSource = new Subject < any > ();
-  handleErrorSource = new Subject < any > ();
+  private handleErrorSource = new Subject < any > ();
   handleMessage$ = this.handleMessageSource.asObservable();
   handleAuth$ = this.handleAuthSource.asObservable();
   handleError$ = this.handleErrorSource.asObservable();

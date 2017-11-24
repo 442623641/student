@@ -73,14 +73,11 @@ export class ReportPage {
           let achieveSub = this.paymentPro.achieve$.subscribe(res => {
             let start = this.navCtrl.indexOf(this.viewCtrl);
             this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
-              //this.nativePro.showLoading();
-              //this.loadData().then(() => this.nativePro.hideLoading());
               this.exam.payment = true;
               achieveSub.unsubscribe();
             });
           });
         })
-      //.then(() => this.viewCtrl.dismiss(true));
     });
   }
 

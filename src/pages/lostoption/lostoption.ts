@@ -19,13 +19,8 @@ import {} from '../pages.constants';
 })
 export class LostoptionPage {
   elost: Elost;
-
-  /**
-   * child pages
-   */
-  pages: any = {
-
-  }
+  page: { index: number, viewlength: number };
+  end: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -42,10 +37,31 @@ export class LostoptionPage {
   }
 
   exams() {
-    this.lostPro.exams({ subject: this.elost.name, index: 0, viewlength: 10, type: 1 }).then(res => {
-      this.elost.append(res.exams, res.end, res.index);
-      console.log(this.elost);
-    });
+
+    this.end = false;
+    this.page = { index: 0, viewlength: 10 };
+    this.lostPro.exams(Object.assign({ subject: this.elost.name, type: 1 }, this.page)).then(res => {
+      if (!res || !res.exams || !res.exams.length) return this.elost.state = null;
+      this.fill(res)
+    }).catch(ex => {
+      console.error(ex);
+      this.elost.state = null;
+    })
+  }
+
+  doInfinite(event) {
+    this.lostPro.exams(Object.assign({ subject: this.elost.name, type: 1 }, this.page)).then(res => {
+      if (!res || !res.exams || !res.exams.length) return this.end = true;
+      this.fill(res)
+    }).catch(ex => {
+      console.error(ex);
+    })
+  }
+  fill(res) {
+    this.page.index = res.index;
+    this.elost.append(res.exams, res.end, res.index);
+    this.end = res.end;
+    if (this.end) this.elost.count = this.elost.exams.length;
   }
 
   ionViewDidLeave() {

@@ -29,7 +29,7 @@
       <label>还需充值<span primary>{{package.dvalue}}</span>学贝
         <br>小计：<span primary>{{package.dvalue/10}}</span>元（1元=10学贝）</label>
     </p>
-    <coupon type="1" [value]="package.option.value" (onChange)="couponChange($event)" (fulfill)="complete($event)"></coupon>
+    <coupon type="1" [value]="package.option.value" (onChange)="couponChange($event)"></coupon>
   </ng-container>
   <ion-item-group class="desc">
     <p class="break">开通学情套餐说明</p>

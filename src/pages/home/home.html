@@ -17,9 +17,13 @@
     <ng-container>
       <ion-row class="header" justify-content-between align-items-center margin-top>
         <ion-col nowrap text-left col-6 class="user-info">
-          <span><ion-icon name="icontact"></ion-icon> {{userInfo.name}}</span>
-          <span><ion-icon name="school"></ion-icon>  {{userInfo.school}}</span>
-          <span><ion-icon name="icoin"></ion-icon><coin></coin>学贝</span>
+          <p>
+            <ion-icon name="icontact"></ion-icon> <span>{{userInfo.name}}</span></p>
+          <p>
+            <ion-icon name="school"></ion-icon> <span>{{userInfo.school}}</span></p>
+          <p>
+            <ion-icon name="icoin"></ion-icon>
+            <coin></coin>学贝</p>
         </ion-col>
         <ion-col class="coin" [ngSwitch]="package.open">
           <ng-container *ngSwitchCase="false">

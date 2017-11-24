@@ -6,7 +6,7 @@ import { Picker } from '../../model/picker';
 import { UserInfo } from '../../model/userInfo';
 import { UserProvider } from '../../providers/user';
 import { NativeProvider } from '../../providers/native';
-import { PERSONAL_PAGE, SCHOOLS_PAGE } from '../pages.constants'
+import { PERSONAL_PAGE, SCHOOLS_PAGE, TABS_PAGE } from '../pages.constants'
 /**
  * Generated class for the PersonalPage page.
  *
@@ -32,6 +32,7 @@ export class PersonalPage {
   db: UserInfo;
   graduated: boolean;
   processing: any;
+  refreshSub: any;
 
   constructor(
     public navCtrl: NavController,
@@ -63,7 +64,7 @@ export class PersonalPage {
     })
 
     Promise.all([this.getUserInfo(), this.staticPro.address(), this.staticPro.grade()]).then(res => {
-      this.userInfo = res[0];
+      this.userInfo = res[0] || {};
       this.db = {} || JSON.parse(JSON.stringify(res[0]));
       this.picker = {
         city: res[1],
@@ -74,19 +75,12 @@ export class PersonalPage {
   }
 
   getUserInfo() {
-    this.userInfo = this.navParams.get("user");
-    if (this.userInfo) return Promise.resolve(this.userInfo);
-    this.userPro.userInfo().then(res => {
-      this.graduated = !res.graduated;
-      this.userInfo.schoolGuid = res.school;
-      this.graduated && this.personalPro.refresh$.subscribe(user => {
-        this.userInfo = this.db = user;
-        this.graduated = false;
-        console.log('refresh:' + user);
-      });
-      console.log(res);
+    return this.userPro.getUserInfo().subscribe(res => {
+      return res && res.school ? this.userPro.userInfo().then((info) => {
+        this.graduated = !info.graduated;
+        return Object.assign({ schoolGuid: info.school }, res)
+      }) : res;
     });
-    return <any > this.userPro.getUserInfo();
   }
 
   openPicker(name) {
@@ -129,15 +123,28 @@ export class PersonalPage {
         grade: this.userInfo.grade
       }).then(res => {
         this.processing = undefined;
-        this.nativePro.toast('个人信息更新成功');
+        this.nativePro.toast('信息更新成功');
         this.userPro.setUserInfo(this.userInfo);
-        this.personalPro.refresh(this.userInfo);
-        setTimeout(() => this.navCtrl.pop(), 1000);
+        //this.personalPro.refresh(this.userInfo);
+        setTimeout(() => this.navCtrl.parent ? this.navCtrl.pop() : this.navCtrl.setRoot(TABS_PAGE, {}, { animate: true, animation: 'ios-transition', direction: 'forward' }), 1000);
       }).catch(ex => {
         this.processing = undefined;
         this.nativePro.toast('更新失败，请稍后再试');
       });
     })
 
+  }
+  rebinding() {
+    this.db = { name: this.userInfo.name };
+    this.userInfo = { name: this.db.name };
+    this.graduated = false;
+    // this.navCtrl.push(this.pages.binding, { user: { name: this.userInfo.name } }).then(res => {
+    //   this.personalPro.refresh$.subscribe(user => {
+    //     this.userInfo = this.db = user;
+    //     this.graduated = false;
+    //     console.log('refresh:' + user);
+    //   });
+    //   console.log(res);
+    // })
   }
 }

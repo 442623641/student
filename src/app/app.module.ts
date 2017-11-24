@@ -17,7 +17,7 @@ Icon.enableColorful();
 /**
  *page module
  */
-// import { HomePageModule } from '../pages/home/home.module';
+import { PersonalPageModule } from '../pages/personal/personal.module';
 import { LoginPageModule } from '../pages/login/login.module';
 // import { UsercenterPageModule } from '../pages/usercenter/usercenter.module';
 // import { NewsPageModule } from '../pages/news/news.module';
@@ -105,7 +105,7 @@ import { UploadImgProvider } from "../providers/uploadimg/uploadimg";
     ComponentsModule,
     LoginPageModule,
     TabsModule,
-    // HomePageModule,
+    PersonalPageModule,
     // UsercenterPageModule,
     // NewsPageModule,
     IonicStorageModule.forRoot(),

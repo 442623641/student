@@ -43,6 +43,7 @@ export class LostorderPage {
   }
   doRefresh(event ? ) {
     this.page = { viewindex: 1, viewlength: 8 };
+    this.end = false;
     this.lostPro.order(this.page).then(res => {
       event && event.complete();
       if (!res || !res.length) {
@@ -77,7 +78,7 @@ export class LostorderPage {
     this.page.viewindex++;
     this.lostPro.order(this.page).then(res => {
       event.complete();
-      this.end = res ? !!res.length : false;
+      this.end = res ? !res.length : false;
       this.orders = this.orders.concat(res);
     }).catch(ex => {
       event.complete();

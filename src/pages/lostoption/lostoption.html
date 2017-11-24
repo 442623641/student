@@ -34,6 +34,9 @@
         </ion-card>
       </div>
     </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!end">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </ng-template>
   <!-- loadding -->
   <ng-template #loading>

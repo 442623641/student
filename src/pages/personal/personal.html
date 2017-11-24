@@ -11,10 +11,10 @@
 </ion-header>
 <ion-content>
   <ion-item-group *ngIf="db">
-    <ion-item-divider color="light"><span ion-text color="primary">{{userInfo.name?'欢迎您，'+userInfo.name:'还差一步，成功绑定信息就可以查看成绩了!'}}</span></ion-item-divider>
-    <ion-item *ngIf="!userInfo.name">
+    <ion-item-divider color="light"><span ion-text color="primary">{{db.name?'欢迎您，'+userInfo.name:'还差一步，成功绑定信息就可以查看成绩了!'}}</span></ion-item-divider>
+    <ion-item *ngIf="!db.name">
       <ion-label color="primary">姓名</ion-label>
-      <ion-input placeholder="实名修改，绑定后不可修改"></ion-input>
+      <ion-input placeholder="实名绑定，绑定后不可修改" [(ngModel)]="userInfo.name"></ion-input>
     </ion-item>
     <!-- address -->
     <ng-template [ngIf]="!!db.city" [ngIfElse]="citybinding">
@@ -90,7 +90,7 @@
   <p padding *ngIf="db&&!db.role&&!db.gradeName&&!db.school&&!db.cityName||graduated" [ngSwitch]="!!graduated">
     <!-- <submiton></submiton> -->
     <submiton *ngSwitchCase="false" [stateValue]="processing===undefined?state:processing" (onClick)="save($event)">保 存</submiton>
-    <button *ngSwitchCase="true" ion-button block [navPush]="pages.binding" [navParams]="{user:{name:userInfo.name}}">{{'重新绑定'}}</button>
+    <button *ngSwitchCase="true" ion-button block (click)="rebinding()">{{'重新绑定'}}</button>
   </p>
 </ion-content>
 <city-picker style="display: none;" cancelText='取消' doneText='完成' separator=' ' (ionChange)="onChange($event)" #pickerCmp [(ngModel)]="picker.text" *ngIf="picker">

@@ -8,9 +8,13 @@ import { USERINFO, ACCOUNT } from './providers.constants';
 import { HttpHandler } from "./httpHandler";
 import { UserInfo } from "../model/userInfo";
 import { StaticProvider } from "./static/static";
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+
 @Injectable()
 export class UserProvider {
-  //userInfo:any={};
+  private userInfoSource = new Subject < any > ();
+  private userInfo$ = this.userInfoSource.asObservable();
   private URL = ""; //this.http.domin + "login";
   constructor(
     private http: HttpProvider,
@@ -21,22 +25,24 @@ export class UserProvider {
 
   //初始数据
   initialize(userInfo, login: any) {
-
     this.setLogin(login);
-    this.http.setToken(userInfo.token);
-    return Promise.all([this.staticPro.getAddressName(userInfo.city), this.staticPro.getGradeName(userInfo.grade)])
+    userInfo && this.http.setToken(userInfo.token);
+    return userInfo && userInfo.school ? Promise.all([this.staticPro.getAddressName(userInfo.city), this.staticPro.getGradeName(userInfo.grade)])
       .then(ress => {
         console.log(ress);
         userInfo.cityName = ress[0];
         userInfo.gradeName = ress[1];
-        return this.setUserInfo(userInfo);
-      });
+        this.setUserInfo(userInfo)
+        return userInfo;
+      }) : userInfo;
   }
 
   login(user) {
     //友盟登陆统计
     //this.mobclickAgent.profileSignInWithPUID(user.usercode);
-    return this.http.post(this.URL + 'login', user, true);
+    return this.http.post(this.URL + 'login', user, true).then(res => {
+      return res && res.token ? this.initialize(res, user) : res;
+    })
   }
 
   userInfo() {
@@ -55,11 +61,6 @@ export class UserProvider {
     });
   }
 
-
-  setUserInfo(userInfo: UserInfo) {
-    this.storage.set(USERINFO, userInfo);
-  }
-
   setLogin(login) {
     return this.storage.set(ACCOUNT, login);
   }
@@ -68,7 +69,15 @@ export class UserProvider {
     return this.storage.get(ACCOUNT);
   }
 
-  getUserInfo(): Promise < UserInfo > {
-    return this.storage.get(USERINFO);
+
+  setUserInfo(userInfo: UserInfo) {
+
+    return this.storage.set(USERINFO, userInfo).then(res => this.userInfoSource.next(res));
+  }
+
+
+  getUserInfo(): Observable < UserInfo > {
+    this.storage.get(USERINFO).then(res => this.userInfoSource.next(res));
+    return this.userInfo$;
   }
 }

@@ -2,10 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserProvider } from '../../providers/user';
 import { HttpHandler } from "../../providers/httpHandler";
-import { FINDPWD_PAGE, HOME_PAGE,VALIDATION_PAGE } from '../pages.constants';
+import { FINDPWD_PAGE, HOME_PAGE, VALIDATION_PAGE, PERSONAL_PAGE, TABS_PAGE } from '../pages.constants';
 import { NativeProvider } from '../../providers/native';
 import { TabsPage } from '../../core/tabs/tabs';
-
+import { PersonalPage } from '../../pages/personal/personal';
 
 /**
  * Generated class for the LoginPage page.
@@ -29,7 +29,7 @@ export class LoginPage {
   private state: string;
   private processing: boolean;
 
-  private account: { usercode: any, pwd: string }={ usercode: '17000000013', pwd: '123456' };
+  private account: { usercode: any, pwd: string } = { usercode: '17000000013', pwd: '123456' };
 
   constructor(
     private navCtrl: NavController,
@@ -50,14 +50,8 @@ export class LoginPage {
     }
     this.state = "launch";
     this.userProvider.login(this.account).then(res => {
-        this.userProvider.initialize(res, this.account).then(() => {
-          console.log(res); //测试写缓存
-          this.navCtrl.setRoot(TabsPage, {}, { animate: true, animation: "md-transition" }).catch((error) => {
-            this.nativeProvider.toast(error);
-          });
-          this.state = "";
-
-        })
+        this.state = "";
+        res && res.token && this.navCtrl.setRoot(res.school ? TabsPage : PersonalPage, {}, { animate: true, animation: 'md-transition', direction: 'forward' });
       })
       .catch(res => {
         this.state = "";

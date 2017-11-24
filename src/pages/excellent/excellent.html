@@ -61,18 +61,18 @@
   <ion-item-group>
     <ion-item-divider color="light">科目</ion-item-divider>
     <ion-row justify-content-between>
-      <a col-3 *ngFor="let item of subjectNames" [attr.seleted]="tempOption.subject == item" (tap)="tempOption.subject = item">{{item}}</a>
+      <a col-3 *ngFor="let item of subjectNames" [attr.seleted]="tempOption.subject == item" (click)="tempOption.subject = item">{{item}}</a>
     </ion-row>
   </ion-item-group>
   <ion-item-group margin-top>
     <ion-item-divider color="light">年级</ion-item-divider>
     <ion-row justify-content-between>
-      <a col-auto *ngFor="let item of grades" [attr.seleted]="tempOption.grade == item.code" (tap)="tempOption.grade = item.code">{{item.name}}</a>
+      <a col-auto *ngFor="let item of grades" [attr.seleted]="tempOption.grade == item.code" (click)="tempOption.grade = item.code">{{item.name}}</a>
     </ion-row>
   </ion-item-group>
   <ion-footer>
     <p margin>
-      <button ion-button block (tap)="save()">确 定</button>
+      <button ion-button block (click)="save()">确 定</button>
     </p>
   </ion-footer>
 </sidenav>

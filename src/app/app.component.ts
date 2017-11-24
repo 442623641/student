@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from '../core/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { PersonalPage } from '../pages/personal/personal';
 import { UserProvider } from '../providers/user';
 import { HttpHandler } from '../providers/httpHandler';
 @Component({
@@ -27,7 +28,7 @@ export class StudentApp {
 
       platform.is('ios') ? statusBar.styleLightContent() : statusBar.styleDefault();
       //splashScreen.hide();
-      this.httpHandler.handleAuth$.subscribe(info => this.rootNav.setRoot(LoginPage, {}, { animation: 'md-transition', animate: true }));
+      this.httpHandler.handleAuth$.subscribe(info => this.rootNav.setRoot(LoginPage, {}, { animate: true, animation: 'md-transition', direction: 'back' }));
 
       this.login();
     });
@@ -36,16 +37,21 @@ export class StudentApp {
   private login() {
     //this.handler();
     return this.userProvider.getLogin().then(login => {
-      if (login && login.usercode && login.pwd) {
-        return this.userProvider.login(login).then(res =>
-          res.token ?
-          this.userProvider.initialize(res, login).then(() => this.goTabsPage()) :
-          this.goLoginPage()
-        ).catch(() => this.goLoginPage());
-      } else {
-        this.goLoginPage();
-      }
+      login && login.usercode && login.pwd ?
+        this.userProvider.login(login).then(res =>
+          //(res = {},
+          this.to(!res || !res.token ? LoginPage : res.school ? TabsPage : PersonalPage) //)
+          // res.token ?
+          // this.userProvider.initialize(res, login).then(() => this.goTabsPage()) :
+          // this.goLoginPage()
+        ).catch(() => this.to(LoginPage)) :
+        this.to(LoginPage);
     });
+  }
+
+  to(page: any) {
+    this.rootPage = page;
+    setTimeout(() => this.splashScreen.hide(), 300);
   }
 
   private goLoginPage() {

@@ -63,6 +63,7 @@ export class LostPage {
           return item.name == res.name
         });
         this.losts[index] = res;
+        this.losts[index].count = res.count;
         this.checkeds = this.losts.filter(item => { return item.echeckeds });
         this.checkeds.map(item => { return item.visible = true });
         console.log(this.losts[index]);
@@ -71,6 +72,7 @@ export class LostPage {
   }
 
   doRefresh(event ? ) {
+    this.checkeds.length = 0;
     this.lostPro.subjects().then(res => {
       event && event.complete();
       if (!res || !res.length) {
@@ -98,6 +100,7 @@ export class LostPage {
       let start = this.navCtrl.indexOf(this.viewCtrl);
       this.navCtrl.insert(start + 1, this.pages.lostOrder, {}, { animate: false }).then(() => {
         this.navCtrl.remove(start + 2, res.len - start - 1).then(() => {
+          this.doRefresh();
           this.achieveSub.unsubscribe();
         });
       });

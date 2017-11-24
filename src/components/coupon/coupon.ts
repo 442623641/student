@@ -73,7 +73,7 @@ export class CouponComponent {
    *优惠劵列表
    */
   private getCoupons() {
-    if (this.coupons.length) {
+    if (this.coupons && this.coupons.length) {
       return this.matriculate();
     }
     this.params = { isexpired: 0, type: this.type };

@@ -55,30 +55,32 @@ export class ExcellentPage {
     this.refresh();
   }
 
-  private refresh() {
-    this.processing = true;
-    this.excellentsOpts && this.nativePro.showLoading();
-    this.tempOption = this.option.clone();
-    this.pageview = new Pageview();
-    this.excellentPro.excellents(Object.assign({}, this.pageview, this.option)).then(res => {
-      this.nativePro.hideLoading();
-      if (!res || !res.questions || !res.questions.length) return this.excellentsOpts = null;
-      this.total = res.total;
-      this.excellentsOpts = res.questions.map((item) => { return new ExcellentOptions(item) });
-
-      this.processing = false;
-    }).catch(ex => {
+  private refresh(shouldLoading ? : boolean) {
+    let error = (ex) => {
       console.error(ex);
       this.nativePro.hideLoading();
       this.excellentsOpts = null;
-    });
+      this.processing = false;
+    }
+    this.processing = true;
+    shouldLoading && this.nativePro.showLoading();
+    this.tempOption = this.option.clone();
+    this.pageview = new Pageview();
+    this.excellentPro.excellents(Object.assign({}, this.pageview, this.option)).then(res => {
+      if (!res || !res.questions || !res.questions.length) return error(res);
+      this.total = res.total;
+      this.excellentsOpts = res.questions.map((item) => { return new ExcellentOptions(item) });
+      this.processing = false;
+      setTimeout(() => this.nativePro.hideLoading(), 650);
+    }).catch(ex => error(ex));
+
   }
 
   save() {
     this.showMenu = false;
     if (this.processing || this.option.subject == this.tempOption.subject && this.option.grade == this.tempOption.grade) return;
     this.option = this.tempOption.clone();
-    setTimeout(() => this.refresh(), 300);
+    setTimeout(() => this.refresh(true), 300);
   }
 
   doInfinite(event) {
@@ -127,7 +129,6 @@ export class ExcellentPage {
         title: this.option.subject,
         images: imgs
       };
-      console.log(res);
     });
   }
   toast(message) {

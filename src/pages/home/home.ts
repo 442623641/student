@@ -72,7 +72,7 @@ export class HomePage {
     private nativePro: NativeProvider,
   ) {}
   ngAfterViewInit() {
-    this.userProvider.getUserInfo().then((userInfo: UserInfo) => {
+    this.userProvider.getUserInfo().subscribe((userInfo: UserInfo) => {
       this.userInfo = userInfo;
       this.paymentPro.setLocalBalance(this.userInfo.coin);
       console.log(this.userInfo);

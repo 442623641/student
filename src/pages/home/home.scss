@@ -31,11 +31,14 @@ page-home {
       }
     }
     .user-info {
+      p {
+        padding: 4px;
+      }
       coin {
         color: #fff;
       }
       span {
-        display: block;
+        //display: block;
         padding: 4px;
         .icon {
           font-size: 1.3em;

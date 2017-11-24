@@ -17,13 +17,13 @@
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
+  <ion-row class="coupon-search">
+    <ion-col col-9 no-padding>
+      <input type="text" placeholder="请输入优惠码" [(ngModel)]="codes">
+    </ion-col>
+    <a (click)="search()" col-3>添加</a>
+  </ion-row>
   <ng-template [ngIf]="coupons" [ngIfElse]="loading">
-    <ion-row class="coupon-search">
-      <ion-col col-9 no-padding>
-        <input type="text" placeholder="请输入优惠码" [(ngModel)]="codes">
-      </ion-col>
-      <a (click)="search()" col-3>添加</a>
-    </ion-row>
     <ion-list>
       <ion-card *ngFor="let v of coupons;let i=index;" [class.expire]="v.expired" [attr.checked]="v.couponCode==checked">
         <ion-row padding-vertical class="coupon-content" align-items-center (click)="setChecked(v.couponCode)" [ngSwitch]="v.couponType>0">

@@ -46,7 +46,7 @@ export class PaymentComponent {
     } else {
       this.paymentPro.sa(this.options).then(res => {
         this.paymentPro.achieve({ len: this.navCtrl.length(), result: res });
-        this.nativePro.toast('支付成功');
+        this.nativePro.toast('开通成功');
         this.processing = false;
       }).catch(ex => this.catchError(ex));
     }
@@ -54,7 +54,7 @@ export class PaymentComponent {
   catchError(res ? ) {
     console.error(res);
     this.processing = false;
-    this.nativePro.toast(res.message||'订单生产失败，请稍后再试');
+    this.nativePro.toast(res.message || '订单生成失败，请稍后再试');
   }
 
   toPayment() {

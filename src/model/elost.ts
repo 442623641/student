@@ -1,6 +1,6 @@
 export class Elost {
   name: string;
-  count: string;
+  count: number;
   exams: ElostOptions[] = [];
   state: any;
   index: number = 0;

@@ -4,6 +4,7 @@ import { Pageview } from '../../model/pageview';
 import { ExamsProvider } from '../../providers/exams/exams';
 import { ChartsProvider } from '../../providers/charts/charts';
 import { PaymentProvider } from '../../providers/payment/payment';
+import { NativeProvider } from '../../providers/native';
 import { REPORT_PAGE, DOCTOR_PAGE, REPLY_PAGE } from '../pages.constants';
 /**
  * Generated class for the ExamsPage page.
@@ -37,31 +38,33 @@ export class ExamsPage {
     public chartsPro: ChartsProvider,
     private paymentPro: PaymentProvider,
     private viewCtrl: ViewController,
+    private nativePro: NativeProvider
   ) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ExamsPage');
   }
   ngAfterViewInit() {
-    this.doRefresh(null);
+    this.doRefresh();
 
   }
 
-  doRefresh(event) {
+  doRefresh(event ? ) {
 
     this.view = new Pageview();
+    let error = (res) => {
+      console.error(res);
+      this.latest = null;
+      event ? this.nativePro.hideLoading() : event.complete();
+    }
 
     this.examsPro.exams(this.view).then(res => {
-      if (!res || !res.latest) {
-        this.latest = null;
-        return;
-      }
-      console.log(res);
+      if (!res || !res.latest) return error(res);
       this.latest = res.latest;
       this.waterball = this.chartsPro.ball(this.latest.percent, this.latest.score);
       this.exams = res.exams;
       event && event.complete();
-    });
+    }).catch(ex => error(ex));
   }
 
   doInfinite(event) {
@@ -84,6 +87,8 @@ export class ExamsPage {
         this.navCtrl.insert(start + 1, this.pages.doctor, item, { animate: false }).then(() => {
           this.navCtrl.remove(start + 2, res.len - start - 1).then(() => {
             this.achieveSub.unsubscribe();
+            this.nativePro.showLoading();
+            this.doRefresh();
           });
         });
       });
