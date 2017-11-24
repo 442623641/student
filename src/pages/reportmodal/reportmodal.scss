@@ -16,8 +16,8 @@ page-reportmodal {
   }
 
   .strong {
-    span {
-      padding: 0 5px;
+    span span {
+      padding: 0 4px;
       color: color($colors, primary);
     }
     padding: 12px 16px;

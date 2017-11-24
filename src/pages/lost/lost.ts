@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { LostProvider } from '../../providers/lost/lost';
 import { Elost } from '../../model/elost';
 import { LOSTOPTION_PAGE, LOSTORDER_PAGE, LOSTPAY_PAGE } from '../pages.constants';
-
+import { PaymentProvider } from '../../providers/payment/payment';
 /**
  * Generated class for the LostPage page.
  * Add by leo zhang 201710010101
@@ -37,31 +37,38 @@ export class LostPage {
     lostOrder: LOSTORDER_PAGE,
     lostpay: LOSTPAY_PAGE,
   }
+
+  setElostSub: any;
+  achieveSub: any;
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public lostPro: LostProvider,
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private lostPro: LostProvider,
+    private paymentPro: PaymentProvider,
+    private viewCtrl: ViewController,
   ) {}
 
   ngAfterViewInit() {
-
     this.doRefresh();
-
-    this.lostPro.setElost$.subscribe((res: Elost) => {
-      console.log('setElost$');
-      this.showTips = false;
-      //if (!this.losts.length) return;
-      let index = this.losts.findIndex(item => {
-        return item.name == res.name
-      });
-      this.losts[index] = res;
-      this.checkeds = this.losts.filter(item => { return item.echeckeds });
-      this.checkeds.map(item => { return item.visible = true });
-      console.log(this.losts[index]);
-    });
-
   }
 
+  print(item) {
+    this.navCtrl.push(this.pages.lostoption, item).then(() => {
+      this.setElostSub = this.lostPro.setElost$.subscribe((res: Elost) => {
+        this.setElostSub.unsubscribe();
+        console.log('setElost$');
+        this.showTips = false;
+        //if (!this.losts.length) return;
+        let index = this.losts.findIndex(item => {
+          return item.name == res.name
+        });
+        this.losts[index] = res;
+        this.checkeds = this.losts.filter(item => { return item.echeckeds });
+        this.checkeds.map(item => { return item.visible = true });
+        console.log(this.losts[index]);
+      });
+    });
+  }
 
   doRefresh(event ? ) {
     this.lostPro.subjects().then(res => {
@@ -87,5 +94,22 @@ export class LostPage {
     let subjects = [];
     this.checkeds.forEach(item => item.echeckeds && subjects.push({ name: item.name, exams: item.exams.filter(i => { return i.checked; }) }))
     this.navCtrl.push(this.pages.lostpay, { subjects: subjects });
+    this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
+      let start = this.navCtrl.indexOf(this.viewCtrl);
+      this.navCtrl.insert(start + 1, this.pages.lostOrder, {}, { animate: false }).then(() => {
+        this.navCtrl.remove(start + 2, res.len - start - 1).then(() => {
+          this.achieveSub.unsubscribe();
+        });
+      });
+    });
+  }
+  ionViewDidEnter() {
+    this.achieveSub && this.achieveSub.unsubscribe();
+    //this.setElostSub && this.setElostSub.unsubscribe();
+  }
+
+  ngOnDestroy() {
+    this.achieveSub && this.achieveSub.unsubscribe();
+    this.setElostSub && this.setElostSub.unsubscribe();
   }
 }

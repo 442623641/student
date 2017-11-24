@@ -11,7 +11,16 @@ import { PhotosviewerComponent } from '../../components/photosviewer/photosviewe
   selector: '[imgviewer]', // Attribute selector
 })
 export class ImgviewerDirective {
-  @Input('imgviewer') imgviewer: any;
+  value: any;
+  clicked: boolean;
+  @Input('imgviewer')
+  set imgviewer(objs) {
+    this.value = objs;
+    objs && this.clicked && this.openModal();
+  };
+  get imgviewer() {
+    return this.value;
+  }
 
   gesture: Gesture;
 
@@ -27,7 +36,9 @@ export class ImgviewerDirective {
   /**
    *查看更多哦小题得分情况
    */
-  openModal(event) {
+  openModal(event ? ) {
+    if (!this.imgviewer) return this.clicked = true;
+    this.clicked = false;
     this.ionViewDidLeave();
     let modal = this.modalCtrl.create(PhotosviewerComponent, this.imgviewer);
     modal.present();

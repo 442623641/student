@@ -35,12 +35,6 @@ export class EnalyzingPage {
    */
   package: boolean;
 
-  /**
-   *滚动timer
-   */
-  //scrollYStart: number;
-  scrollTimer: any;
-
   subjectNames: string[];
   tempOption: EOptions;
   achieveSub: any;
@@ -67,16 +61,6 @@ export class EnalyzingPage {
     }).catch(ex => {
       this.enalyzingOpt = null;
     });
-
-    this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
-      let start = this.navCtrl.indexOf(this.viewCtrl);
-      this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
-        //this.nativePro.showLoading();
-        //this.loadData().then(() => this.nativePro.hideLoading());
-        //this.exam.payment = true;
-      });
-    });
-
   }
 
   save() {
@@ -119,7 +103,7 @@ export class EnalyzingPage {
       this.enalyzingOpt.append(res);
       this.affix();
       event.complete();
-    });
+    }).catch(ex => event.complete());
 
   }
 
@@ -127,7 +111,7 @@ export class EnalyzingPage {
     this.enalyzingPro.excellent({
       guid: this.enalyzingOpt.exams[e].guid,
       subject: this.enalyzingOpt.option.subject,
-      nos: JSON.stringify(this.enalyzingOpt.exams[e].questions[q].excellent),
+      nos: this.enalyzingOpt.exams[e].questions[q].excellent,
     }).then(res => {
       console.log(res);
       //this.nativePro.showImage(res.map(item,retu))
@@ -146,28 +130,17 @@ export class EnalyzingPage {
   }
 
   toast(message) {
-
     this.nativePro.toast(message, 1500, "center");
-
   }
 
-  scrollEnd(event) {
-    clearInterval(this.scrollTimer);
-  }
-
-  scrollStart(event) {
-
-    this.scrollTimer = setInterval(() => {
-      this.zone.run(() => {
-        let index = -1;
-        this.affixs.forEach((item, i) => {
-          if (event.scrollTop > item) {
-            index = i;
-          }
-        });
-        this.affixOpt = index > -1 ? this.enalyzingOpt.exams[index] : null;
+  scrollHandler(event) {
+    this.zone.run(() => {
+      let index = -1;
+      this.affixs.forEach((item, i) => {
+        if (event.scrollTop > item) index = i;
       });
-    }, 60);
+      this.affixOpt = index > -1 ? this.enalyzingOpt.exams[index] : null;
+    });
   }
   /**
    *查看
@@ -176,11 +149,21 @@ export class EnalyzingPage {
     if (!this.enalyzingOpt.unauthorized || this.enalyzingOpt.unauthorized == this.enalyzingOpt.total) return;
     let modal = this.modalCtrl.create(EnalyzingmodalPage, { option: { total: this.enalyzingOpt.total, unauthorized: this.enalyzingOpt.unauthorized } });
     modal.present();
-    modal.onDidDismiss(res => res && res.open && this.navCtrl.push(PACKAGE_PAGE));
+    modal.onDidDismiss(res => res && res.open &&
+      this.navCtrl.push(PACKAGE_PAGE).then(() => {
+        this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
+          this.achieveSub.unsubscribe();
+          let start = this.navCtrl.indexOf(this.viewCtrl);
+          this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
+            //this.nativePro.showLoading();
+            //this.loadData().then(() => this.nativePro.hideLoading());
+            //this.exam.payment = true;
+          });
+        });
+      })
+    )
   }
-
-  ngOnDestroy() {
-    this.achieveSub.unsubscribe();
+  ionViewDidEnter() {
+    this.achieveSub && this.achieveSub.unsubscribe();
   }
-
 }

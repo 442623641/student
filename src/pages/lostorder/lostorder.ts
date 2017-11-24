@@ -46,7 +46,7 @@ export class LostorderPage {
     this.lostPro.order(this.page).then(res => {
       event && event.complete();
       if (!res || !res.length) {
-        this.orders = null;
+        return this.orders = null;
       }
       this.orders = res;
     }).catch(ex => {

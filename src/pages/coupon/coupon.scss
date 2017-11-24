@@ -4,24 +4,20 @@ page-coupon {
     input[type=text] {
       border: none;
       outline: none;
-      width: 81%;
+      width: 100%;
       padding-left: 16px;
       border-radius: 4px 0 0 4px;
-      float: left;
-      height: 35px;
-      line-height: 35px;
+      height: 3.3rem;
+      line-height: 3.3rem;
     }
-    .button {
-      width: 19%;
-      border: none;
-      height: 35px;
-      line-height: 35px;
+    a {
+      padding: 0;
+      height: 3.3rem;
+      line-height: 3.3rem;
       color: white;
       text-align: center;
       background-color: color($colors, primary);
       border-radius: 0 4px 4px 0;
-      outline: none;
-      float: left;
     }
     &:after {
       content: '';

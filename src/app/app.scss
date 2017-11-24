@@ -40,6 +40,14 @@
     padding: 0 5px;
   }
 
+  .content ion-footer {
+    position: fixed;
+  }
+
+  .footer .toolbar:first-child .toolbar-background {
+    border: none;
+  }
+
   .toolbar-background-ios {
     -webkit-backdrop-filter: blur(15px);
   }

@@ -1,13 +1,13 @@
 import { EnalyzingProvider } from '../../providers/enalyzing/enalyzing';
-import { Component, ViewChild, NgZone } from '@angular/core';
-import { IonicPage, Content } from 'ionic-angular';
+import { Component, ViewChild, NgZone, } from '@angular/core';
+import { IonicPage, Content, NavParams, ViewController, NavController } from 'ionic-angular';
 import { ExcellentOptions, EOptions } from '../../model/excellents';
 import { Pageview } from '../../model/pageview';
 import { SubjectNames } from '../../model/subjectNames';
 import { Grade } from '../../model/grade';
-import {} from '../pages.constants';
+import { PACKAGE_PAGE } from '../pages.constants';
 import { NativeProvider } from '../../providers/native';
-
+import { PaymentProvider } from '../../providers/payment/payment';
 /**
  * Generated class for the EnalyzingPage page.
  * Add by leo zhang 201710010101
@@ -21,33 +21,36 @@ import { NativeProvider } from '../../providers/native';
   templateUrl: 'excellent.html',
 })
 export class ExcellentPage {
+  pages = { package: PACKAGE_PAGE };
   @ViewChild('content') content: Content;
   processing: boolean;
   showMenu: boolean;
   total: number;
-
-  // affixs: any = [];
-  excellentsOpts: ExcellentOptions;
-  // affixOpt: any;
-
-  /**
-   *滚动timer
-   */
-  //scrollYStart: number;
-  // scrollTimer: any;
-
+  excellentsOpts: ExcellentOptions[];
   subjectNames: string[] = SubjectNames;
   grades: any[] = Grade;
-  pageview: Pageview = new Pageview();
+  pageview: Pageview;
   tempOption: EOptions;
   option: EOptions;
+  package: boolean;
+  achieveSub: any;
   constructor(
+    private navCtrl: NavController,
     public excellentPro: EnalyzingProvider,
     public nativePro: NativeProvider,
-    public zone: NgZone
-  ) {}
+    public zone: NgZone,
+    public navParams: NavParams,
+    private paymentPro: PaymentProvider,
+    private viewCtrl: ViewController
+  ) {
+    this.package = this.navParams.get('package');
+  }
 
   ngAfterViewInit() {
+    this.package && this.initialize();
+
+  }
+  initialize() {
     this.option = new EOptions({ subject: this.subjectNames[0], grade: this.grades[0].code });
     this.refresh();
   }
@@ -55,12 +58,13 @@ export class ExcellentPage {
   private refresh() {
     this.processing = true;
     this.excellentsOpts && this.nativePro.showLoading();
+    this.tempOption = this.option.clone();
+    this.pageview = new Pageview();
     this.excellentPro.excellents(Object.assign({}, this.pageview, this.option)).then(res => {
       this.nativePro.hideLoading();
       if (!res || !res.questions || !res.questions.length) return this.excellentsOpts = null;
       this.total = res.total;
       this.excellentsOpts = res.questions.map((item) => { return new ExcellentOptions(item) });
-      this.tempOption = this.option.clone();
 
       this.processing = false;
     }).catch(ex => {
@@ -80,48 +84,58 @@ export class ExcellentPage {
   doInfinite(event) {
     this.pageview.viewindex++;
     this.excellentPro.excellents(Object.assign({}, this.pageview, this.option)).then(res => {
-      this.excellentsOpts = res.map(item => new ExcellentOptions(item));
+      if (res && res.length) {
+        this.excellentsOpts = this.excellentsOpts.concat(res.map(item => new ExcellentOptions(item)));
+      }
       event.complete();
-    });
+    }).catch(ex => {
+      event.complete();
+    })
 
   }
 
-  excellent(index) {
+  open() {
+    this.navCtrl.push(this.pages.package).then(() => {
+      this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
+        this.achieveSub.unsubscribe();
+        let start = this.navCtrl.indexOf(this.viewCtrl);
+        this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
+          this.package = true;
+          delete this.excellentsOpts;
+          this.ngAfterViewInit();
+        });
+      });
+    });
+  }
+
+  excellent(item) {
+    if (item.imgviewer) return;
     this.excellentPro.excellent({
-      guid: this.excellentsOpts[index].guid,
+      guid: item.guid,
       subject: this.option.subject,
-      nos: JSON.stringify(this.excellentsOpts[index].excellent),
+      nos: item.excellent,
     }).then(res => {
+      let imgs = [];
+      res.forEach(x =>
+        x.link && x.link.forEach(y =>
+          Object.prototype.toString.call(y) == '[object Array]' ?
+          (imgs = imgs.concat(y)) :
+          imgs.push(y))
+      );
+
+      item.imgviewer = {
+        title: this.option.subject,
+        images: imgs
+      };
       console.log(res);
-      //this.nativePro.showImage(res.map(item,retu))
     });
   }
-
-
-
   toast(message) {
-
-    this.nativePro.toast(message, 1500, "middle");
-
+    this.nativePro.toast(message, 1500, "center");
+  }
+  ionViewDidEnter() {
+    this.achieveSub && this.achieveSub.unsubscribe();
   }
 
-  // scrollEnd(event) {
-  //   clearInterval(this.scrollTimer);
-  // }
-
-  // scrollStart(event) {
-
-  //   this.scrollTimer = setInterval(() => {
-  //     this.zone.run(() => {
-  //       let index = -1;
-  //       this.affixs.forEach((item, i) => {
-  //         if (event.scrollTop > item) {
-  //           index = i;
-  //         }
-  //       });
-  //       this.affixOpt = index > -1 ? this.enalyzingOpt.exams[index] : null;
-  //     });
-  //   }, 60);
-  // }
 
 }

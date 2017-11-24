@@ -6,7 +6,6 @@ import { EnalyzingPageModule } from '../enalyzing/enalyzing.module';
 import { PackagePageModule } from '../package/package.module';
 import { ExcellentPageModule } from '../excellent/excellent.module';
 import { UnclaimedexamsPageModule } from '../unclaimedexams/unclaimedexams.module';
-import { HomeProvider } from '../../providers/home';
 import { EnalyzingProvider } from '../../providers/enalyzing/enalyzing';
 import { LostProvider } from '../../providers/lost/lost';
 import { CouponProvider } from '../../providers/coupon/coupon';
@@ -33,7 +32,6 @@ import { DirectivesModule } from '../../directives/directives.module';
 
   ],
   providers: [
-    HomeProvider,
     EnalyzingProvider,
     LostProvider,
     CouponProvider,

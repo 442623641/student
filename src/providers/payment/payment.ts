@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http';
 import { SeptnetpayProvider } from './septnetpay';
-import 'rxjs/add/operator/map';
+import { Storage } from '@ionic/storage';
+
 import { PaymentParams } from '../../model/payment'
 import { Subject } from 'rxjs/Subject';
+import { COIN } from '../providers.constants';
 /* beautify ignore:start */
 declare let cordova: any;
 declare let Wechat: any;
@@ -18,18 +20,21 @@ declare let Wechat: any;
 @Injectable()
 export class PaymentProvider {
   private achieveSource = new Subject < any > ();
+  private balanceSource = new Subject < any > ();
   achieve$ = this.achieveSource.asObservable();
-
+  balance$ = this.balanceSource.asObservable();
 
   constructor(
     private http: HttpProvider,
-    private septnetpayPro: SeptnetpayProvider
+    private septnetpayPro: SeptnetpayProvider,
+    private storage: Storage,
   ) {
     console.log('Hello PaymentProvider Provider');
   }
 
   achieve(obj) {
     this.achieveSource.next(obj);
+    this.balance();
   }
 
   code(data) {
@@ -44,6 +49,22 @@ export class PaymentProvider {
 
   }
 
+
+
+  balance() {
+    return this.http.get('userinfo/getcoin').then(res => {
+      res && res.coin != undefined && this.setLocalBalance(res.coin);
+      console.log(res);
+    }).catch();
+  }
+
+  setLocalBalance(num, delay = 0) {
+    setTimeout(() => this.balanceSource.next(num), delay);
+    return this.storage.set(COIN, num);
+  }
+  getLocalBalance() {
+    return this.storage.get(COIN);
+  }
   private queryString(obj) {
     let dic = [];
     for (var key in obj) dic.push(key + '=' + encodeURIComponent(obj[key]));
@@ -111,7 +132,6 @@ export class PaymentProvider {
         return this.septnetpayPro.exam({ examguid: params.examguid });
       case "elecerrorbook":
         return this.septnetpayPro.lost({ product: params.product, couponcode: params.couponcode, examguids: JSON.stringify(params.examguids) });
-
       default:
         console.log('Invalid order type');
         return Promise.reject({ status: 405, message: 'Invalid order type' });

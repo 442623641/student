@@ -114,14 +114,16 @@ export class CategoryOptions {
       return this.excellentNums[index];
     }
     return 0;
-
   }
 
-  setExcellents(index: number = 0, items = []) {
-    this.excellent[index].value = items;
+  setExcellents(excellent: any[]) {
+    //this.excellent[index].value = items;
+    excellent.forEach(x => {
+      let item = this.excellent.find(y => { return y.no == x.th });
+      if (item) item.value = x.link;
+      else this.excellent.push({ no: item.th, value: x.link });
+    });
   }
-
-
   get fullString() {
     return this.full.join(",");
   }

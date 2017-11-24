@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PAYMENT_PAGE, COUPON_PAGE } from '../pages.constants';
-import { UserProvider } from '../../providers/user';
+//import { UserProvider } from '../../providers/user';
 import { NativeProvider } from '../../providers/native';
 import { PaymentOption } from '../../model/payment';
 import { PackageOption, PackageO } from '../../model/package';
@@ -34,22 +34,21 @@ export class PackagePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public userPro: UserProvider,
+    //public userPro: UserProvider,
     public packagePro: PackageProvider,
     public nativePro: NativeProvider,
 
   ) {}
-
+  balanceChange(event) {
+    this.package = new PackageO(event);
+  }
   ngAfterViewInit() {
-    this.userPro.getUserInfo().then(res => this.package = new PackageO(res.coin));
+    //this.userPro.getUserInfo().then(res => this.package = new PackageO(res.coin));
     this.packagePro.options().then(res => {
       if (!res || !res.length) return;
       this.options = res;
       this.tap(this.options[0]);
     });
-
-    console.log(this.navCtrl.getActiveChildNavs());
-    console.log(this.navCtrl.getAllChildNavs());
   }
 
   tap(opt: PackageOption) {

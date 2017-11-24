@@ -14,7 +14,7 @@
     <ion-item>
       <span item-left>当前余额</span>
       <label item-right>
-        <span primary>{{package?.balance}}</span> 学贝</label>
+        <coin (balanceChange)="balanceChange($event)"></coin>学贝</label>
     </ion-item>
   </ion-item-group>
   <ng-container *ngIf='package?.option'>
@@ -41,5 +41,7 @@
   </ion-item-group>
 </ion-content>
 <ion-footer>
-  <payment [options]="paymentOption" [amount]="paymentOption.amount" *ngIf="paymentOption"></payment>
+  <ion-toolbar color="white" no-padding>
+    <payment [options]="paymentOption" [amount]="paymentOption.amount" *ngIf="paymentOption"></payment>
+  </ion-toolbar>
 </ion-footer>

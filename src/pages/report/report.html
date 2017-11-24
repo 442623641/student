@@ -13,7 +13,9 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  <scroll-header [items]="categorys" (selectedChange)="changeSlide($event)" *ngIf="categorys.length>1" [(selected)]="reportIndex"></scroll-header>
+  <ion-toolbar no-border color="transparent" no-padding>
+    <scroll-header [items]="categorys" (selectedChange)="changeSlide($event)" *ngIf="categorys.length>1" [(selected)]="reportIndex"></scroll-header>
+  </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" #content>
   <ng-template #frame [ngIf]="categorys.length<2" [ngIfElse]="tslider" let-indexNum="indexNum">

@@ -18,7 +18,7 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ng-template [ngIf]="orders?.length" [ngIfElse]="loading">
+  <ng-template [ngIf]="orders" [ngIfElse]="loading">
     <ion-list>
       <ion-card *ngFor="let item of orders">
         <ion-card-header line-bottom>

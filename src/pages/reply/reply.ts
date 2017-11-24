@@ -42,7 +42,7 @@ export class ReplyPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public doctorPro: DoctorProvider,
-    public zone: NgZone
+    public zone: NgZone,
   ) {}
 
   ngOnInit() {

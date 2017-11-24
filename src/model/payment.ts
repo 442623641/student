@@ -122,6 +122,7 @@ export class Order {
   constructor(balance: number = 0, value: number = 0) {
     this.balance = balance;
     this.setValue(value);
+    this.amount = this.dvalue;
   }
 
   setValue(val: number) {

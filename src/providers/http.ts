@@ -192,31 +192,15 @@ export class HttpProvider {
 
 
   private toParams(obj ? : any) {
-
-    if (typeof obj == 'undefined') {
-      return '';
-    }
-    var ret = [];
-    for (var key in obj) {
-      var values = obj[key];
-      if (values && values.constructor == Array) { //数组 
-        var queryValues = [];
-        for (var i = 0, len = values.length, value; i < len; i++) {
-          value = values[i];
-          queryValues.push(this.toQueryPair(key, value));
-        }
-        ret = ret.concat(queryValues);
-      } else { //字符串 
-        ret.push(this.toQueryPair(key, values));
-      }
-    }
+    if (typeof obj == 'undefined') return;
+    let ret = [],
+      keys = Object.keys(obj);
+    keys.forEach(key => obj[key] === undefined || ret.push(this.toQueryPair(key, typeof obj[key] == 'object' ? JSON.stringify(obj[key]) : obj[key])));
     return ret.join('&');
   }
 
   private toQueryPair(key, value) {
-    if (typeof value == 'undefined') {
-      return key;
-    }
+    if (typeof value == 'undefined') return;
     return key + '=' + encodeURIComponent(value === null ? '' : String(value));
   }
   catchError(err, inject) {

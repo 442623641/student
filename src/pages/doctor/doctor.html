@@ -34,7 +34,7 @@
             </ion-row>
             <img-lazy [src]='subject.paper' [imgviewer]="{title:exam.name+subject.name,images:subject.paper}"></img-lazy>
           </div>
-          <div class="card percents">
+          <div class="card percents" *ngIf='subject?.percents'>
             <ion-row class="card-header" justify-content-between>
               <ion-col col-5 text-left><i></i>小题得分情况</ion-col>
               <ion-col><i></i>年级得分率</ion-col>
@@ -88,14 +88,14 @@
             <img-lazy [src]="url" *ngFor="let url of subject.activity.resolve"></img-lazy>
           </div>
         </div>
-        <div class="topics-item" *ngIf="subject.activity.excellent?.length==1">
-          <p line-bottom *ngIf="subject.activity.excellent.length==1">【优秀答案】
-            <button ion-button clear small float-right style="height: auto" (tap)="excellent(subject.activity.excellent[0].no)">
+        <div class="topics-item" *ngFor="let exc of subject.activity.excellent;let i =index;">
+          <p line-bottom class='p-button'><span *ngIf="subject.activity.excellent.length==1">第{{exc.no}}题</span>优秀答案
+            <a (click)="excellent(i)" float-right>
               <ion-icon name="refresh"></ion-icon>&nbsp; 换一个
-            </button>
+            </a>
           </p>
           <div class="item-content">
-            <img-lazy [src]="url" *ngFor="let url of subject.activity.excellent[0].value[subject.activity.excellentNums[0]]">
+            <img-lazy [src]="url" *ngFor="let url of exc.value[subject.activity.excellentNums[i]]">
             </img-lazy>
           </div>
         </div>

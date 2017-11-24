@@ -6,3 +6,4 @@
   export const TOPICS: string = "topics";
   export const COUPON: string = "coupon";
   export const PACKAGE: string = "package";
+  export const COIN: string = "coin";

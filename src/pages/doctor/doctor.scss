@@ -100,6 +100,13 @@ page-doctor {
       }
     }
     .topics-item {
+      &:after {
+        content: '';
+        background: #fafafa;
+        height: 16px;
+        width: 100%;
+        display: block;
+      }
       p:not([footer]) {
         font-weight: 500;
       }
@@ -144,5 +151,16 @@ page-doctor {
   }
   .transformY-45 {
     transform: translate3d(0, -43px, 0);
+  }
+  .p-button {
+    a {
+      font-weight: normal;
+      height: 100%;
+      padding-left: 16px;
+      .icon {
+        vertical-align: middle;
+        font-size: 1.5em;
+      }
+    }
   }
 }

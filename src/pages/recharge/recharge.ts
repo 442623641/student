@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 //import { PAYMENT_PAGE } from '../pages.constants';
 import { PaymentOption } from '../../model/payment';
-import { UserProvider } from '../../providers/user';
 /**
  * Generated class for the RechargePage page.
  *
@@ -22,15 +21,11 @@ export class RechargePage {
   options: number[] = [100, 200, 500, 800];
   params: PaymentOption;
   amount: number = 100;
-  balance: number = 0;
   need: number = 0;
 
   constructor(
-
     public navCtrl: NavController,
-
     public navParams: NavParams,
-    public userPro: UserProvider
 
   ) {}
 
@@ -45,7 +40,6 @@ export class RechargePage {
         }
       }
     }
-    this.userPro.getUserInfo().then(res => this.balance = res.coin);
   }
 
   tap(val) {

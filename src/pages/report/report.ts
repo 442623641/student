@@ -31,7 +31,6 @@ export class ReportPage {
   exam: any = {};
   reportIndex: number = 0;
   reports: ReportOptions[] = [];
-  achieveSub: any;
 
   constructor(
     private navCtrl: NavController,
@@ -53,19 +52,12 @@ export class ReportPage {
 
       this._categorys = ReportCategory.filter(item => { return item.code <= res.level }).reverse();
       setTimeout(() => {
-        this.exam.payment || this.openPackageModal();
+        if (!this.exam.payment) {
+          this.openPackageModal();
+        }
         this.content.resize();
       }, 500);
       console.log(this.report);
-    });
-
-    this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
-      let start = this.navCtrl.indexOf(this.viewCtrl);
-      this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
-        //this.nativePro.showLoading();
-        //this.loadData().then(() => this.nativePro.hideLoading());
-        this.exam.payment = true;
-      });
     });
   }
 
@@ -77,7 +69,17 @@ export class ReportPage {
     modal.present();
     modal.onDidDismiss(res => {
       res && res.open &&
-        this.navCtrl.push(RECHARGE_PAGE, { params: { ordertype: 'exam', selectxbz: res.dvalue, skucode: `exam|${this.exam.guid}` } })
+        this.navCtrl.push(RECHARGE_PAGE, { params: { ordertype: 'exam', selectxbz: res.dvalue, skucode: `exam|${this.exam.guid}` } }).then(res => {
+          let achieveSub = this.paymentPro.achieve$.subscribe(res => {
+            let start = this.navCtrl.indexOf(this.viewCtrl);
+            this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
+              //this.nativePro.showLoading();
+              //this.loadData().then(() => this.nativePro.hideLoading());
+              this.exam.payment = true;
+              achieveSub.unsubscribe();
+            });
+          });
+        })
       //.then(() => this.viewCtrl.dismiss(true));
     });
   }
@@ -193,18 +195,8 @@ export class ReportPage {
     }).catch(ex => this.report.activityScoretrends = null);
   }
 
-  ngOnDestroy() {
-    this.achieveSub.unsubscribe();
-  }
-
   doInfinite(event) {
     console.log(event);
   }
-
-
-  // ionViewWillEnter() {
-  //   this.achieveSub.unsubscribe();
-  // }
-
 
 }

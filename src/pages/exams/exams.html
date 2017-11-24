@@ -11,7 +11,7 @@
 </ion-header>
 <ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingText="" refreshingSpinner="circles" refreshingText="">
+    <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
   <ng-template [ngIf]="latest" [ngIfElse]="loading">
@@ -25,7 +25,7 @@
         </ion-col>
         <ion-col col-6 [ngSwitch]="!!latest.payment">
           <button *ngSwitchCase="true" ion-button outline block color="green" [navPush]='pages.doctor' [navParams]="latest">错题诊断</button>
-          <button *ngSwitchCase="false" ion-button outline block color="green" [navPush]='pages.reply' [navParams]="latest">答题情况</button>
+          <button *ngSwitchCase="false" ion-button outline block color="green" (click)="toReply(latest)">答题情况</button>
         </ion-col>
       </ion-row>
     </div>
@@ -42,7 +42,7 @@
         <ion-row class="footer" [ngSwitch]="!!exam.payment">
           <a [navPush]='pages.report' [navParams]="exam">学情报告</a>
           <a *ngSwitchCase="true" [navPush]='pages.doctor' [navParams]="exam">错题诊断</a>
-          <a *ngSwitchCase="false" [navPush]='pages.reply' [navParams]="exam">答题情况</a>
+          <a *ngSwitchCase="false" (click)="toReply(exam)">答题情况</a>
         </ion-row>
       </ion-card>
     </ion-list>

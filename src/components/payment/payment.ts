@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { PAYMENT_PAGE } from '../../pages/pages.constants';
 import { PaymentOption } from '../../model/payment';
 import { PaymentProvider } from '../../providers/payment/payment';
+import { NativeProvider } from '../../providers/native';
 /**
  * Generated class for the PaymentComponent component.
  *
@@ -18,42 +19,50 @@ export class PaymentComponent {
   @Input() options: PaymentOption; // { amount: 0, ordertype: 'package' }; //{ amount: number, coupon: string, coin: number, type: string, biz: any };
   @Output() fulfill: EventEmitter < any > = new EventEmitter();
   processing: boolean;
+  orderCode: string;
   constructor(
     private navCtrl: NavController,
-    private paymentPro: PaymentProvider) {
+    private paymentPro: PaymentProvider,
+    private nativePro: NativeProvider
+  ) {
     console.log('Hello PaymentComponent Component');
   }
-
-  // ngAfterViewInit() {
- //   this.paymentPro.achieve$.subscribe(res => {
- //     debugger;
- //     this.navCtrl.pop();
- //   });
- // }
-
-
 
   /**
    *确认下单
    */
   order() {
     if (this.processing) return;
-    if (this.amount) {
-      if (this.options.examguids) this.options.examguids = JSON.stringify(this.options.examguids);
-      this.navCtrl.push(PAYMENT_PAGE, {
-        params: this.options,
-        amount: this.amount
-      });
+    this.processing = true;
+    if (this.amount > 0) {
+      this.orderCode ? this.toPayment() :
+        this.paymentPro.code(this.options).then(res => {
+          if (!res || !res.ordercode) return this.catchError(res);
+          this.orderCode = res.ordercode;
+          this.toPayment();
+          console.log(res);
+        }).catch(ex => this.catchError(ex))
+
     } else {
-      this.processing = true;
       this.paymentPro.sa(this.options).then(res => {
-        this.fulfill.next(res);
+        this.paymentPro.achieve({ len: this.navCtrl.length(), result: res });
+        this.nativePro.toast('支付成功');
         this.processing = false;
-      }).catch((ex) => {
-        this.fulfill.next(ex);
-        this.processing = false;
-      });
+      }).catch(ex => this.catchError(ex));
     }
+  }
+  catchError(res ? ) {
+    console.error(res);
+    this.processing = false;
+    this.nativePro.toast(res.message||'订单生产失败，请稍后再试');
+  }
+
+  toPayment() {
+
+    this.navCtrl.push(PAYMENT_PAGE, {
+      params: { ordertype: this.options.ordertype, ordercode: this.orderCode },
+      amount: this.amount,
+    }).then(() => this.processing = false);
   }
 
 }

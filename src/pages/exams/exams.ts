@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Pageview } from '../../model/pageview';
 import { ExamsProvider } from '../../providers/exams/exams';
 import { ChartsProvider } from '../../providers/charts/charts';
-
+import { PaymentProvider } from '../../providers/payment/payment';
 import { REPORT_PAGE, DOCTOR_PAGE, REPLY_PAGE } from '../pages.constants';
 /**
  * Generated class for the ExamsPage page.
@@ -29,11 +29,14 @@ export class ExamsPage {
   total: number;
   waterball: any;
   option: any;
+  achieveSub: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public examsPro: ExamsProvider,
     public chartsPro: ChartsProvider,
+    private paymentPro: PaymentProvider,
+    private viewCtrl: ViewController,
   ) {}
 
   ionViewDidLoad() {
@@ -41,6 +44,7 @@ export class ExamsPage {
   }
   ngAfterViewInit() {
     this.doRefresh(null);
+
   }
 
   doRefresh(event) {
@@ -60,10 +64,32 @@ export class ExamsPage {
     });
   }
 
-  doInfinite() {
+  doInfinite(event) {
     this.view.viewindex++;
     this.examsPro.exams(this.view).then(res => {
+      event.complete();
+      this.exams = this.exams.concat(res);
       console.log(res);
+    }).catch(ex => {
+      console.error(ex);
+      event.complete();
+    })
+  }
+
+  toReply(item) {
+    this.navCtrl.push(this.pages.reply, item).then((res) => {
+      this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
+        item.payment = true;
+        let start = this.navCtrl.indexOf(this.viewCtrl);
+        this.navCtrl.insert(start + 1, this.pages.doctor, item, { animate: false }).then(() => {
+          this.navCtrl.remove(start + 2, res.len - start - 1).then(() => {
+            this.achieveSub.unsubscribe();
+          });
+        });
+      });
     });
+  }
+  ionViewDidEnter() {
+    this.achieveSub && this.achieveSub.unsubscribe();
   }
 }

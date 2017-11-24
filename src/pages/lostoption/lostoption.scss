@@ -7,17 +7,6 @@ page-lostoption {
       }
     }
   }
-  .block {
-    // &:before {
-    //   position: absolute;
-    //   content: '';
-    //   width: 4px;
-    //   top: 0;
-    //   height: 4px;
-    //   background: color($colors, primary);
-    //   left: 0;
-    // }
-  }
   .list {
     position: relative;
     .line-day {
@@ -47,6 +36,14 @@ page-lostoption {
       background: color($colors, primary);
       height: 100%;
       left: 0;
+    }
+  }
+  .footer {
+    .row[confirm] {
+      a {
+        background: transparent;
+        color: color($colors, primary);
+      }
     }
   }
 }

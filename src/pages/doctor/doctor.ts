@@ -57,22 +57,21 @@ export class DoctorPage {
     public modalCtrl: ModalController,
     public zone: NgZone) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DoctorPage');
-  }
   ngOnInit() {
     this.exam = this.navParams.data;
-    //this.subjectSlider.autoHeight = true;
   }
 
   ngAfterViewInit() {
     this.showNavButton = this.navCtrl.getPrevious().id != REPORT_PAGE;
     this.doctorPro.subject({ guid: this.exam.guid }).then(res => {
+      if (!res || !res.subject || !res.subject.no || !res.subject.no.length) return this.subject = null;
       this.balls = res.subjects;
       this.tucker(res.subject, res.subjects[this.subjectIndex]);
       console.log(res);
       console.log(this.subjectSlider);
-
+    }).catch(ex => {
+      console.error(ex);
+      this.subject = null;
     });
   }
 
@@ -93,18 +92,24 @@ export class DoctorPage {
    */
   getSubject(name: string) {
     this.subjects[this.subjectIndex] ||
-      this.doctorPro.subject({ guid: this.exam.guid, subject: name }).then(res => this.tucker(res.subject, name));
+      this.doctorPro.subject({ guid: this.exam.guid, subject: name })
+      .then(res => this.tucker(res.subject, name))
+      .catch(ex => console.error(ex));
   }
 
   tucker(subject: any, name: string) {
 
-    this.subject = new Subjecte(name, subject, this.chartsPro.percents(subject.no.filter((item, index) => { return index < 4 }), subject.series.map(items => {
-      return items.filter((item, index) => { return index < 4 });
-    })));
 
+    this.subject = new Subjecte(name, subject,
+      subject.no ? this.chartsPro.percents(
+        subject.no.filter((item, index) => {
+          return index < 4
+        }),
+        subject.series.map(items => {
+          return items.filter((item, index) => { return index < 4 });
+        })) : null);
 
     setTimeout(() => {
-
       this.subjectSlider.resize();
       this.content.resize();
     }, 60);
@@ -123,23 +128,30 @@ export class DoctorPage {
     }
     this.doctorPro.topic({ guid: this.exam.guid, subject: this.subject.name, th: this.subject.activity.name }).then(res => {
       this.subject.activity.merge(res.question);
+    }).catch(ex => {
+      console.error(ex);
     });
   }
 
   /**
    *切换优秀答题
    */
-  excellent(no, index: number = 0) {
+  excellent(index: number = 0) {
     // let topics = this.subject.activity;
-    if (this.subject.activity.excellent[index].value.length > 1) {
+    let exc = this.subject.activity.excellent[index];
+    if (exc.value.length > 1) {
       this.subject.activity.nextExcellent(index);
       return;
     }
 
-    this.doctorPro.excellent({ guid: this.exam.guid, subject: this.subject.name, th: no }).then(res => {
-      if (!res.length) return;
-      this.subject.activity.setExcellents(index, res);
-    })
+    this.doctorPro.excellent({ guid: this.exam.guid, subject: this.subject.name, nos: [exc.no] }).then(res => {
+      if (res.length) {
+        this.subject.activity.setExcellents(res);
+        this.subject.activity.nextExcellent(index);
+      }
+    }).catch(ex => {
+      console.error(ex);
+    });
   }
 
   /**
@@ -162,26 +174,10 @@ export class DoctorPage {
   }
   scrollHandler(event) {
     this.zone.run(() => {
-      //let dvalue = event.scrollTop > this.scrollYStart ? 0 : 45;
-      //this.stickTopicHeader = event.scrollTop > (this.subjectSlider.container.offsetHeight + dvalue);
       this.stickTopicHeader = event.scrollTop > this.subjectSlider.container.offsetHeight;
     });
   }
 
 
-
-
-  // scrollEnd(event) {
-  //   clearInterval(this.scrollTimer);
-  // }
-  // scrollStart(event) {
-  //   this.scrollYStart = event.scrollTop;
-  //   this.scrollTimer = setInterval(() => {
-  //     this.zone.run(() => {
-  //       let dvalue = event.scrollTop > this.scrollYStart ? 0 : 45;
-  //       this.stickTopicHeader = event.scrollTop > (this.subjectSlider.container.offsetHeight + dvalue);
-  //     });
-  //   }, 60);
-  // }
 
 }

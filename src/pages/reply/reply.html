@@ -83,7 +83,7 @@
   </ng-template>
   <ion-footer text-center>
     <p>
-      <button ion-button block round>开通学情套餐&nbsp;&nbsp;查看错题诊断</button>
+      <button ion-button block round [navPush]="pages.package">开通学情套餐&nbsp;&nbsp;查看错题诊断</button>
     </p>
     <button style="height: 2rem" ion-button clear color="white" icon-only (click)="lantern=true">
       <ion-icon name="arrow-down"></ion-icon>

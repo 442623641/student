@@ -33,17 +33,16 @@ export class ReportmodalPage {
     private paymentPro: PaymentProvider,
     private nativePro: NativeProvider,
   ) {}
-
-  ngAfterViewInit() {
+  balanceChange(event) {
     this.guid = this.navParams.get('guid');
-    this.userPro.getUserInfo().then(res => {
-      this.balance = res.coin;
-      this.enough = res.coin > this.COIN;
-      this.comment = this.enough ?
-        `您当前持有<span>${res.coin}</span>学贝，生成本次学情报告需要消耗<span>${this.COIN}</span>学贝` :
-        `您当前持有<span>${res.coin}</span>学贝，生成本次学情报告需要<span>${this.COIN}</span>学贝，还需充值<span>${this.COIN-res.coin}</span>学贝`;
-    });
+    this.balance = event;
+    this.enough = event > this.COIN;
+    this.comment = this.enough ?
+      `消耗<span>${this.COIN}</span>学贝` :
+      `<span>${this.COIN}</span>学贝，还需充值<span>${this.COIN-event}</span>学贝`;
   }
+
+  ngAfterViewInit() {}
 
   onTap() {
     this.enough ? this.paymentPro.sa({ ordertype: 'exam', examguid: this.guid })

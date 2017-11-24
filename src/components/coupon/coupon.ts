@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { COUPON_PAGE } from '../../pages/pages.constants';
 import { CouponProvider } from '../../providers/coupon/coupon';
-import { UserProvider } from '../../providers/user';
+import { PaymentProvider } from '../../providers/payment/payment';
 /**
  * Generated class for the CouponComponent component.
  * add by Leo
@@ -22,6 +22,7 @@ export class CouponComponent {
   balance: number;
   dvalue: number;
   inited: boolean;
+  subscribe: any;
 
   /**
    *0：通用优惠券，1：套餐，2：错题本，3：电子错题本
@@ -32,10 +33,11 @@ export class CouponComponent {
     return this._value;
   }
   set value(val: number) {
+    if (!val) return;
     if (!this.inited) {
       this.inited = true;
-      this.userPro.getUserInfo().then(res => {
-        this.balance = res.coin;
+      this.paymentPro.getLocalBalance().then(res => {
+        this.balance = res;
         this.check(val);
       });
     } else {
@@ -46,11 +48,11 @@ export class CouponComponent {
 
   constructor(
     private couponPro: CouponProvider,
-    private userPro: UserProvider,
+    private paymentPro: PaymentProvider,
   ) { console.log('Hello CouponComponent Component') }
 
   ngAfterViewInit() {
-    this.couponPro.checked$.subscribe(res => {
+    this.subscribe = this.couponPro.checked$.subscribe(res => {
       this.emit(res ? Object.assign(res, {
         amount: Math.max(res.couponType > 0 ? (this.dvalue - res.money * 10) : this.dvalue * res.rate, 0)
       }) : { couponCode: null, amount: this.dvalue, couponName: '选择优惠劵' })
@@ -61,7 +63,7 @@ export class CouponComponent {
     if (this._value == val) return;
     this._value = val;
     this.dvalue = val - this.balance;
-    if (this.dvalue < 0) {
+    if (this.dvalue <= 0) {
       return this.emit();
     }
     this.getCoupons();
@@ -79,7 +81,7 @@ export class CouponComponent {
       console.log(res);
       if (!res || !res.list || !res.list.length) {
         this.coupons = null;
-        return;
+        return this.emit({ couponCode: null, amount: this.dvalue, couponName: '无可用优惠劵' });
       }
       this.coupons = res.list;
       this.matriculate();
@@ -107,5 +109,8 @@ export class CouponComponent {
     if (this.coupon.couponCode == coupon.couponCode && this.coupon.amount == coupon.amount) return;
     this.coupon = coupon;
     this.onChange.emit({ couponCode: coupon.couponCode, amount: parseFloat((coupon.amount).toFixed(1)) });
+  }
+  ngOnDestory() {
+    this.subscribe.unsubscribe();
   }
 }

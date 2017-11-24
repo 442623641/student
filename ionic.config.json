@@ -61,10 +61,6 @@
     "proxyUrl": "http://studentapp.septnet.cn/register"
     },
 	  {
-		"path": "/Register",
-		"proxyUrl": "http://studentapp.septnet.cn/Register"
-	  },
-	  {
 		"path": "/findpwd",
 		"proxyUrl": "http://studentapp.septnet.cn/findpwd"
 	  },

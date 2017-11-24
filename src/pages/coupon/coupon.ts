@@ -3,12 +3,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CouponProvider } from '../../providers/coupon/coupon';
 import { NativeProvider } from '../../providers/native';
 import { CouPon } from '../../model/coupon';
+import { Pageview } from '../../model/pageview';
 @IonicPage()
 @Component({
   selector: 'page-coupon',
   templateUrl: 'coupon.html',
 })
 export class CouponPage {
+  //pageview: Pageview;
+  total: number;
   view: CouPon;
   coupons: any[];
   codes: string;
@@ -28,34 +31,42 @@ export class CouponPage {
     private couponpro: CouponProvider,
     private nativePro: NativeProvider,
   ) {
-    this.view = this.navParams.get('params') || { viewindex: 1, viewlength: 10 };
+    this.view = this.navParams.get('params');
   }
   ngAfterViewInit() {
-    this.initialize();
-
-  }
-
-  /**
-   *获取优惠券列表
-   */
-  initialize() {
     //是否需要加载列表数据
     this.coupons = this.navParams.get('coupons') || [];
     this.checked = this.navParams.get('checked');
     this.showButton = !!this.coupons.length;
     this.showButton || (this.setChecked = () => {});
-    if (this.coupons.length) return;
+    this.coupons.length || this.doRefresh();
+  }
 
+  /**
+   *获取优惠券列表
+   */
+  doRefresh(event ? ) {
+    this.view = Object.assign(new Pageview({ viewindex: 1, viewlength: 10 }), this.view);
     this.couponpro.getlist(this.view).then(res => {
-      console.log(res, 'the list');
-      if (!res || !res.list || !res.list.length) {
-        this.coupons = null;
-        return;
-      }
+      event && event.complete();
+      if (!res || !res.list || !res.list.length) return this.coupons = null;
+      this.total = res.count;
       this.coupons = res.list;
     }).catch(e => {
+      event && event.complete();
       this.coupons = null;
       console.log(e);
+    })
+  }
+
+  doInfinite(event ? ) {
+    this.view.viewindex++;
+    this.couponpro.getlist(this.view).then(res => {
+      if (!res || !res.list || !res.list.length) event.complete();
+      this.coupons = this.coupons.concat(res.list);
+    }).catch(e => {
+      console.log(e);
+      event.complete();
     })
   }
 
@@ -63,6 +74,7 @@ export class CouponPage {
    *根据优惠券编码获取优惠券
    */
   search() {
+    if (!this.codes) return;
     // 判断用户添加的是否是已经用过的优惠券
     this.coupons.forEach((v, i) => {
       if (this.codes === v.couponCode) {
@@ -83,9 +95,7 @@ export class CouponPage {
         this.coupons.unshift(res);
       }
     }).catch(err => {
-      if (err) {
-        this.nativePro.toast('无效的优惠码');
-      }
+      this.nativePro.toast('无效的优惠码');
     })
   }
 
@@ -101,8 +111,8 @@ export class CouponPage {
    */
   save() {
     this.couponpro.checked(this.coupons.find(item => {
-     return item.couponCode == this.checked ;
-   }));
+      return item.couponCode == this.checked;
+    }));
     this.navCtrl.pop();
   }
 }

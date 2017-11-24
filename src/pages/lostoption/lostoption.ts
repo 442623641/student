@@ -50,21 +50,11 @@ export class LostoptionPage {
 
   ionViewDidLeave() {
     console.log('LostoptionPage ionViewDidLeave');
-    this.lostPro.setElost(this.elost);
+    this.elost && this.lostPro.setElost(this.elost);
   }
 
   save() {
     this.lostPro.setElost(this.elost);
-
-    //this.navCtrl.pop();
   }
-
-
-  // back() {
-  //   this.nativePro.confirm("是否保存选中信息？", ["不保存", "保存"]).then(res => {
-  //     this.navCtrl.pop();
-  //   });
-  // }
-
 
 }

@@ -15,11 +15,11 @@
   <!-- <div class="banner"> -->
   <ng-template [ngIf]="package&&userInfo" [ngIfElse]="loading">
     <ng-container>
-      <ion-row class="header" justify-content-between align-items-center>
+      <ion-row class="header" justify-content-between align-items-center margin-top>
         <ion-col nowrap text-left col-6 class="user-info">
           <span><ion-icon name="icontact"></ion-icon> {{userInfo.name}}</span>
           <span><ion-icon name="school"></ion-icon>  {{userInfo.school}}</span>
-          <span><ion-icon name="icoin"></ion-icon> {{userInfo.coin}} 学贝</span>
+          <span><ion-icon name="icoin"></ion-icon><coin></coin>学贝</span>
         </ion-col>
         <ion-col class="coin" [ngSwitch]="package.open">
           <ng-container *ngSwitchCase="false">
@@ -29,7 +29,7 @@
           <ng-container *ngSwitchCase="true">
             <div style="font-size: 1.2rem;padding-top: 18px;"><span style="font-size: 1.7rem;font-weight: 500">{{package.days}}</span>天</div>
             <div style="font-size: 1.2rem;padding-bottom: 10px;">剩余天数</div>
-            <a class="button" [navPush]="pages.recharge">立即充值</a>
+            <a class="button" [navPush]="pages.recharge" (click)="open()">立即充值</a>
           </ng-container>
         </ion-col>
       </ion-row>
@@ -57,7 +57,7 @@
             </svg>
             <div>错题分析</div>
           </a>
-          <a [navPush]="pages.excellent">
+          <a [navPush]="pages.excellent" [navParams]="{package:package.open}">
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-iset"></use>
             </svg>

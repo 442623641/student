@@ -48,6 +48,7 @@ import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
 
 import { HttpProvider } from '../providers/http';
 import { HttpHandler } from '../providers/httpHandler';
+import { HomeProvider } from '../providers/home';
 import { Constant } from '../providers/constant';
 import { UserProvider } from '../providers/user';
 import { NativeProvider } from '../providers/native';
@@ -119,12 +120,10 @@ import { UploadImgProvider } from "../providers/uploadimg/uploadimg";
     PhotosviewerComponent,
   ],
   providers: [
-    StatusBar,
-    SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    HTTP,
     HttpProvider,
     HttpHandler,
+    HomeProvider,
     Constant,
     UserProvider,
     PaymentProvider,
@@ -143,6 +142,7 @@ import { UploadImgProvider } from "../providers/uploadimg/uploadimg";
     Toast,
     Dialogs,
     StatusBar,
+
     HTTP,
     PersonalProvider,
     StaticProvider,

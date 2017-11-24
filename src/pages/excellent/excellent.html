@@ -8,14 +8,14 @@
 <ion-header>
   <ion-navbar>
     <ion-title>名校试题</ion-title>
-    <ion-buttons end *ngIf="excellentsOpts">
-      <button ion-button (tap)="showMenu=true">
+    <ion-buttons end *ngIf="package">
+      <button ion-button (click)="showMenu=true">
         筛选
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content #content padding-top>
+<ion-content #content>
   <ng-template [ngIf]="excellentsOpts" [ngIfElse]="loading">
     <div class="block-card excellent" *ngFor="let que of excellentsOpts;let q = index;">
       <ion-row class="block-card-header" nowrap line-bottom padding-right align-items-center>
@@ -27,10 +27,10 @@
       </div>
       <ion-row padding-vertical-10>
         <ng-template [ngIf]="que.objective" [ngIfElse]="objective">
-          <a *ngIf="que.answer?.length" (tap)="toast(que.answerString)">标准答案</a>
+          <a *ngIf="que.answer?.length" (click)="toast(que.answerString)">标准答案</a>
         </ng-template>
         <ng-template #objective>
-          <a (tap)="excellent(q)" *ngIf="que.excellent?.length">优秀答卷</a>
+          <a (click)="excellent(que)" *ngIf="que.excellent?.length" [imgviewer]="que.imgviewer">优秀答卷</a>
           <a [imgviewer]="{title:option.subject,images:que.answer}" *ngIf="que.answer?.length">标准答案</a>
         </ng-template>
       </ion-row>
@@ -40,7 +40,21 @@
     </ion-infinite-scroll>
   </ng-template>
   <ng-template #loading>
-    <loading [status]="excellentsOpts"></loading>
+    <ng-template [ngIf]="package" [ngIfElse]="guide">
+      <loading [status]="excellentsOpts"></loading>
+    </ng-template>
+    <ng-template #guide>
+      <div text-center style="width: 100%;margin-bottom: 42px;">
+        <img src="assets/images/excellentbg.png">
+      </div>
+      <ion-footer no-border>
+        <ion-toolbar>
+          <ion-title>
+            <button ion-button block (click)="open()">开通学情套餐</button>
+          </ion-title>
+        </ion-toolbar>
+      </ion-footer>
+    </ng-template>
   </ng-template>
 </ion-content>
 <sidenav [(open)]="showMenu" *ngIf="subjectNames&&tempOption">

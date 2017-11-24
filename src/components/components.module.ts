@@ -14,6 +14,7 @@ import { PaymentComponent } from './payment/payment';
 import { PhonecodeComponent } from './phonecode';
 import { UploadimgComponent } from './uploadimg/uploadimg';
 import { AgreecheckComponent } from './agreecheck/agreecheck';
+import { CoinComponent } from './coin/coin';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AgreecheckComponent } from './agreecheck/agreecheck';
     PaymentComponent,
 	  PhonecodeComponent,
     UploadimgComponent,
-    AgreecheckComponent
+    AgreecheckComponent,
+    CoinComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +50,8 @@ import { AgreecheckComponent } from './agreecheck/agreecheck';
     PaymentComponent,
   	PhonecodeComponent,
     UploadimgComponent,
-    AgreecheckComponent
+    AgreecheckComponent,
+    CoinComponent
   ],
 })
 export class ComponentsModule {}

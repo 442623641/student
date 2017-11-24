@@ -23,7 +23,7 @@ export class PaymentPage {
   }
   params: PaymentOption;
   amount: any;
-  orderCode: string;
+  //orderCode: string;
   processing: boolean = false;
   payType: string = 'za';
   constructor(
@@ -37,21 +37,23 @@ export class PaymentPage {
   }
 
   ngAfterViewInit() {
-    this.paymentPro.code(this.params).then(res => {
-      this.orderCode = res.ordercode;
-      console.log(res);
-    })
+    // this.paymentPro.code(this.params).then(res => {
+    //   this.orderCode = res.ordercode;
+    //   console.log(res);
+    // })
   }
 
   pay() {
-    this.paymentPro.params({ ordertype: this.params.ordertype, paytype: this.payType, ordercode: this.orderCode }).then(res => {
+    //this.paymentPro.params({ ordertype: this.params.ordertype, paytype: this.payType, ordercode: this.orderCode })
+    this.paymentPro.params(Object.assign({ paytype: this.payType }, this.params)).then(res => {
       console.log(res);
       this.processing = false;
       this.paymentPro[this.payType](res).then(res => {
         //console.log(this.payType + ' success:' + res);
         this.nativePro.toast('支付成功');
+        this.paymentPro.achieve({ len: this.navCtrl.length(),result:res });
       }, error => {
-        this.paymentPro.achieve({ len: this.navCtrl.length() });
+        this.paymentPro.achieve({ len: this.navCtrl.length(),result:res });
         this.nativePro.toast('支付失败');
         //console.log(this.payType + ' fail:' + res);
       });

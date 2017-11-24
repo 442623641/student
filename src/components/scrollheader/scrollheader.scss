@@ -20,7 +20,7 @@ scroll-header {
         padding: 5px 12px;
         &:after {
           content: ''; // background: transparent;
-          height: 5px;
+          height: 4px;
           width: 100%;
           transform: scaleX(0);
           background: color($colors, primary);

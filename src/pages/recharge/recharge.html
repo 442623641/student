@@ -13,7 +13,7 @@
   <ion-item-group margin-top>
     <ion-item>
       <span item-left>当前余额</span>
-      <span ion-text color="primary" item-end>{{balance}} 学贝</span>
+      <span item-end><coin></coin>学贝</span>
     </ion-item>
   </ion-item-group>
   <ion-item-group>
@@ -29,5 +29,7 @@
   </ion-item-group>
 </ion-content>
 <ion-footer>
-  <payment [options]="{ ordertype: 'coin', selectxbz: amount, amount: amount }" [amount]="amount"></payment>
+  <ion-toolbar no-border no-padding color="white">
+    <payment [options]="{ ordertype: 'coin', selectxbz: amount, amount: amount }" [amount]="amount"></payment>
+  </ion-toolbar>
 </ion-footer>

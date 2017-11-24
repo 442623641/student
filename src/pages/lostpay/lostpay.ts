@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LostProvider } from '../../providers/lost/lost';
 import { PAYMENT_PAGE, COUPON_PAGE } from '../pages.constants';
 import { PaymentOption, Order } from '../../model/payment';
-import { UserProvider } from '../../providers/user';
 import { Elost } from '../../model/elost';
 /**
  * Generated class for the LostpayPage page.
@@ -34,8 +33,6 @@ export class LostpayPage {
     coupon: COUPON_PAGE
   }
 
-  balance: number;
-
   /**
    * 订单信息
    */
@@ -49,7 +46,6 @@ export class LostpayPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public lostPro: LostProvider,
-    private userPro: UserProvider
   ) {
     this.subjects = this.navParams.get('subjects');
     this.subjectNames = this.subjects.map(item => { return item.name });
@@ -63,22 +59,20 @@ export class LostpayPage {
       }
     });
     console.log(this.eguids);
-    //this.eguids = this.navParams.get('guids');
   }
 
-  ngAfterViewInit() {
-    this.userPro.getUserInfo().then(res => {
-      this.order = new Order(res.coin, this.subjects.length * this.price);
-      this.setPrice(this.price);
-    });
-
-    console.log('ionViewDidLoad LostpayPage');
-
+  balanceChange(event) {
+    this.order = new Order(event, this.subjects.length * this.price);
+    this.setPrice(this.price);
   }
+
+  // ngAfterViewInit() {
+
+  //   console.log('ionViewDidLoad LostpayPage');
+  // }
 
   setPrice(val: number) {
     this.price = val;
-    //this.order = new Order(this.balance, this.subjects.length * this.price);
     this.order.setValue(this.subjects.length * this.price);
     this.setParams(this.order);
   }

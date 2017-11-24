@@ -29,8 +29,4 @@ export class PhotosviewerComponent {
     console.log(this.urls);
   }
 
-  ngAfterViewInit() {
-
-  }
-
 }

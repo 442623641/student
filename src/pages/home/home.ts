@@ -59,8 +59,7 @@ export class HomePage {
   我的信息
   */
   private userInfo: UserInfo;
-
-  listen: any = {};
+  listen: any;
 
   constructor(
     public navCtrl: NavController,
@@ -75,9 +74,9 @@ export class HomePage {
   ngAfterViewInit() {
     this.userProvider.getUserInfo().then((userInfo: UserInfo) => {
       this.userInfo = userInfo;
+      this.paymentPro.setLocalBalance(this.userInfo.coin);
       console.log(this.userInfo);
     });
-
     this.loadData();
   }
 
@@ -85,6 +84,7 @@ export class HomePage {
     return this.homeProvider.index().then(res => {
       this.package = new Package(res.package);
       this.homeProvider.setBadge(res.msgCount);
+
       console.log(res);
 
     }).catch(ex => {
@@ -95,10 +95,10 @@ export class HomePage {
   }
 
   open() {
-    this.ionViewWillEnter();
     this.listen = this.paymentPro.achieve$.subscribe(res => {
       let start = this.navCtrl.indexOf(this.viewCtrl);
       this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
+        this.listen.unsubscribe();
         this.nativePro.showLoading();
         this.loadData().then(() => this.nativePro.hideLoading());
       })
@@ -106,7 +106,7 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
-    this.listen.unsubscribe && this.listen.unsubscribe();
+    this.listen && this.listen.unsubscribe();
   }
 
 }
