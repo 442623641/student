@@ -8,34 +8,33 @@
   <ion-grid no-padding>
     <ion-row class="banner" align-items-center>
       <h1 class="app-name" padding-top>小七助手</h1>
-      <!-- <loading></loading> -->
-      <rocket #rocket [state]="state"></rocket>
+      <rocket #rocket [state]="authForm.valid?authForm['processing']?'launch':'ready':authForm.valid"></rocket>
     </ion-row>
-    <ion-row>
-      <form (ngSubmit)="login()" padding-vertical>
+    <form [formGroup]="authForm" (ngSubmit)="login(authForm.value)">
+      <ion-row padding-vertical>
         <ion-item padding-right>
           <ion-label color="gray9">
             <ion-icon name="person-outline"></ion-icon>
           </ion-label>
-          <ion-input type="tel" name="usercode" placeholder="请输入手机号码" [(ngModel)]="account.usercode" (ionBlur)="focus=false" (ionFocus)="focus=true" clearInput></ion-input>
+          <ion-input type="tel" formControlName="usercode" placeholder="请输入手机号码" max='11' maxlength="11" clearInput></ion-input>
         </ion-item>
         <ion-item padding-top padding-right>
           <ion-label color="gray9">
             <ion-icon name="lock-outline"></ion-icon>
           </ion-label>
-          <ion-input type="password" placeholder="请输入密码" name="password" [(ngModel)]="account.pwd" (ionBlur)="focus=false" (ionFocus)="focus=true" (input)="input()"></ion-input>
+          <ion-input [type]="eye?'text':'password'" placeholder="请输入密码" formControlName="pwd"></ion-input>
+          <a item-right input-button-right ion-text color="gray6" (click)="eye=!eye">
+            <ion-icon [name]="eye?'eye-outline':'eye-off-outline'"></ion-icon>
+          </a>
         </ion-item>
-      </form>
-    </ion-row>
-    <ion-row padding>
-      <button ion-button block (tap)="login()">
-        <span *ngIf="!processing">登 录</span>
-        <ion-spinner *ngIf="processing" name="dots" color="white"></ion-spinner>
-      </button>
-      <button ion-button block outline [navPush]="pages.validation">注 册</button>
-    </ion-row>
+      </ion-row>
+      <ion-row padding>
+        <submiton [(state)]="authForm['processing']">登 录</submiton>
+        <button ion-button block outline [navPush]="pages.validation" [navParams]="{type:'register'}" type="button">注 册</button>
+      </ion-row>
+    </form>
     <p text-center class="forgot">
-      <a ion-text color="gray9" [navPush]="pages.findpwd">忘记密码？</a>
+      <a ion-text color="gray9" [navPush]="pages.validation" [navParams]="{type:'recover'}">忘记密码？</a>
     </p>
   </ion-grid>
 </ion-content>

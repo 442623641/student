@@ -7,13 +7,12 @@ import {
   FEEDBACK_PAGE,
   SETUP_PAGE,
   PASSWORD_PAGE,
-  VALIDATION_PAGE,
-  TRADE_PAGE,
+  TRADES_PAGE,
   COUPON_PAGE,
   RECHARGE_PAGE,
   ORDERMORE_PAGE,
 } from '../pages.constants';
-//Icon.enableColorful();
+
 /**
  * Generated class for the UsercenterPage page.
  *
@@ -32,7 +31,7 @@ export class UsercenterPage {
     feedback: FEEDBACK_PAGE,
     setup: SETUP_PAGE,
     password: PASSWORD_PAGE,
-    trade: TRADE_PAGE,
+    trades: TRADES_PAGE,
     recharge: RECHARGE_PAGE,
     coupon: COUPON_PAGE,
     order: ORDERMORE_PAGE,

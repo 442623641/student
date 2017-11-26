@@ -5,7 +5,9 @@ import { ExamsPageModule } from '../exams/exams.module';
 import { EnalyzingPageModule } from '../enalyzing/enalyzing.module';
 import { PackagePageModule } from '../package/package.module';
 import { ExcellentPageModule } from '../excellent/excellent.module';
-import { UnclaimedexamsPageModule } from '../unclaimedexams/unclaimedexams.module';
+//import { UnclaimedexamsPageModule } from '../unclaimedexams/unclaimedexams.module';
+import { ClaimPageModule } from '../claim/claim.module'
+
 import { EnalyzingProvider } from '../../providers/enalyzing/enalyzing';
 import { LostProvider } from '../../providers/lost/lost';
 import { CouponProvider } from '../../providers/coupon/coupon';
@@ -24,7 +26,7 @@ import { DirectivesModule } from '../../directives/directives.module';
     IonicPageModule.forChild(HomePage),
 
     ExamsPageModule,
-    UnclaimedexamsPageModule,
+    ClaimPageModule,
     //ChartsModule,
     //EchartsNg2Module,
     ComponentsModule,

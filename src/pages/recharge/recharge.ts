@@ -26,7 +26,6 @@ export class RechargePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-
   ) {}
 
   ngAfterViewInit() {

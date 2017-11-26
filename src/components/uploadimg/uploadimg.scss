@@ -4,21 +4,16 @@ uploadimg {
   }
   .preview-label{
     position: relative;
-    width: 15%;
+    width: 18%;
     .count{
-      position: absolute;
       font-size: 14px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,50%);
-      vertical-align: bottom;
     }
   }
   .preview-label:last-child {
     text-align: center;
     font-size: 2.5rem;
     color: rgba(0, 0, 0, .2);
-    border: 0.55px solid rgba(0, 0, 0, .1);
+    border: 1px solid rgba(0, 0, 0, .1);
   }
   .preview-label>input {
     display: none;
@@ -36,6 +31,9 @@ uploadimg {
     text-align: center;
     line-height: 18px;
     z-index: 9;
+  }
+  .camera{
+    margin-top: 5px;
   }
 
 }

@@ -54,10 +54,9 @@ export class UserProvider {
     //友盟登出统计
     //this.mobclickAgent.profileSignOff();
     this.storage.remove(USERINFO);
-    this.storage.remove(ACCOUNT);
-    this.httpHandler.handleAuth();
     return this.getLogin().then(res => {
-      return res && this.setLogin({ usercode: res.usercode });
+      this.storage.remove(ACCOUNT);
+      return res && this.setLogin({ usercode: res.usercode }).then(res => this.httpHandler.handleAuth());
     });
   }
 

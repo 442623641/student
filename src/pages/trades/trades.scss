@@ -1,0 +1,19 @@
+page-trades {
+  .minus {
+    color: color($colors, danger);
+  }
+  .plus {
+    color: color($colors, secondary);
+  } // .list-ios > .item-block:first-child{
+  //   border-top: none;
+  // }
+  // .item-md.item-block .item-inner{
+  //   border-bottom: none;
+  // }
+  // .list-ios > .item-block:last-child{
+  //   border: none;
+  // }
+  .item-ios p {
+    font-size: 1.2rem;
+  }
+}

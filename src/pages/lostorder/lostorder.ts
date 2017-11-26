@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { LostProvider } from '../../providers/lost/lost';
 import { PAYMENT_PAGE, LOSTGUIDE_PAGE, DOWNLINK_PAGE } from '../pages.constants';
 import { LostguidePage } from '../lostguide/lostguide';
-import { IView } from '../../model/view';
+import { Pageview } from '../../model/pageview';
 
 /**
  * Generated class for the LostorderPage page.
@@ -28,7 +28,7 @@ export class LostorderPage {
     guide: LOSTGUIDE_PAGE,
     downlink: DOWNLINK_PAGE
   }
-  page: IView;
+  page: Pageview;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,7 +42,7 @@ export class LostorderPage {
 
   }
   doRefresh(event ? ) {
-    this.page = { viewindex: 1, viewlength: 8 };
+    this.page = new Pageview({ viewindex: 1, viewlength: 8 });
     this.end = false;
     this.lostPro.order(this.page).then(res => {
       event && event.complete();
@@ -85,12 +85,5 @@ export class LostorderPage {
       console.log(ex);
     });
   }
-
-
-  // openGuide() {
-  //   let modal = this.modalCtrl.create(LostguidePage);
-  //   modal.present();
-  // }
-
 
 }

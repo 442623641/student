@@ -4,22 +4,26 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-item-group padding-vertical>
-    <button ion-item [navPush]="pages.unclaimedexams" >
+    <button ion-item [navPush]="pages.claim">
       <ion-avatar item-start class="circle-blue" text-end>
         <ion-icon item-left name="paper" color="white" class="relative"></ion-icon>
       </ion-avatar>
       <h2>认领消息</h2>
-      <p>共n条认领消息</p>
-      <ion-badge item-end>{{unclaimednum}}</ion-badge>
+      <!--<p>共n条认领消息</p>-->
+      <ion-badge item-end *ngIf="news.unclaimed">{{news.unclaimed}}</ion-badge>
     </button>
-    <button [navPush]="pages.message" ion-item >
+    <button [navPush]="pages.smessage" ion-item>
       <ion-avatar item-start class="circle-yellow">
         <ion-icon item-left name="chatbubbles" color="white" class="relative-left"></ion-icon>
       </ion-avatar>
       <h2>系统消息</h2>
-      <p>共{{countall}}条系统消息</p>
-      <ion-badge item-end>{{unreadnum}}</ion-badge>
+      <p>共{{news.systemcount}}条系统消息</p>
+      <ion-badge item-end *ngIf="news.unread">{{news.unread}}</ion-badge>
     </button>
   </ion-item-group>
 </ion-content>

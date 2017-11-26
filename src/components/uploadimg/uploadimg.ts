@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
 import { UploadImgProvider} from "../../providers/uploadimg/uploadimg";
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {  NavController, NavParams } from 'ionic-angular';
 /**
  * Generated class for the UploadimgComponent component.
  * Add by leo zhang 201710010101
@@ -23,7 +23,6 @@ export class UploadimgComponent{
     private uploadimg: UploadImgProvider,
     public navCtrl: NavController,
     public navParams: NavParams
-    // public renderer2: Renderer2
   ) {}
   previewPic(event) {
     if(!event.target.files[0]) {
@@ -35,7 +34,7 @@ export class UploadimgComponent{
       let file = event.target.files[0];
       this.previewImgFile.push(file);
       this.ImgFileChange.emit(this.previewImgSrcs);
-      if(this.count===5){
+      if(this.count===3){
         this.upload.nativeElement.style.display='none';
       }
     })
@@ -43,7 +42,7 @@ export class UploadimgComponent{
   }
   remove(i) {
     this.count--;
-    if(this.count < 5){
+    if(this.count < 3){
         this.upload.nativeElement.style.display='block';
     }
     this.previewImgSrcs.splice(i,1);
@@ -52,7 +51,6 @@ export class UploadimgComponent{
 
 
   bigpic(event){
-    // console.log(e.srcElement['src']);
     this.imgscale.emit({src:event.srcElement['src']});
   }
 }

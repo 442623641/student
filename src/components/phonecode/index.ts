@@ -1,1 +1,0 @@
-export { PhonecodeComponent } from './phonecode';

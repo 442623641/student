@@ -1,0 +1,37 @@
+page-claimmodal {
+  @extend page-reportmodal; //  text-align: center;
+  // background: rgba(0, 0, 0, .5);
+  .card-header {
+    overflow: visible;
+    text-overflow: initial;
+    white-space: normal;
+  } // .col {
+  //   padding: 0;
+  // } // .card {
+  //   border-radius: 4px;
+  //   width: 80%;
+  //   margin: 0 auto;
+  //   margin-top: 110px;
+  // }
+  // .card-header {
+  //   text-align: center;
+  //   color: #fff;
+  //   background: color($colors, primary); //font-weight: 500;
+  //   overflow: visible;
+  //   text-overflow: initial;
+  //   white-space: normal;
+  // }
+  // .slide-zoom {
+  //   height: 100%;
+  // }
+  .row:after {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 70%;
+    background-color: rgba(0, 0, 0, .15);
+    position: absolute;
+    left: 50%;
+    top: 15%;
+  }
+}

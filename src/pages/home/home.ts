@@ -8,7 +8,7 @@ import {
   ENALYZING_PAGE,
   EXCELLENT_PAGE,
   LOST_PAGE,
-  UNCLAIMEDEXAMS_PAGE,
+  CLAIM_PAGE,
   PACKAGE_PAGE
 } from '../pages.constants';
 import { HomeProvider } from "../../providers/home";
@@ -41,7 +41,7 @@ export class HomePage {
     enalyzing: ENALYZING_PAGE,
     excellent: EXCELLENT_PAGE,
     lost: LOST_PAGE,
-    unclaimed: UNCLAIMEDEXAMS_PAGE
+    claim: CLAIM_PAGE
   }
   @ViewChild('ball') ballEl: any;
   private option: any;

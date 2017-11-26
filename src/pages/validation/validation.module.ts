@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
+import { PasswordPageModule } from '../password/password.module';
 import { ValidationPage } from './validation';
-import { ComponentsModule } from '../../components';
+import { ValidationProvider } from '../../providers/validation/validation';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +11,11 @@ import { ComponentsModule } from '../../components';
   ],
   imports: [
     IonicPageModule.forChild(ValidationPage),
-    ComponentsModule
+    PasswordPageModule,
+    ComponentsModule,
+  ],
+  providers: [
+    ValidationProvider
   ]
 })
 export class ValidationPageModule {}

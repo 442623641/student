@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { FeedbackPage } from './feedback';
-import { ComponentsModule } from '../../components';
+import { UploadImgProvider } from "../../providers/uploadimg/uploadimg";
+import { ComponentsModule } from '../../components/components.module';
 @NgModule({
   declarations: [
     FeedbackPage,
@@ -9,6 +10,9 @@ import { ComponentsModule } from '../../components';
   imports: [
     IonicPageModule.forChild(FeedbackPage),
     ComponentsModule
+  ],
+  providers: [
+    UploadImgProvider
   ]
 })
 export class FeedbackPageModule {}

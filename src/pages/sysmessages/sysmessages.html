@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>系统消息</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ng-template [ngIf]="messages" [ngIfElse]="loading">
+    <ion-list>
+      <div class="block" *ngFor="let item of messages">
+        <ion-row line-top margin-top-10 padding-horizontal-10 justify-content-between>
+          <ion-col text-left>
+            <i [class.read]="item.state"></i> 系统通知
+          </ion-col>
+          <ion-col text-right ion-text color="gray9">{{item.createdtime}}</ion-col>
+        </ion-row>
+        <div class="block-content" padding-horizontal padding-bottom-12>
+          <h6 no-margin padding-bottom-12 padding-top class="font-weight-normal">{{item.title}}</h6>
+          <p class="paragraph">
+            {{item.content}}
+            <span class="ellipsis" *ngIf="item.content.length > 45">...</span>
+          </p>
+        </div>
+        <button ion-item no-lines (click)="message(item)">查看详情</button>
+      </div>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!end">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-list>
+  </ng-template>
+  <ng-template #loading>
+    <loading [status]="messages"></loading>
+  </ng-template>
+</ion-content>

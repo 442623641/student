@@ -19,14 +19,11 @@ Icon.enableColorful();
  */
 import { PersonalPageModule } from '../pages/personal/personal.module';
 import { LoginPageModule } from '../pages/login/login.module';
-// import { UsercenterPageModule } from '../pages/usercenter/usercenter.module';
-// import { NewsPageModule } from '../pages/news/news.module';
-
 import { TabsModule } from '../core/tabs/tabs.module';
+
 /*
  * native plugins
  */
-
 import { HTTP } from '@ionic-native/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -37,15 +34,7 @@ import { Dialogs } from '@ionic-native/dialogs';
 /**
  *Components module
  */
-// import { Loading } from '../components/loading/loading'
 import { ComponentsModule } from '../components/components.module';
-import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
-/**
- *provider
- */
-// import { TabsProvider } from '../providers/tabs/tabs';
-// import { HomeProvider } from '../providers/home';
-
 import { HttpProvider } from '../providers/http';
 import { HttpHandler } from '../providers/httpHandler';
 import { HomeProvider } from '../providers/home';
@@ -61,31 +50,23 @@ import { PaymentProvider } from '../providers/payment/payment';
 import { SeptnetpayProvider } from '../providers/payment/septnetpay';
 import { LostProvider } from '../providers/lost/lost';
 import { PackageProvider } from '../providers/package/package';
+import { ClaimProvider } from '../providers/claim/claim';
+import { PasswordProvider } from '../providers/password/password';
 /*
 add by chen 17-11-21
  */
-import { MessageProvider } from '../providers/message/message';
-import { ValidationProvider } from '../providers/validation/validation';
-import { UploadImgProvider } from "../providers/uploadimg/uploadimg";
-
-
-/*----------------------------------------------*/
-//import { AnalysisProvider } from '../providers/analysis/analysis';
-//import { ReportProvider } from '../providers/report/report';
-
-//import { GradeProvider } from '../providers/static/grade';
-//import { TradeProvider } from '../providers/trade/trade';
-
+// import { MessageProvider } from '../providers/message/message';
+// import { ValidationProvider } from '../providers/validation/validation';
+// import { UploadImgProvider } from "../providers/uploadimg/uploadimg";
 
 @NgModule({
   declarations: [
     StudentApp,
-    PhotosviewerComponent,
+    //PhotosviewerComponent,
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    //HttpClientModule,
     IonicModule.forRoot(StudentApp, {
       backButtonText: '',
       mode: 'ios',
@@ -93,14 +74,7 @@ import { UploadImgProvider } from "../providers/uploadimg/uploadimg";
       tabsPlacement: 'bottom',
       modalEnter: 'modal-md-slide-in',
       modalLeave: 'modal-md-slide-out',
-      //pageTransition: 'ios-transition',
       tabsHideOnSubPages: true,
-      menuType: 'push',
-      platforms: {
-        ios: {
-          menuType: 'overlay',
-        }
-      }
     }),
     ComponentsModule,
     LoginPageModule,
@@ -117,7 +91,7 @@ import { UploadImgProvider } from "../providers/uploadimg/uploadimg";
   bootstrap: [IonicApp],
   entryComponents: [
     StudentApp,
-    PhotosviewerComponent,
+    //PhotosviewerComponent,
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -129,12 +103,12 @@ import { UploadImgProvider } from "../providers/uploadimg/uploadimg";
     PaymentProvider,
     SeptnetpayProvider,
     NativeProvider,
-    /*
-     added by chen
-     */
-    MessageProvider,
-    ValidationProvider,
-    UploadImgProvider,
+    // /*
+    //  added by chen
+    //  */
+    // MessageProvider,
+    // ValidationProvider,
+    // UploadImgProvider,
     /*
      * native plugins
      */
@@ -151,6 +125,8 @@ import { UploadImgProvider } from "../providers/uploadimg/uploadimg";
     ExcellentProvider,
     LostProvider,
     PackageProvider,
+    ClaimProvider,
+    PasswordProvider,
     //PaymentProvider,
     //AnalysisProvider,
     //GradeProvider,

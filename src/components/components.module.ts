@@ -7,15 +7,13 @@ import { Iscroll } from './iscroll/iscroll';
 import { ScrollheaderComponent } from './scrollheader/scrollheader';
 import { SubmitonComponent } from './submiton/submiton';
 import { Loading } from './loading/loading';
-import { ModalComponent } from './modal/modal';
 import { SidenavComponent } from './sidenav/sidenav';
 import { CouponComponent } from './coupon/coupon';
 import { PaymentComponent } from './payment/payment';
-import { PhonecodeComponent } from './phonecode';
 import { UploadimgComponent } from './uploadimg/uploadimg';
 import { AgreecheckComponent } from './agreecheck/agreecheck';
 import { CoinComponent } from './coin/coin';
-
+import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
 @NgModule({
   declarations: [
     LazyLoader,
@@ -24,14 +22,13 @@ import { CoinComponent } from './coin/coin';
     SubmitonComponent,
     Transition,
     Loading,
-    ModalComponent,
     SidenavComponent,
     CouponComponent,
     PaymentComponent,
-	  PhonecodeComponent,
     UploadimgComponent,
     AgreecheckComponent,
-    CoinComponent
+    CoinComponent,
+    PhotosviewerComponent
   ],
   imports: [
     CommonModule,
@@ -44,14 +41,13 @@ import { CoinComponent } from './coin/coin';
     SubmitonComponent,
     Transition,
     Loading,
-    ModalComponent,
     SidenavComponent,
     CouponComponent,
     PaymentComponent,
-  	PhonecodeComponent,
     UploadimgComponent,
     AgreecheckComponent,
-    CoinComponent
+    CoinComponent,
+    PhotosviewerComponent
   ],
 })
 export class ComponentsModule {}

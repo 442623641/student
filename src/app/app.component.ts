@@ -35,37 +35,15 @@ export class StudentApp {
   }
 
   private login() {
-    //this.handler();
     return this.userProvider.getLogin().then(login => {
       login && login.usercode && login.pwd ?
-        this.userProvider.login(login).then(res =>
-          //(res = {},
-          this.to(!res || !res.token ? LoginPage : res.school ? TabsPage : PersonalPage) //)
-          // res.token ?
-          // this.userProvider.initialize(res, login).then(() => this.goTabsPage()) :
-          // this.goLoginPage()
-        ).catch(() => this.to(LoginPage)) :
+        this.userProvider.login(login).then(res => this.to(!res || !res.token ? LoginPage : res.school ? TabsPage : PersonalPage)).catch(() => this.to(LoginPage)) :
         this.to(LoginPage);
     });
   }
 
   to(page: any) {
     this.rootPage = page;
-    setTimeout(() => this.splashScreen.hide(), 300);
-  }
-
-  private goLoginPage() {
-    this.rootPage = LoginPage;
-    setTimeout(() => this.splashScreen.hide(), 300);
-  }
-
-  private goTabsPage() {
-    this.rootPage = TabsPage;
-    setTimeout(() => this.splashScreen.hide(), 300);
-  }
-
-  private goWelcomePage() {
-    //this.rootPage = WelcomePage;
     setTimeout(() => this.splashScreen.hide(), 300);
   }
 

@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ValidationProvider } from "../../providers/validation/validation";
+import { PasswordProvider } from '../../providers/password/password';
 import { NativeProvider } from '../../providers/native';
+import { UserProvider } from '../../providers/user';
+import { LOGIN_PAGE } from '../pages.constants';
 /**
- * Generated class for the PasswordPage page.
+ * Generated class for the ConfirmPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -15,28 +18,84 @@ import { NativeProvider } from '../../providers/native';
   templateUrl: 'password.html',
 })
 export class PasswordPage {
-  opwd: any;
-  newpwd: any;
-  rnewpwd: any;
+  authForm: FormGroup;
+  params: any;
+  type: 'register' | 'recover' | 'reset';
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private validate: ValidationProvider,
-    private native: NativeProvider
-  ) {}
-  ngAfterViewInit(){}
+    private passwordPro: PasswordProvider,
+    private nativepro: NativeProvider,
+    private userPro: UserProvider,
+    formBuilder: FormBuilder,
+  ) {
+    this.params = this.navParams.get('params') || {};
+    this.type = this.navParams.get('type');
+    let validate = ['', Validators.compose([Validators.minLength(6), Validators.maxLength(50), Validators.required])],
+      controls = {
+        password: validate,
+        repassword: validate,
+      }
+    this.type == "reset" && (controls['oldpassword'] = validate);
+    this.authForm = formBuilder.group(controls);
+    this.authForm.valueChanges.subscribe(res => this.authForm['processing'] = this.authForm.controls.password.valid && res.password === res.repassword ? false : undefined);
 
-  confirm(){
-    if(this.newpwd.length>=6 && this.rnewpwd.length>=6){
-      this.validate.changepwd({ opwd:this.opwd, pwd:this.newpwd, rpwd:this.newpwd }).then(res=>{
+  }
+
+  save(obj) {
+    console.log(typeof this[this.type]);
+    //typeof this[this.type] != 'function' || console.error('缺少参数type，register：注册，recover：找回密码，reset：修改密码');
+    this[this.type](obj);
+  }
+
+  /**
+   *注册
+   */
+  private register(obj) {
+    this.authForm['processing'] = true;
+    this.passwordPro.register({ token: this.params.token, code: this.params.code, pwd: obj.password, rpwd: obj.repassword }).then(res => {
+      console.log(res);
+      this.sucess('注册成功');
+    }).catch(err => this.error(err));
+  }
+
+  /**
+   *设置密码
+   */
+  private recover(obj) {
+    this.authForm['processing'] = true;
+    this.passwordPro.verify({ token: this.params.token, code: this.params.code, tel: this.params.phone }).then(res => {
+      this.passwordPro.recover({ token: res.token, pwd: obj.password, rpwd: obj.password, tel: this.params.phone }).then(res => {
         console.log(res);
-        this.native.toast('密码修改成功');
-      }).catch(err=>{
-        this.native.toast(err.message);
-      })
-    }else{
-      this.native.toast('新密码长度不少于6位');
-    }
+        this.sucess('设置成功');
+      }) //.catch((err) => this.error(err));
+    }).catch(err => this.error(err));
+  }
 
+  /**
+   *修改密码
+   */
+  private reset(obj) {
+    this.authForm['processing'] = true;
+    this.passwordPro.reset({ opwd: obj.oldpassword, pwd: obj.password, rpwd: obj.password }).then(res => {
+      console.log(res);
+      this.sucess('修改成功');
+    }).catch(err => this.error(err));
+  }
+
+  private sucess(msg: string) {
+    this.nativepro.toast(msg);
+    this.authForm['processing'] = false;
+    this.userPro.getLogin().then(res => {
+      res = res || { usercode: '' };
+      this.userPro.setLogin({ usercode: this.params.phone || res.usercode, pwd: '' })
+        .then(() => this.navCtrl.setRoot(LOGIN_PAGE, {}, { animate: true, animation: 'ios-transition', direction: 'back' }));
+    })
+
+  }
+  private error(err = { message: '网络延时，请稍后再试' }) {
+    console.error(err);
+    this.nativepro.toast(err.message);
+    this.authForm['processing'] = false;
   }
 }

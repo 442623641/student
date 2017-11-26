@@ -1,6 +1,6 @@
 import { AGREEMENT_PAGE } from '../../pages/pages.constants';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 /**
  * Generated class for the AgreecheckComponent component.
  *
@@ -12,17 +12,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'agreecheck.html'
 })
 export class AgreecheckComponent {
-  _choose: boolean;
-  @Output() changec:EventEmitter<any> = new EventEmitter<any>();
-  @Input()
-  get choose(){
-    return this._choose;
-  }
-  set choose(val:boolean){
-    this._choose=val;
-    this.changec.emit(this._choose);
-  };
+  checkValue: boolean;
+  @Output() checkChange = new EventEmitter();
   @Input()  type;
+  @Input()
+  get check(){
+    return this.checkValue;
+  }
+  set check(val:boolean){
+    if (this.checkValue == val) return;
+    this.checkValue=val;
+    this.checkChange.emit(this.checkValue);
+  };
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
@@ -30,6 +31,8 @@ export class AgreecheckComponent {
 
 
   agree(){
+    this.checkValue=true;
+    this.checkChange.emit(this.checkValue);
     this.navCtrl.push( AGREEMENT_PAGE,{ type: this.type});
   }
 

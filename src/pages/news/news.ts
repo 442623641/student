@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { MESSAGE_PAGE ,UNCLAIMEDEXAMS_PAGE } from '../pages.constants';
+import { SYSMESSAGES_PAGE, CLAIM_PAGE } from '../pages.constants';
 import { MessageProvider } from '../../providers/message/message';
 @IonicPage()
 @Component({
@@ -8,26 +8,32 @@ import { MessageProvider } from '../../providers/message/message';
   templateUrl: 'news.html'
 })
 export class NewsPage {
-  pages: any={
-    message: MESSAGE_PAGE,
-    unclaimedexams: UNCLAIMEDEXAMS_PAGE
+  pages: any = {
+    smessage: SYSMESSAGES_PAGE,
+    claim: CLAIM_PAGE
   };
-  countall: any;
-  unreadnum: any;
-  unclaimednum: any;
+  news: NewsOption = { systemcount: 0, unclaimed: 0, unread: 0 };
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private messagepro: MessageProvider
+    private messagePro: MessageProvider
   ) {}
-
-  ionViewDidLoad() {}
-  ngAfterViewInit(){
-    this.messagepro.getItem().then(res=>{
-      console.log(res);
-       this.countall=res.systemcount;
-       this.unreadnum=res.unread;
-       this.unclaimednum=res.unclaimed;
-    })
+  ngAfterViewInit() {
+    this.doRefresh();
   }
+
+  doRefresh(event ? ) {
+    this.messagePro.getItem().then(res => {
+      console.log(res);
+      this.news = res || this.news;
+      event && event.complete();
+    }).catch(ex => event && event.complete());
+  }
+}
+
+interface NewsOption {
+  systemcount: number;
+  unread: number;
+  unclaimed: number;
+
 }
