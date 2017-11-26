@@ -49,5 +49,8 @@ import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
     CoinComponent,
     PhotosviewerComponent
   ],
+  entryComponents: [
+    PhotosviewerComponent
+  ]
 })
 export class ComponentsModule {}

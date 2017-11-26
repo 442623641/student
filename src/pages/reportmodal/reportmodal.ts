@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import {} from '../pages.constants';
 import { UserProvider } from '../../providers/user';
 import { PaymentProvider } from '../../providers/payment/payment';
 import { NativeProvider } from '../../providers/native';

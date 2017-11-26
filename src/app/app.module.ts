@@ -51,7 +51,6 @@ import { SeptnetpayProvider } from '../providers/payment/septnetpay';
 import { LostProvider } from '../providers/lost/lost';
 import { PackageProvider } from '../providers/package/package';
 import { ClaimProvider } from '../providers/claim/claim';
-import { PasswordProvider } from '../providers/password/password';
 /*
 add by chen 17-11-21
  */
@@ -126,7 +125,6 @@ add by chen 17-11-21
     LostProvider,
     PackageProvider,
     ClaimProvider,
-    PasswordProvider,
     //PaymentProvider,
     //AnalysisProvider,
     //GradeProvider,

@@ -23,14 +23,14 @@ page-lost {
         margin-left: 16px;
       }
       .mess {
-        height: 120px;
+        // height: 120px;
         display: table-cell;
         vertical-align: middle;
         color: #fff;
         font-size: 1.5rem;
         padding: 16px;
       }
-      background-size: cover;
+      background-size: cover !important;
     }
     .button {
       padding: 0 2.2em;
