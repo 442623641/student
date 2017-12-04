@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ReportPage } from './report';
-import { SlicePipe } from '@angular/common';
+// import { SlicePipe } from '@angular/common';
 import { PipesModule } from '../../pipes/pipes.module';
 import { EchartsNg2Module } from 'echarts-ng2';
 import { ComponentsModule } from '../../components/components.module';
@@ -26,8 +26,5 @@ import { ReportmodalPage } from '../reportmodal/reportmodal';
   entryComponents: [
     ReportmodalPage
   ]
-  // exports: [
-  //   ReportmodalPage
-  // ]
 })
 export class ReportPageModule {}

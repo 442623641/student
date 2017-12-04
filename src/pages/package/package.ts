@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { PAYMENT_PAGE, COUPON_PAGE } from '../pages.constants';
 import { PackageguidePage } from '../packageguide/packageguide';
 

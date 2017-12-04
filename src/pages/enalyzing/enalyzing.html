@@ -21,8 +21,12 @@
   </p>
 </ion-header>
 <ion-content (ionScroll)="scrollHandler($event)" #content>
-  <ng-template [ngIf]="enalyzingOpt" [ngIfElse]="loading">
-    <ng-template [ngIf]="enalyzingOpt.unauthorized<enalyzingOpt.total" [ngIfElse]="guide">
+  <loading [status]="enalyzingOpt" *ngIf="!enalyzingOpt;else entry"></loading>
+  <ng-template #entry>
+    <div text-center style="width: 100%;" *ngIf="enalyzingOpt.unauthorized>=enalyzingOpt.total;else entrycontent">
+      <img src="assets/images/enalyzingbg.png">
+    </div>
+    <ng-template #entrycontent>
       <ng-container *ngFor="let exam of enalyzingOpt.exams;let e = index;">
         <p class="affix" line-bottom *ngIf="exam.count"><span>{{exam.name}}</span><span><span ion-text color="primary">
       {{exam.count}}</span>道错题</span><span float-right>{{exam.time | date:'yyyy年M月d日'}}</span></p>
@@ -45,7 +49,7 @@
               </ng-template>
               <ng-template #objective>
                 <a [imgviewer]="{title:exam.name,images:que.reply}" *ngIf="que.reply?.length">我的答案</a>
-                <a (click)="excellent(que)" *ngIf="que.excellent?.length" [imgviewer]="que.imgviewer">优秀答卷</a>
+                <a (click)="excellent(e,q)" *ngIf="que.excellent?.length" [imgviewer]="que.imgviewer">优秀答卷</a>
                 <a [imgviewer]="{title:exam.name,images:que.answer}" *ngIf="que.answer?.length">标准答案</a>
               </ng-template>
             </ion-row>
@@ -56,14 +60,6 @@
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ng-template>
-    <ng-template #guide>
-      <div text-center style="width: 100%;">
-        <img src="assets/images/enalyzingbg.png">
-      </div>
-    </ng-template>
-  </ng-template>
-  <ng-template #loading>
-    <loading [status]="enalyzingOpt"></loading>
   </ng-template>
 </ion-content>
 <ion-footer *ngIf="enalyzingOpt&&enalyzingOpt.unauthorized==enalyzingOpt.total">

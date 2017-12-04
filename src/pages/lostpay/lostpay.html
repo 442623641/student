@@ -38,6 +38,6 @@
 </ion-content>
 <ion-footer no-border>
   <ion-toolbar no-padding color="white">
-    <payment [options]="options" [amount]="total" [disabled]='!!options.area.name'></payment>
+    <payment [options]="options" [amount]="total" [disabled]='!options.area.name'></payment>
   </ion-toolbar>
 </ion-footer>

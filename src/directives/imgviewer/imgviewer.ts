@@ -12,15 +12,15 @@ import { NativeProvider } from '../../providers/native';
   selector: '[imgviewer]', // Attribute selector
 })
 export class ImgviewerDirective {
-  value: any;
+  imgviewerValue: any;
   clicked: boolean;
   @Input('imgviewer')
   set imgviewer(objs) {
-    this.value = objs;
+    this.imgviewerValue = objs;
     objs && this.clicked && this.openModal();
   };
   get imgviewer() {
-    return this.value;
+    return this.imgviewerValue;
   }
 
   gesture: Gesture;
@@ -33,6 +33,7 @@ export class ImgviewerDirective {
     private el: ElementRef,
     private nativePro: NativeProvider
   ) {}
+
   ngAfterViewInit() {
     this.bind();
   }
@@ -42,10 +43,10 @@ export class ImgviewerDirective {
    */
   openModal(event ? ) {
     if (!this.imgviewer) return this.clicked = true;
-    if (!this.imgviewer.length) return this.nativePro.toast('暂无数据，请稍后再试');
+    if (!this.imgviewer.images.length) return this.nativePro.toast('暂无数据，请稍后再试', 1800, "center");
     this.clicked = false;
     this.ionViewDidLeave();
-    let modal = this.modalCtrl.create(PhotosviewerComponent, this.imgviewer);
+    let modal = this.modalCtrl.create(PhotosviewerComponent, Object.assign({}, this.imgviewer));
     modal.present();
     modal.onDidDismiss(() => { this.ionViewDidEnter() });
   }
@@ -57,6 +58,7 @@ export class ImgviewerDirective {
     this.gesture.on('tap', this.openModal.bind(this));
     this.binded = true;
   }
+
   ionViewDidLeave() {
     this.binded = false;
     this.gesture.off('tap', this.openModal);

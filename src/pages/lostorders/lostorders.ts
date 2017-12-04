@@ -49,7 +49,7 @@ export class LostordersPage {
 
   doInfinite(event) {
     this.page.viewindex++;
-    this.lostPro.order(this.page).then(res => {
+    this.lostPro.orders(this.page).then(res => {
       event.complete();
       this.end = res ? !res.length : false;
       this.orders = this.orders.concat(res);

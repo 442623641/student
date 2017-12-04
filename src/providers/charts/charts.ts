@@ -355,6 +355,9 @@ export class ChartsProvider {
 
       xAxis: [{
         type: 'category',
+        axisLabel: {
+          rotate: obj.xaxis.length > 5 ? 45 : 0,
+        },
         axisTick: {
           show: true
         },
@@ -393,7 +396,8 @@ export class ChartsProvider {
         return {
           name: obj.legend[index],
           type: 'bar',
-          barWidth: 10,
+          barCategoryGap: 15,
+          barWidth: 7,
           itemStyle: {
             normal: {
               barBorderRadius: 0

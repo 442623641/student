@@ -10,8 +10,7 @@
   </ion-navbar>
 </ion-header>
  -->
-<param hook="home">
-<ion-content>
+<ion-content hook="home">
   <!-- <div class="banner"> -->
   <loading [status]="package" *ngIf="!package;else entry"></loading>
   <ng-template #entry>

@@ -112,13 +112,18 @@ export class ExcellentPage {
 
   excellent(item) {
     if (item.imgviewer) return;
-    let error = () => { this.toast('暂无优秀答案，请稍后再试') };
+    let error = (ex ? ) => {
+      console.log(ex);
+      this.nativePro.hideLoading();
+      this.toast('暂无优秀答案，请稍后再试');
+    };
+    this.nativePro.showLoading();
     this.excellentPro.excellent({
       guid: item.guid,
       subject: this.option.subject,
       nos: item.excellent,
     }).then(res => {
-      if (res.length) return error();
+      if (!res.length) return error(res);
       let imgs = [];
       res.forEach(x =>
         x.link && x.link.forEach(y =>
@@ -131,7 +136,8 @@ export class ExcellentPage {
         title: this.option.subject,
         images: imgs
       };
-    }).catch(() => error());
+      this.nativePro.hideLoading();
+    }).catch((ex) => error(ex));
   }
   toast(message) {
     this.nativePro.toast(message, 1500, "center");

@@ -1,11 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ExamsPage } from './exams';
-// import { ReportPageModule } from '../report/report.module';
-// import { DoctorPageModule } from '../doctor/doctor.module';
-// import { ReplyPageModule } from '../reply/reply.module';
-
-//import { ScrollheaderComponent } from '../../components/scrollheader/scrollheader';
+import { TopicsPage } from '../topics/topics';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
 /**
@@ -16,17 +12,17 @@ import 'echarts-liquidfill';
 @NgModule({
   declarations: [
     ExamsPage,
-    //ScrollheaderComponent,
+    TopicsPage
   ],
   imports: [
     EchartsNg2Module,
     IonicPageModule.forChild(ExamsPage),
-    // ReportPageModule,
-    // DoctorPageModule,
-    // ReplyPageModule,
     ComponentsModule,
     DirectivesModule
   ],
+  entryComponents: [
+    TopicsPage
+  ]
 
 })
 export class ExamsPageModule {}

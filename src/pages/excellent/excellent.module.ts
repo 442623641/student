@@ -13,8 +13,5 @@ import { DirectivesModule } from '../../directives/directives.module';
     ComponentsModule,
     DirectivesModule,
   ],
-  // providers: [
-  //   EnalyzingProvider,
-  // ]
 })
 export class ExcellentPageModule {}

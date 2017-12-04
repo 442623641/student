@@ -18,7 +18,7 @@ export class PaymentComponent {
   @Input() amount: number = 0;
   @Input() options: PaymentOption; // { amount: 0, ordertype: 'package' }; //{ amount: number, coupon: string, coin: number, type: string, biz: any };
   @Output() fulfill: EventEmitter < any > = new EventEmitter();
-  @Input() min: number;
+  @Input() min: number=0;
   @Input() disabled: boolean;
   processing: boolean;
   orderCode: string;

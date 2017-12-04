@@ -193,14 +193,7 @@
   }
 
   [split-line]>*:not(:last-child()) {
-    // border-right: .55px solid rgba(0, 0, 0, .15);
-    &:after {
-      content: '';
-      height: 100%;
-      width: 1px;
-      background: rgba(0, 0, 0, .15);
-      transform: scaleY(0.35);
-    }
+    border-right: .55px solid rgba(0, 0, 0, .15);
   }
 
   .col {

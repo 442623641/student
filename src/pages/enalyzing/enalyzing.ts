@@ -109,11 +109,16 @@ export class EnalyzingPage {
 
   }
 
-  excellent(item) {
-    if (item.imgviewer) return;
-    let error = () => { this.toast('暂无优秀答案，请稍后再试') };
+  excellent(e, q) {
+    let exam = this.enalyzingOpt.exams[e],
+      item = exam.questions[q];
+    if (item['imgviewer']) return;
+    let error = () => {
+      this.toast('暂无优秀答案，请稍后再试');
+      this.nativePro.hideLoading();
+    };
     this.enalyzingPro.excellent({
-      guid: item.guid,
+      guid: exam.guid,
       subject: this.enalyzingOpt.option.subject,
       nos: item.excellent,
     }).then(res => {
@@ -125,10 +130,11 @@ export class EnalyzingPage {
           (imgs = imgs.concat(y)) :
           imgs.push(y))
       );
-      item.imgviewer = {
+      item['imgviewer'] = {
         title: this.enalyzingOpt.option.subject,
         images: imgs
       };
+      this.nativePro.hideLoading();
     }).catch(() => error());
   }
 
@@ -137,7 +143,7 @@ export class EnalyzingPage {
    *准备移除
    */
   remove(que: any) {
-    this.nativePro.confirm('要继续删除吗，删除后不可恢复', ['删除', '取消']).then(btn => que.delete = !btn);
+    this.nativePro.confirm('要继续删除吗，删除后不可恢复', ['取消', '删除']).then(btn => que.delete = !btn);
   }
   /**
    *移除
@@ -147,7 +153,8 @@ export class EnalyzingPage {
     let exam = this.enalyzingOpt.exams[e];
     this.enalyzingPro
       .remove({ no: exam.questions[q].no, subject: this.enalyzingOpt.option.subject, guid: exam.guid })
-      .then(res => console.log(res));
+      .then(res => {})
+      .catch(ex => console.log(ex));
     this.enalyzingOpt.remove(e, q);
     this.affix();
   }
@@ -177,11 +184,7 @@ export class EnalyzingPage {
         this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
           this.achieveSub.unsubscribe();
           let start = this.navCtrl.indexOf(this.viewCtrl);
-          this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
-            //this.nativePro.showLoading();
-            //this.loadData().then(() => this.nativePro.hideLoading());
-            //this.exam.payment = true;
-          });
+          this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {});
         });
       })
     )

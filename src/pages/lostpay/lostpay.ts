@@ -22,7 +22,7 @@ export class LostpayPage {
   /**
    * 运费
    */
-  expressAmount: number = 10;
+  expressAmount: number = 0;
 
   amount: number = 0;
 

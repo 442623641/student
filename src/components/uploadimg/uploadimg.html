@@ -1,14 +1,12 @@
 <ion-row padding nowrap>
-  <ion-col col-3 no-padding margin-right-12 *ngFor="let url of urls;let i = index;">
+  <ion-col col-3 no-padding margin-right-12 *ngFor="let url of urls;let i = index;" [imgviewer]="{title:'意见反馈',images:urls}">
     <a (click)="remove(i)">
       <ion-icon name="remove-circle-outline" color="danger"></ion-icon>
     </a>
-    <img [src]="url" [imgviewer]="{title:'意见反馈',images:url}">
+    <img src="{{url}}">
   </ion-col>
   <a (click)="picker()" *ngIf='items.length<3' col-2>
-    <!-- <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".png,.jpeg"> -->
-    <!-- <input accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" mutiple="mutiple" capture="camera" type="file" (change)="previewPic($event)"> -->
-    <ion-icon name="ios-camera-outline" class="camera"></ion-icon>
+    <ion-icon name="ios-camera-outline"></ion-icon>
     <p class="count">{{items.length}}/3 </p>
   </a>
 </ion-row>

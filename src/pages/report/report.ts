@@ -97,7 +97,7 @@ export class ReportPage {
     return this.examsPro.report({ guid: this.exam.guid, level: level }).then(res => {
       this.exam.payment = res.buy;
       this.fill(reportIndex, res);
-      setTimeout(() => this.doInfinite(), 1000);
+      setTimeout(() => this.doInfinite(), 1500);
       return res;
     }).catch(ex => this.reports[reportIndex] = null);
   }
@@ -156,7 +156,7 @@ export class ReportPage {
     }).then(res => {
       if (!res) this.report.activityRanktrends = null;
       this.report.activityRanktrends = this.chartsPro.scoretrend(res);
-      console.log(res);
+      //console.log(res);
     }).catch(ex => this.report.activityRanktrends = null);
   }
 
@@ -175,7 +175,7 @@ export class ReportPage {
     }).then(res => {
       if (!res) this.report.activityScoretrends = null;
       this.report.activityScoretrends = this.chartsPro.scoretrend(res);
-      console.log(res);
+      //console.log(res);
     }).catch(ex => this.report.activityScoretrends = null);
   }
 
@@ -184,7 +184,7 @@ export class ReportPage {
     this.ranktrends(this.report.subjects[0]);
     this.scoretrends(this.report.subjects[1]);
     this.comranks(this.report.subjects[0]);
-    console.log(event);
+    //console.log(event);
   }
 
 }

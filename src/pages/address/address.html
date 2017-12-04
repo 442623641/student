@@ -30,7 +30,7 @@
     <button ion-item no-lines>
       <ion-label item-start>所在地区：</ion-label>
       <ion-note item-start *ngIf="!authForm.controls.area.valid">选择所在地区</ion-note>
-      <city-picker item-start formControlName="area" cancelText='取消' doneText='完成' separator=' ' [citiesData]="cityData">
+      <city-picker item-start formControlName="area" cancelText='取消' doneText='完成' separator='' [citiesData]="cityData">
       </city-picker>
     </button>
     <ion-item no-lines>

@@ -12,10 +12,10 @@ import { PaymentProvider } from '../../providers/payment/payment';
 })
 export class CoinComponent {
   subscribe: any;
-  balanceValue: number = 0;
+  balanceValue: number;
   @Output() balanceChange: EventEmitter < any > = new EventEmitter < any > ();
   set balance(val: number) {
-    if (this.balanceValue == val) return;
+    if (this.balanceValue === val) return;
     this.balanceValue = val || 0;
     this.balanceChange.emit(this.balanceValue);
   }

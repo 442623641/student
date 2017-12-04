@@ -1,5 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { HttpHandler } from '../../providers/httpHandler';
+import { ViewController } from 'ionic-angular';
 /**
  * Generated class for the HookDirective directive.
  *
@@ -11,17 +11,24 @@ import { HttpHandler } from '../../providers/httpHandler';
 })
 export class HookDirective {
   @Input('hook') hook: string;
-  @Input() loading: boolean = true;
-  constructor(private httpHandler: HttpHandler) {
-    //this.loading && this.httpHandler.invoke();
-
+  page: string;
+  subenter: any;
+  subleave: any;
+  constructor(viewCtrl: ViewController) {
+    this.page = viewCtrl.name;
+    this.subenter = viewCtrl.didLeave.subscribe((res) => {
+      console.log('page leave ' + this.page);
+    })
+    this.subleave = viewCtrl.didEnter.subscribe((res) => {
+      console.log('page end ' + this.page);
+    })
   }
 
-  ngAfterViewInit() {
-    this.hook && console.log(`Hello page ${this.hook}`);
-    //this.mobclickAgent.onPageBegin(this.umengPage);
-  }
   ngOnDestroy() {
+    this.subenter && this.subenter.unsubscribe();
+    this.subleave && this.subleave.unsubscribe();
+    //this.mobclickAgent.onPageEnd(this.umengPage);
     //this.mobclickAgent.onPageEnd(this.umengPage);
   }
+
 }

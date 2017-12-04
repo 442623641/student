@@ -10,11 +10,11 @@ import { ELOST_PAGE } from '../pages.constants';
  */
 @IonicPage()
 @Component({
-  selector: 'page-elostguide',
-  templateUrl: 'elostguide.html',
+  selector: 'page-lostguide',
+  templateUrl: 'lostguide.html',
 })
 
-export class ElostguidePage {
+export class LostguidePage {
   constructor(private navCtrl: NavController, private viewCtrl: ViewController) {}
   go() {
     this.navCtrl.push(ELOST_PAGE).then(() =>

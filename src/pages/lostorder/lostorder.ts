@@ -20,7 +20,9 @@ export class LostorderPage {
     private lostPro: LostProvider) {}
   ionViewDidLoad() {
     console.log('ionViewDidLoad LostorderPage');
-    this.lostPro.order({ guid: this.navParams.get('guid') }).then(res => this.order = res).catch();
+    this.lostPro.order({ guid: this.navParams.get('guid') })
+      .then(res => this.order = res)
+      .catch(ex => console.log(ex));
   }
 
 }

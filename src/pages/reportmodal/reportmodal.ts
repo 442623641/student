@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { UserProvider } from '../../providers/user';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { PaymentProvider } from '../../providers/payment/payment';
 import { NativeProvider } from '../../providers/native';
 import { CouponProvider } from '../../providers/coupon/coupon';
@@ -30,7 +29,6 @@ export class ReportmodalPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    private userPro: UserProvider,
     private paymentPro: PaymentProvider,
     private nativePro: NativeProvider,
     private couponPro: CouponProvider

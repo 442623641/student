@@ -1,0 +1,122 @@
+page-lostguide {
+  .content {
+    background-color: #77d29d;
+  }
+  .card {
+    box-shadow: none;
+  }
+  .banner {
+    width: 100%;
+    background: url("../../assets/images/bookbanner.png") no-repeat center;
+    background-size: cover;
+    height: 26rem;
+    position: relative;
+    text-align: center;
+    p {
+      display: inline-block;
+      margin-top: 6.8rem;
+      padding: 6px 0;
+      border-bottom: 1px solid #fff;
+      border-top: 1px solid #fff;
+      color: #fff;
+      font-size: 2rem;
+      span {
+        color: #fad800;
+      }
+    }
+  }
+  .card {
+    padding-top: 24px;
+    .row {
+      margin-top: 20px;
+      .col {
+        h1 {
+          color: #57a275;
+          white-space: nowrap;
+          &::before {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            background-color: #57a275;
+            color: white;
+            font-size: 1.4rem;
+            text-align: center;
+            line-height: 20px;
+            position: relative;
+            bottom: 5px;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+    .row:nth-of-type(1) h1::before {
+      content: '1';
+    }
+    .row:nth-of-type(2) h1::before {
+      content: '2';
+    }
+    .row:nth-of-type(3) h1::before {
+      content: '3';
+    }
+    .row:nth-of-type(4) h1::before {
+      content: '4';
+    }
+  }
+  .err-show {
+    .item {
+      h1 {
+        &::before {
+          content: '';
+          width: 5px;
+          height: 18px;
+          background: #77d29d;
+          display: inline-block;
+          margin-right: 12px;
+        }
+      }
+    }
+    .item:nth-of-type(1) {
+      .row {
+        margin-top: 0;
+        .col:nth-of-type(2) {
+          position: relative;
+          &::after {
+            content: "";
+            display: inline-block;
+            width: 1px;
+            height: 18px;
+            background-color: #77d29d;
+            position: absolute;
+            right: 0;
+            top: 7px;
+          }
+        }
+        .col:nth-of-type(1) {
+          padding-left: 0;
+        }
+        .col {
+          font-size: .9em;
+        }
+      }
+    }
+  }
+  .book-inform {
+    padding: 16px;
+    color: white;
+    line-height: 1.8rem;
+    width: 95%;
+    border: dotted 1px #fff;
+    margin: 0 auto;
+    border-radius: 10px;
+    p:nth-of-type(1) {
+      font-size: 2.4rem;
+    }
+    span {
+      color: #c7eb5e;
+    }
+    p {
+      margin-top: 10px;
+    }
+  }
+}

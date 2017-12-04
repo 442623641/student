@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { App } from 'ionic-angular';
+import { NativeProvider } from './native';
 
 /*
 异常处理
@@ -7,6 +9,7 @@ import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class HttpHandler {
+  loging: boolean;
   private handleAuthSource = new Subject < any > ();
   private handleMessageSource = new Subject < any > ();
   private handleErrorSource = new Subject < any > ();
@@ -14,7 +17,7 @@ export class HttpHandler {
   handleAuth$ = this.handleAuthSource.asObservable();
   handleError$ = this.handleErrorSource.asObservable();
 
-  constructor() {
+  constructor(private appCtrl: App, private nativePro: NativeProvider) {
 
   }
 
@@ -25,7 +28,15 @@ export class HttpHandler {
   }
 
   handleAuth(message ? : string) {
-    this.handleAuthSource.next(message);
+    const LOGIN = 'LoginPage';
+    if (this.loging) return;
+    this.loging = true;
+    message && this.nativePro.toast(message);
+    let nav = this.appCtrl.getActiveNav();
+    if (this.appCtrl.getActiveNav().name == LOGIN) return;
+    this.appCtrl.getRootNav().setRoot(LOGIN, {}, { animate: true, animation: 'md-transition', direction: 'back' });
+    setTimeout(() => this.loging = false, 1000);
+    //this.handleAuthSource.next(message);
   }
 
   handleError(error ? : any) {

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { AppProvider } from '../../providers/app/app';
 import { NativeProvider } from "../../providers/native";
-import { DomSanitizer } from '@angular/platform-browser';
 import { FilePath } from '@ionic-native/file-path';
 /**
  * Generated class for the FeedbackPage page.
@@ -22,10 +21,8 @@ export class FeedbackPage {
   processing: boolean;
   constructor(
     private navCtrl: NavController,
-    private navParams: NavParams,
     private appPro: AppProvider,
     private nativepro: NativeProvider,
-    private sanitizer: DomSanitizer,
     private filePath: FilePath
   ) {}
   onChanged(event) {
@@ -44,7 +41,7 @@ export class FeedbackPage {
             console.log(res);
             if (index == this.images.length - 1) {
               this.processing = false;
-              this.nativepro.toast('感谢您的宝贵建议');
+              this.nativepro.toast('感谢您的反馈');
               setTimeout(() => this.navCtrl.pop(), 800);
             }
           })

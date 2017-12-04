@@ -9,7 +9,7 @@
     <ion-title>错题本（电子版）</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content padding-bottom>
   <div class="banner">
     <img src="assets/images/elebanner.jpg" alt="">
   </div>
@@ -116,7 +116,7 @@
 <ion-footer no-border>
   <ion-toolbar>
     <ion-title>
-      <button ion-button block [navPush]="lost">立即定制</button>
+      <button ion-button block (click)="go()">立即定制</button>
     </ion-title>
   </ion-toolbar>
 </ion-footer>

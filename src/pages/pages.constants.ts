@@ -75,3 +75,5 @@ export const LOSTPAY_PAGE = 'LostpayPage';
 
 export const ADDRESS_PAGE = 'AddressPage';
 export const ADDRESSES_PAGE = 'AddressesPage';
+
+export const LOSTGUIDE_PAGE = 'LostguidePage';

@@ -51,19 +51,20 @@ export class UploadimgComponent {
    * 打开摄像头
    */
   private openCamera(sourceType) {
-    let options = {
-      allowEdit: false,
-      quality: 50, //相片质量 0 -100
-      saveToPhotoAlbum: true, //是否保存到相册
-      sourceType: sourceType, //是打开相机拍照还是打开相册选择 0 PHOTOLIBRARY :, 相册选择, 1 CAMERA : 拍照,SAVEDPHOTOALBUM : 2
-    }
+    //let options = {
+    //allowEdit: false,
+    //quality: 50, //相片质量 0 -100
+    //saveToPhotoAlbum: true, //是否保存到相册
+    //  sourceType: sourceType, //是打开相机拍照还是打开相册选择 0 PHOTOLIBRARY :, 相册选择, 1 CAMERA : 拍照,SAVEDPHOTOALBUM : 2
+    //}
     navigator['camera'].getPicture(res => {
       console.log(res);
       this.add(res);
     }, (err) => {
       console.log(err);
-    }, options);
+    }, { sourceType: sourceType });
   }
+
   private add(item) {
     if (!item) return;
     this.zone.run(() => this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl(item)));

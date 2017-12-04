@@ -56,7 +56,6 @@ export class PaymentProvider {
     return this.http.get('userinfo/getcoin').then(res => {
       res = res || {}
       this.setLocalBalance(res.coin || 0);
-      console.log(res);
       return res.coin || 0;
     }).catch();
   }

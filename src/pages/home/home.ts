@@ -17,7 +17,7 @@ import {
   ELOSTGUIDE_PAGE,
   CLAIM_PAGE,
   PACKAGE_PAGE,
-  LOST_PAGE
+  LOSTGUIDE_PAGE
 } from '../pages.constants';
 
 
@@ -42,7 +42,7 @@ export class HomePage {
     enalyzing: ENALYZING_PAGE,
     excellent: EXCELLENT_PAGE,
     elost: ELOSTGUIDE_PAGE,
-    lost: LOST_PAGE,
+    lost: LOSTGUIDE_PAGE,
     claim: CLAIM_PAGE
   }
   @ViewChild('ball') ballEl: any;
@@ -60,7 +60,7 @@ export class HomePage {
   /*
   我的信息
   */
-  private userInfo: UserInfo;
+  private userInfo: UserInfo = {};
   listen: any;
   packageSub: any;
 

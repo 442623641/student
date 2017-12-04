@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { PersonalPage } from '../pages/personal/personal';
 import { UserProvider } from '../providers/user';
+import { NativeProvider } from '../providers/native';
 import { HttpHandler } from '../providers/httpHandler';
 @Component({
   template: '<ion-nav [root]="rootPage" #rootNav></ion-nav>'
@@ -21,7 +22,9 @@ export class StudentApp {
     statusBar: StatusBar,
     private splashScreen: SplashScreen,
     private userProvider: UserProvider,
-    public httpHandler: HttpHandler) {
+    private httpHandler: HttpHandler,
+    private nativeProvider: NativeProvider
+  ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -30,8 +33,10 @@ export class StudentApp {
         statusBar.backgroundColorByHexString("#f66e4f");
       }
       //splashScreen.hide();
-      this.httpHandler.handleAuth$.subscribe(info => this.rootNav.setRoot(LoginPage, {}, { animate: true, animation: 'md-transition', direction: 'back' }));
+      // this.httpHandler.handleAuth$.subscribe(info => {
 
+      //   this.rootNav.setRoot(LoginPage, {}, { animate: true, animation: 'md-transition', direction: 'back' })
+      // });
       this.login();
     });
   }
