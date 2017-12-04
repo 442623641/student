@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LostProvider } from '../../providers/lost/lost';
 import { NativeProvider } from '../../providers/native';
-import { ElostOptions, Elost } from '../../model/elost';
+import { LostOptions, Elost } from '../../model/elost';
 import {} from '../pages.constants';
 
 /**
@@ -31,7 +31,7 @@ export class LostoptionPage {
     this.elost = new Elost(this.navParams.data);
   }
 
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     console.log('ionViewDidLoad LostoptionPage');
     this.elost.exams.length || this.exams();
   }
@@ -40,7 +40,7 @@ export class LostoptionPage {
 
     this.end = false;
     this.page = { index: 0, viewlength: 10 };
-    this.lostPro.exams(Object.assign({ subject: this.elost.name, type: 1 }, this.page)).then(res => {
+    this.lostPro.exams(Object.assign({ subject: this.elost.name, type: this.elost.type }, this.page)).then(res => {
       if (!res || !res.exams || !res.exams.length) return this.elost.state = null;
       this.fill(res)
     }).catch(ex => {
@@ -50,7 +50,7 @@ export class LostoptionPage {
   }
 
   doInfinite(event) {
-    this.lostPro.exams(Object.assign({ subject: this.elost.name, type: 1 }, this.page)).then(res => {
+    this.lostPro.exams(Object.assign({ subject: this.elost.name, type: this.elost.type }, this.page)).then(res => {
       if (!res || !res.exams || !res.exams.length) return this.end = true;
       this.fill(res)
     }).catch(ex => {
@@ -64,13 +64,9 @@ export class LostoptionPage {
     if (this.end) this.elost.count = this.elost.exams.length;
   }
 
-  ionViewDidLeave() {
-    console.log('LostoptionPage ionViewDidLeave');
+  save(shouldClose ? : boolean) {
     this.elost && this.lostPro.setElost(this.elost);
-  }
-
-  save() {
-    this.lostPro.setElost(this.elost);
+    shouldClose && this.navCtrl.pop();
   }
 
 }

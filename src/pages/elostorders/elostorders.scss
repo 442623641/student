@@ -1,0 +1,32 @@
+page-elostorders {
+
+  .card {
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
+    width: 100%;
+  }
+  .processing.button {
+    padding: 0 1.3rem 0 8px;
+  }
+  .card-footer {
+    .chip {
+      .spinner {
+        margin: auto 0 auto 6px;
+      }
+    }
+    padding: 5px 16px;
+    .button {
+      height: 2em;
+      .spinner {
+        width: 20px;
+      }
+      &[disabled] {
+        padding-left: 16px;
+        .spinner {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

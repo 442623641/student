@@ -17,8 +17,6 @@ export class Package {
     this.days = Math.floor((date.getTime() - now.getTime()) / (24 * 60 * 60 * 1000));
 
   }
-
-
 }
 /**
  *套餐

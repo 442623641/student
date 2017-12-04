@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/map';
 
 /*
   import { Http } from '@angular/http';
@@ -53,6 +52,10 @@ export class EnalyzingProvider {
   }
   excellents(data) {
     return this.http.get('question/schoolquestion', data);
+  }
+
+  remove(data) {
+    return this.http.get('question/remove', data);
   }
 
 

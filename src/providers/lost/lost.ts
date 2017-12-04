@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http';
 import { Subject } from 'rxjs/Subject';
 import { Elost } from '../../model/elost';
-import 'rxjs/add/operator/map';
+import { Storage } from '@ionic/storage';
 
 /*
   import { Http } from '@angular/http';
@@ -39,8 +39,31 @@ export class LostProvider {
     return this.http.get('errorbook/lastorder');
   }
 
-  order(data ? ) {
+  eorders(data ? ) {
     return this.http.get('errorbook/orderelec', data);
+  }
+
+  orders(data ? ) {
+    return this.http.get('errorbook/order', data);
+  }
+  order(data ? ) {
+    return this.http.get('errorbook/orderinfo', data);
+  }
+
+
+
+  /**
+   *获取价格
+   */
+  price(data): Promise < any > {
+    return new Promise((resolve: any) => setTimeout(() => resolve({ money: 30, promote: 7 }), 1800));
+  }
+
+  /**
+   *费用信息
+   */
+  fee() {
+    return this.http.post('payment/getMailPrice');
   }
 
 

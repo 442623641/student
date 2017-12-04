@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, Slides } from 'ionic-angular';
 
 /**
@@ -14,10 +14,10 @@ import { IonicPage, NavController, NavParams, ViewController, Slides } from 'ion
   templateUrl: 'claimmodal.html',
 })
 export class ClaimmodalPage {
-  // @ViewChild(Slides) slides: Slides;
+  @ViewChild(Slides) slides: Slides;
   name: string;
   options: any;
-  currentIndex: number;
+  currentIndex: number = 0;
   constructor(
     public navCtrl: NavController,
     public params: NavParams,
@@ -34,10 +34,17 @@ export class ClaimmodalPage {
     this.name = this.params.get('name');
   };
 
+  ionViewDidLoad() {
+    setTimeout(() => {
+      this.slides.lockSwipeToPrev(this.slides.isBeginning());
+      this.slides.lockSwipeToNext(this.slides.isEnd());
+    }, 500);
+  }
+
   slideChanged(event: Slides) {
     event.lockSwipeToPrev(event.isBeginning());
-    event.lockSwipeToPrev(event.isEnd());
-    this.currentIndex = event.getActiveIndex();
+    event.lockSwipeToNext(event.isEnd());
+    this.currentIndex = event.getActiveIndex() || 0;
   };
 
   confirm() {

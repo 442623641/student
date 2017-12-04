@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http';
 import { Pageview } from '../../model/pageview';
-import 'rxjs/add/operator/map';
 
 /*
   Generated class for the ExamsProvider provider.

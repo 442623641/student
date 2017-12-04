@@ -6,7 +6,6 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-@IonicPage()
 @Component({
   selector: 'page-topics',
   templateUrl: 'topics.html',
@@ -21,7 +20,7 @@ export class TopicsPage {
     this.options = this.navParams.get('options');
   }
 
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     console.log('ionViewDidLoad TopicsPage');
   }
 

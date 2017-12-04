@@ -1,18 +1,31 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { FeedbackPage } from './feedback';
-import { UploadImgProvider } from "../../providers/uploadimg/uploadimg";
+
+import { UploadimgComponent } from '../../components/uploadimg/uploadimg';
+import { DirectivesModule } from '../../directives/directives.module';
 import { ComponentsModule } from '../../components/components.module';
+// import { FilePath } from '@ionic-native/file-path';
 @NgModule({
   declarations: [
     FeedbackPage,
+    UploadimgComponent,
+
   ],
   imports: [
     IonicPageModule.forChild(FeedbackPage),
-    ComponentsModule
+    ComponentsModule,
+    DirectivesModule
   ],
-  providers: [
-    UploadImgProvider
-  ]
+  exports: [
+    UploadimgComponent
+  ],
+  // providers: [
+    // AppProvider,
+    // ActionSheet,
+    // FilePath
+    // CameraPreview,
+    // ImagePicker,
+  // ]
 })
 export class FeedbackPageModule {}

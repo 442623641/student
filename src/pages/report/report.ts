@@ -4,10 +4,7 @@ import { ExamsProvider } from '../../providers/exams/exams';
 import { ChartsProvider } from '../../providers/charts/charts';
 import { PaymentProvider } from '../../providers/payment/payment';
 import { ReportOptions, ReportCategory } from '../../model/report';
-
 import { DOCTOR_PAGE, PACKAGE_PAGE, RECHARGE_PAGE } from '../pages.constants';
-
-import { NativeProvider } from '../../providers/native';
 import { ReportmodalPage } from '../reportmodal/reportmodal';
 /**
  * Generated class for the ReportPage page.
@@ -27,53 +24,52 @@ export class ReportPage {
   @ViewChild('content') content: Content;
   @ViewChild('slider') slider: Slides;
   showNavButton: any;
-  _categorys: any[] = [];
+  categorys: any[] = [];
+  categorysValue: string[];
   exam: any = {};
   reportIndex: number = 0;
   reports: ReportOptions[] = [];
+  infinites: boolean[] = [true, true];
 
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
     private examsPro: ExamsProvider,
     private chartsPro: ChartsProvider,
-    private nativePro: NativeProvider,
     private modalCtrl: ModalController,
     private paymentPro: PaymentProvider,
     private viewCtrl: ViewController,
   ) {}
 
-  ngAfterViewInit() {
-
-    this.exam = this.navParams.data;
-    this.showNavButton = this.navCtrl.getPrevious().id != DOCTOR_PAGE && this.exam.payment;
-
-    this.getReport(this.reportIndex).then(res => {
-
-      this._categorys = ReportCategory.filter(item => { return item.code <= res.level }).reverse();
-      setTimeout(() => {
-        if (!this.exam.payment) {
-          this.openPackageModal();
-        }
+  ionViewDidLoad() {
+    setTimeout(() => {
+      this.exam = this.navParams.data;
+      this.showNavButton = this.navCtrl.getPrevious().id != DOCTOR_PAGE && this.exam.payment;
+      this.getReport(this.reportIndex).then(res => {
+        this.categorys = ReportCategory.filter(item => { return item.code <= res.level }).reverse();
+        this.categorysValue = this.categorys.map(item => { return item.name });
+        this.exam.payment || this.openPackageModal();
         this.content.resize();
-      }, 500);
-      console.log(this.report);
-    });
+        console.log(this.report);
+      });
+    }, 550);
   }
 
   /**
    *查看
    */
   openPackageModal() {
-    let modal = this.modalCtrl.create(ReportmodalPage);
+    let modal = this.modalCtrl.create(ReportmodalPage, { guid: this.exam.guid });
     modal.present();
-    modal.onDidDismiss(res => {
-      res && res.open &&
-        this.navCtrl.push(RECHARGE_PAGE, { params: { ordertype: 'exam', selectxbz: res.dvalue, skucode: `exam|${this.exam.guid}` } }).then(res => {
+    modal.onDidDismiss((res = {}) => {
+      this.exam.payment = res.payment;
+      res.page &&
+        this.navCtrl.push(res.page, res.dvalue ? { params: { ordertype: 'exam', selectxbz: res.dvalue, skucode: `exam|${this.exam.guid}` } } : {}).then(res => {
           let achieveSub = this.paymentPro.achieve$.subscribe(res => {
             let start = this.navCtrl.indexOf(this.viewCtrl);
             this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
               this.exam.payment = true;
+              this.report.resetPayment(true);
               achieveSub.unsubscribe();
             });
           });
@@ -91,7 +87,7 @@ export class ReportPage {
       return;
     }
     this.reportIndex = slider._activeIndex;
-    this.report || this.getReport(this.reportIndex, this._categorys[this.reportIndex].code);
+    this.report || this.getReport(this.reportIndex, this.categorys[this.reportIndex].code);
   }
 
   /**
@@ -101,18 +97,16 @@ export class ReportPage {
     return this.examsPro.report({ guid: this.exam.guid, level: level }).then(res => {
       this.exam.payment = res.buy;
       this.fill(reportIndex, res);
-      this.comranks(this.report.subjects[0]);
-      this.ranktrends(this.report.subjects[0]);
-      this.scoretrends(this.report.subjects[1]);
+      setTimeout(() => this.doInfinite(), 1000);
       return res;
-    })
+    }).catch(ex => this.reports[reportIndex] = null);
   }
 
   /**
    *装填数据
    */
   fill(reportIndex, res) {
-    this.reports[reportIndex] = new ReportOptions({
+    this.reports[reportIndex] = res.myscore ? new ReportOptions({
       percent: res.percent,
       studentCount: res.studentcount,
       scores: res.myscore,
@@ -120,20 +114,13 @@ export class ReportPage {
       levelanalysis: res.levelanalysis ? this.chartsPro.level(res.levelanalysis) : null,
       level: res.level,
       fields: res.fields,
-    });
+      payment: res.buy
+    }) : null;
     //console.log(this.report.scores.shift());
-  }
-
-  get categorys() {
-    return this._categorys.map(item => { return item.name });
   }
 
   get report(): ReportOptions {
     return this.reports[this.reportIndex];
-  }
-
-  scrollChange(func, name) {
-    this[func](name);
   }
 
   /**
@@ -141,17 +128,17 @@ export class ReportPage {
    */
   comranks(name) {
     if (this.report.activityComranks) {
-      return;
+      return Promise.resolve();
     }
     this.report.activityComranks = undefined;
-    this.examsPro.comrank({
+    return this.examsPro.comrank({
       guid: this.exam.guid,
       level: this.report.level,
       subject: name
     }).then(res => {
-      if (!res) this.report.activityComranks = null;
+      if (!res || !res.length) return this.report.activityComranks = null;
       this.report.activityComranks = res;
-      console.log(res);
+      //console.log(res);
     }).catch(ex => this.report.activityComranks = null);
   }
 
@@ -192,7 +179,11 @@ export class ReportPage {
     }).catch(ex => this.report.activityScoretrends = null);
   }
 
-  doInfinite(event) {
+  doInfinite() {
+    this.infinites[this.reportIndex] = false;
+    this.ranktrends(this.report.subjects[0]);
+    this.scoretrends(this.report.subjects[1]);
+    this.comranks(this.report.subjects[0]);
     console.log(event);
   }
 

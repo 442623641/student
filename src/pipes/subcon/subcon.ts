@@ -48,6 +48,10 @@ const subejects = {
     'icon': 'iscience',
     'color': '#b564ef',
   },
+  '理科总分': {
+    'icon': 'iscience',
+    'color': '#b564ef',
+  },
   '文科综合': {
     'icon': 'iliterature',
     'color': '#b564ef',

@@ -4,7 +4,7 @@
   <!-- <ion-spinner item-right style="font-size: 1.2rem" *ngIf="!coupon"> -->
   <!-- </ion-spinner> -->
   <ion-note item-right>
-    <span primary>{{coupon.couponCode?coupon.couponType?(coupon.money+'元'):(coupon.rate*100+'折'):''}}</span>&nbsp; {{coupon?coupon.couponName:coupons.length?'选择优惠劵':'暂无可用的优惠劵'}}
+    <span primary>{{coupon.couponCode?coupon.couponType>0?(coupon.money+'元'):(coupon.rate*100+'折'):''}}</span>&nbsp; {{coupon?coupon.couponName:coupons.length?'选择优惠劵':'暂无可用的优惠劵'}}
   </ion-note>
 </button>
 <ion-item *ngIf="dvalue<=0" no-lines>

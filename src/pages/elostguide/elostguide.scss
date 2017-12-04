@@ -1,0 +1,182 @@
+page-elostguide {
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  .card {
+    .card-header {
+      position: relative;
+      &::before {
+        content: "";
+        display: inline-block;
+        width: 1px;
+        height: 72%;
+        background-color: #f66e4f;
+        position: absolute;
+        left: 51px;
+        top: 24px;
+      }
+    }
+    box-shadow:: 3px 2px 10px rgba(0, 0, 0, 0.15),
+    -1px 2px 10px rgba(0, 0, 0, 0.15);
+    .row {
+      position: relative;
+      &::before {
+        content: "";
+        display: inline-block;
+        width: 1px;
+        height: 100%;
+        background-color: color($colors, primary);
+        position: absolute;
+        left: 35px;
+      }
+      .col {
+        padding-left: 0;
+        text-align: left;
+
+        img {
+          display: inline;
+          width: 120px;
+          position: relative;
+        }
+      }
+    }
+    .row .col:nth-of-type(1) {
+      position: relative;
+      padding-left: 60px;
+      &::before {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+        vertical-align: middle;
+        background-color: color($colors, primary);
+        text-align: center;
+        color: white;
+        line-height: 30px;
+        position: absolute;
+        left: 20px;
+        top: 8px;
+      }
+    }
+    .row:nth-of-type(1) .col:nth-of-type(1) {
+      &::before {
+        content: '1';
+        top: 2px;
+      }
+    }
+    .row:nth-of-type(2) .col:nth-of-type(1) {
+      &::before {
+        content: '2';
+      }
+    }
+    .row:nth-of-type(3) .col:nth-of-type(1) {
+      &::before {
+        content: '3';
+      }
+    }
+    .row:nth-of-type(1) img {
+      left: 15px;
+    }
+    .row:nth-of-type(2) img {
+      right: 5px;
+    }
+    .row:nth-of-type(3) img {
+      left: 24px;
+    }
+  }
+
+
+  .banner {
+    background-color: #fff;
+    padding-bottom: 40px;
+    img {
+      width: 100%;
+    }
+  }
+  .imenus {
+    background: #fff url("../../assets/images/elecbg35.png") no-repeat 0 13%;
+    background-size: 100%;
+    .free-edit {
+      &:not(:first-child) {
+        margin-top: 40px;
+      }
+      p {
+        position: relative;
+        .free-edit-num {
+          position: absolute;
+          top: 11px;
+          margin-left: 15px;
+          color: white;
+          z-index: 1000;
+          font-size: 2.2rem;
+        }
+        img {
+          position: absolute;
+          height: 95%;
+          z-index: 999;
+          top: 3px;
+        }
+        .button {
+          width: 18rem;
+          border-radius: 20px;
+        }
+      }
+      .row {
+        margin-top: 20px;
+        .col {
+          p {
+            position: relative;
+            padding-left: 8px;
+            &::before {
+              content: "";
+              display: inline-block;
+              width: 8px;
+              height: 8px;
+              border-radius: 4px;
+              background-color: color($colors, primary);
+              position: absolute;
+              top: 5px;
+              left: -4px;
+            }
+          }
+          span {
+            white-space: nowrap;
+            &::before {
+              content: "";
+              display: inline-block;
+              width: 8px;
+              height: 8px;
+              vertical-align: baseline;
+              border-radius: 4px;
+              background-color: color($colors, primary);
+              margin-right: 6px;
+              position: relative;
+              bottom: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .inform {
+    width: 95%;
+    margin: 0 auto;
+    padding: 16px;
+    color: color($colors, text);
+    line-height: 1.8rem;
+    background-color: #f2f2f2;
+    border: 1px dotted color($colors, primary);
+    border-radius: 10px;
+    min-height: 35rem;
+    p:nth-of-type(1) {
+      font-size: 2rem;
+    }
+    span {
+      color: color($colors, primary);
+    }
+    p {
+      margin-top: 10px;
+    }
+  }
+}

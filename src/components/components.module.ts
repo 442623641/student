@@ -10,10 +10,11 @@ import { Loading } from './loading/loading';
 import { SidenavComponent } from './sidenav/sidenav';
 import { CouponComponent } from './coupon/coupon';
 import { PaymentComponent } from './payment/payment';
-import { UploadimgComponent } from './uploadimg/uploadimg';
+// import { UploadimgComponent } from './uploadimg/uploadimg';
 import { AgreecheckComponent } from './agreecheck/agreecheck';
 import { CoinComponent } from './coin/coin';
-import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
+import { PhotosviewerComponent } from './photosviewer/photosviewer';
+import { TelComponent } from './tel/tel';
 @NgModule({
   declarations: [
     LazyLoader,
@@ -25,10 +26,11 @@ import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
     SidenavComponent,
     CouponComponent,
     PaymentComponent,
-    UploadimgComponent,
+    // UploadimgComponent,
     AgreecheckComponent,
     CoinComponent,
-    PhotosviewerComponent
+    PhotosviewerComponent,
+    TelComponent
   ],
   imports: [
     CommonModule,
@@ -44,10 +46,11 @@ import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
     SidenavComponent,
     CouponComponent,
     PaymentComponent,
-    UploadimgComponent,
+    // UploadimgComponent,
     AgreecheckComponent,
     CoinComponent,
-    PhotosviewerComponent
+    PhotosviewerComponent,
+    TelComponent
   ],
   entryComponents: [
     PhotosviewerComponent

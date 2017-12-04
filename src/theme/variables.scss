@@ -81,6 +81,7 @@ green:#6adcb7,
 // Overriding Ionic Sass 
 $text-color:color($colors, text);
 $toolbar-background:color($colors, primary);
+$toolbar-ios-button-font-size:1.6rem;
 $background-color:#f2f3f4;
 $item-ios-body-text-font-size:1.6rem;
 $item-ios-divider-background:color($colors, transparent);
@@ -97,6 +98,10 @@ $button-ios-height:2.5em;
 
 $refresher-border-color:color($colors, transparent);
 $refresher-icon-color:color($colors, gray9);
+$refresher-icon-font-size:22px;
 $refresher-text-color:color($colors, gray9);
 $refresher-text-font-size:14px;
+
+$infinite-scroll-loading-margin-bottom:10px;
 $card-ios-font-size:1.5rem;
+$card-ios-box-shadow-color:rgba(0, 0, 0, .15);

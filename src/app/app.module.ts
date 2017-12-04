@@ -19,7 +19,7 @@ Icon.enableColorful();
  */
 import { PersonalPageModule } from '../pages/personal/personal.module';
 import { LoginPageModule } from '../pages/login/login.module';
-import { TabsModule } from '../core/tabs/tabs.module';
+import { TabsModule } from '../pages/tabs/tabs.module';
 
 /*
  * native plugins
@@ -29,7 +29,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Toast } from '@ionic-native/toast';
 import { Dialogs } from '@ionic-native/dialogs';
-
+import { CallNumber } from '@ionic-native/call-number';
+import { ActionSheet } from '@ionic-native/action-sheet';
+import { FilePath } from '@ionic-native/file-path';
+import { Contacts } from '@ionic-native/contacts';
 
 /**
  *Components module
@@ -38,25 +41,27 @@ import { ComponentsModule } from '../components/components.module';
 import { HttpProvider } from '../providers/http';
 import { HttpHandler } from '../providers/httpHandler';
 import { HomeProvider } from '../providers/home';
-import { Constant } from '../providers/constant';
 import { UserProvider } from '../providers/user';
 import { NativeProvider } from '../providers/native';
 import { PersonalProvider } from '../providers/personal/personal';
 import { StaticProvider } from '../providers/static/static';
-import { SharedProvider } from '../providers/shared/shared';
 import { EnalyzingProvider } from '../providers/enalyzing/enalyzing';
 import { ExcellentProvider } from '../providers/excellent/excellent';
 import { PaymentProvider } from '../providers/payment/payment';
 import { SeptnetpayProvider } from '../providers/payment/septnetpay';
 import { LostProvider } from '../providers/lost/lost';
 import { PackageProvider } from '../providers/package/package';
+import { NotifyProvider } from '../providers/notify/notify';
+import { AppProvider } from '../providers/app/app';
+import { ExamsProvider } from '../providers/exams/exams';
+import { ChartsProvider } from '../providers/charts/charts';
 import { ClaimProvider } from '../providers/claim/claim';
-/*
-add by chen 17-11-21
- */
-// import { MessageProvider } from '../providers/message/message';
-// import { ValidationProvider } from '../providers/validation/validation';
-// import { UploadImgProvider } from "../providers/uploadimg/uploadimg";
+import { CouponProvider } from '../providers/coupon/coupon';
+import { PasswordProvider } from '../providers/password/password';
+import { MessageProvider } from '../providers/message/message';
+import { TradesProvider } from '../providers/trades/trades';
+import { DoctorProvider } from '../providers/doctor/doctor';
+import { AddressProvider } from '../providers/address/address';
 
 @NgModule({
   declarations: [
@@ -94,40 +99,51 @@ add by chen 17-11-21
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    HttpProvider,
-    HttpHandler,
-    HomeProvider,
-    Constant,
-    UserProvider,
-    PaymentProvider,
-    SeptnetpayProvider,
-    NativeProvider,
-    // /*
-    //  added by chen
-    //  */
-    // MessageProvider,
-    // ValidationProvider,
-    // UploadImgProvider,
+
+
     /*
      * native plugins
      */
+    ActionSheet,
     SplashScreen,
     Toast,
     Dialogs,
     StatusBar,
-
+    CallNumber,
     HTTP,
+    FilePath,
+    Contacts,
+
+
+    /*
+     * request service
+     */
+    HttpProvider,
+    HttpHandler,
+    HomeProvider,
+    UserProvider,
+    PaymentProvider,
+    SeptnetpayProvider,
+    NativeProvider,
+    ExamsProvider,
+    ChartsProvider,
+    ClaimProvider,
     PersonalProvider,
     StaticProvider,
-    SharedProvider,
     EnalyzingProvider,
     ExcellentProvider,
     LostProvider,
     PackageProvider,
-    ClaimProvider,
-    //PaymentProvider,
-    //AnalysisProvider,
-    //GradeProvider,
+    NotifyProvider,
+    AppProvider,
+    EnalyzingProvider,
+    LostProvider,
+    CouponProvider,
+    PasswordProvider,
+    MessageProvider,
+    TradesProvider,
+    AddressProvider,
+    DoctorProvider,
   ]
 })
 export class AppModule {}

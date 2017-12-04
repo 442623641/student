@@ -86,13 +86,13 @@ export class CategoryOptions {
    */
   objective: boolean;
 
-  constructor(obj: any = { paper: [], topic: '', excellent: [], answer: [], reply: [], resolve: [], full: [], score: [], level: [], objective: true }) {
+  constructor(obj: any = { paper: [], topic: '', excellent: [], answer: [], reply: [], resolve: [], score: [], level: [], objective: true }) {
     this.paper = obj.paper;
     this.topic = obj.topic;
     this.answer = obj.answer || [];
     this.reply = obj.reply || [];
     this.resolve = obj.resolve;
-    this.full = obj.full || [];
+    this.full = obj.full;
     this.score = obj.score || [];
     this.level = obj.level || [];
     this.objective = obj.objective;
@@ -125,7 +125,7 @@ export class CategoryOptions {
     });
   }
   get fullString() {
-    return this.full.join(",");
+    return this.full ? this.full.join(",") : '';
   }
   get answerString() {
     return this.answer.join(",");
@@ -272,6 +272,8 @@ export class Subjecte {
    */
   no: string[];
 
+  nos: { name: string, visible: boolean }[];
+
   /**
    *得分率列表
    */
@@ -300,7 +302,9 @@ export class Subjecte {
   /**
    *显示全部题目
    */
-  showAll: boolean = false;
+  _showAll: boolean;
+
+  diff: boolean;
 
   constructor(name: string = '', obj: any = { paper: '', no: [], series: [], showAll: false, category: [] }, percents = {}) {
     this.name = name;
@@ -311,6 +315,18 @@ export class Subjecte {
     this.no = obj.no;
     this.series = obj.series;
     this.category = obj.category.map(item => { return new Category(item) });
+    let num = [];
+    for (let i = 0; i < obj.category.length; i++) {
+      let key = Number(obj.category[i].right);
+      if (!num[key]) {
+        num[key] = 1;
+        if (num.length > 1) {
+          this.diff = true;
+          break;
+        };
+      }
+    }
+    this.showAll = this.diff ? true : false;
     // code...
   }
 
@@ -327,13 +343,27 @@ export class Subjecte {
     this.category[this.categoryIndex];
   }
 
+  get showAll() {
+    return this._showAll;
+  }
+
+  set showAll(shouldShowAll: boolean) {
+    if (this._showAll === shouldShowAll) return;
+    this.nos = shouldShowAll ? this.category.map(item => {
+      return { name: item.no, visible: true }
+    }) : this.category.map(item => {
+      return { name: item.no, visible: !item.right }
+    });
+    this._showAll = shouldShowAll;
+  }
+
   /**
    *题号列表
    */
-  get nos(): string[] {
-    return this.category.map(item => {
-      return item.no;
-    });
-  }
+  // get nos(): string[] {
+  //   return this.category.map(item => {
+  //     return item.no;
+  //   });
+  // }
 
 }

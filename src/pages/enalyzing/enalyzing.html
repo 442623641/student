@@ -9,7 +9,7 @@
   <ion-navbar>
     <ion-title>错题分析</ion-title>
     <ion-buttons end *ngIf="enalyzingOpt">
-      <button ion-button (tap)="showMenu=true">
+      <button ion-button (click)="showMenu=true">
         筛选
       </button>
     </ion-buttons>
@@ -31,21 +31,21 @@
             <ion-row justify-content-between class="block-card-header" nowrap line-bottom padding-right>
               <ion-col col-3>第{{que.no}}题</ion-col>
               <ion-col col-auto><span>满分:{{que.tofull}}分</span><span>我的得分:{{que.tofull}}分</span><span>难度:{{que.tolevel}}</span></ion-col>
-              <a padding-right interactive (click)="que.delete=true" class="col">
+              <a padding-right interactive (click)="remove(que)" class="col">
                 <ion-icon name="close"></ion-icon>
               </a>
             </ion-row>
             <div class="content-img">
               <img-lazy [src]="img" *ngFor="let img of que.paper"> </img-lazy>
             </div>
-            <ion-row padding-vertical-10>
+            <ion-row padding-vertical-8 split-line>
               <ng-template [ngIf]="que.objective" [ngIfElse]="objective">
                 <a *ngIf="que.reply?.length" (click)="toast(que.replyString)">我的答案</a>
                 <a *ngIf="que.answer?.length" (click)="toast(que.answerString)">标准答案</a>
               </ng-template>
               <ng-template #objective>
                 <a [imgviewer]="{title:exam.name,images:que.reply}" *ngIf="que.reply?.length">我的答案</a>
-                <a (click)="excellent(e,q)">优秀答卷</a>
+                <a (click)="excellent(que)" *ngIf="que.excellent?.length" [imgviewer]="que.imgviewer">优秀答卷</a>
                 <a [imgviewer]="{title:exam.name,images:que.answer}" *ngIf="que.answer?.length">标准答案</a>
               </ng-template>
             </ion-row>
@@ -83,7 +83,7 @@
   <ion-item-group margin-top>
     <ion-item-divider color="light">时间</ion-item-divider>
     <ion-row justify-content-between>
-      <a col-3 *ngFor="let item of times" [attr.seleted]="tempOption.month == item.month" (click)="tempOption.month = item.month">{{item.name}}</a>
+      <a col-5 *ngFor="let item of times" [attr.seleted]="tempOption.month == item.month" (click)="tempOption.month = item.month">{{item.name}}</a>
     </ion-row>
   </ion-item-group>
   <!-- </ion-content> -->

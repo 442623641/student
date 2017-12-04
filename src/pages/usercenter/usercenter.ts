@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, ViewController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user';
 import { UserInfo } from '../../model/userInfo';
+import { PaymentProvider } from '../../providers/payment/payment';
 import {
   PERSONAL_PAGE,
   FEEDBACK_PAGE,
@@ -37,25 +38,29 @@ export class UsercenterPage {
     order: ORDERMORE_PAGE,
   };
   userInfo: UserInfo = {};
+  rechargeSub: any;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public userPro: UserProvider
+    private navCtrl: NavController,
+    private userPro: UserProvider,
+    private paymentPro: PaymentProvider,
+    private viewCtrl: ViewController,
   ) {
     console.log('UsercenterPage');
   }
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     this.userPro.getUserInfo().then(res => this.userInfo = res);
     this.userPro.userInfo$.subscribe((userInfo: UserInfo) => this.userInfo = userInfo);
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UsercenterPage');
+  recharge() {
+    this.navCtrl.push(this.pages.recharge);
+    this.rechargeSub = this.paymentPro.achieve$.subscribe(res => {
+      let start = this.navCtrl.indexOf(this.viewCtrl);
+      this.navCtrl.remove(start + 1, res.len - start - 1);
+    });
   }
-
-  go(page: any) {
-    this.navCtrl.push(page);
+  ionViewDidEnter() {
+    this.rechargeSub && this.rechargeSub.unsubscribe();
   }
 
   get desc() {

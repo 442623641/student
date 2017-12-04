@@ -12,11 +12,11 @@ import { PaymentProvider } from '../../providers/payment/payment';
 })
 export class CoinComponent {
   subscribe: any;
-  balanceValue: number;
+  balanceValue: number = 0;
   @Output() balanceChange: EventEmitter < any > = new EventEmitter < any > ();
   set balance(val: number) {
     if (this.balanceValue == val) return;
-    this.balanceValue = val;
+    this.balanceValue = val || 0;
     this.balanceChange.emit(this.balanceValue);
   }
   constructor(
@@ -25,11 +25,14 @@ export class CoinComponent {
     console.log('Hello CoinComponent Component');
     this.paymentPro.getLocalBalance().then(res => {
       this.balance = res;
+      this.balance === undefined && this.paymentPro.balance();
     });
   }
 
   ngAfterViewInit() {
-    this.subscribe = this.paymentPro.balance$.subscribe((res) => this.balance = res);
+    this.subscribe = this.paymentPro.balance$.subscribe((res) => {
+      this.balance = res;
+    });
   }
 
   ngOnDestory() {

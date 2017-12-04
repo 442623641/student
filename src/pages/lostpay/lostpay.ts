@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LostProvider } from '../../providers/lost/lost';
-import { PAYMENT_PAGE, COUPON_PAGE } from '../pages.constants';
-import { PaymentOption, Order } from '../../model/payment';
-import { Elost } from '../../model/elost';
+import { AddressProvider } from '../../providers/address/address';
+import { PAYMENT_PAGE, COUPON_PAGE, ADDRESSES_PAGE, ADDRESS_PAGE } from '../pages.constants';
+import { Elost, LostParams } from '../../model/elost';
 /**
  * Generated class for the LostpayPage page.
  * Add by leo zhang 201710010101
@@ -17,78 +17,57 @@ import { Elost } from '../../model/elost';
   templateUrl: 'lostpay.html',
 })
 export class LostpayPage {
-
-  subjects: Elost[];
-  subjectNames: any[];
+  total: number;
+  options: LostParams;
   /**
-   * 单价
+   * 运费
    */
-  price: number = 80;
+  expressAmount: number = 10;
+
+  amount: number = 0;
 
   /**
    * child pages
    */
   pages: any = {
     payment: PAYMENT_PAGE,
-    coupon: COUPON_PAGE
+    coupon: COUPON_PAGE,
+    addresses: ADDRESSES_PAGE,
+    address: ADDRESS_PAGE
   }
 
-  /**
-   * 订单信息
-   */
-  payOptions: PaymentOption;
-
-  order: Order = new Order();
-
-  eguids: { name: string, exams: string }[];
+  addressSub: any;
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
-    public lostPro: LostProvider,
+    navParams: NavParams,
+    private addressPro: AddressProvider,
   ) {
-    this.subjects = this.navParams.get('subjects');
-    this.subjectNames = this.subjects.map(item => { return item.name });
-
-    this.eguids = this.subjects.map(item => {
-      return {
-        name: item.name,
-        exams: item.exams.map(e => {
-          return e.guid;
-        }).join(',')
-      }
-    });
-    console.log(this.eguids);
+    this.options = navParams.get('params');
+    this.expressAmount = navParams.get('express');
+    this.total = this.options.amount * 10 + this.expressAmount;
+    this.addressPro.last().then((res) => this.options.area = res).catch();
   }
 
-  balanceChange(event) {
-    this.order = new Order(event, this.subjects.length * this.price);
-    this.setPrice(this.price);
-  }
-
-  // ngAfterViewInit() {
-
-  //   console.log('ionViewDidLoad LostpayPage');
-  // }
-
-  setPrice(val: number) {
-    this.price = val;
-    this.order.setValue(this.subjects.length * this.price);
-    this.setParams(this.order);
-  }
 
   /**
    *确认下单
    */
   couponChange(event) {
-    this.order.setCoupon(event);
-    this.setParams(this.order);
+    this.options.couponcode = event.couponCode;
+    this.amount = Number((event.amount / 10).toFixed(2));
+    this.total = event.amount + this.expressAmount * 10;
+    console.log(this.amount);
   }
-
-  setParams(obj: Order) {
-    this.payOptions = { ordertype: 'elecerrorbook', amount: obj.amount, product: 0, examguids: this.eguids }
-    if (obj.coupon) this.payOptions.couponcode = obj.coupon;
+  address() {
+    this.navCtrl.push(this.pages.address, this.options.area).then((res) => {
+      this.addressSub = this.addressPro.$onChange.subscribe(res => {
+        console.log(res);
+        this.options.area = res;
+      })
+    })
   }
-
-
+  ionViewDidEnter() {
+    this.addressSub && this.addressSub.unsubscribe();
+  }
 }

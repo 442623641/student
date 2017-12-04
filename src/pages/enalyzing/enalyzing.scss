@@ -11,9 +11,11 @@ page-enalyzing {
           background: #fff;
           border-radius: 3px;
           margin: 7px;
+          padding: 5px 12px;
           color: color($colors, gray6);
+          border: 0.55px solid #fff;
           &[seleted=true] {
-            border: 0.55px solid color($colors, primary);
+            border-color: rgba(color($colors, primary), .45);
             color: color($colors, primary);
           }
         }
@@ -76,20 +78,6 @@ page-enalyzing {
           z-index: 1;
           text-align: left;
           padding-left: 16px;
-          &:before,
-          &:after {
-            content: '';
-            display: block;
-            position: absolute;
-            z-index: -1;
-            bottom: 0;
-            margin-bottom: 1px;
-            right: -8px;
-            width: 30px;
-            height: 50%;
-            background-color: color($colors, primary);
-          }
-
           &:before {
             bottom: 0;
             transform: skew(38deg);

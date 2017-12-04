@@ -32,19 +32,18 @@ export const UNCLAIMEDEXAMS_PAGE = 'UnclaimedexamsPage';
 
 export const EXCELLENT_PAGE = 'ExcellentPage';
 export const ENALYZING_PAGE = 'EnalyzingPage';
-export const LOST_PAGE = 'LostPage';
-export const LOSTOPTION_PAGE = 'LostoptionPage';
-export const LOSTORDER_PAGE = 'LostorderPage';
-export const LOSTPAY_PAGE = 'LostpayPage';
-export const LOSTORDERMODAL_PAGE = 'LostordermodalPage';
+
+
+
 
 export const PACKAGE_PAGE = 'PackagePage';
+export const PACKAGEGUIDE_PAGE = 'PackageguidePage';
 
 export const REPORTMODAL_PAGE = 'ReportmodalPage';
 
 export const REPLY_PAGE = 'ReplyPage';
 
-export const LOSTGUIDE_PAGE = 'LostguidePage';
+
 
 export const SCHOOLS_PAGE = 'SchoolsPage';
 
@@ -60,3 +59,19 @@ export const CLAIM_PAGE = 'ClaimPage';
 export const CLAIMMODAL_PAGE = 'ClaimmodalPage';
 
 export const PASSWORD_PAGE = 'PasswordPage';
+
+export const ELOST_PAGE = 'ElostPage';
+export const ELOSTORDERS_PAGE = 'ElostordersPage';
+export const ELOSTPAY_PAGE = 'ElostpayPage';
+export const ELOSTORDERMODAL_PAGE = 'ElostordermodalPage';
+export const ELOSTGUIDE_PAGE = 'ElostguidePage';
+export const ELOSTUSAGE_PAGE = 'ElostusagePage';
+
+export const LOST_PAGE = 'LostPage';
+export const LOSTORDERS_PAGE = 'LostordersPage';
+export const LOSTORDER_PAGE = 'LostorderPage';
+export const LOSTOPTION_PAGE = 'LostoptionPage';
+export const LOSTPAY_PAGE = 'LostpayPage';
+
+export const ADDRESS_PAGE = 'AddressPage';
+export const ADDRESSES_PAGE = 'AddressesPage';

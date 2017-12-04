@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Toast } from '@ionic-native/toast';
 import { Dialogs } from '@ionic-native/dialogs';
 import { ToastController, LoadingController, Platform, AlertController, ModalController } from 'ionic-angular';
-import { Observable } from "rxjs";
 import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
 
 /**
@@ -64,27 +63,14 @@ export class NativeProvider {
    */
   toast = (message: string = '操作完成', duration: number = 2000, positon: string = "top") => {
     if (this.native) {
-      console.log('positon:' + positon);
-      this.ntoast.show(message, String(duration), positon).subscribe();
-      return new Observable(observer => {
-        setTimeout(() => {
-          observer.next(42);
-          observer.complete();
-        }, 2000);
-      });
+      return this.ntoast.show(message, String(duration), positon).subscribe();
     } else {
-      this.toastCtrl.create({
+      return this.toastCtrl.create({
         message: message,
         duration: duration,
         position: positon,
         showCloseButton: false,
       }).present();
-      return new Observable(observer => {
-        setTimeout(() => {
-          observer.next(42);
-          observer.complete();
-        }, 2000);
-      });
     }
   };
 

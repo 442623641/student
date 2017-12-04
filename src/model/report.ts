@@ -30,6 +30,8 @@ export class Score {
  */
 export class ReportOptions {
 
+  payment: boolean;
+
   /**
    *领先比例
    */
@@ -53,7 +55,7 @@ export class ReportOptions {
   /**
    *得分列表
    */
-  fields: string[];
+  fields: { name: string, code: string }[];
 
   /**
    *层析分析
@@ -106,7 +108,7 @@ export class ReportOptions {
    */
   scoreSubjects: string[];
 
-  constructor(obj: any = { percent: 0, level: 1, studentCount: 1, scores: [], levelanalysis: null, learnanalysis: null }) {
+  constructor(obj: any = { percent: 0, level: 1, studentCount: 1, scores: [], levelanalysis: null, learnanalysis: null, payment: false }) {
     this.level = obj.level;
     this.studentCount = obj.studentCount;
     this.scores = obj.scores;
@@ -118,6 +120,17 @@ export class ReportOptions {
     this.scoretrends = obj.scoretrends || [];
     this.subjects = this.getSubjects();
     this.scoreSubjects = this.subjects.filter(item => { return item != '总分' });
+    this.resetPayment(obj.payment);
+  }
+
+  resetPayment(val: boolean) {
+    if (val) {
+      this.fields.length = this.fields.length - 1;
+      this.scores.forEach(item => {
+        item.subjects.length = item.subjects.length - 1;
+      });
+    }
+    this.payment = val;
   }
 
   /**

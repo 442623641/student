@@ -4,7 +4,7 @@ import { ClaimProvider } from '../../providers/claim/claim';
 //import { ExammodalPage } from '../exammodal/exammodal';
 import { ClaimmodalPage } from '../claimmodal/claimmodal';
 import { NativeProvider } from "../../providers/native";
-
+import { NotifyProvider } from '../../providers/notify/notify';
 /**
  * Generated class for the UnclaimedexamsPage page.
  * Add by chengyiling
@@ -18,11 +18,6 @@ import { NativeProvider } from "../../providers/native";
   templateUrl: 'claim.html',
 })
 export class ClaimPage {
-
-  /**
-   * child pages
-   */
-  pages: any = {};
   unclaimes: any[];
   index: any;
   status: any;
@@ -32,10 +27,11 @@ export class ClaimPage {
     public viewCtrl: ViewController,
     public modalCtrl: ModalController,
     private claimPro: ClaimProvider,
-    private nativepro: NativeProvider
+    private nativepro: NativeProvider,
+    private notifyPro: NotifyProvider
   ) {}
 
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     this.doRefresh();
   }
 
@@ -46,15 +42,16 @@ export class ClaimPage {
     }).catch(err => {
       console.log(err);
     });
-  };
+  }
 
   openModal(item, papers) {
     let modal = this.modalCtrl.create(ClaimmodalPage, { papers: papers, name: item.studentname });
     modal.present();
     modal.onDidDismiss(res => {
-      if (!res || !res.studentcode) return;
-      this.claimPro.claimexam({ guid: item.guid, studentcode: res.studentcode })
+      if (!res || !res.code) return;
+      this.claimPro.claimexam({ guid: item.examguid, studentcode: res.code })
         .then(res => {
+          res && res.claimed && this.notifyPro.add('unclaimed', -1);
           this.nativepro.showLoading();
           this.doRefresh();
         })
@@ -76,6 +73,7 @@ export class ClaimPage {
       event && event.complete();
       console.log(res);
       this.nativepro.hideLoading();
+
     }).catch(ex => exception(ex));
   }
 }

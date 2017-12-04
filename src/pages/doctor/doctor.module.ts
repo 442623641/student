@@ -3,7 +3,6 @@ import { IonicPageModule } from 'ionic-angular';
 import { TopicsPage } from '../topics/topics';
 import { DoctorPage } from './doctor';
 import { EchartsNg2Module } from 'echarts-ng2';
-import { DoctorProvider } from '../../providers/doctor/doctor';
 import { PipesModule } from '../../pipes/pipes.module';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
@@ -20,7 +19,7 @@ import { DirectivesModule } from '../../directives/directives.module';
   ],
   imports: [
 
-    IonicPageModule.forChild(TopicsPage),
+    //IonicPageModule.forChild(TopicsPage),
     IonicPageModule.forChild(DoctorPage),
     //IonicPageModule.forChild(TopicsPage),
     EchartsNg2Module,
@@ -30,8 +29,11 @@ import { DirectivesModule } from '../../directives/directives.module';
     //TopicsPageModule,
 
   ],
-  providers: [
-    DoctorProvider
+  entryComponents: [
+    TopicsPage
   ],
+  // providers: [
+  //   DoctorProvider
+  // ],
 })
 export class DoctorPageModule {}

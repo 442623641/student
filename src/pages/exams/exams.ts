@@ -42,11 +42,7 @@ export class ExamsPage {
   ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ExamsPage');
-  }
-  ngAfterViewInit() {
-    this.doRefresh();
-
+    setTimeout(() => this.doRefresh(), 300);
   }
 
   doRefresh(event ? ) {

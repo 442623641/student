@@ -27,16 +27,16 @@ scroll-header {
           bottom: 0px;
           left: 0;
           position: absolute; //transform: translate3d(0, 0, 0);
-          transition: transform .38s;
+          transition: transform .3s;
           transform-origin: center center;
         }
       }
     }
     background: rgba(#fff, .85);
-    .col:not([select=true]) {
+    .col:not(.select) {
       color: inherit;
     }
-    [select=true].col {
+    .select.col {
       color: color($colors, primary);
       &:after {
         transform: scaleX(1); //transform: translate3d(0, 0, 0);

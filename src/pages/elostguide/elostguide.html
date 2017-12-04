@@ -1,0 +1,122 @@
+<!--
+  Generated template for the BookerrPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>错题本（电子版）</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="banner">
+    <img src="assets/images/elebanner.jpg" alt="">
+  </div>
+  <div class="imenus">
+    <section class="free-edit">
+      <p text-center><span class="free-edit-num">1</span><img src="assets/images/ele8.png">
+        <button ion-button>自由编辑</button>
+      </p>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <img src="assets/images/ele1.png">
+          </ion-col>
+          <ion-col text-start>
+            <span>错题本生成为Word/WPS格式</span>
+            <br>
+            <span>可自由编辑</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </section>
+    <section class="free-edit">
+      <p text-center><span class="free-edit-num">2</span><img src="assets/images/ele8.png">
+        <button ion-button>多端协作</button>
+      </p>
+      <ion-grid>
+        <ion-row>
+          <ion-col text-start>
+            <p>
+              可保存为PDF电子书，让孩子在电脑、平板、手机等多种设备上进行学习
+            </p>
+          </ion-col>
+          <ion-col>
+            <img src="assets/images/eleo.jpg" alt="">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </section>
+    <section class="free-edit">
+      <p text-center><span class="free-edit-num">3</span><img src="assets/images/ele8.png">
+        <button ion-button>不限下载考试次数</button>
+      </p>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <img src="assets/images/ele3.png" alt="">
+          </ion-col>
+          <ion-col text-start>
+            <p>
+              支付一次单科费用，不限下载考试次数。如小七定制数学错题本，即选择1次或10次考试，价格都是80学贝
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </section>
+    <section class="free-edit">
+      <p text-center><span class="free-edit-num">4</span><img src="assets/images/ele8.png">
+        <button ion-button>即刻生成错题本</button>
+      </p>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <p text-start style="width: 18rem;margin: 0 auto">
+              下单后，即刻生成下载，无需等待过长时间
+            </p>
+          </ion-col>
+          <ion-col col-12>
+            <img src="assets/images/elel.png" style="width: 65%">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </section>
+  </div>
+  <ion-card>
+    <ion-card-header padding>
+      <button ion-button>定制流程</button>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col col-12>点击“立即定制”进入错题本定制页面</ion-col>
+        <ion-col col-12 text-center><img src="assets/images/ele4.png"></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>点击“申请定制”选择考试错题，系统查询考试需要时间，请耐心等待几秒钟</ion-col>
+        <ion-col col-12 text-center><img src="assets/images/eleuu.png"></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>确认下单，支付成功后，查看“帮助”如何使用错题本。</ion-col>
+        <ion-col col-12 text-center><img src="assets/images/ele7.png" style="width: 135px"></ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <div class="inform">
+    <p>温馨提示</p>
+    <p>1、电子版错题本现在是第一版本，只有错题，没有练习题等，敬请等待下一次更新；</p>
+    <p>2、可定制科目：语文、数学、英语、物理、化学、生物、政治、历史和地理9大科目；</p>
+    <p>3、可定制考试：在七天网络平台上发布并上传了试卷和答案的考试；</p>
+    <p>4、错题本试题来源于每场考试扫描试卷，存在部分题目排版模糊情况；</p>
+    <p>5、若有疑问和宝贵意见，请联系客服咨询和分享。</p>
+    <p><span>客服电话：<tel>0551-63477737</tel></span>
+      <br><span>微信号：cuotiben777</span></p>
+  </div>
+</ion-content>
+<ion-footer no-border>
+  <ion-toolbar>
+    <ion-title>
+      <button ion-button block [navPush]="lost">立即定制</button>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

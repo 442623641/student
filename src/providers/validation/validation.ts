@@ -18,11 +18,4 @@ export class ValidationProvider {
   getcode() {
     return this.http.get('verifyImage');
   }
-
-  /*
-   *反馈消息
-   */
-  feedback(data) {
-    return this.http.post('index/feedback', data);
-  }
 }

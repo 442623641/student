@@ -16,13 +16,10 @@ page-recharge {
       margin: 5px; // &:first-child {
       //   margin-left: 0
       // }
-      &:last-child {
-        margin-right: 0
-      }
       &:active,
       &.checked {
         background-color: rgba(color($colors, primary), .2);
-        border-color: color($colors, primary);
+        border-color: rgba(color($colors, primary), .45);
         color: color($colors, primary);
       }
       i {

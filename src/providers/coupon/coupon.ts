@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http';
 import { CouPon } from '../../model/coupon';
-import 'rxjs/add/operator/map';
 import { Storage } from '@ionic/storage';
 import { Subject } from 'rxjs/Subject';
 @Injectable()

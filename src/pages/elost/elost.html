@@ -1,0 +1,58 @@
+<!--
+  Generated template for the LostPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>错题本</ion-title>
+    <ion-buttons end>
+      <button ion-button [navPush]="pages.lostOrders">订单</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content [class.padding]="checkedsCount">
+  <ng-template [ngIf]="losts" [ngIfElse]="loading">
+    <ion-card *ngFor="let item of losts" [ngSwitch]="!!item.echeckeds">
+      <div [attr.name]="item.name">
+        <span class="name">{{item.name}}</span>
+        <div class="mess" *ngSwitchCase="false">
+          历史共有<span primary>{{item.count}}</span>次考试，如需打印本科错题本请点击下方“申请打印”选择需要打印的内容</div>
+        <div class="mess" *ngSwitchCase="true">
+          您共选择了<span primary>{{item.echeckeds}}</span>次考试，共<span primary>{{item.icheckeds}}</span>道错题</div>
+      </div>
+      <p text-center padding-12>
+        <!-- <button ion-button (click)="print(item)" clear> -->
+        <a *ngSwitchCase="false" (click)="print(item)">申请打印</a>
+        <a *ngSwitchCase="true" (click)="print(item)">修 改</a>
+      </p>
+    </ion-card>
+  </ng-template>
+  <ng-template #loading>
+    <loading [status]="losts"></loading>
+  </ng-template>
+</ion-content>
+<transition name="footer" [if]="!!checkedsCount">
+  <ion-footer no-border>
+    <ion-toolbar color="transparent" no-padding>
+      <ion-item-group [style.maxHeight.px]="showTips?checkeds.length*45:0" *ngIf="!!checkedsCount">
+        <transition name="block" [if]="item.visible" *ngFor="let item of checkeds;let i=index;" (afterLeave)="item.checkedAll=false">
+          <p line-bottom><a ion-text color="text" (click)="print(item)">{{item.name}}（选择<span primary>{{item.echeckeds}}</span>次考试），共<span primary>{{item.icheckeds}}</span>道错题</a>
+            <a float-right padding-horizontal (click)="item.visible=false">
+              <ion-icon name="close"></ion-icon>
+            </a>
+          </p>
+        </transition>
+      </ion-item-group>
+      <ion-row confirm>
+        <ion-col col-8 no-padding>
+          <button ion-button clear color="gray6" (click)="showTips=!showTips;">共定制<span primary>{{checkedsCount}}</span>科错题本&nbsp;
+            <ion-icon [name]="showTips?'arrow-down':'arrow-up'"></ion-icon>
+          </button>
+        </ion-col>
+        <a (click)="dopay()">确认定制</a>
+      </ion-row>
+    </ion-toolbar>
+  </ion-footer>
+</transition>

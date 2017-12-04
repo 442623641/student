@@ -28,7 +28,7 @@ export class AboutusPage {
   ) {
   }
 
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     console.log('ionViewDidLoad AboutusPage');
   }
 

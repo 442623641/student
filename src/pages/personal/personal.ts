@@ -1,12 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { PersonalProvider } from '../../providers/personal/personal';
 import { StaticProvider } from '../../providers/static/static';
-import { Picker } from '../../model/picker';
 import { UserInfo } from '../../model/userInfo';
 import { UserProvider } from '../../providers/user';
 import { NativeProvider } from '../../providers/native';
 import { PERSONAL_PAGE, SCHOOLS_PAGE, TABS_PAGE } from '../pages.constants'
+import { TabsPage } from '../../pages/tabs/tabs';
 /**
  * Generated class for the PersonalPage page.
  *
@@ -40,7 +40,8 @@ export class PersonalPage {
     public staticPro: StaticProvider,
     public userPro: UserProvider,
     public personalPro: PersonalProvider,
-    private nativePro: NativeProvider
+    private nativePro: NativeProvider,
+    private appCtrl: App
   ) {}
 
   ngOnInit() {
@@ -57,7 +58,7 @@ export class PersonalPage {
         grade: res[1],
         text: ''
       };
-    });
+    }).catch();
 
     this.personalPro.schoolChecked$.subscribe(res => {
       res = res || {};
@@ -67,13 +68,13 @@ export class PersonalPage {
 
     this.userPro.getUserInfo().then(res => {
       this.userInfo = res || {};
-      this.db = JSON.parse(JSON.stringify(res));
+      this.db = JSON.parse(JSON.stringify(this.userInfo));
       this.db.school ?
         this.userPro.userInfo().then((info) => {
-          //this.graduated = true;
+          this.graduated = info.graduated;
           this.graduated && pickerSource();
           return Object.assign({ schoolGuid: info.school }, res)
-        }) : pickerSource();
+        }).catch() : pickerSource();
     });
 
   }
@@ -121,7 +122,7 @@ export class PersonalPage {
         this.processing = undefined;
         this.nativePro.toast('信息更新成功');
         this.userPro.setUserInfo(this.userInfo);
-        setTimeout(() => this.navCtrl.parent ? this.navCtrl.pop() : this.navCtrl.setRoot(TABS_PAGE, {}, { animate: true, animation: 'ios-transition', direction: 'forward' }), 1000);
+        setTimeout(() => this.navCtrl.parent ? this.navCtrl.pop() : this.appCtrl.getRootNav().setRoot(TabsPage, {}, { animate: true, animation: 'ios-transition', direction: 'forward' }), 1000);
       }).catch(ex => {
         this.processing = undefined;
         this.nativePro.toast('更新失败，请稍后再试');

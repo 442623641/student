@@ -1,7 +1,7 @@
 <!-- Generated template for the MreportComponent component -->
 <ion-card>
   <ion-card-header>
-    生成学情报告提供一下数据服务
+    {{couponCount?'开通学情套餐':'生成学情报告'}}提供以下数据服务
   </ion-card-header>
   <ion-card-content>
     <ion-slides pager="true">
@@ -31,12 +31,17 @@
       </ion-slide>
     </ion-slides>
   </ion-card-content>
-  <div class="strong">您当前持有
+  <div class="strong" *ngIf="!couponCount;else package">您当前持有
     <coin (balanceChange)="balanceChange($event)"></coin>学贝，生成本次学情报告需要
     <span [innerHTML]="comment"></span>
   </div>
+  <ng-template #package>
+    <div class="strong">
+      您现有<span primary>{{couponCount}}</span>张优惠券，开通学情套餐更为划算哦！
+    </div>
+  </ng-template>
   <p text-center style="padding-bottom: 10px;">
-    <button ion-button round (click)="onTap()">{{enough?'立即生成':'立即充值'}}</button>
+    <button ion-button round (click)="onTap()">{{!couponCount?enough?'立即生成':'立即充值':'立即开通'}}</button>
   </p>
 </ion-card>
 <button ion-button clear icon-only color="white" (click)="viewCtrl.dismiss()">

@@ -90,6 +90,9 @@ page-doctor {
     .row {
       height: 43px;
     }
+    loading .row {
+      height: 80vh;
+    }
   }
   .topics {
     //min-height: 100vh;

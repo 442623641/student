@@ -1,39 +1,28 @@
 uploadimg {
-  .images{
-    height: 7.43rem;
-  }
-  .preview-label{
-    position: relative;
-    width: 18%;
-    .count{
-      font-size: 14px;
+
+  .row {
+    height: 10rem;
+    .col a {
+      padding: 0 0 5px 5px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 1.2em;
+    }
+    img {
+      height: 100%;
+    }
+    &>a {
+      height: 60px;
+      width: 60px;
+      line-height: 8px;
+      text-align: center;
+      font-size: 2.5rem;
+      color: rgba(0, 0, 0, .2);
+      border: 1px solid rgba(0, 0, 0, .1);
+      .count {
+        font-size: 14px;
+      }
     }
   }
-  .preview-label:last-child {
-    text-align: center;
-    font-size: 2.5rem;
-    color: rgba(0, 0, 0, .2);
-    border: 1px solid rgba(0, 0, 0, .1);
-  }
-  .preview-label>input {
-    display: none;
-  }
-  .preview-label .uploadimgremove {
-    position: absolute;
-    top:-6px;
-    right:-4px;
-    color: white;
-    width: 18px;
-    height: 18px;
-    border-radius: 9px;
-    background-color: rgba(0,0,0,.9);
-    opacity: .5;
-    text-align: center;
-    line-height: 18px;
-    z-index: 9;
-  }
-  .camera{
-    margin-top: 5px;
-  }
-
 }

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SYSMESSAGES_PAGE, CLAIM_PAGE } from '../pages.constants';
-import { MessageProvider } from '../../providers/message/message';
+// import { MessageProvider } from '../../providers/message/message';
+import { NotifyProvider } from '../../providers/notify/notify';
 @IonicPage()
 @Component({
   selector: 'page-news',
@@ -16,14 +17,13 @@ export class NewsPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private messagePro: MessageProvider
-  ) {}
-  ngAfterViewInit() {
-    this.doRefresh();
+    private notifyPro: NotifyProvider
+  ) {
+    this.news = this.notifyPro.distribution;
   }
 
   doRefresh(event ? ) {
-    this.messagePro.getItem().then(res => {
+    this.notifyPro.statistics().then(res => {
       console.log(res);
       this.news = res || this.news;
       event && event.complete();
@@ -35,5 +35,4 @@ interface NewsOption {
   systemcount: number;
   unread: number;
   unclaimed: number;
-
 }

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ClaimPage } from './claim';
 import { ClaimmodalPage } from '../claimmodal/claimmodal';
-import { ClaimProvider } from '../../providers/claim/claim';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
 @NgModule({
@@ -18,8 +17,8 @@ import { DirectivesModule } from '../../directives/directives.module';
   entryComponents: [
     ClaimmodalPage
   ],
-  providers: [
-    ClaimProvider,
-  ]
+  // providers: [
+  //   ClaimProvider,
+  // ]
 })
 export class ClaimPageModule {}

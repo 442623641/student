@@ -12,21 +12,11 @@ import { DirectivesModule } from '../../directives/directives.module';
   ],
   imports: [
     IonicPageModule.forChild(EnalyzingPage),
-    //IonicPageModule.forChild(EnalyzingmodalPage),
     ComponentsModule,
     DirectivesModule,
-
   ],
-  // exports: [
-  //   EnalyzingmodalPage,
-  // ],
   entryComponents: [
     EnalyzingmodalPage
   ],
-  // providers: [
-  //   EnalyzingProvider,
-  // ]
-
-
 })
 export class EnalyzingPageModule {}

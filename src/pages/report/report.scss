@@ -97,7 +97,7 @@ page-report {
         line-height: 45px;
       }
       div {
-
+        padding-right: 45px;
         margin-left: 23px;
         height: 100%; //margin: 8px 0 8px 24px;
         background: rgba($color, 0.4);
@@ -152,6 +152,11 @@ page-report {
   .ion-ios-icustom {
     background: #f56d4e;
   }
+  .ion-ios-iother {
+    background: #54adff;
+  }
+
+
 
   .card-modal {
     // align-items: center;

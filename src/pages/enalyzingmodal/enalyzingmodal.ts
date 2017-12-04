@@ -23,7 +23,7 @@ export class EnalyzingmodalPage {
     this.option = this.navParams.get('option');
   }
 
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     console.log('ionViewDidLoad EnalyzingmodalPage');
   }
   onTap() {

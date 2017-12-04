@@ -1,16 +1,17 @@
-  page-enalyzing {
-    .excellent {
-      .block-card-header {
-        height: 45px;
-        line-height: 45px;
-        background: color($colors, primary);
-
-        .col {
-          color: #fff !important;
-          &:first-child {
-            background: darken(color($colors, primary), 10%);
-          }
+  page-excellent {
+    @extend page-enalyzing;
+    .block-card-header {
+      height: 45px;
+      line-height: 45px;
+      background: color($colors, primary) !important;
+      .col {
+        color: #fff !important;
+        &:first-child {
+          background: darken(color($colors, primary), 10%);
         }
       }
+    }
+    .block-card:first-child{
+      margin-top:16px;
     }
   }

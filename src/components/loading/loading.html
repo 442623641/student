@@ -18,14 +18,12 @@
       <div text-left>小七</div>
       <div text-right>助手</div>
     </div> -->
-<!--   </div>
+<!--   </div>then thenBlock else elseBlock
 </transition>
  -->
-<ng-template [ngIf]="!status">
+<ng-container *ngIf="!statusValue">
   <ion-row>
-    <ng-template [ngIf]="status===undefined" [ngIfElse]="nodata">
-      <ion-spinner name="bubbles"></ion-spinner>
-    </ng-template>
+    <ion-spinner color="gray9" *ngIf="statusValue===undefined;else nodata"></ion-spinner>
     <ng-template #nodata>
       <ion-col>
         <img src="assets/images/400.png">
@@ -34,7 +32,7 @@
       <!-- <ion-icon name="ios-alert-outline"></ion-icon> -->
     </ng-template>
   </ion-row>
-</ng-template>
+</ng-container>
 <!-- <ng-template #nodata>
   <ion-row align-items-center justify-content-center>
     <ion-icon name="ios-alert-outline"></ion-icon>

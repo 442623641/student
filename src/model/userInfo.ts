@@ -19,6 +19,10 @@ export interface UserInfo {
   年级
   */
   grade ? : string;
+  /*
+  年级名称
+  */
+  gradeName ? : string;
 
   /*
    学校
@@ -32,10 +36,7 @@ export interface UserInfo {
   */
   coin ? : number;
 
-  /*
-  年级名称
-  */
-  gradeName ? : string;
+
 
   /*
   城市名称

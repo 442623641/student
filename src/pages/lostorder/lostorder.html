@@ -6,43 +6,53 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>已购错题本</ion-title>
-    <ion-buttons end>
-      <button ion-button [navPush]="pages.guide">帮助&nbsp;
-        <ion-icon name="help-circle"></ion-icon>
-      </button>
-    </ion-buttons>
+    <ion-title>订单详情</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  <ng-template [ngIf]="orders" [ngIfElse]="loading">
-    <ion-list>
-      <ion-card *ngFor="let item of orders">
-        <ion-card-header line-bottom>
-          订单号：{{item.num}}
-        </ion-card-header>
-        <ion-card-content>
-          <p padding-top-10>订购科目：{{item.km}}</p>
-          <p>订购类型：{{item.type}}</p>
-          <p>消耗学贝：{{item.xbz}}学贝</p>
-          <p>下单时间：{{item.time}}</p>
-        </ion-card-content>
-        <p text-right class="card-footer" line-top [ngSwitch]="!!item.code">
-          <button class="processing" ion-button round icon-left *ngSwitchCase="false" disabled>
-            <ion-spinner color="white"></ion-spinner>&nbsp;&nbsp;正在生成错题本中...</button>
-          <button ion-button round icon-left [navPush]="pages.downlink" [navParams]="{order:item}" *ngSwitchCase="true">
-            查看下载地址</button>
+  <loading [status]="order" *ngIf="!order;else entry;"></loading>
+  <ng-template #entry>
+    <ion-list margin-top-12 no-lines>
+      <ion-item>
+        <ion-avatar item-left>
+          <ion-icon name="iorder"></ion-icon>
+        </ion-avatar>
+        <p padding-left-12>
+          订单号：{{order.ordercode}}
+          <br> 订单科目：{{order.km}}
+          <br> 订单金额：<span primary>{{order.money}}</span>元
+          <br> 下单时间：{{order.ordertime|date:'yyyy年M月d日 hh:mm'}}
         </p>
-      </ion-card>
+      </ion-item>
+      <ion-item class="iorder-items">
+        <ion-avatar item-left class="iorder-items-font">
+          <ion-icon name="irecipients" class="circle"></ion-icon>
+        </ion-avatar>
+        <p padding-left-12>
+          收货人：{{order.name}}
+          <br>手机号码：{{order.tel}}
+          <br>收货地址：{{order.address}}
+        </p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-avatar item-left>
+          <ion-icon name="iheart"></ion-icon>
+        </ion-avatar>
+        <p padding-left-12>
+          定制时间：{{order.madetime}}
+          <br>预寄出时间：{{order.mailtime|date:'yyyy年M月d日 hh:mm'}}
+          <br>订单金额：<span primary>{{order.money}}</span>元
+          <br>收货地址：{{order.address}}
+          <br>
+          <br>
+          <ion-note>备注：下单成功后，您定制的错题本将于一周左右时间后寄出，请耐心等待。
+            <br/> 若有疑问，请拨打客服电话进行咨询。
+            <br> 服务电话：
+            <tel>0551-63477737</tel>
+            <br>微信号：<span primary>cuotiben777</span>
+          </ion-note>
+        </p>
+      </ion-item>
     </ion-list>
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!end">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-  </ng-template>
-  <ng-template #loading>
-    <loading [status]="orders"></loading>
   </ng-template>
 </ion-content>

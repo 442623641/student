@@ -1,8 +1,10 @@
 <!-- Generated template for the ScrollheaderComponent component,add by leo zhang 201710010101 -->
 <iscroll [scrollX]="true" [scrollY]="false" #scroll>
-  <ion-row nowrap align-items-center justify-content-between [style.width]="((items.length-4)*0.25+1)*100+'%'" (tap)="tap($event,0)">
-    <ion-col [attr.index]="i" *ngFor="let item of items;let i=index;" [attr.select]="i==selectedValue"> {{item}}
-    </ion-col>
+  <ion-row nowrap align-items-center justify-content-between [style.width]="((itemsValue.length-4)*0.25+1)*100+'%'" (click)="tap($event)">
+    <ng-container *ngFor="let item of itemsValue;let i=index;">
+      <ion-col [attr.index]="i" [class.select]="i==selectedValue" *ngIf='item.visible'>{{item.name}}
+      </ion-col>
+    </ng-container>
   </ion-row>
   <!-- <div class="nav" (click)="tap($event,i)">
     <a float-right *ngFor="let item of items;let i=index;" [attr.select]="i===selectedValue" (tap)="tap($event,i)">{{item}}</a>

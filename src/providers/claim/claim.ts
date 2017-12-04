@@ -5,7 +5,7 @@ import { IView } from '../../model/view';
 export class ClaimProvider {
 
   constructor(public http: HttpProvider) {
-    console.log('Hello MessageProvider Provider');
+    console.log('Hello ClaimProvider Provider');
   }
 
   //获取未认领的考试

@@ -48,19 +48,21 @@ export class EnalyzingPage {
     private navCtrl: NavController
   ) {}
 
-  ngAfterViewInit() {
-    this.enalyzingPro.index().then(res => {
-      if (!res || !res.subject) {
+  ionViewDidLoad() {
+    setTimeout(() => {
+      this.enalyzingPro.index().then(res => {
+        if (!res || !res.subject) {
+          this.enalyzingOpt = null;
+        }
+        this.subjectNames = res.subject;
+        this.enalyzingOpt = new EnalyzingOptions(res, { subject: this.subjectNames[0] });
+        this.tempOption = this.enalyzingOpt.option.clone();
+        this.affix();
+        this.openPackageModal();
+      }).catch(ex => {
         this.enalyzingOpt = null;
-      }
-      this.subjectNames = res.subject;
-      this.enalyzingOpt = new EnalyzingOptions(res, { subject: this.subjectNames[0] });
-      this.tempOption = this.enalyzingOpt.option.clone();
-      this.affix();
-      this.openPackageModal();
-    }).catch(ex => {
-      this.enalyzingOpt = null;
-    });
+      });
+    }, 450);
   }
 
   save() {
@@ -107,24 +109,45 @@ export class EnalyzingPage {
 
   }
 
-  excellent(e, q) {
+  excellent(item) {
+    if (item.imgviewer) return;
+    let error = () => { this.toast('暂无优秀答案，请稍后再试') };
     this.enalyzingPro.excellent({
-      guid: this.enalyzingOpt.exams[e].guid,
+      guid: item.guid,
       subject: this.enalyzingOpt.option.subject,
-      nos: this.enalyzingOpt.exams[e].questions[q].excellent,
+      nos: item.excellent,
     }).then(res => {
-      console.log(res);
-      //this.nativePro.showImage(res.map(item,retu))
-    });
+      if (res.length) return error();
+      let imgs = [];
+      res.forEach(x =>
+        x.link && x.link.forEach(y =>
+          Object.prototype.toString.call(y) == '[object Array]' ?
+          (imgs = imgs.concat(y)) :
+          imgs.push(y))
+      );
+      item.imgviewer = {
+        title: this.enalyzingOpt.option.subject,
+        images: imgs
+      };
+    }).catch(() => error());
   }
 
 
-
-
+  /**
+   *准备移除
+   */
+  remove(que: any) {
+    this.nativePro.confirm('要继续删除吗，删除后不可恢复', ['删除', '取消']).then(btn => que.delete = !btn);
+  }
   /**
    *移除
    */
   del(e, q) {
+
+    let exam = this.enalyzingOpt.exams[e];
+    this.enalyzingPro
+      .remove({ no: exam.questions[q].no, subject: this.enalyzingOpt.option.subject, guid: exam.guid })
+      .then(res => console.log(res));
     this.enalyzingOpt.remove(e, q);
     this.affix();
   }

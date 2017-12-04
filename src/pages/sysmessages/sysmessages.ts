@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MessageProvider } from '../../providers/message/message';
+import { NotifyProvider } from '../../providers/notify/notify';
 import { SYSMESSAGE_PAGE } from '../pages.constants';
 import { Pageview } from '../../model/pageview';
 @IonicPage()
@@ -15,10 +16,11 @@ export class SysmessagesPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private messagePro: MessageProvider
+    private messagePro: MessageProvider,
+    private notifyPro: NotifyProvider
   ) {}
 
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     this.doRefresh();
   };
 
@@ -38,6 +40,7 @@ export class SysmessagesPage {
   message(msg) {
     msg.state = 1;
     this.navCtrl.push(SYSMESSAGE_PAGE, { guid: msg.guid });
+    this.notifyPro.add('unread', -1);
   }
 
   /**

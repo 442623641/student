@@ -55,31 +55,7 @@ export class PaymentParams {
    */
   couponcode ? : string;
 
-  /**
-   *收货地址
-   */
-  area ? : {
-
-    /**
-     *收货人姓名
-     */
-    name: string,
-
-    /**
-     *收货人电话
-     */
-    tel ? : number,
-
-    /**
-     *收货人区域
-     */
-    area ? : string,
-
-    /**
-     *详细地址
-     */
-    address: string
-  };
+  area ? : any;
 }
 
 export class PaymentOption extends PaymentParams {

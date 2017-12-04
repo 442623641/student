@@ -29,10 +29,10 @@ export class ValidationPage {
     formBuilder: FormBuilder
   ) {
     this.authForm = formBuilder.group({
-      phone: ['', Validators.compose([Validators.minLength(11), Validators.maxLength(11), Validators.required, Validators.pattern("^(13[0-9]|15[012356789]|17[03678]|18[0-9]|14[57])[0-9]{8}$")])],
+      phone: ['', Validators.compose([Validators.minLength(11), Validators.maxLength(11), Validators.required, Validators.pattern("^1[34578][0-9]{9}$")])],
       code: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(8)])],
     });
-    this.authForm.controls.phone.setValue('18225605425');
+    //this.authForm.controls.phone.setValue('18225605425');
   }
 
   /**

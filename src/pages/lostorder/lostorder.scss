@@ -1,27 +1,35 @@
 page-lostorder {
-
-  .card {
-    margin-left: 0;
-    margin-right: 0;
-    border-radius: 0;
-    width: 100%;
-  }
-  .processing.button {
-    padding: 0 1.3rem 0 8px;
-  }
-  .card-footer {
-    padding: 5px 16px;
-    .button {
-      height: 2em;
-      .spinner {
-        width: 20px;
+  .item {
+    &:after {
+      content: '';
+      width: 0.55px;
+      height: 100%;
+      background-color: color($colors, primary);
+      position: absolute;
+      left: 33px;
+      z-index: 1;
+    }
+    ion-avatar {
+      position: relative;
+      z-index: 99;
+      .icon {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 1.5rem;
+        line-height: 3rem;
+        text-align: center;
+        color: #fff;
+        background-color: color($colors, primary);
+        font-size: 2.5rem;
       }
-      &[disabled] {
-        padding-left: 16px;
-        .spinner {
-          opacity: 1;
-        }
-      }
+    }
+    p {
+      color: color($colors, text);
+      font-size: 1.5rem;
+      white-space: normal;
+    }
+    .item-inner {
+      position: relative;
     }
   }
 }

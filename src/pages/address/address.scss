@@ -1,0 +1,25 @@
+page-address {
+  .content {
+    background-color: #fff;
+  }
+  $border:.55px solid rgba(0, 0, 0, .2) !important;
+  input {
+    margin-left: 0;
+  }
+  .label {
+    margin-right: 0;
+  }
+  .item {
+    border-bottom: $border;
+  }
+  .telbook {
+    padding-top: 20px;
+    border-left: $border;
+    border-bottom: $border;
+    color: color($colors, text);
+    .icon {
+      font-size: 3em;
+      color: color($colors, primary);
+    }
+  }
+}

@@ -33,7 +33,7 @@ export class SchoolsPage {
     this.params = this.navParams.data; //110100
   }
 
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     console.log('ionViewDidLoad SchoolsPage');
     this.personalPro.schools(this.params).then(res => {
       if (!res || !res.length) {

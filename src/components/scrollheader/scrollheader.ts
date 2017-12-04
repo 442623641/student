@@ -11,9 +11,21 @@ import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@
   templateUrl: 'scrollheader.html'
 })
 export class ScrollheaderComponent {
-
+  private db: string;
+  itemsValue: any[] = [];
   @ViewChild('scroll') scroll: any;
-  @Input() items: string[] = [];
+  //@Input() volatile: boolean;
+  @Input() set items(array: any[]) {
+    //this.itemsValue = array
+    console.log(array);
+    if (array && array.length && this.db != JSON.stringify(array)) {
+      this.db = JSON.stringify(array);
+      this.itemsValue = typeof array[0] === "string" ? array.map(item => { return { name: item, visible: true } }) : array;
+      this.itemsValue[this.selectedValue].visible || (this.selected = this.itemsValue.findIndex(item => { return item.visible }));
+    }
+
+  }
+  //@Input() items: any[] = [];
   @Output() selectedChange = new EventEmitter();
   @Output() onChanged = new EventEmitter();
 
@@ -41,7 +53,7 @@ export class ScrollheaderComponent {
   }
 
   tap(event) {
-    //console.log(event);
+    console.log(event);
     let index = event.target.getAttribute('index');
     if (this.selected == index || !index && index !== "0") return;
     this.selected = index;
@@ -54,7 +66,7 @@ export class ScrollheaderComponent {
     let rect = target.getBoundingClientRect();
     let x = rect.left - this.offsetLeft - middle;
     console.log(x);
-    this.scroll.scrollToX(x);
+    this.scroll.scrollToX(x, 220);
     //console.log(rect);
     //this.scroll.
   }

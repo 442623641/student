@@ -28,7 +28,7 @@ export class RechargePage {
     public navParams: NavParams,
   ) {}
 
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     this.params = this.navParams.get('params');
     if (this.params) {
       if (this.params.selectxbz) {

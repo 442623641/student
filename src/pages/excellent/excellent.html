@@ -17,7 +17,7 @@
 </ion-header>
 <ion-content #content>
   <ng-template [ngIf]="excellentsOpts" [ngIfElse]="loading">
-    <div class="block-card excellent" *ngFor="let que of excellentsOpts;let q = index;">
+    <div class="block-card" *ngFor="let que of excellentsOpts;let q = index;">
       <ion-row class="block-card-header" nowrap line-bottom padding-right align-items-center>
         <ion-col col-2 class="no">{{q+1}}</ion-col>
         <ion-col col-auto>共有{{que.total}}人参加考试&nbsp;&nbsp;{{que.count}}人答错&nbsp;&nbsp;得分率{{que.percent}}%</ion-col>
@@ -25,7 +25,7 @@
       <div class="content-img" [imgviewer]="{title:'共有'+que.total+'人参加考试'+que.count+'人答错',images:que.paper}">
         <img-lazy [src]="img" *ngFor="let img of que.paper"> </img-lazy>
       </div>
-      <ion-row padding-vertical-10>
+      <ion-row padding-vertical-8 split-line>
         <ng-template [ngIf]="que.objective" [ngIfElse]="objective">
           <a *ngIf="que.answer?.length" (click)="toast(que.answerString)">标准答案</a>
         </ng-template>
@@ -67,7 +67,7 @@
   <ion-item-group margin-top>
     <ion-item-divider color="light">年级</ion-item-divider>
     <ion-row justify-content-between>
-      <a col-auto *ngFor="let item of grades" [attr.seleted]="tempOption.grade == item.code" (click)="tempOption.grade = item.code">{{item.name}}</a>
+      <a col-5 *ngFor="let item of grades" [attr.seleted]="tempOption.grade == item.code" (click)="tempOption.grade = item.code">{{item.name}}</a>
     </ion-row>
   </ion-item-group>
   <ion-footer>

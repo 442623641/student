@@ -1,6 +1,7 @@
 import { Directive, Input, ElementRef } from '@angular/core';
 import { ModalController, Gesture } from 'ionic-angular';
 import { PhotosviewerComponent } from '../../components/photosviewer/photosviewer';
+import { NativeProvider } from '../../providers/native';
 /**
  * Generated class for the ImgviewerDirective directive.
  * Add by leo zhang 201710010101
@@ -27,8 +28,11 @@ export class ImgviewerDirective {
   processing: boolean;
   binded: boolean;
 
-  constructor(public modalCtrl: ModalController,
-    private el: ElementRef) {}
+  constructor(
+    public modalCtrl: ModalController,
+    private el: ElementRef,
+    private nativePro: NativeProvider
+  ) {}
   ngAfterViewInit() {
     this.bind();
   }
@@ -38,6 +42,7 @@ export class ImgviewerDirective {
    */
   openModal(event ? ) {
     if (!this.imgviewer) return this.clicked = true;
+    if (!this.imgviewer.length) return this.nativePro.toast('暂无数据，请稍后再试');
     this.clicked = false;
     this.ionViewDidLeave();
     let modal = this.modalCtrl.create(PhotosviewerComponent, this.imgviewer);

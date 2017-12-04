@@ -16,13 +16,13 @@ export class TradesPage {
     public navParams: NavParams,
     public tradesPro: TradesProvider) {}
 
-  ngAfterViewInit() {
-    this.doRefresh();
+  ionViewDidLoad() {
+    setTimeout(() => this.doRefresh(), 300);
   }
 
   doRefresh(event ? ) {
     this.end = false;
-    this.page = new Pageview({ viewindex: 1, viewlength: 20 });
+    this.page = new Pageview({ viewindex: 1, viewlength: 30 });
     this.tradesPro.orders(this.page).then(res => {
       event && event.complete();
       if (!res || !res.length) {

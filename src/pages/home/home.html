@@ -13,7 +13,8 @@
 <param hook="home">
 <ion-content>
   <!-- <div class="banner"> -->
-  <ng-template [ngIf]="package&&userInfo" [ngIfElse]="loading">
+  <loading [status]="package" *ngIf="!package;else entry"></loading>
+  <ng-template #entry>
     <ng-container>
       <ion-row class="header" justify-content-between align-items-center margin-top>
         <ion-col nowrap text-left col-6 class="user-info">
@@ -28,20 +29,18 @@
         <ion-col class="coin" [ngSwitch]="package.open">
           <ng-container *ngSwitchCase="false">
             <img src="assets/images/diamond.png">
-            <a class="button" [navPush]="pages.package" (click)="open()">立即开通</a>
+            <a class="button" (click)="open()">立即开通</a>
           </ng-container>
           <ng-container *ngSwitchCase="true">
-            <div style="font-size: 1.2rem;padding-top: 18px;"><span style="font-size: 1.7rem;font-weight: 500">{{package.days}}</span>天</div>
+            <div style="font-size: 1.2rem;padding-top: 16px;"><span style="font-size: 1.6rem;font-weight: 500">{{package.days}}</span>天</div>
             <div style="font-size: 1.2rem;padding-bottom: 10px;">剩余天数</div>
-            <a class="button" [navPush]="pages.recharge" (click)="open()">立即充值</a>
+            <a class="button" (click)="open()">续 费</a>
           </ng-container>
         </ion-col>
       </ion-row>
-      <ion-row class="banner">
-        <a no-padding>
-    <img src="http://7netpublic.oss-cn-hangzhou.aliyuncs.com/market/xueqing_640x160.png">
-  </a>
-      </ion-row>
+      <div class="banner">
+        <img src="http://7netpublic.oss-cn-hangzhou.aliyuncs.com/market/xueqing_640x160.png" (click)="open()">
+      </div>
       <div class="card">
         <div class="card-header">
           <i></i>
@@ -89,7 +88,7 @@
             <div>错题本
               <br>（纸质版）</div>
           </a>
-          <a [navPush]="pages.lost" col-3>
+          <a [navPush]="pages.elost" col-3>
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-ieerrorbook"></use>
             </svg>
@@ -111,8 +110,5 @@
         </ion-row>
       </div>
     </ng-container>
-  </ng-template>
-  <ng-template #loading>
-    <loading [status]="package"></loading>
   </ng-template>
 </ion-content>

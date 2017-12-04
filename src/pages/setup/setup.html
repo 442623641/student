@@ -11,17 +11,17 @@
 </ion-header>
 <ion-content>
   <!-- <ion-list no-lines margin-top> -->
-  <div margin-top>
+  <ion-list margin-top no-lines>
     <ion-item>
       <ion-icon name="sync" item-start></ion-icon>
       版本 1.0.0
       <ion-note item-end>已是最新版本</ion-note>
     </ion-item>
-    <ion-item [navPush]="pages.aboutus">
+    <ion-item [navPush]="pages.aboutus" no-lines>
       <ion-icon name="information-circle-outline" item-start></ion-icon>
       关于我们
     </ion-item>
-  </div>
+  </ion-list>
   <!-- </ion-list> -->
   <p padding>
     <button ion-button block (tap)="logout()">退出登录</button>

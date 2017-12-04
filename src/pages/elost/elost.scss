@@ -1,0 +1,108 @@
+page-elost {
+  .content {
+    padding-bottom: 16px;
+    .scroll-content {
+      padding-bottom: 16px;
+      transition: padding 0.3s;
+    }
+
+    &.padding {
+      padding-bottom: 50px;
+      .scroll-content {
+        padding-bottom: 50px;
+      }
+    }
+  }
+  ion-card {
+    &>div {
+      .name {
+        background: color($colors, primary);
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 3px;
+        margin-left: 16px;
+      }
+      .mess {
+        height: 120px;
+        display: table-cell;
+        vertical-align: middle;
+        color: #fff;
+        font-size: 1.5rem;
+        padding: 16px;
+        text-align: center;
+        span[primary] {
+          font-size: 1.7rem;
+        }
+      }
+      background-size: cover !important;
+    }
+
+    p {
+      a {
+        padding: 14px;
+        font-size: 1.6rem;
+      }
+      .spinner~span {
+        vertical-align: super;
+        color: color($colors, primary);
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  [name=语文] {
+    background: url(../assets/images/chinese.png) center no-repeat;
+  }
+  [name=数学] {
+    background: url(../assets/images/math.png) center no-repeat;
+  }
+  [name=英语] {
+    background: url(../assets/images/english.png) center no-repeat;
+  }
+  [name=物理] {
+    background: url(../assets/images/physics.png) center no-repeat;
+  }
+  [name=化学] {
+    background: url(../assets/images/chemistry.png) center no-repeat;
+  }
+  [name=生物] {
+    background: url(../assets/images/biology.png) center no-repeat;
+  }
+  [name=政治] {
+    background: url(../assets/images/politics.png) center no-repeat;
+  }
+  [name=地理] {
+    background: url(../assets/images/geography.png) center no-repeat;
+  }
+  [name=历史] {
+    background: url(../assets/images/history.png) center no-repeat;
+  }
+  ion-item-group {
+    max-height: 0;
+    contain: content;
+    will-change: max-height;
+    transition: max-height 0.28s;
+    width: 100%;
+
+    p {
+      padding: 12px 16px;
+      background: rgba(#fff, 0.85);
+      font-size: 1.5rem;
+    }
+  }
+  .leave-footer,
+  .enter-active-footer {
+    transition: all .3s;
+    opacity: 1; // visibility: hidden;
+    transform: translate3d(0, 0, 0); // animation: leave 1s;
+    // max-height: 0;
+  }
+
+  .enter-footer,
+  .leave-active-footer {
+    transition: all .3s;
+    opacity: .2; // visibility: hidden;
+    transform: translate3d(0, 100%, 0); // animation: leave 1s;
+    // max-height: 0;
+  }
+}

@@ -23,6 +23,15 @@
     color: color($colors, text);
   }
 
+  ion-spinner {
+    height: 21px;
+    width: 21px;
+  }
+
+  ion-infinite-scroll-content {
+    min-height: 45px;
+  }
+
   [colorful] {
     width: 1em;
     height: 1em;
@@ -37,7 +46,7 @@
   }
 
   span[primary] {
-    padding: 0 5px;
+    padding: 0 3px;
   }
 
   .content ion-footer {
@@ -169,22 +178,6 @@
     }
   }
 
-  .agreement {
-    font-size: 1.3rem;
-    .checkbox {
-      margin: 8px 4px 8px 0px !important;
-      .checkbox-icon {
-        border-color: color($colors, primary);
-        border-radius: 3px;
-        transform: scale(.7);
-        background-color: transparent;
-        &.checkbox-checked {
-          background-color: color($colors, primary);
-        }
-      }
-    }
-  }
-
   a {
     text-decoration: none !important;
   }
@@ -197,6 +190,17 @@
     margin: 0;
     min-height: 1px; //flex-basis: 0;
     flex-grow: 1; // max-width: 100%;
+  }
+
+  [split-line]>*:not(:last-child()) {
+    // border-right: .55px solid rgba(0, 0, 0, .15);
+    &:after {
+      content: '';
+      height: 100%;
+      width: 1px;
+      background: rgba(0, 0, 0, .15);
+      transform: scaleY(0.35);
+    }
   }
 
   .col {
@@ -236,7 +240,7 @@
 
   .picker-ios {
     .picker-opt {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       color: color($colors, text);
     }
     .picker-below-highlight {
@@ -427,7 +431,6 @@
     padding: 10px;
   }
 
-
   [margin-vertical-10] {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -456,4 +459,64 @@
 
   [margin-10] {
     margin: 10px;
+  }
+
+  [padding-vertical-8] {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  [padding-horizontal-8] {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  [padding-top-8] {
+    padding-top: 8px;
+  }
+
+  [padding-bottom-8] {
+    padding-bottom: 8px;
+  }
+
+  [padding-left-8] {
+    padding-left: 8px;
+  }
+
+  [padding-right-8] {
+    padding-right: 8px;
+  }
+
+  [padding-8] {
+    padding: 8px;
+  }
+
+  [margin-vertical-8] {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  [margin-horizontal-8] {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  [margin-top-8] {
+    margin-top: 8px;
+  }
+
+  [margin-bottom-8] {
+    margin-bottom: 8px;
+  }
+
+  [margin-left-8] {
+    margin-left: 8px;
+  }
+
+  [margin-right-8] {
+    margin-right: 8px;
+  }
+
+  [margin-8] {
+    margin: 8px;
   }

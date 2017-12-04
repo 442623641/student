@@ -14,7 +14,8 @@
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
-  <ng-template [ngIf]="latest" [ngIfElse]="loading">
+  <loading [status]="latest" *ngIf="!latest;else entry"></loading>
+  <ng-template #entry>
     <div class="banner" *ngIf="waterball">
       <h3>{{latest.name}}</h3>
       <p ion-text color="gray9">发布时间：{{latest.time}}</p>
@@ -39,18 +40,15 @@
           <ion-col col-auto text-left>
             <ion-icon name="time-outline"></ion-icon> 发布时间：{{exam.time}}</ion-col>
         </ion-row>
-        <ion-row class="footer" [ngSwitch]="!!exam.payment">
+        <ion-row [ngSwitch]="!!exam.payment" padding-vertical-8 split-line>
           <a [navPush]='pages.report' [navParams]="exam">学情报告</a>
-          <a *ngSwitchCase="true" [navPush]='pages.doctor' [navParams]="exam">错题诊断</a>
-          <a *ngSwitchCase="false" (click)="toReply(exam)">答题情况</a>
+          <a *ngSwitchCase="true" [navPush]='pages.doctor' [navParams]="exam" ion-text color="green">错题诊断</a>
+          <a *ngSwitchCase="false" (click)="toReply(exam)" ion-text color="green">答题情况</a>
         </ion-row>
       </ion-card>
     </ion-list>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="exams.length<total">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
-  </ng-template>
-  <ng-template #loading>
-    <loading [status]="latest"></loading>
   </ng-template>
 </ion-content>

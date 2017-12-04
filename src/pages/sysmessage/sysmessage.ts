@@ -16,7 +16,7 @@ export class SysmessagePage {
     public params: NavParams,
     private messagePro: MessageProvider
   ) {}
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     let guid = this.params.get('guid');
     //console.log(guid);
     this.messagePro.getdetails({ guid: guid }).then(res => {

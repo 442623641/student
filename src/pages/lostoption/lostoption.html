@@ -7,10 +7,14 @@
 <ion-header>
   <ion-navbar>
     <ion-title>{{elost?.name}}</ion-title>
+    <ion-buttons end>
+      <button clear ion-button (click)="save(true)">确定</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content padding-top padding-left>
-  <ng-template [ngIf]="elost?.state" [ngIfElse]="loading">
+  <loading [status]="elost?.state" *ngIf="!elost?.state;else entry"></loading>
+  <ng-template #entry>
     <p>共 <span ion-text color="primary"> {{elost.count}} </span> 次考试，其中部分考试等待学校上传试卷。请从下方列表选购考试错题（支持多选）</p>
     <ion-list margin-top>
       <div class="block" *ngFor="let exam of elost.exams">
@@ -24,7 +28,7 @@
           <p padding-horizontal>共有<span primary> {{exam.qcount}} </span>道错题
             <span *ngIf="exam.pcount"><br>该考试已定制过</span>
           </p>
-          <ion-row>
+          <ion-row split-line>
             <ion-col align-self-center>{{exam.score}}分</ion-col>
             <ion-col>
               <button [color]="exam.checked?'green':'primary'" ion-button icon-left clear small (click)="exam.checked=!exam.checked;">
@@ -38,11 +42,6 @@
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ng-template>
-  <!-- loadding -->
-  <ng-template #loading>
-    <loading [status]="elost?.state"></loading>
-  </ng-template>
-  <!-- loading end -->
 </ion-content>
 <ion-footer *ngIf="elost" no-border>
   <ion-toolbar color="white" no-padding>

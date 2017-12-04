@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { PAYMENT_PAGE, COUPON_PAGE } from '../pages.constants';
+import { PackageguidePage } from '../packageguide/packageguide';
+
 //import { UserProvider } from '../../providers/user';
 import { NativeProvider } from '../../providers/native';
 import { PaymentOption } from '../../model/payment';
@@ -25,21 +27,24 @@ export class PackagePage {
   options: PackageOption[];
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public packagePro: PackageProvider,
-    public nativePro: NativeProvider,
-
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private packagePro: PackageProvider,
+    private nativePro: NativeProvider,
+    private modalCtrl: ModalController,
   ) {}
-  balanceChange(event) {
-    this.package = new PackageO(event);
-  }
-  ngAfterViewInit() {
+  ngOnInit() {
     this.packagePro.options().then(res => {
       if (!res || !res.length) return;
       this.options = res;
       this.tap(this.options[0]);
     });
+  }
+  balanceChange(event) {
+    this.package = new PackageO(event);
+  }
+  ionViewDidLoad() {
+    this.navParams.get('guide') && setTimeout(() => this.modalCtrl.create(PackageguidePage).present(), 800);
   }
 
   tap(opt: PackageOption) {

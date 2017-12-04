@@ -33,7 +33,7 @@ export class CouponPage {
   ) {
     this.view = this.navParams.get('params');
   }
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     //是否需要加载列表数据
     this.coupons = this.navParams.get('coupons') || [];
     this.checked = this.navParams.get('checked');

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ValidationProvider } from "../../providers/validation/validation";
-import { NativeProvider } from "../../providers/native"
+import { AppProvider } from '../../providers/app/app';
+import { NativeProvider } from "../../providers/native";
+import { DomSanitizer } from '@angular/platform-browser';
+import { FilePath } from '@ionic-native/file-path';
 /**
  * Generated class for the FeedbackPage page.
  *
@@ -15,74 +17,43 @@ import { NativeProvider } from "../../providers/native"
   templateUrl: 'feedback.html',
 })
 export class FeedbackPage {
-  base64: any[];
-  name: any[];
-  previewImgFile: any[] = [];
-  text: any;
-  isShow: boolean;
-  img: any;
+  text: string;
+  images: string[] = [];
+  processing: boolean;
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private validate: ValidationProvider,
-    private nativepro: NativeProvider
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private appPro: AppProvider,
+    private nativepro: NativeProvider,
+    private sanitizer: DomSanitizer,
+    private filePath: FilePath
   ) {}
-
-  imgsrc(e) {
-    this.base64 = e.map((v, i) => {
-      return { link: v.slice(v.lastIndexOf(',') + 1) };
-    });
-    this.name = this.previewImgFile.map((v, i) => {
-      return { name: v.name };
-    });
+  onChanged(event) {
+    this.images = event || [];
+    this.processing = (!!this.images.length || !!this.text) ? false : undefined;
   }
+
   submit() {
-    let pic = [];
-    if (this.base64) {
-      for (let i = 0; i < this.base64.length; i++) {
-        let obj = {
-          "base64str": this.base64[i].link,
-          "name": this.name[i].name
-        };
-        pic.push(obj);
-      }
-    }
-    let photo = pic.length ? JSON.stringify(pic) : "";
-    this.validate.feedback({ "desc": this.text, "imgs": photo }).then(res => {
-      this.nativepro.toast('反馈上传成功');
-    }).catch(err => {
-      this.nativepro.toast(err.message);
-    });
+    let guid: string = '';
+    this.images.forEach((item, index) => {
+      this.filePath.resolveNativePath(item).then(path => {
+        this.appPro.feedback({ desc: this.text, guid: guid }, path)
+          .then(res => {
+            if (!res || !res.guid) return;
+            guid = res.guid;
+            console.log(res);
+            if (index == this.images.length - 1) {
+              this.processing = false;
+              this.nativepro.toast('感谢您的宝贵建议');
+              setTimeout(() => this.navCtrl.pop(), 800);
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            //this.nativepro.toast(err.message);
+          });
+      }).catch(err => console.error(err));
+    })
   }
-
-  //遮挡层点击事件
-  backdropclick(e) {
-    //判断点击的是否为遮罩层，是的话隐藏遮罩层
-    if (e.srcElement.className != 'itemClass') {
-      this.isShow = false;
-    }
-    //隐藏滚动条
-    this.hiddenscroll();
-    e.stopPropagation();
-  }
-
-  //弹出下拉框时，取消scroll
-  hiddenscroll() {
-    //获取当前组件的ID
-    let aboutContent = document.querySelector("#aboutContent");
-    //获取当前组件下的scroll-content元素
-    let scroll: any = aboutContent.querySelector(".scroll-content");
-    if (this.isShow) {
-      scroll.style.overflow = 'hidden';
-    } else {
-      scroll.style.overflow = '';
-    }
-  }
-
-  picscale(a) {
-    this.isShow = true;
-    this.img = a.src;
-  }
-
 
 }

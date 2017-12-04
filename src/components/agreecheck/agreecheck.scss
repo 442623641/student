@@ -1,6 +1,21 @@
 agreecheck {
-  .relative{
+  .relative {
     position: relative;
     z-index: 9999;
+  }
+  .agreement {
+    font-size: 1.3rem;
+    .checkbox {
+      margin: 8px 4px 8px 0px !important;
+      .checkbox-icon {
+        border-color: color($colors, primary);
+        border-radius: 3px;
+        transform: scale(.7);
+        background-color: transparent;
+        &.checkbox-checked {
+          background-color: color($colors, primary);
+        }
+      }
+    }
   }
 }

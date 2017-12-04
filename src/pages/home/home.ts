@@ -1,23 +1,24 @@
 import { Component, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+
+import { HomeProvider } from "../../providers/home";
+import { UserProvider } from '../../providers/user';
+import { NativeProvider } from '../../providers/native';
+import { PaymentProvider } from '../../providers/payment/payment';
+import { Package } from '../../model/package';
+import { UserInfo } from '../../model/userInfo';
 import {
   RECHARGE_PAGE,
   PERSONAL_PAGE,
   EXAMS_PAGE,
   ENALYZING_PAGE,
   EXCELLENT_PAGE,
-  LOST_PAGE,
+  ELOSTGUIDE_PAGE,
   CLAIM_PAGE,
-  PACKAGE_PAGE
+  PACKAGE_PAGE,
+  LOST_PAGE
 } from '../pages.constants';
-import { HomeProvider } from "../../providers/home";
-import { UserProvider } from '../../providers/user';
-import { NativeProvider } from '../../providers/native';
-import { PaymentProvider } from '../../providers/payment/payment';
-import { StaticProvider } from '../../providers/static/static';
-import { Package } from '../../model/package';
-import { UserInfo } from '../../model/userInfo';
 
 
 /**
@@ -40,6 +41,7 @@ export class HomePage {
     exams: EXAMS_PAGE,
     enalyzing: ENALYZING_PAGE,
     excellent: EXCELLENT_PAGE,
+    elost: ELOSTGUIDE_PAGE,
     lost: LOST_PAGE,
     claim: CLAIM_PAGE
   }
@@ -67,26 +69,27 @@ export class HomePage {
     public navParams: NavParams,
     private homeProvider: HomeProvider,
     private userProvider: UserProvider,
-    private staticPro: StaticProvider,
     private paymentPro: PaymentProvider,
     private viewCtrl: ViewController,
     private nativePro: NativeProvider,
   ) {}
-  ngAfterViewInit() {
+  ionViewDidLoad() {
 
     this.userProvider.getUserInfo().then((userInfo: UserInfo) => {
       this.userInfo = userInfo;
-      this.paymentPro.setLocalBalance(this.userInfo.coin);
       console.log(this.userInfo);
     });
     this.userProvider.userInfo$.subscribe((userInfo: UserInfo) => this.userInfo = userInfo);
     this.loadData();
   }
+  balanceChange(event) {
+    console.log('balanceChange', event)
+
+  }
 
   loadData() {
     return this.homeProvider.index().then(res => {
       this.package = new Package(res.package);
-      this.homeProvider.setBadge(res.msgCount);
       if (!this.package.open) {
         this.packageSub = this.paymentPro.package$.subscribe(res => this.loadData());
         console.log(res);
@@ -101,19 +104,22 @@ export class HomePage {
     });
   }
 
-  open() {
+  open(should) {
+    this.navCtrl.push(this.pages.package, { guide: !this.package.open });
     this.packageSub && this.packageSub.unsubscribe();
     this.listen = this.paymentPro.achieve$.subscribe(res => {
       let start = this.navCtrl.indexOf(this.viewCtrl);
-      this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
-        this.listen.unsubscribe();
-        this.nativePro.showLoading();
-        this.loadData().then(() => this.nativePro.hideLoading());
-      })
+      setTimeout(() =>
+        this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
+          this.listen.unsubscribe();
+          this.nativePro.showLoading();
+          this.loadData().then(() => this.nativePro.hideLoading());
+        }), 450);
     });
   }
 
   ionViewDidEnter() {
+    console.log('ionViewDidEnter');
     this.listen && this.listen.unsubscribe();
     this.packageSub = this.packageSub ? this.paymentPro.package$.subscribe(res => this.loadData()) : this.packageSub;
   }

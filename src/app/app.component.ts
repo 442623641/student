@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { TabsPage } from '../core/tabs/tabs';
+import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { PersonalPage } from '../pages/personal/personal';
@@ -25,8 +25,10 @@ export class StudentApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-
-      platform.is('ios') ? statusBar.styleLightContent() : statusBar.styleDefault();
+      statusBar.styleLightContent();
+      if (platform.is('android')) {
+        statusBar.backgroundColorByHexString("#f66e4f");
+      }
       //splashScreen.hide();
       this.httpHandler.handleAuth$.subscribe(info => this.rootNav.setRoot(LoginPage, {}, { animate: true, animation: 'md-transition', direction: 'back' }));
 

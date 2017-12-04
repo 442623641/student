@@ -17,7 +17,7 @@ import { PaymentProvider } from '../../providers/payment/payment';
 
 @IonicPage()
 @Component({
-  selector: 'page-enalyzing',
+  selector: 'page-excellent',
   templateUrl: 'excellent.html',
 })
 export class ExcellentPage {
@@ -46,7 +46,7 @@ export class ExcellentPage {
     this.package = this.navParams.get('package');
   }
 
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     this.package && this.initialize();
 
   }
@@ -104,7 +104,7 @@ export class ExcellentPage {
         this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
           this.package = true;
           delete this.excellentsOpts;
-          this.ngAfterViewInit();
+          this.ionViewDidLoad();
         });
       });
     });
@@ -112,11 +112,13 @@ export class ExcellentPage {
 
   excellent(item) {
     if (item.imgviewer) return;
+    let error = () => { this.toast('暂无优秀答案，请稍后再试') };
     this.excellentPro.excellent({
       guid: item.guid,
       subject: this.option.subject,
       nos: item.excellent,
     }).then(res => {
+      if (res.length) return error();
       let imgs = [];
       res.forEach(x =>
         x.link && x.link.forEach(y =>
@@ -129,7 +131,7 @@ export class ExcellentPage {
         title: this.option.subject,
         images: imgs
       };
-    });
+    }).catch(() => error());
   }
   toast(message) {
     this.nativePro.toast(message, 1500, "center");

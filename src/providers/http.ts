@@ -92,6 +92,7 @@ export class HttpProvider {
   }
 
 
+
   /*auto url for develop*/
   private url(url: string) {
     return this.domin + url;
@@ -111,11 +112,20 @@ export class HttpProvider {
         data = res.json();
       }
     } catch (ex) {
-      return this.handleService.handleError(ex);
+      return this.catchError(ex);
 
     }
     return this.handleService.extractData(data);
 
+  }
+
+  uploadFile(url, body, filePath) {
+    return this.nativeHttp.uploadFile(this.url(url),
+        body, { Token: this.token, Version: this.version },
+        filePath,
+        'feedback.png')
+      .then(res => this.json(res))
+      .catch(err => this.catchError(err));
   }
 
   /*
@@ -127,9 +137,9 @@ export class HttpProvider {
   private nativeGet(url: string, body ? : any, inject ? : boolean) {
     body = body || {};
     url = this.url(url);
-    return this.nativeHttp.get(url + '?' + this.toParams(body), {}, { Token: this.token, version: this.version })
+    return this.nativeHttp.get(url + '?' + this.toParams(body), {}, { Token: this.token, Version: this.version })
       .then(res => this.json(res))
-      .catch(err => this.catchError(err, inject));
+      .catch(err => this.catchError(err));
   }
 
   /*
@@ -149,7 +159,7 @@ export class HttpProvider {
     return this.http.get(url + '?' + this.toParams(body), { headers })
       .toPromise()
       .then(res => this.json(res))
-      .catch(err => this.catchError(err, inject));
+      .catch(err => this.catchError(err));
   }
 
   /*
@@ -159,13 +169,13 @@ export class HttpProvider {
    * @param body:object，
    * @param headers:Headers
    */
-  private nativePost(url: string, body ? : any, inject ? : boolean) {
+  private nativePost(url: string, body ? : any) {
 
     body = body || {};
     url = this.url(url);
-    return this.nativeHttp.post(url, body, { Token: this.token, version: this.version })
+    return this.nativeHttp.post(url, body, { Token: this.token, Version: this.version })
       .then(res => this.json(res))
-      .catch(err => this.catchError(err, inject));
+      .catch(err => this.catchError(err));
   }
 
   /*
@@ -175,7 +185,7 @@ export class HttpProvider {
    * @param body:object，
    * @param headers:Headers
    */
-  private webPost(url: string, body ? : any, inject ? : boolean) {
+  private webPost(url: string, body ? : any) {
     body = body || {};
     url = this.url(url);
     let headers = new Headers();
@@ -186,7 +196,7 @@ export class HttpProvider {
     return this.http.post(url, this.toParams(body), { headers })
       .toPromise()
       .then(res => this.json(res))
-      .catch(err => this.catchError(err, inject));
+      .catch(err => this.catchError(err));
   }
 
 
@@ -203,8 +213,9 @@ export class HttpProvider {
     if (typeof value == 'undefined') return;
     return key + '=' + encodeURIComponent(value === null ? '' : String(value));
   }
-  catchError(err, inject) {
+  catchError(err = { message: '网络延时，请稍后再试' }) {
     //autoCompletethis.han
+    err.message = err.message || '网络延时，请稍后再试';
     this.handleService.handleError(err);
   }
 

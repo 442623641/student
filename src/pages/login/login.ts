@@ -2,10 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserProvider } from '../../providers/user';
-import { HttpHandler } from "../../providers/httpHandler";
 import { HOME_PAGE, VALIDATION_PAGE, PERSONAL_PAGE, TABS_PAGE } from '../pages.constants';
 import { NativeProvider } from '../../providers/native';
-import { TabsPage } from '../../core/tabs/tabs';
+import { TabsPage } from '../../pages/tabs/tabs';
 import { PersonalPage } from '../../pages/personal/personal';
 
 /**
@@ -37,12 +36,11 @@ export class LoginPage {
     private navCtrl: NavController,
     private navParams: NavParams,
     private userPro: UserProvider,
-    private httpHandler: HttpHandler,
     private nativePro: NativeProvider,
     formBuilder: FormBuilder
   ) {
     this.authForm = formBuilder.group({
-      usercode: ['', Validators.compose([Validators.minLength(11), Validators.maxLength(11), Validators.required, Validators.pattern("^(13[0-9]|15[012356789]|17[03678]|18[0-9]|14[57])[0-9]{8}$")])],
+      usercode: ['', Validators.compose([Validators.minLength(11), Validators.maxLength(11), Validators.required, Validators.pattern("^1[34578][0-9]{9}$")])],
       pwd: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(50)])],
     });
     this.authForm.valueChanges.subscribe(res => {

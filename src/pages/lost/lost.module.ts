@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { LostPage } from './lost';
 // import { LostProvider } from '../../providers/lost/lost';
-import { LostoptionPageModule } from '../lostoption/lostoption.module';
-import { LostpayPageModule } from '../lostpay/lostpay.module';
-import { LostorderPageModule } from '../lostorder/lostorder.module';
+// import { LostoptionPageModule } from '../lostoption/lostoption.module';
+// import { LostpayPageModule } from '../lostpay/lostpay.module';
+// import { LostorderPageModule } from '../lostorder/lostorder.module';
 import { ComponentsModule } from '../../components/components.module';
 @NgModule({
   declarations: [
@@ -12,9 +12,9 @@ import { ComponentsModule } from '../../components/components.module';
   ],
   imports: [
     IonicPageModule.forChild(LostPage),
-    LostoptionPageModule,
-    LostorderPageModule,
-    LostpayPageModule,
+    // LostoptionPageModule,
+    // LostorderPageModule,
+    // LostpayPageModule,
     ComponentsModule,
   ],
 })

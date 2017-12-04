@@ -4,12 +4,11 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { HttpProvider } from "./http";
-import { USERINFO, ACCOUNT } from './providers.constants';
+import { USERINFO, ACCOUNT, COIN } from './providers.constants';
 import { HttpHandler } from "./httpHandler";
 import { UserInfo } from "../model/userInfo";
 import { StaticProvider } from "./static/static";
 import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserProvider {
@@ -21,7 +20,9 @@ export class UserProvider {
     private storage: Storage,
     private httpHandler: HttpHandler,
     private staticPro: StaticProvider,
-  ) {}
+  ) {
+    console.log('Hello UserProvider Provider');
+  }
 
   //初始数据
   initialize(userInfo, login: any) {
@@ -32,8 +33,10 @@ export class UserProvider {
         console.log(ress);
         userInfo.cityName = ress[0];
         userInfo.gradeName = ress[1];
-        this.setUserInfo(userInfo)
-        return userInfo;
+        this.setUserInfo(userInfo);
+        return this.storage.set(COIN, userInfo.coin || 0).then(res => {
+          return userInfo;
+        });
       }) : userInfo;
   }
 

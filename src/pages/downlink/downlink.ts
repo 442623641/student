@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LostProvider } from '../../providers/lost/lost';
-import { LOSTGUIDE_PAGE } from '../pages.constants';
+import { ELOSTGUIDE_PAGE } from '../pages.constants';
 
 /**
  * Generated class for the DownlinkPage page.
@@ -16,7 +16,7 @@ import { LOSTGUIDE_PAGE } from '../pages.constants';
   templateUrl: 'downlink.html',
 })
 export class DownlinkPage {
-  pages: any = { guide: LOSTGUIDE_PAGE, }
+  pages: any = { guide: ELOSTGUIDE_PAGE, }
   order: any;
 
   constructor(
@@ -27,7 +27,7 @@ export class DownlinkPage {
     this.order = this.navParams.get('order');
   }
 
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     console.log('ionViewDidLoad DownlinkPage');
   }
 

@@ -1,0 +1,31 @@
+page-addresses {
+  .block {
+    padding-top: 5px;
+    background: #fff;
+    margin-bottom: 16px;
+    a {
+      color: color($colors, text);
+      text-align: right;
+      .icon {
+        vertical-align: middle;
+      }
+      &:first-child {
+        .icon {
+          font-size: 2em;
+        }
+      }
+      .ion-ios-radio-button-off-outline {
+        color: #c8c7cc;
+      }
+    }
+    .row {
+      padding: 4px 11px 2px 11px;
+    }
+  }
+  .footer {
+    .icon {
+      font-size: 2em;
+      padding-right: 10px;
+    }
+  }
+}

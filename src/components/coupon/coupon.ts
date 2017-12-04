@@ -19,7 +19,7 @@ export class CouponComponent {
   coupons: any[] = [];
   params: any;
   _value: number;
-  balance: number;
+  balance: number = 0;
   dvalue: number;
   inited: boolean;
   subscribe: any;
@@ -34,7 +34,7 @@ export class CouponComponent {
   }
   set value(val: number) {
     if (!val) return;
-    if (!this.inited) {
+    if (!this.inited && this.type != 2) {
       this.inited = true;
       this.paymentPro.getLocalBalance().then(res => {
         this.balance = res;

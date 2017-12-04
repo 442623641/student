@@ -13,10 +13,9 @@ page-home {
     .coin {
       padding: 16px;
       background: url(../assets/images/badge.png) center no-repeat;
-      background-size: contain;
-      height: 80%;
+      background-size: contain; // height: 80%;
       img {
-        height: 70%;
+        height: 6.5rem;
         padding-top: 14px;
       }
 

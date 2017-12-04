@@ -4,6 +4,7 @@ import { PersonalPage } from './personal';
 import { CityPickerModule } from "ionic2-city-picker";
 import { SchoolsPageModule } from '../schools/schools.module';
 import { ComponentsModule } from '../../components/components.module';
+//import { TabsModule } from '../tabs/tabs.module';
 @NgModule({
   declarations: [
     PersonalPage,
@@ -13,8 +14,9 @@ import { ComponentsModule } from '../../components/components.module';
   imports: [
     IonicPageModule.forChild(PersonalPage),
     CityPickerModule,
-    SchoolsPageModule,
+    // SchoolsPageModule,
     ComponentsModule,
+    //TabsModule,
   ],
   // providers: [
   //   PersonalProvider

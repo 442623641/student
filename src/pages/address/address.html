@@ -1,0 +1,44 @@
+<!--
+  Generated template for the AddressPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{options.id>=0?'新增':'编辑'}}收货地址</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="authForm" (ngSubmit)="save(authForm.value)">
+    <ion-row>
+      <ion-col col-9 no-padding>
+        <ion-item no-lines>
+          <ion-label>收货人：</ion-label>
+          <ion-input type="text" placeholder="输入收件人姓名" formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item no-lines>
+          <ion-label>联系方式：</ion-label>
+          <ion-input type="tel" formControlName="tel" placeholder="输入联系方式" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+      <a class="telbook" col-3 (click)="pickContact()">
+        <ion-icon name="person-add-outline"></ion-icon>
+        <br>选联系人
+      </a>
+    </ion-row>
+    <button ion-item no-lines>
+      <ion-label item-start>所在地区：</ion-label>
+      <ion-note item-start *ngIf="!authForm.controls.area.valid">选择所在地区</ion-note>
+      <city-picker item-start formControlName="area" cancelText='取消' doneText='完成' separator=' ' [citiesData]="cityData">
+      </city-picker>
+    </button>
+    <ion-item no-lines>
+      <ion-label>详细地址：</ion-label>
+      <ion-input type="text" placeholder="输入详细地址" formControlName="address"></ion-input>
+    </ion-item>
+    <p padding margin-top>
+      <button ion-button block [disabled]="!authForm.valid">保 存</button>
+    </p>
+  </form>
+</ion-content>

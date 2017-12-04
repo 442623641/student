@@ -26,7 +26,7 @@ export class AgreementPage {
   	public navCtrl: NavController,
   	public navParams: NavParams
   ) {}
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     this.type=this.navParams.get('type');
   }
 

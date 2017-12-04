@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { PasswordProvider } from '../../providers/password/password';
 import { NativeProvider } from '../../providers/native';
 import { UserProvider } from '../../providers/user';
@@ -27,6 +27,7 @@ export class PasswordPage {
     private passwordPro: PasswordProvider,
     private nativepro: NativeProvider,
     private userPro: UserProvider,
+    private appCtrl: App,
     formBuilder: FormBuilder,
   ) {
     this.params = this.navParams.get('params') || {};
@@ -89,7 +90,7 @@ export class PasswordPage {
     this.userPro.getLogin().then(res => {
       res = res || { usercode: '' };
       this.userPro.setLogin({ usercode: this.params.phone || res.usercode, pwd: '' })
-        .then(() => this.navCtrl.setRoot(LOGIN_PAGE, {}, { animate: true, animation: 'ios-transition', direction: 'back' }));
+        .then(() => this.appCtrl.getRootNav().setRoot(LOGIN_PAGE, {}, { animate: true, animation: 'ios-transition', direction: 'back' }));
     })
 
   }

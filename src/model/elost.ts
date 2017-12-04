@@ -1,16 +1,40 @@
 export class Elost {
   name: string;
   count: number;
-  exams: ElostOptions[] = [];
+  exams: LostOptions[] = [];
   state: any;
   index: number = 0;
+  /**
+   *错题本类型，0:纸质版，1:电子版
+   */
+  type: 0 | 1;
+
+  /**
+   *考试列表是否已结束
+   */
   end: boolean;
-  visible: boolean;
+
+  /**
+   *金额
+   */
+  money: number = 0;
+  /**
+   *推荐题
+   */
+  promote: number = 0;
+  pagenum: number = 0;
+
+  /**
+   *是否进程中
+   */
+  processing: boolean;
+
 
   constructor(obj) {
 
     this.name = obj.name;
     this.count = obj.count;
+    this.type = obj.type || 0;
     obj.exams && obj.exams.length && this.append(obj.exams, obj.end, obj.index);
   }
 
@@ -42,7 +66,7 @@ export class Elost {
    */
   append(exams, end ? , index ? ) {
     if (!exams || !exams.length) return;
-    this.exams = this.exams.concat(exams.map(item => { return new ElostOptions(item) }));
+    this.exams = this.exams.concat(exams.map(item => { return new LostOptions(item) }));
     this.state = !!this.exams.length;
     this.end = end || this.end;
     this.index = index || this.index;
@@ -66,7 +90,7 @@ export class Elost {
   subjects() {}
 }
 
-export class ElostOptions {
+export class LostOptions {
   day: number;
   guid: string;
   name: string;
@@ -75,6 +99,7 @@ export class ElostOptions {
   score: number
   timekey ? : string;
   checked ? : boolean;
+  studentCode ? : string;
 
   constructor(obj) {
     this.name = obj.name;
@@ -85,8 +110,62 @@ export class ElostOptions {
     this.score = obj.score;
     this.timekey = obj.timekey;
     this.checked = obj.checked;
+    obj.studentCode && (this.studentCode = obj.studentCode);
   }
+}
 
+export class LostParams {
+  readonly ordertype: string = 'errorbook';
+  exams: {
+    name: string,
+    count: number,
+    promote: number,
+    examguids: string
+  }[];
 
+  /**
+   *收货地址
+   */
+  area: {
+    /**
+     *收货人姓名
+     */
+    name: string,
 
+    /**
+     *收货人电话
+     */
+    tel: string,
+
+    /**
+     *收货人区域
+     */
+    area: string,
+
+    /**
+     *详细地址
+     */
+    address ? : string
+  } = { name: '', tel: '', area: '', address: '' };
+  couponcode ? : string;
+
+  /**
+   *支付金额
+   */
+  amount: number;
+
+  constructor(obj: Elost[], amount: number) {
+    // code...
+    this.amount = amount;
+    this.exams = obj.map(item => {
+      return {
+        money: item.money,
+        name: item.name,
+        count: item.icheckeds,
+        promote: item.promote,
+        examguids: item.exams.map(item => { return item.guid }).join(',')
+      }
+    });
+
+  }
 }

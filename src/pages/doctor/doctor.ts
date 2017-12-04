@@ -61,18 +61,20 @@ export class DoctorPage {
     this.exam = this.navParams.data;
   }
 
-  ngAfterViewInit() {
-    this.showNavButton = this.navCtrl.getPrevious().id != REPORT_PAGE;
-    this.doctorPro.subject({ guid: this.exam.guid }).then(res => {
-      if (!res || !res.subject || !res.subject.no || !res.subject.no.length) return this.subject = null;
-      this.balls = res.subjects;
-      this.tucker(res.subject, res.subjects[this.subjectIndex]);
-      console.log(res);
-      console.log(this.subjectSlider);
-    }).catch(ex => {
-      console.error(ex);
-      this.subject = null;
-    });
+  ionViewDidLoad() {
+    setTimeout(() => {
+      this.showNavButton = this.navCtrl.getPrevious().id != REPORT_PAGE;
+      this.doctorPro.subject({ guid: this.exam.guid }).then(res => {
+        if (!res || !res.subject || !res.subject.no || !res.subject.no.length) return this.subject = null;
+        this.balls = res.subjects;
+        this.tucker(res.subject, res.subjects[this.subjectIndex]);
+        console.log(res);
+        console.log(this.subjectSlider);
+      }).catch(ex => {
+        console.error(ex);
+        this.subject = null;
+      });
+    }, 350);
   }
 
   onSlideChanged(slider) {

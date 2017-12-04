@@ -14,14 +14,14 @@ import { NavController, NavParams } from 'ionic-angular';
 export class AgreecheckComponent {
   checkValue: boolean;
   @Output() checkChange = new EventEmitter();
-  @Input()  type;
+  @Input() type;
   @Input()
-  get check(){
+  get check() {
     return this.checkValue;
   }
-  set check(val:boolean){
+  set check(val: boolean) {
     if (this.checkValue == val) return;
-    this.checkValue=val;
+    this.checkValue = val;
     this.checkChange.emit(this.checkValue);
   };
   constructor(
@@ -30,10 +30,9 @@ export class AgreecheckComponent {
   ) {}
 
 
-  agree(){
-    this.checkValue=true;
-    this.checkChange.emit(this.checkValue);
-    this.navCtrl.push( AGREEMENT_PAGE,{ type: this.type});
+  agree() {
+    this.check = true;
+    this.navCtrl.push(AGREEMENT_PAGE, { type: this.type });
   }
 
 }

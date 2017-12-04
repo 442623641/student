@@ -40,7 +40,7 @@ export class HttpHandler {
       this.handleError(res);
     } else if (res.status == 200) //成功
     {
-      return res.data;
+      return res.data || {};
     } else if (res.status == 401) {
       this.handleAuth(res.message);
       throw res;

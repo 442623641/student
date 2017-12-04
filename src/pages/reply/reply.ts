@@ -50,7 +50,7 @@ export class ReplyPage {
     //this.subjectSlider.autoHeight = true;
   }
 
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     this.showNavButton = this.navCtrl.getPrevious().id != REPORT_PAGE;
     this.doctorPro.subject({ guid: this.exam.guid }).then(res => {
       this.balls = res.subjects;

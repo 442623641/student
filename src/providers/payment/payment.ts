@@ -54,8 +54,10 @@ export class PaymentProvider {
 
   balance() {
     return this.http.get('userinfo/getcoin').then(res => {
-      res && res.coin != undefined && this.setLocalBalance(res.coin);
+      res = res || {}
+      this.setLocalBalance(res.coin || 0);
       console.log(res);
+      return res.coin || 0;
     }).catch();
   }
 
@@ -100,8 +102,7 @@ export class PaymentProvider {
   wa(obj): Promise < any > {
     if (typeof Wechat === 'undefined') {
       console.log('wepay fail:Wechat cordova plugin is not installed.');
-      Promise.reject('Wechat cordova plugin is not installed.');
-      return;
+      return Promise.reject('Wechat cordova plugin is not installed.');
     }
     if (this.http.isNative) {
       return new Promise((resolve, reject) => {
@@ -112,7 +113,6 @@ export class PaymentProvider {
           },
           function error(e) {
             console.log('wepay fail:' + JSON.stringify(e));
-            //console.log('exception:' + JSON.stringify(e));
             reject(e);
           });
       })

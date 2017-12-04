@@ -1,0 +1,118 @@
+page-packageguide {
+  $green: #6bcdce;
+  .content {
+    background-color: $green;
+  }
+  .card {
+    box-shadow: none;
+    border-radius: 6px;
+    &>p:nth-of-type(1)>span:nth-of-type(1) {
+      color: color($colors, primary);
+      font-size: 2rem;
+    }
+    &>p:nth-of-type(1)>span:nth-of-type(2) {
+      font-size: 1.6rem;
+      font-weight: 500;
+      margin-left: 16px
+    }
+    p {
+      padding-bottom: 10px;
+    }
+  }
+  .banner {
+    width: 100%;
+    height: auto;
+    background: url("../../assets/images/packagebanner.png") no-repeat;
+    background-size: 100%;
+    background-size: cover;
+    color: white;
+    overflow: hidden;
+    &::before {
+      content: "";
+      display: block;
+      margin-top: 20px;
+    }
+    .banner-btn {
+      width: 200px;
+      height: 3.0rem;
+      margin-bottom: 16px;
+    }
+    .banner-num {
+      font-size: 4rem;
+      color: color($colors, danger);
+    }
+    &>p:nth-of-type(2) {
+      font-size: 3.2rem;
+    }
+    &>p:nth-of-type(1),
+    &>p:nth-of-type(3) {
+      font-size: 2rem;
+    }
+  }
+
+  .bottom-point {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 12px 8px 12px;
+    &:before,
+    &:after {
+      content: '';
+      width: 15px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: $green;
+    }
+  }
+  .rectangle {
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 44px;
+      display: inline-block;
+      border-radius: 4px;
+      background-color: #fff;
+      transform: translateY(-30px);
+      box-shadow: 0 5px 5px rgba(0, 0, 0, .1);
+    }
+    &:before {
+      left: 39.5px;
+    }
+    &:after {
+      right: 39.5px;
+    }
+    &~.bottom-point {
+      padding: 8px 12px 12px 12px;
+    }
+  }
+  .compare {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 22.75rem;
+    margin-top: 15px;
+    margin-bottom: 16px;
+    padding: 31px 66px 0 59px;
+    color: #fff;
+    font-size: 1rem;
+    background: url(../../assets/images/user.png) no-repeat;
+    background-size: 100% 22.75rem;
+  }
+  .compare-same {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  .f66e4f {
+    color: #F66E4F;
+  }
+  .open-package {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0 15px 0;
+    font-size: 1.7rem;
+    color: #fff;
+    background-color: #F66E4F;
+  }
+}

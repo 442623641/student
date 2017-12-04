@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
 
 /*
   Generated class for the ChartsProvider provider.

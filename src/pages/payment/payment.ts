@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AGREEMENT_PAGE, HOME_PAGE } from '../pages.constants';
+import { AGREEMENT_PAGE } from '../pages.constants';
 import { PaymentProvider } from '../../providers/payment/payment';
 import { PaymentOption } from '../../model/payment';
 import { NativeProvider } from '../../providers/native';
@@ -21,6 +21,7 @@ export class PaymentPage {
   pages: any = {
     agreement: AGREEMENT_PAGE
   }
+  checked: boolean = true;
   params: PaymentOption;
   amount: any;
   processing: boolean = false;
@@ -35,20 +36,33 @@ export class PaymentPage {
     this.amount = (this.navParams.get('amount') / 10).toFixed(2);
   }
 
+  checkChange(event) {
+    if (event) {
+      if (this.processing === undefined) this.processing = false;
+    } else {
+      if (this.processing === false) this.processing = undefined;
+    }
+  }
+
   pay() {
-    this.paymentPro.params(Object.assign({ paytype: this.payType }, this.params)).then(res => {
-      console.log(res);
-      this.processing = false;
-      this.paymentPro[this.payType](res).then(res => {
-        this.nativePro.toast('支付成功');
+    this.paymentPro.params(Object.assign({ paytype: this.payType }, this.params)).then(order => {
+      console.log(order);
+      this.paymentPro[this.payType](order).then(res => {
+        this.callback('支付成功', res);
         this.paymentPro.achieve({ len: this.navCtrl.length(), result: res, type: this.params.ordertype });
       }, error => {
         //this.paymentPro.achieve({ len: this.navCtrl.length(), result: res });
-        this.nativePro.toast('支付失败');
+        this.callback('支付失败', error);
+        this.paymentPro.achieve({ len: this.navCtrl.length(), type: this.params.ordertype });
         //console.log(this.payType + ' fail:' + res);
       });
       //get pay params from server side with sign.
       //const alipayOrder: AlipayOrder = {};
-    }).catch(ex => this.nativePro.toast('支付失败'));
+    }).catch(ex => this.callback('支付失败', ex));
+  }
+  callback(msg: string, res ? ) {
+    console.log(res);
+    this.nativePro.toast(msg);
+    this.processing = false;
   }
 }

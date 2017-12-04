@@ -12,14 +12,14 @@
       <p>{{desc}}</p>
     </div>
     <ion-item-group>
-      <button ion-item [navPush]="pages.recharge">
+      <button ion-item (click)="recharge()">
         <ion-icon item-left name="icopper"></ion-icon>
         学贝：
         <coin ion-text color="text"></coin>
       </button>
       <button ion-item [navPush]="pages.coupon">
         <ion-icon item-left name="icoupon"></ion-icon>
-        优惠卷
+        优惠券
       </button>
       <button ion-item [navPush]="pages.trades">
         <ion-icon item-left name="itrade"></ion-icon>

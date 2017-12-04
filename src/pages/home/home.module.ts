@@ -2,15 +2,17 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { HomePage } from './home';
 import { ExamsPageModule } from '../exams/exams.module';
-import { EnalyzingPageModule } from '../enalyzing/enalyzing.module';
-import { PackagePageModule } from '../package/package.module';
-import { ExcellentPageModule } from '../excellent/excellent.module';
-//import { UnclaimedexamsPageModule } from '../unclaimedexams/unclaimedexams.module';
-import { ClaimPageModule } from '../claim/claim.module'
+//import { EnalyzingPageModule } from '../enalyzing/enalyzing.module';
+//import { PackagePageModule } from '../package/package.module';
+//import { ExcellentPageModule } from '../excellent/excellent.module';
 
-import { EnalyzingProvider } from '../../providers/enalyzing/enalyzing';
-import { LostProvider } from '../../providers/lost/lost';
-import { CouponProvider } from '../../providers/coupon/coupon';
+//import { ElostPageModule } from '../elost/elost.module';
+//import { UnclaimedexamsPageModule } from '../unclaimedexams/unclaimedexams.module';
+//import { ClaimPageModule } from '../claim/claim.module'
+
+// import { EnalyzingProvider } from '../../providers/enalyzing/enalyzing';
+// import { LostProvider } from '../../providers/lost/lost';
+// import { CouponProvider } from '../../providers/coupon/coupon';
 
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
@@ -20,23 +22,21 @@ import { DirectivesModule } from '../../directives/directives.module';
     HomePage,
   ],
   imports: [
-    EnalyzingPageModule,
-    ExcellentPageModule,
-    PackagePageModule,
+    //EnalyzingPageModule,
+    //ExcellentPageModule,
+    //PackagePageModule,
     IonicPageModule.forChild(HomePage),
-
     ExamsPageModule,
-    ClaimPageModule,
-    //ChartsModule,
-    //EchartsNg2Module,
+    //ClaimPageModule,
+    //ElostPageModule,
     ComponentsModule,
     DirectivesModule,
 
   ],
-  providers: [
-    EnalyzingProvider,
-    LostProvider,
-    CouponProvider,
-  ]
+  // providers: [
+  //   EnalyzingProvider,
+  //   LostProvider,
+  //   CouponProvider,
+  // ]
 })
 export class HomePageModule {}
