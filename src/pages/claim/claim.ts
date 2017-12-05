@@ -36,7 +36,7 @@ export class ClaimPage {
   }
 
   claim(item) {
-    let img = [];
+    //let img = [];
     this.claimPro.examineeimg({ guid: item.examguid, studentcode: item.studentcodelist }).then(res => {
       res && this.openModal(item, res);
     }).catch(err => {

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, Slides } from 'ionic-angular';
+import { NavController, NavParams, ViewController, Slides } from 'ionic-angular';
 
 /**
  * Generated class for the ClaimmodalPage page.

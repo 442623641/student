@@ -28,12 +28,12 @@ export class PaymentPage {
   payType: string = 'za';
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
+    navParams: NavParams,
     public paymentPro: PaymentProvider,
     private nativePro: NativeProvider
   ) {
-    this.params = this.navParams.get('params');
-    this.amount = (this.navParams.get('amount') / 10).toFixed(2);
+    this.params = navParams.get('params');
+    this.amount = (navParams.get('amount') / 10).toFixed(2);
   }
 
   checkChange(event) {

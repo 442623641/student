@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http';
-import { IView } from '../../model/view';
+//import { IView } from '../../model/view';
 @Injectable()
 export class ClaimProvider {
 

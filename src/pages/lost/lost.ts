@@ -68,7 +68,7 @@ export class LostPage {
     setTimeout(() => this.doRefresh(), 300);
     this.lostPro.fee().then(res => {
       this.baseAmount = res.basic || 0;
-      this.expressAmount = res.mail || 10;
+      this.expressAmount = res.mail || 0;
     }).catch();
   }
 

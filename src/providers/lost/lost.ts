@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http';
 import { Subject } from 'rxjs/Subject';
 import { Elost } from '../../model/elost';
-import { Storage } from '@ionic/storage';
+//import { Storage } from '@ionic/storage';
 
 /*
   import { Http } from '@angular/http';

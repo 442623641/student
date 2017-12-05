@@ -55,7 +55,7 @@ export class ElostPage {
     this.navCtrl.push(this.pages.lostoption, item).then(() => {
       this.setElostSub = this.lostPro.setElost$.subscribe((res: Elost) => {
         this.setElostSub.unsubscribe();
-        console.log('setElost$');
+        //console.log('setElost$');
         this.showTips = false;
         this.setLost(res);
       });
@@ -84,7 +84,7 @@ export class ElostPage {
         return;
       }
       this.losts = res.map(item => { return new Elost(item) });
-      console.log(res);
+      //console.log(res);
     }).catch(e => this.losts = null);
   }
 

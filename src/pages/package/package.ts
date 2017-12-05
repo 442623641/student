@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavParams, ModalController } from 'ionic-angular';
 import { PAYMENT_PAGE, COUPON_PAGE } from '../pages.constants';
 import { PackageguidePage } from '../packageguide/packageguide';
-
-//import { UserProvider } from '../../providers/user';
-import { NativeProvider } from '../../providers/native';
 import { PaymentOption } from '../../model/payment';
 import { PackageOption, PackageO } from '../../model/package';
 import { PackageProvider } from '../../providers/package/package';
@@ -27,10 +24,10 @@ export class PackagePage {
   options: PackageOption[];
 
   constructor(
-    private navCtrl: NavController,
+    //private navCtrl: NavController,
     private navParams: NavParams,
     private packagePro: PackageProvider,
-    private nativePro: NativeProvider,
+    //private nativePro: NativeProvider,
     private modalCtrl: ModalController,
   ) {}
   ngOnInit() {

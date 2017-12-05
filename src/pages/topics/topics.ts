@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController,IonicPage } from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
 /**
  * Generated class for the TopicsPage page.
  * Add by leo zhang 201710010101

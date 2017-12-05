@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LostProvider } from '../../providers/lost/lost';
 import { NativeProvider } from '../../providers/native';
-import { LostOptions, Elost } from '../../model/elost';
-import {} from '../pages.constants';
+import { Elost } from '../../model/elost';
+//import {} from '../pages.constants';
 
 /**
  * Generated class for the LostoptionPage page.

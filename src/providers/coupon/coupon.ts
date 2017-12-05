@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http';
 import { CouPon } from '../../model/coupon';
-import { Storage } from '@ionic/storage';
+//import { Storage } from '@ionic/storage';
 import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class CouponProvider {
@@ -9,7 +9,7 @@ export class CouponProvider {
   checked$ = this.checkedSource.asObservable();
   constructor(
     public http: HttpProvider,
-    private storage: Storage
+    //private storage: Storage
   ) {
     console.log('Hello ExamsProvider Provider');
   }

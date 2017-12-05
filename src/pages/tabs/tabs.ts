@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 import { HomePage } from '../../pages/home/home';
 import { NotifyProvider } from '../../providers/notify/notify';
-import { NewsPage } from '../../pages/news/news';
-import { UsercenterPage } from '../../pages/usercenter/usercenter';
+// import { NewsPage } from '../../pages/news/news';
+// import { UsercenterPage } from '../../pages/usercenter/usercenter';
 
-import { NEWS_PAGE, USERCENTER_PAGE, HOME_PAGE } from '../../pages/pages.constants';
+import { NEWS_PAGE, USERCENTER_PAGE } from '../../pages/pages.constants';
 
 
 @Component({

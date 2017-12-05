@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { DatePipe } from '@angular/common';
+// import { DatePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 import { HomeProvider } from "../../providers/home";
@@ -46,11 +46,10 @@ export class HomePage {
     claim: CLAIM_PAGE
   }
   @ViewChild('ball') ballEl: any;
-  private option: any;
-  private optionWaterball: any;
-  private scene: any;
-  private pieOption: any;
-  private state: number = 0;
+  // private optionWaterball: any;
+  // private scene: any;
+  // private pieOption: any;
+  // private state: number = 0;
 
   /*
   学情套餐信息

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ViewController } from 'ionic-angular';
-import { ELOST_PAGE } from '../pages.constants';
+import { LOST_PAGE } from '../pages.constants';
 
 /**
  * Generated class for the BookerrPage page.
@@ -17,7 +17,7 @@ import { ELOST_PAGE } from '../pages.constants';
 export class LostguidePage {
   constructor(private navCtrl: NavController, private viewCtrl: ViewController) {}
   go() {
-    this.navCtrl.push(ELOST_PAGE).then(() =>
+    this.navCtrl.push(LOST_PAGE).then(() =>
       setTimeout(() => {
         this.navCtrl.removeView(this.viewCtrl, { animate: false })
       }, 300)

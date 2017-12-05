@@ -17,7 +17,7 @@ export class ScrollheaderComponent {
   //@Input() volatile: boolean;
   @Input() set items(array: any[]) {
     //this.itemsValue = array
-    console.log(array);
+    //console.log(array);
     if (array && array.length && this.db != JSON.stringify(array)) {
       this.db = JSON.stringify(array);
       this.itemsValue = typeof array[0] === "string" ? array.map(item => { return { name: item, visible: true } }) : array;
@@ -53,7 +53,7 @@ export class ScrollheaderComponent {
   }
 
   tap(event) {
-    console.log(event);
+    //console.log(event);
     let index = event.target.getAttribute('index');
     if (this.selected == index || !index && index !== "0") return;
     this.selected = index;

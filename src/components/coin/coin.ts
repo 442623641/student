@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { PaymentProvider } from '../../providers/payment/payment';
 /**
  * Generated class for the CoinComponent component.

@@ -33,6 +33,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { ActionSheet } from '@ionic-native/action-sheet';
 import { FilePath } from '@ionic-native/file-path';
 import { Contacts } from '@ionic-native/contacts';
+import { Clipboard } from '@ionic-native/clipboard';
 
 /**
  *Components module
@@ -113,7 +114,7 @@ import { AddressProvider } from '../providers/address/address';
     HTTP,
     FilePath,
     Contacts,
-
+    Clipboard,
 
     /*
      * request service

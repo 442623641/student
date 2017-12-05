@@ -5,7 +5,7 @@ import { StaticProvider } from '../../providers/static/static';
 import { UserInfo } from '../../model/userInfo';
 import { UserProvider } from '../../providers/user';
 import { NativeProvider } from '../../providers/native';
-import { PERSONAL_PAGE, SCHOOLS_PAGE, TABS_PAGE } from '../pages.constants'
+import { PERSONAL_PAGE, SCHOOLS_PAGE } from '../pages.constants'
 import { TabsPage } from '../../pages/tabs/tabs';
 /**
  * Generated class for the PersonalPage page.

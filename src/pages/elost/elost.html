@@ -22,11 +22,11 @@
         <div class="mess" *ngSwitchCase="true">
           您共选择了<span primary>{{item.echeckeds}}</span>次考试，共<span primary>{{item.icheckeds}}</span>道错题</div>
       </div>
-      <p text-center padding-12>
-        <!-- <button ion-button (click)="print(item)" clear> -->
-        <a *ngSwitchCase="false" (click)="print(item)">申请打印</a>
-        <a *ngSwitchCase="true" (click)="print(item)">修 改</a>
-      </p>
+      <!-- <p text-center padding-12> -->
+      <!-- <button ion-button (click)="print(item)" clear> -->
+      <a *ngSwitchCase="false" (click)="print(item)" class="card-footer">申请打印</a>
+      <a *ngSwitchCase="true" (click)="print(item)" class="card-footer">修 改</a>
+      <!-- </p> -->
     </ion-card>
   </ng-template>
   <ng-template #loading>

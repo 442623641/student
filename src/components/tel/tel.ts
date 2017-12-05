@@ -12,7 +12,7 @@ import { CallNumber } from '@ionic-native/call-number';
   templateUrl: 'tel.html'
 })
 export class TelComponent {
-  private tel: string;
+  //private tel: string;
   @Input() chooser: boolean = true;
   constructor(
     private callNumber: CallNumber,

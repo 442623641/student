@@ -138,7 +138,7 @@ export class EnalyzingOptions {
 
     this.exams = this.exams || [];
     this.option.month = month || this.option.month;
-    this.page = { index: obj.index || 0, noindex: obj.noinedx || 0, viewLength: 5 };
+    this.page = { index: obj.index || 0, noindex: obj.noindex || 0, viewLength: 5 };
     this.end = obj.isend;
     this.exams = this.exams.concat(obj.exams.map(item => {
       return new ExamOptions(item);

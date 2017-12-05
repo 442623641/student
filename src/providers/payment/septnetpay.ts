@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http';
-import { PaymentParams } from '../../model/payment'
 /*
   import { Http } from '@angular/http';
   Generated class for the PaymentProvider provider.

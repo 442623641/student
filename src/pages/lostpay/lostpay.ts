@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { LostProvider } from '../../providers/lost/lost';
+//import { LostProvider } from '../../providers/lost/lost';
 import { AddressProvider } from '../../providers/address/address';
 import { PAYMENT_PAGE, COUPON_PAGE, ADDRESSES_PAGE, ADDRESS_PAGE } from '../pages.constants';
-import { Elost, LostParams } from '../../model/elost';
+import { LostParams } from '../../model/elost';
 /**
  * Generated class for the LostpayPage page.
  * Add by leo zhang 201710010101

@@ -1,6 +1,6 @@
 import { AGREEMENT_PAGE } from '../../pages/pages.constants';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 /**
  * Generated class for the AgreecheckComponent component.
  *
@@ -26,7 +26,7 @@ export class AgreecheckComponent {
   };
   constructor(
     private navCtrl: NavController,
-    private navParams: NavParams,
+   // private navParams: NavParams,
   ) {}
 
 

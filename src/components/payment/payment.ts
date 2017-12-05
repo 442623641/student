@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { PAYMENT_PAGE } from '../../pages/pages.constants';
 import { PaymentOption } from '../../model/payment';
 import { PaymentProvider } from '../../providers/payment/payment';

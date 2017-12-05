@@ -36,12 +36,18 @@ page-elost {
       }
       background-size: cover !important;
     }
+    .card-footer {
+      display: block;
+      padding: 13px;
+      text-align: center;
+      font-size: 1.6rem;
+    }
 
     p {
-      a {
-        padding: 14px;
-        font-size: 1.6rem;
-      }
+      //   a {
+      //   padding: 14px;
+      //   font-size: 1.6rem;
+      // }
       .spinner~span {
         vertical-align: super;
         color: color($colors, primary);

@@ -3,12 +3,12 @@ import { Platform, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from '../pages/tabs/tabs';
-import { HomePage } from '../pages/home/home';
+//import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { PersonalPage } from '../pages/personal/personal';
 import { UserProvider } from '../providers/user';
-import { NativeProvider } from '../providers/native';
-import { HttpHandler } from '../providers/httpHandler';
+//import { NativeProvider } from '../providers/native';
+//import { HttpHandler } from '../providers/httpHandler';
 @Component({
   template: '<ion-nav [root]="rootPage" #rootNav></ion-nav>'
 })
@@ -22,8 +22,8 @@ export class StudentApp {
     statusBar: StatusBar,
     private splashScreen: SplashScreen,
     private userProvider: UserProvider,
-    private httpHandler: HttpHandler,
-    private nativeProvider: NativeProvider
+    //private httpHandler: HttpHandler,
+    //private nativeProvider: NativeProvider
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

@@ -134,7 +134,8 @@ export class ReportPage {
     return this.examsPro.comrank({
       guid: this.exam.guid,
       level: this.report.level,
-      subject: name
+      subject: name,
+      score: this.report.scores.find(x => { return x.name == name }).subjects[0]
     }).then(res => {
       if (!res || !res.length) return this.report.activityComranks = null;
       this.report.activityComranks = res;

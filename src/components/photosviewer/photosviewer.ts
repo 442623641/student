@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
 /**
  * Generated class for the PhotosviewerComponent component.
  * Add by leo zhang 201710010101
@@ -13,14 +13,10 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 export class PhotosviewerComponent {
   urls: any[] = [];
   title: any;
-  constructor(public navParams: NavParams,
-    public viewCtrl: ViewController) {
+  constructor(navParams: NavParams, private viewCtrl: ViewController) {
     console.log('Hello PhotosviewerComponent Component');
-  }
-
-  ngOnInit() {
-    this.title = this.navParams.get('title');
-    let images = this.navParams.get('images') || [];
+    this.title = navParams.get('title');
+    let images = navParams.get('images') || [];
     images = typeof images === "string" ? [images] : images;
     images.forEach(item => {
       let us = typeof item === "string" ? [item] : item.link || item.value;

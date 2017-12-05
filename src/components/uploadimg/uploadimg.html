@@ -3,7 +3,7 @@
     <a (click)="remove(i)">
       <ion-icon name="remove-circle-outline" color="danger"></ion-icon>
     </a>
-    <img src="{{url}}">
+    <img [src]="url">
   </ion-col>
   <a (click)="picker()" *ngIf='items.length<3' col-2>
     <ion-icon name="ios-camera-outline"></ion-icon>

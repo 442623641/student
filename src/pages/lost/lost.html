@@ -25,18 +25,21 @@
           <span primary>{{item.amount}}</span>元
         </div>
       </div>
-      <p text-center padding-12>
-        <!-- <button ion-button (click)="print(item)" clear> -->
-        <ng-container *ngIf="!item.processing;else processing;">
-          <a *ngSwitchCase="false" (click)="print(item)">申请打印</a>
-          <a *ngSwitchCase="true" (click)="print(item)">修 改</a>
-        </ng-container>
-      </p>
+      <!-- <a (click)="print(item)">{{item.echeckeds?'修改':'申请打印'}}</a> -->
+      <!-- <p text-center padding-12> -->
+      <!-- <button ion-button (click)="print(item)" clear> -->
+      <ng-container *ngIf="!item.processing;else processing;">
+        <a *ngSwitchCase="false" (click)="print(item)" class="card-footer">申请打印</a>
+        <a *ngSwitchCase="true" (click)="print(item)" class="card-footer">修 改</a>
+      </ng-container>
+      <ng-template #processing>
+        <p text-center padding-12>
+          <ion-spinner color="primary"></ion-spinner>
+          <span> 正在计算价格...</span>
+        </p>
+      </ng-template>
+      <!-- </p> -->
     </ion-card>
-  </ng-template>
-  <ng-template #processing>
-    <ion-spinner color="primary"></ion-spinner>
-    <span> 正在计算价格...</span>
   </ng-template>
   <ng-template #loading>
     <loading [status]="losts"></loading>

@@ -32,7 +32,6 @@ export class HttpHandler {
     if (this.loging) return;
     this.loging = true;
     message && this.nativePro.toast(message);
-    let nav = this.appCtrl.getActiveNav();
     if (this.appCtrl.getActiveNav().name == LOGIN) return;
     this.appCtrl.getRootNav().setRoot(LOGIN, {}, { animate: true, animation: 'md-transition', direction: 'back' });
     setTimeout(() => this.loging = false, 1000);

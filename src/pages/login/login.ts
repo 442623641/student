@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user';
-import { HOME_PAGE, VALIDATION_PAGE, PERSONAL_PAGE, TABS_PAGE } from '../pages.constants';
+import { HOME_PAGE, VALIDATION_PAGE } from '../pages.constants';
 import { NativeProvider } from '../../providers/native';
 import { TabsPage } from '../../pages/tabs/tabs';
 import { PersonalPage } from '../../pages/personal/personal';
@@ -26,15 +26,15 @@ export class LoginPage {
   @ViewChild('rocket') rocket: any;
   authForm: FormGroup;
 
-  private focus: boolean;
-  private state: string;
-  private processing: boolean;
+  //private focus: boolean;
+  //private state: string;
+  //private processing: boolean;
 
-  private account: { usercode: any, pwd: string }; //= { usercode: '17000000013', pwd: '123456' };
+  //private account: { usercode: any, pwd: string }; //= { usercode: '17000000013', pwd: '123456' };
 
   constructor(
     private navCtrl: NavController,
-    private navParams: NavParams,
+    //private navParams: NavParams,
     private userPro: UserProvider,
     private nativePro: NativeProvider,
     formBuilder: FormBuilder

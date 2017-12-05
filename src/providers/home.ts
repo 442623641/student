@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpProvider } from "./http";
-import { HttpHandler } from "./httpHandler";
 
 /*
  *首页
@@ -10,7 +9,6 @@ export class HomeProvider {
   private URL = 'index';
   constructor(
     private http: HttpProvider,
-    private httpHandler: HttpHandler,
   ) {
     console.log('Hello HomeProvider Provider');
   }

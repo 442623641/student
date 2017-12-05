@@ -6,14 +6,17 @@
       padding-top: 0 !important;
     }
     .banner {
-      padding-top: 16px;
+      padding: 16px;
       color: #fff;
-      background: url(../assets/images/usercenter-bg.jpg);
-      height: 23.5vh;
+      background: url(../assets/images/usercenter-bg.jpg); // height: 23.5vh;
       transform: translateY(-1px);
       background-size: contain;
       .avatar {
         padding: 10px;
+        img {
+          max-height: 6.8rem;
+          border-radius: 50%;
+        }
       }
       p {
         padding: 0 10%;

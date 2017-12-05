@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { ADDRESS_PAGE } from "../pages.constants";
 import { AddressProvider } from '../../providers/address/address';
 import { NativeProvider } from '../../providers/native';
@@ -22,7 +22,7 @@ export class AddressesPage {
   index: number;
   constructor(
     private navCtrl: NavController,
-    private navParams: NavParams,
+    //private navParams: NavParams,
     private addressPro: AddressProvider,
     private nativePro: NativeProvider
   ) {}

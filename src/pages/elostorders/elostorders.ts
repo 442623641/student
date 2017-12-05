@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LostProvider } from '../../providers/lost/lost';
 import { PAYMENT_PAGE, ELOSTUSAGE_PAGE, DOWNLINK_PAGE } from '../pages.constants';
-import { ElostguidePage } from '../elostguide/elostguide';
+//import { ElostguidePage } from '../elostguide/elostguide';
 import { Pageview } from '../../model/pageview';
 
 /**
@@ -33,7 +33,7 @@ export class ElostordersPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public lostPro: LostProvider,
-    private modalCtrl: ModalController
+    //private modalCtrl: ModalController
   ) {}
 
   ionViewDidLoad() {

@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NativeProvider } from '../../providers/native';
 import { LostProvider } from '../../providers/lost/lost';
-import { ELOSTGUIDE_PAGE } from '../pages.constants';
-
+import { ELOSTUSAGE_PAGE } from '../pages.constants';
+import { Clipboard } from '@ionic-native/clipboard';
+/* beautify ignore:start */
+//declare let Wechat: any;
+/* beautify ignore:end */
 /**
  * Generated class for the DownlinkPage page.
  * Add by leo zhang 201711010101
@@ -16,19 +20,21 @@ import { ELOSTGUIDE_PAGE } from '../pages.constants';
   templateUrl: 'downlink.html',
 })
 export class DownlinkPage {
-  pages: any = { guide: ELOSTGUIDE_PAGE, }
+  pages = { guide: ELOSTUSAGE_PAGE, }
   order: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public lostPro: LostProvider
+    public lostPro: LostProvider,
+    public clipboard: Clipboard,
+    private nativePro: NativeProvider
   ) {
     this.order = this.navParams.get('order');
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DownlinkPage');
+  openShare() {
+    let str = this.order.url + '  提取码：' + this.order.code;
+    this.clipboard.copy(str).then(res => this.nativePro.toast("\n  复制成功，快去粘贴下载吧  \n", 2500, 'center'));
   }
 
 }
