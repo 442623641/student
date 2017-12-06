@@ -20,7 +20,6 @@ export class AboutusPage {
    * child pages
    */
   pages:any={
-
   };
   constructor(
   	public navCtrl: NavController,
