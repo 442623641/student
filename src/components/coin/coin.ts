@@ -24,8 +24,8 @@ export class CoinComponent {
   ) {
     console.log('Hello CoinComponent Component');
     this.paymentPro.getLocalBalance().then(res => {
-      this.balanceValue = res;
-      this.balanceValue === undefined && this.paymentPro.balance();
+      res === undefined && this.paymentPro.balance();
+      this.balance = res;
     });
   }
 

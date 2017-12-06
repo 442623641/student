@@ -106,9 +106,7 @@ export class PersonalPage {
   save() {
     if (this.state) return;
     this.processing = false;
-    this.nativePro.confirm("确认保存吗，保存后不可更改？", ['取消',
-      '保存'
-    ]).then(res => {
+    this.nativePro.confirm("保存后不可更改？", ['取消', '保存'], '确认保存吗').then(res => {
       this.processing = !!res;
       if (!res) return;
 

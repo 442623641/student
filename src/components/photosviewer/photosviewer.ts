@@ -22,7 +22,7 @@ export class PhotosviewerComponent {
       let us = typeof item === "string" ? [item] : item.link || item.value;
       this.urls = this.urls.concat(us);
     });
-    console.log(this.urls);
+    //console.log(this.urls);
   }
 
 }

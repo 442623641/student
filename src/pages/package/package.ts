@@ -24,17 +24,17 @@ export class PackagePage {
   options: PackageOption[];
 
   constructor(
-    //private navCtrl: NavController,
     private navParams: NavParams,
     private packagePro: PackageProvider,
-    //private nativePro: NativeProvider,
     private modalCtrl: ModalController,
   ) {}
   ngOnInit() {
     this.packagePro.options().then(res => {
-      if (!res || !res.length) return;
+      if (!res || !res.length) return this.options = null;
       this.options = res;
-      this.tap(this.options[0]);
+      this.tap(res[0]);
+    }).catch(ex => {
+      this.options = null;
     });
   }
   balanceChange(event) {

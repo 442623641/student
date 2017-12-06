@@ -53,7 +53,7 @@ export class PaymentPage {
       }, error => {
         //this.paymentPro.achieve({ len: this.navCtrl.length(), result: res });
         this.callback('支付失败', error);
-        this.paymentPro.achieve({ len: this.navCtrl.length(), type: this.params.ordertype });
+        //this.paymentPro.achieve({ len: this.navCtrl.length(), type: this.params.ordertype });
         //console.log(this.payType + ' fail:' + res);
       });
       //get pay params from server side with sign.

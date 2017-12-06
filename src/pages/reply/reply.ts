@@ -23,7 +23,7 @@ export class ReplyPage {
   @ViewChild('content') content: Content;
   @ViewChild('subjectSlider') subjectSlider: Slides;
   @ViewChild('subjectCard') subjectCard: any;
-  lantern: boolean = true;
+  lantern: boolean;
   showNavButton: boolean;
   subjects: Subjecte[] = [];
   subjectIndex: number = 0;
@@ -52,11 +52,15 @@ export class ReplyPage {
 
   ionViewDidLoad() {
     this.showNavButton = this.navCtrl.getPrevious().id != REPORT_PAGE;
-    this.doctorPro.subject({ guid: this.exam.guid }).then(res => {
-      this.balls = res.subjects;
-      this.tucker(res.subject, res.subjects[this.subjectIndex]);
-      console.log(res);
-    });
+    setTimeout(() => {
+      this.lantern = true;
+      this.doctorPro.subject({ guid: this.exam.guid }).then(res => {
+        if (!res || !res.subjects || !res.subjects.length) return this.subjects = null;
+        this.balls = res.subjects;
+        this.fill(res.subject, res.subjects[this.subjectIndex]);
+        console.log(res);
+      }).catch(ex => {});
+    }, 350);
   }
 
   onSlideChanged(slider) {
@@ -64,6 +68,7 @@ export class ReplyPage {
     if (slider._activeIndex >= this.balls.length || slider._activeIndex < 0) {
       return;
     }
+
     this.subjectIndex = slider.getActiveIndex();
     //第一次加载
     this.getSubject(this.balls[this.subjectIndex]);
@@ -75,25 +80,19 @@ export class ReplyPage {
    *获取科目信息
    */
   getSubject(name: string) {
-    this.subjects[this.subjectIndex] ||
-      this.doctorPro.subject({ guid: this.exam.guid, subject: name }).then(res => this.tucker(res.subject, name));
+    this.subjects[this.subjectIndex] === undefined &&
+      this.doctorPro.subject({ guid: this.exam.guid, subject: name })
+      .then(res => {
+        if (!res || !res.subject) return this.subject = null;
+        this.fill(res.subject, name);
+      }).catch(ex => {
+        this.subject = null;
+      })
   }
 
-  tucker(subject: any, name: string) {
-
+  fill(subject: any, name: string) {
     this.subject = new Subjecte(name, subject);
-    if (this.balls.length > 1) {
-      setTimeout(() => {
-        this.subjectSlider.resize();
-        this.content.resize();
-        this.affixH = this.subjectSlider.container.offsetHeight;
-      }, 60);
-    } else {
-      setTimeout(() => {
-        this.affixH = this.subjectCard.nativeElement.offsetHeight;
-      }, 60);
-    }
-
+    setTimeout(() => this.affixH = this.subjectCard.nativeElement.offsetHeight, 60);
     this.topic(this.subject.categoryIndex);
 
   }
@@ -103,18 +102,19 @@ export class ReplyPage {
    */
   topic(index) {
     this.subject.categoryIndex = index;
-    if (this.subject.activity.fullString) {
+    if (this.subject.activity && this.subject.activity.fullString || this.subject.activity.fullString === null) {
       return;
     }
     this.doctorPro.topic({ guid: this.exam.guid, subject: this.subject.name, th: this.subject.activity.name }).then(res => {
       if (!res || !res.question) {
-        this.subject.activity = null;
+        //this.subject.activity.fullString=null;
+        //this.subject.activity = null;
         return;
       };
       this.subject.activity.merge(res.question);
     }).catch((ex) => {
       console.log(ex);
-      this.subject.activity = null;
+      //this.subject.activity = null;
     });
   }
 
@@ -135,6 +135,8 @@ export class ReplyPage {
       this.stickTopicHeader = event.scrollTop > this.affixH;
     });
   }
-
-
+  closeLantern() {
+    this.lantern = false;
+    setTimeout(() => this.balls.length > 1 && this.content.resize(), 480);
+  }
 }

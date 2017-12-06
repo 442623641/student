@@ -58,7 +58,8 @@ export class ElostpayPage {
         }).join(',')
       }
     });
-    console.log(this.eguids);
+    this.setPrice(this.price);
+    //console.log(this.eguids);
   }
 
   balanceChange(event) {

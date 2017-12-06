@@ -1,27 +1,5 @@
 page-sysmessages {
   .block {
-    // .row {
-    //   .col {
-    //     // .block-unread-circle {
-    //     //   content: "";
-    //     //   display: inline-block;
-    //     //   width: .8rem;
-    //     //   height: .8rem;
-    //     //   border-radius: .4rem;
-    //     //   background-color: #F76D50;
-    //     //   margin-right: .6rem;
-    //     // }
-    //     // .block-read-circle {
-    //     //   content: "";
-    //     //   display: inline-block;
-    //     //   width: .8rem;
-    //     //   height: .8rem;
-    //     //   border-radius: .4rem;
-    //     //   background-color: #414a60;
-    //     //   margin-right: .6rem;
-    //     // }
-    //   }
-    // }
     .item {
       min-height: 4rem;
     }
@@ -47,13 +25,10 @@ page-sysmessages {
           bottom: 0;
           right: 0;
           background: linear-gradient(to right, transparent, #fff 55%);
-          background: -webkit-linear-gradient(left, transparent, #fff 55%);
-          background: -o-linear-gradient(right, transparent, #fff 55%);
-          background: -moz-linear-gradient(right, transparent, #fff 55%);
           font-weight: bold;
           margin-left: 1px;
           letter-spacing: 4px;
-          color: color($colors, text);
+          color: color($colors, gray9);
           padding-left: 40px;
         }
       }

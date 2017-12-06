@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, NgZone } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ActionSheet, ActionSheetOptions, } from '@ionic-native/action-sheet';
+import { ActionSheet, ActionSheetOptions } from '@ionic-native/action-sheet';
 
 
 /**

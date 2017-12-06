@@ -12,7 +12,7 @@ import { Pageview } from '../../model/pageview';
 export class SysmessagesPage {
   view: Pageview;
   messages: any[];
-  end: boolean;
+  total: number;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -21,8 +21,8 @@ export class SysmessagesPage {
   ) {}
 
   ionViewDidLoad() {
-    this.doRefresh();
-  };
+    setTimeout(() => this.doRefresh(), 350);
+  }
 
   doRefresh(event ? ) {
     let exception = (res) => {
@@ -31,8 +31,8 @@ export class SysmessagesPage {
     }
     this.view = new Pageview({ viewindex: 1, viewlength: 10 });
     this.messagePro.message(this.view).then(res => {
-      if (!res || !res.length) return exception(res);
-      this.messages = res;
+      if (!res || !res.list || !res.list.length) return exception(res);
+      this.messages = res.list;
       event && event.complete();
     }).catch(ex => exception(ex))
   }
@@ -50,12 +50,8 @@ export class SysmessagesPage {
     this.view.viewindex++;
     this.messagePro.message(this.view).then(res => {
       event.complete();
-      if (!res || !res.length) return this.end = true;
       this.messages = this.messages.concat(res);
-
     }).catch(ex => event.complete());
   }
-
-
 
 }

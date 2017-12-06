@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { ClaimProvider } from '../../providers/claim/claim';
 //import { ExammodalPage } from '../exammodal/exammodal';
-import { ClaimmodalPage } from '../claimmodal/claimmodal';
+//import { ClaimmodalPage } from '../claimmodal/claimmodal';
 import { NativeProvider } from "../../providers/native";
 import { NotifyProvider } from '../../providers/notify/notify';
+import { CLAIMMODAL_PAGE } from '../pages.constants';
+
 /**
  * Generated class for the UnclaimedexamsPage page.
  * Add by chengyiling
@@ -45,7 +47,7 @@ export class ClaimPage {
   }
 
   openModal(item, papers) {
-    let modal = this.modalCtrl.create(ClaimmodalPage, { papers: papers, name: item.studentname });
+    let modal = this.modalCtrl.create(CLAIMMODAL_PAGE, { papers: papers, name: item.studentname });
     modal.present();
     modal.onDidDismiss(res => {
       if (!res || !res.code) return;

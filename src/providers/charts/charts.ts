@@ -56,7 +56,7 @@ export class ChartsProvider {
             formatter: [
               `{a|${score}}`,
               '{b|总分}',
-              `{c|领先了${percent*100}%的考生}`
+              `{c|领先了${(percent*100).toFixed(2)}%的考生}`
             ].join('\n'),
             rich: {
               a: {
@@ -412,7 +412,7 @@ export class ChartsProvider {
   /**
    *成绩趋势
    */
-  scoretrend(obj) {
+  scoretrend(obj, inverse ? ) {
     return {
       legend: {
         itemHeight: 10,
@@ -442,21 +442,22 @@ export class ChartsProvider {
         axisLine: {
           lineStyle: {
             color: this.colors.line
-          }
+          },
+          onZero: !inverse
         },
         splitLine: {
           lineStyle: {
             color: this.colors.line
           }
         },
-        data: obj.category
+        data: obj.category.map(item => { return item.length > 6 ? (item.substr(5) + '\n' + item.substr(0, 4)) + '年' : item })
       },
       yAxis: [{
           min: function(value) {
             return Math.max(value.min - 10, 0);
           },
           // max: 100,
-          name: "得分率 %",
+          name: inverse ? '排名' : "得分率 %",
           nameTextStyle: {
             color: this.colors.label
           },
@@ -475,6 +476,9 @@ export class ChartsProvider {
               color: this.colors.line
             }
           },
+          inverse: inverse,
+          nameLocation: inverse ? 'start' : 'end',
+          minInterval: 1,
         },
         {
           type: 'value',

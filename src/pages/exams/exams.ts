@@ -70,7 +70,7 @@ export class ExamsPage {
     this.examsPro.exams(this.view).then(res => {
       event.complete();
       this.exams = this.exams.concat(res);
-      console.log(res);
+      //console.log(res);
     }).catch(ex => {
       console.error(ex);
       event.complete();

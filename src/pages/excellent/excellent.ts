@@ -57,7 +57,7 @@ export class ExcellentPage {
 
   private refresh(shouldLoading ? : boolean) {
     let error = (ex) => {
-      console.error(ex);
+      //console.error(ex);
       this.nativePro.hideLoading();
       this.excellentsOpts = null;
       this.processing = false;

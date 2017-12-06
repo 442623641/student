@@ -32,7 +32,7 @@ export const UNCLAIMEDEXAMS_PAGE = 'UnclaimedexamsPage';
 
 export const EXCELLENT_PAGE = 'ExcellentPage';
 export const ENALYZING_PAGE = 'EnalyzingPage';
-
+export const ENALYZINGMODAL_PAGE = 'EnalyzingmodalPage';
 
 
 

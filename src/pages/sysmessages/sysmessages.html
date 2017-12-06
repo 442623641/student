@@ -15,7 +15,7 @@
           <ion-col text-left>
             <i [class.read]="item.state"></i> 系统通知
           </ion-col>
-          <ion-col text-right ion-text color="gray9">{{item.createdtime}}</ion-col>
+          <ion-col text-right ion-text color="gray9">{{item.createdtime|date:'yyyy年M月dd日 hh:mm'}}</ion-col>
         </ion-row>
         <div class="block-content" padding-horizontal padding-bottom-12>
           <h6 no-margin padding-bottom-12 padding-top class="font-weight-normal">{{item.title}}</h6>
@@ -26,7 +26,7 @@
         </div>
         <button ion-item no-lines (click)="message(item)">查看详情</button>
       </div>
-      <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!end">
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="messages.length<total">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ion-list>

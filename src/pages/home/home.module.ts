@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { HomePage } from './home';
 import { ExamsPageModule } from '../exams/exams.module';
-import { ClaimmodalPage } from '../claimmodal/claimmodal';
+//import { ClaimmodalPage } from '../claimmodal/claimmodal';
 //import { EnalyzingPageModule } from '../enalyzing/enalyzing.module';
 //import { PackagePageModule } from '../package/package.module';
 //import { ExcellentPageModule } from '../excellent/excellent.module';
@@ -21,7 +21,7 @@ import { DirectivesModule } from '../../directives/directives.module';
 @NgModule({
   declarations: [
     HomePage,
-    ClaimmodalPage,
+    //ClaimmodalPage,
   ],
   imports: [
     //EnalyzingPageModule,
@@ -35,9 +35,10 @@ import { DirectivesModule } from '../../directives/directives.module';
     DirectivesModule,
 
   ],
-  entryComponents: [
-    ClaimmodalPage
-  ],
+  // entryComponents: [
+ //   ClaimmodalPage
+ // ],
+
   // providers: [
   //   EnalyzingProvider,
   //   LostProvider,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { PaymentProvider } from '../../providers/payment/payment';
 import { NativeProvider } from '../../providers/native';
 import { CouponProvider } from '../../providers/coupon/coupon';
@@ -11,7 +11,7 @@ import { RECHARGE_PAGE, PACKAGE_PAGE } from '../pages.constants';
  * Ionic pages and navigation.
  */
 
-//@IonicPage()
+@IonicPage()
 @Component({
   selector: 'page-reportmodal',
   templateUrl: 'reportmodal.html',
@@ -23,7 +23,6 @@ export class ReportmodalPage {
   enough: boolean;
   balance: number;
   couponCount: number = 0;
-
 
   constructor(
     public navCtrl: NavController,

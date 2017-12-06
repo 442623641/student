@@ -112,17 +112,17 @@ export class NativeProvider {
    * @buttons 按钮
    * @return {Promise<T>}
    */
-  confirm = (msg: string = "确定这样做？", btns: Array < string >= ["取消", "确认"]) => {
+  confirm = (msg: string = "确定这样做？", btns: Array < string >= ["取消", "确认"], title: string = '') => {
     if (this.native) {
-      return this.isIos() ? this.dialogs.confirm("", msg, btns).then(btn => {
+      return this.isIos() ? this.dialogs.confirm(title ? msg : title, title ? title : msg, btns).then(btn => {
         return btn - 1
-      }) : this.dialogs.confirm(msg, "", btns).then(btn => {
+      }) : this.dialogs.confirm(msg, title, btns).then(btn => {
         return btn - 1
       });
     }
     return new Promise((resolve, reject) => {
       let confirm = this.alertCtrl.create({
-        title: null,
+        title: title,
         enableBackdropDismiss: false,
         subTitle: msg,
         buttons: [{

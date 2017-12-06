@@ -2,9 +2,9 @@ import { Component, ViewChild, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content, Slides, ModalController } from 'ionic-angular';
 import { DoctorProvider } from '../../providers/doctor/doctor';
 import { ChartsProvider } from '../../providers/charts/charts';
-import { TopicsPage } from '../topics/topics';
+// import { TopicsPage } from '../topics/topics';
 import { Subjecte } from '../../model/subjecte';
-import { REPORT_PAGE } from '../pages.constants';
+import { REPORT_PAGE, TOPICS_PAGE } from '../pages.constants';
 /**
  * Generated class for the DoctorPage page.
  * Add by Leo Zhang
@@ -67,7 +67,7 @@ export class DoctorPage {
       this.doctorPro.subject({ guid: this.exam.guid }).then(res => {
         if (!res || !res.subject || !res.subject.no || !res.subject.no.length) return this.subject = null;
         this.balls = res.subjects;
-        this.tucker(res.subject, res.subjects[this.subjectIndex]);
+        this.fill(res.subject, res.subjects[this.subjectIndex]);
         console.log(res);
         console.log(this.subjectSlider);
       }).catch(ex => {
@@ -95,11 +95,11 @@ export class DoctorPage {
   getSubject(name: string) {
     this.subjects[this.subjectIndex] ||
       this.doctorPro.subject({ guid: this.exam.guid, subject: name })
-      .then(res => this.tucker(res.subject, name))
+      .then(res => this.fill(res.subject, name))
       .catch(ex => console.error(ex));
   }
 
-  tucker(subject: any, name: string) {
+  fill(subject: any, name: string) {
 
 
     this.subject = new Subjecte(name, subject,
@@ -160,7 +160,7 @@ export class DoctorPage {
    *查看更多哦小题得分情况
    */
   openPercentModal() {
-    let modal = this.modalCtrl.create(TopicsPage, { options: this.chartsPro.percents(this.subject.no, this.subject.series) }, { enterAnimation: 'modal-md-slide-in', leaveAnimation: 'modal-md-slide-out' });
+    let modal = this.modalCtrl.create(TOPICS_PAGE, { options: this.chartsPro.percents(this.subject.no, this.subject.series) }, { enterAnimation: 'modal-md-slide-in', leaveAnimation: 'modal-md-slide-out' });
     modal.present();
   }
 

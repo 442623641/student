@@ -340,7 +340,7 @@ export class Subjecte {
   }
 
   set activity(data: Category) {
-    this.category[this.categoryIndex];
+    this.category[this.categoryIndex] = data;
   }
 
   get showAll() {

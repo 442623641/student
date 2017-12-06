@@ -6,25 +6,26 @@ import { PipesModule } from '../../pipes/pipes.module';
 import { EchartsNg2Module } from 'echarts-ng2';
 import { ComponentsModule } from '../../components/components.module';
 // import { MreportComponent } from '../../components/mreport/mreport';
-import { ReportmodalPage } from '../reportmodal/reportmodal';
+import { ReportmodalPageModule } from '../reportmodal/reportmodal.module';
 
 //import { ScrollheaderComponent } from '../../components/scrollheader/scrollheader';
 
 @NgModule({
   declarations: [
     ReportPage,
-    ReportmodalPage
+    // ReportmodalPage,
   ],
   imports: [
+    // IonicPageModule.forChild(ReportmodalPage),
     IonicPageModule.forChild(ReportPage),
     // ReportmodalPageModule,
     EchartsNg2Module,
     ComponentsModule,
     PipesModule,
-
+    ReportmodalPageModule,
   ],
-  entryComponents: [
-    ReportmodalPage
-  ]
+  // entryComponents: [
+  //   ReportmodalPage
+  // ]
 })
 export class ReportPageModule {}

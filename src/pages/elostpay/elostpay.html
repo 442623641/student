@@ -72,7 +72,7 @@
     <p class="break" text-right>还需冲值<span primary>{{order.dvalue}}</span>学贝
       <br>小计：<span primary>{{order.dvalue/10}}</span>元（1元=10学贝）</p>
   </div>
-  <coupon type="3" [value]="order.value" (onChange)="couponChange($event)" (fulfill)="complete($event)"></coupon>
+  <coupon type="3" [value]="order.value" (onChange)="couponChange($event)"></coupon>
 </ion-content>
 <ion-footer no-border>
   <ion-toolbar no-padding color="white">

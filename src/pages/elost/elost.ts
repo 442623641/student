@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, ViewController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, ViewController, Content } from 'ionic-angular';
 import { LostProvider } from '../../providers/lost/lost';
 import { Elost } from '../../model/elost';
 import { LOSTOPTION_PAGE, ELOSTORDERS_PAGE, ELOSTPAY_PAGE } from '../pages.constants';
@@ -16,7 +16,7 @@ import { PaymentProvider } from '../../providers/payment/payment';
   templateUrl: 'elost.html',
 })
 export class ElostPage {
-  //@ViewChild('content') content: Content;
+  @ViewChild('content') content: Content;
   showTips: boolean;
   /**
    *科目列表

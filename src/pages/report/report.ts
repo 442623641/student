@@ -4,8 +4,7 @@ import { ExamsProvider } from '../../providers/exams/exams';
 import { ChartsProvider } from '../../providers/charts/charts';
 import { PaymentProvider } from '../../providers/payment/payment';
 import { ReportOptions, ReportCategory } from '../../model/report';
-import { DOCTOR_PAGE, PACKAGE_PAGE, RECHARGE_PAGE } from '../pages.constants';
-import { ReportmodalPage } from '../reportmodal/reportmodal';
+import { DOCTOR_PAGE, PACKAGE_PAGE, RECHARGE_PAGE, REPORTMODAL_PAGE } from '../pages.constants';
 /**
  * Generated class for the ReportPage page.
  *
@@ -44,15 +43,15 @@ export class ReportPage {
   ionViewDidLoad() {
     setTimeout(() => {
 
-    this.exam = this.navParams.data;
-    this.showNavButton = this.navCtrl.getPrevious().id != DOCTOR_PAGE && this.exam.payment;
-    this.getReport(this.reportIndex).then(res => {
-      this.categorys = ReportCategory.filter(item => { return item.code <= res.level }).reverse();
-      this.categorysValue = this.categorys.map(item => { return item.name });
-      this.exam.payment || this.openPackageModal();
-      this.content.resize();
-      console.log(this.report);
-    });
+      this.exam = this.navParams.data;
+      this.showNavButton = this.navCtrl.getPrevious().id != DOCTOR_PAGE && this.exam.payment;
+      this.getReport(this.reportIndex).then(res => {
+        this.categorys = ReportCategory.filter(item => { return item.code <= res.level }).reverse();
+        this.categorysValue = this.categorys.map(item => { return item.name });
+        this.exam.payment || this.openPackageModal();
+        this.content.resize();
+        console.log(this.report);
+      });
     }, 550);
   }
 
@@ -60,7 +59,7 @@ export class ReportPage {
    *查看
    */
   openPackageModal() {
-    let modal = this.modalCtrl.create(ReportmodalPage, { guid: this.exam.guid });
+    let modal = this.modalCtrl.create(REPORTMODAL_PAGE, { guid: this.exam.guid });
     modal.present();
     modal.onDidDismiss((res = {}) => {
       this.exam.payment = res.payment;
@@ -159,7 +158,7 @@ export class ReportPage {
       subject: name
     }).then(res => {
       if (!res) this.report.activityRanktrends = null;
-      this.report.activityRanktrends = this.chartsPro.scoretrend(res);
+      this.report.activityRanktrends = this.chartsPro.scoretrend(res, true);
       //console.log(res);
     }).catch(ex => this.report.activityRanktrends = null);
   }
@@ -173,20 +172,22 @@ export class ReportPage {
     }
     this.report.activityScoretrends = undefined;
     this.examsPro.scoretrend({
-      guid: this.exam.guid,
-      level: this.report.level,
-      subject: name
-    }).then(res => {
-      if (!res) this.report.activityScoretrends = null;
-      this.report.activityScoretrends = this.chartsPro.scoretrend(res);
-      //console.log(res);
-    }).catch(ex => this.report.activityScoretrends = null);
+        guid: this.exam.guid,
+        level: this.report.level,
+        subject: name
+      })
+      .then(res => {
+        if (!res) this.report.activityScoretrends = null;
+        this.report.activityScoretrends = this.chartsPro.scoretrend(res);
+        //console.log(res);
+      })
+      .catch(ex => this.report.activityScoretrends = null);
   }
 
   doInfinite() {
     this.infinites[this.reportIndex] = false;
-    this.ranktrends(this.report.subjects[0]);
-    this.scoretrends(this.report.subjects[1]);
+    this.report.scoreSubjects.length && this.ranktrends(this.report.scoreSubjects[0]);
+    this.report.rankSubjects.length && this.scoretrends(this.report.rankSubjects[0]);
     this.comranks(this.report.subjects[0]);
     //console.log(event);
   }

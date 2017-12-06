@@ -1,5 +1,20 @@
 page-reply {
   @extend page-doctor;
+  .topics loading .row {
+    height: auto;
+  }
+  .swiper loading .row{}
+  .sub-header {
+    iscroll {
+      max-height: 45px;
+      transition: max-height .3s .2s;
+    }
+    &.inactive iscroll {
+      max-height: 0;
+      transition: max-height .3s .1s;
+    }
+  }
+
   .footer {
     background: #ffbe40;
     padding: 16px 16px 0 16px;

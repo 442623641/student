@@ -2,11 +2,10 @@ import { Component, ViewChild, NgZone } from '@angular/core';
 import { IonicPage, Content, ModalController, ViewController, NavController } from 'ionic-angular';
 import { EnalyzingOptions, EOptions } from '../../model/enalyzing';
 import { Times } from '../../model/times';
-import { PACKAGE_PAGE } from '../pages.constants';
+import { PACKAGE_PAGE, ENALYZINGMODAL_PAGE } from '../pages.constants';
 import { EnalyzingProvider } from '../../providers/enalyzing/enalyzing';
 import { NativeProvider } from '../../providers/native';
 import { PaymentProvider } from '../../providers/payment/payment';
-import { EnalyzingmodalPage } from '../enalyzingmodal/enalyzingmodal';
 /**
  * Generated class for the EnalyzingPage page.
  * Add by leo zhang 201710010101
@@ -23,7 +22,6 @@ export class EnalyzingPage {
   pages = { package: PACKAGE_PAGE };
   @ViewChild('content') content: Content;
   times = Times;
-  processing: boolean;
   showMenu: boolean;
 
   affixs: any = [];
@@ -67,24 +65,24 @@ export class EnalyzingPage {
 
   save() {
     this.showMenu = false;
-    if (this.processing || this.enalyzingOpt.option.subject == this.tempOption.subject && this.enalyzingOpt.option.month == this.tempOption.month) return;
+    if (this.enalyzingOpt.option.subject == this.tempOption.subject && this.enalyzingOpt.option.month == this.tempOption.month) return;
     this.enalyzingOpt.option = this.tempOption.clone();
     setTimeout(() => this.subject(), 300);
   }
 
   subject() {
-    this.processing = true;
     this.enalyzingPro && this.nativePro.showLoading();
     this.enalyzingPro.topics(this.enalyzingOpt.option).then(res => {
       this.enalyzingOpt = new EnalyzingOptions(res, this.enalyzingOpt.option);
       this.affix();
       this.package = true;
       this.nativePro.hideLoading();
-      this.processing = false;
       this.openPackageModal();
 
-      console.log(this.enalyzingOpt);
-    });
+      //console.log(this.enalyzingOpt);
+    }).catch(ex => {
+      this.nativePro.hideLoading();
+    })
   }
 
 
@@ -95,7 +93,7 @@ export class EnalyzingPage {
       for (var i = 0; i < affixs.length; i++) {
         this.affixs.push(affixs[i].offsetTop);
       }
-      console.log(this.affixs);
+      //console.log(this.affixs);
     }, 300);
   }
 
@@ -122,7 +120,7 @@ export class EnalyzingPage {
       subject: this.enalyzingOpt.option.subject,
       nos: item.excellent,
     }).then(res => {
-      if (res.length) return error();
+      if (!res.length) return error();
       let imgs = [];
       res.forEach(x =>
         x.link && x.link.forEach(y =>
@@ -143,8 +141,9 @@ export class EnalyzingPage {
    *准备移除
    */
   remove(que: any) {
-    this.nativePro.confirm('要继续删除吗，删除后不可恢复', ['取消', '删除']).then(btn => que.delete = !btn);
+    this.nativePro.confirm('删除后不可恢复', ['取消', '删除'], '确认删除吗').then(btn => que.delete = btn);
   }
+
   /**
    *移除
    */
@@ -177,7 +176,7 @@ export class EnalyzingPage {
    */
   openPackageModal() {
     if (!this.enalyzingOpt.unauthorized || this.enalyzingOpt.unauthorized == this.enalyzingOpt.total) return;
-    let modal = this.modalCtrl.create(EnalyzingmodalPage, { option: { total: this.enalyzingOpt.total, unauthorized: this.enalyzingOpt.unauthorized } });
+    let modal = this.modalCtrl.create(ENALYZINGMODAL_PAGE, { option: { total: this.enalyzingOpt.total, unauthorized: this.enalyzingOpt.unauthorized } });
     modal.present();
     modal.onDidDismiss(res => res && res.open &&
       this.navCtrl.push(PACKAGE_PAGE).then(() => {

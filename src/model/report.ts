@@ -114,6 +114,7 @@ export class ReportOptions {
   rankSubjects: string[];
 
   constructor(obj: any = { percent: 0, level: 1, studentCount: 1, scores: [], levelanalysis: null, learnanalysis: null, payment: false }) {
+    this.percent = obj.percent;
     this.level = obj.level;
     this.studentCount = obj.studentCount;
     this.scores = obj.scores;

@@ -78,9 +78,9 @@ export class CouponComponent {
     this.params = { isexpired: 0, type: this.type };
     this.couponPro.getlist(this.params).then(res => {
       this.inited = true;
-      console.log(res);
+      //console.log(res);
       if (!res || !res.list || !res.list.length) {
-        this.coupons = null;
+        this.coupons = [];
         return this.emit({ amount: this.dvalue, couponName: '无可用优惠劵' });
       }
       this.coupons = res.list;

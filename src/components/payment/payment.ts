@@ -18,7 +18,7 @@ export class PaymentComponent {
   @Input() amount: number = 0;
   @Input() options: PaymentOption; // { amount: 0, ordertype: 'package' }; //{ amount: number, coupon: string, coin: number, type: string, biz: any };
   @Output() fulfill: EventEmitter < any > = new EventEmitter();
-  @Input() min: number=0;
+  @Input() min: number = 0;
   @Input() disabled: boolean;
   processing: boolean;
   orderCode: string;
@@ -42,7 +42,7 @@ export class PaymentComponent {
           if (!res || !res.ordercode) return this.catchError(res);
           this.orderCode = res.ordercode;
           this.toPayment();
-          console.log(res);
+          //console.log(res);
         }).catch(ex => this.catchError(ex))
 
     } else {
@@ -54,7 +54,7 @@ export class PaymentComponent {
     }
   }
   catchError(res ? ) {
-    console.error(res);
+    //console.error(res);
     this.processing = false;
     this.nativePro.toast(res.message || '订单生成失败，请稍后再试');
   }

@@ -5,8 +5,8 @@
     </a>
     <img [src]="url">
   </ion-col>
-  <a (click)="picker()" *ngIf='items.length<3' col-2>
+  <a (click)="picker()" *ngIf='urls.length<3' col-2>
     <ion-icon name="ios-camera-outline"></ion-icon>
-    <p class="count">{{items.length}}/3 </p>
+    <p class="count">{{urls.length}}/3 </p>
   </a>
 </ion-row>

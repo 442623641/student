@@ -35,18 +35,22 @@ export class CouponPage {
   }
   ionViewDidLoad() {
     //是否需要加载列表数据
-    this.coupons = this.navParams.get('coupons') || [];
     this.checked = this.navParams.get('checked');
-    this.showButton = !!this.coupons.length;
-    this.showButton || (this.setChecked = () => {});
-    this.coupons.length || this.doRefresh();
+    this.coupons = this.navParams.get('coupons');
+    if (!this.coupons) {
+      this.doRefresh();
+      this.setChecked = () => {}
+    } else {
+      this.showButton = true;
+      this.coupons.length || (this.coupons = null);
+    }
   }
 
   /**
    *获取优惠券列表
    */
   doRefresh(event ? ) {
-    this.view = Object.assign(new Pageview({ viewindex: 1, viewlength: 10 }), this.view);
+    this.view = Object.assign(new Pageview({ viewindex: 1, viewlength: 10 }), this.view, { isexpired: true });
     this.couponpro.getlist(this.view).then(res => {
       event && event.complete();
       if (!res || !res.list || !res.list.length) return this.coupons = null;

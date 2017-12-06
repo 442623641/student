@@ -120,13 +120,15 @@ export class EnalyzingOptions {
   option: EOptions;
 
   constructor(obj ? , opt ? : any) {
-    if (!obj || !obj.exams.length) {
+    if (!obj) {
       this.state = null;
       return;
     }
-    this.state = true;
+    this.state = obj.exams.length ? true : null;
+    this.option = new EOptions(opt);
     this.total = obj.total;
     this.unauthorized = obj.count;
+
     this.option = new EOptions(opt);
     this.append(obj);
   }
@@ -139,7 +141,7 @@ export class EnalyzingOptions {
     this.exams = this.exams || [];
     this.option.month = month || this.option.month;
     this.page = { index: obj.index || 0, noindex: obj.noindex || 0, viewLength: 5 };
-    this.end = obj.isend;
+    this.end = obj.end;
     this.exams = this.exams.concat(obj.exams.map(item => {
       return new ExamOptions(item);
     }));

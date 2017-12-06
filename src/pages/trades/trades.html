@@ -8,7 +8,8 @@
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
-  <ng-template [ngIf]="trades" [ngIfElse]="loading">
+  <loading [status]="trades" *ngIf="!trades;else entry"></loading>
+  <ng-template #entry>
     <ion-list no-lines>
       <ion-item no-lines>
         <ion-label item-start>当前余额</ion-label>
@@ -27,11 +28,8 @@
         </div>
       </ion-item>
     </ion-list>
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!end">
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="trades.length<total">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
-  </ng-template>
-  <ng-template #loading>
-    <loading [status]="trades"></loading>
   </ng-template>
 </ion-content>

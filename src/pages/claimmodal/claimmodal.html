@@ -8,11 +8,11 @@
   <ion-card-header>
     系统发现 {{options.length}} 个 {{name}} ，请左右活动图片选择属于本人的考试信息
   </ion-card-header>
-  <ion-card-content no-padding>
+  <ion-card-content no-padding [imgviewer]="{title:item.studentname,images:options}">
     <!-- <h6>系统发现{{ num }}个{{ name }}，请左右活动图片选择属于本人的考试信息</h6> -->
     <ion-slides [pager]="options.length>1" (ionSlideDidChange)="slideChanged($event)">
       <ion-slide *ngFor="let item of options">
-        <img-lazy [src]="item.link" [imgviewer]="{title:item.studentname,images:item.link}"></img-lazy>
+        <img-lazy [src]="item.link" [alt]="item.code"></img-lazy>
       </ion-slide>
     </ion-slides>
   </ion-card-content>

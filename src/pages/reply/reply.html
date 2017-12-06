@@ -13,74 +13,86 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  <div *ngIf="balls.length>1||stickTopicHeader" [class.transformY-45]="stickTopicHeader&&balls.length>1" class="sub-header" line-bottom>
+  <div *ngIf="(balls.length>1||stickTopicHeader)" [class.transformY-45]="stickTopicHeader&&balls.length>1" class="sub-header" line-bottom [class.inactive]="lantern">
     <scroll-header [items]="balls" (selectedChange)="subjectSlider.slideTo($event)" *ngIf="balls.length>1" line-bottom></scroll-header>
     <ion-row class="topics-header" *ngIf="stickTopicHeader">
-      <a col-3 class="fixed-button" (tap)="subject.showAll=!subject.showAll">{{subject.showAll?'查看错题':'查看全部'}}</a>
+      <a col-3 class="fixed-button" *ngIf="subjects[subjectIndex].diff" (click)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll">{{subjects[subjectIndex].showAll?'查看错题':'查看全部'}}</a>
       <ion-col no-padding>
-        <scroll-header [items]="subject.nos" [(selected)]="subject.categoryIndex" (selectedChange)="topic($event)"></scroll-header>
+        <scroll-header [items]="subjects[subjectIndex].nos" [(selected)]="subjects[subjectIndex].categoryIndex" (selectedChange)="topic($event)"></scroll-header>
       </ion-col>
     </ion-row>
   </div>
 </ion-header>
 <ion-content #content [fullscreen]="true" (ionScroll)="scrollHandler($event)" padding-bottom>
-  <ng-template [ngIf]="subject" [ngIfElse]="loading">
-    <ng-template [ngIf]="balls.length>1" [ngIfElse]="noslider">
-      <ion-slides #subjectSlider (ionSlideDidChange)="onSlideChanged($event)">
-        <ion-slide *ngFor="let ball of balls">
-          <div class="card origin" *ngIf="subject?.name">
-            <ion-row class="card-header" justify-content-between>
-              <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
-            </ion-row>
-            <img-lazy [src]='subject.paper'></img-lazy>
-          </div>
+  <loading [status]="subjects" *ngIf="!subjects;else entry"></loading>
+  <ng-template #entry>
+    <div class="card origin" *ngIf="balls.length<2;else slider" #subjectCard>
+      <ion-row class="card-header" justify-content-between>
+        <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
+      </ion-row>
+      <img-lazy [src]='subjects[subjectIndex]?.paper'></img-lazy>
+    </div>
+    <ng-template #slider>
+      <ion-slides (ionSlideDidChange)="onSlideChanged($event)" #subjectSlider>
+        <ion-slide *ngFor="let ball of balls;let i =index;">
+          <loading [status]="subjects[i]" *ngIf="!subjects[i];else entryCard"></loading>
+          <ng-template #entryCard>
+            <ng-container *ngIf="subjects[i]?.name">
+              <div class="card origin" #subjectCard>
+                <ion-row class="card-header" justify-content-between>
+                  <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
+                </ion-row>
+                <img-lazy [src]='subjects[i]?.paper'></img-lazy>
+              </div>
+            </ng-container>
+          </ng-template>
         </ion-slide>
       </ion-slides>
     </ng-template>
-    <ng-template #noslider>
-      <div class="card origin" *ngIf="subject?.name" #subjectCard>
+    <!--  <ng-template #noslider>
+      <div class="card origin" *ngIf="subjects[subjectIndex]?.name" #subjectCard>
         <ion-row class="card-header" justify-content-between>
           <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
         </ion-row>
-        <img-lazy [src]='subject.paper'></img-lazy>
+        <img-lazy [src]='subjects[subjectIndex].paper'></img-lazy>
       </div>
-    </ng-template>
+    </ng-template> -->
     <!-- </div> -->
-    <div class="topics" *ngIf="subject?.name&&subject.category?.length">
+    <div class="topics" *ngIf="subjects[subjectIndex]?.name&&subject.category?.length">
       <ion-row class="topics-header" line-bottom *ngIf="!stickTopicHeader">
-        <a col-2 class="fixed-button" (click)="subject.showAll=!subject.showAll">{{subject.showAll?'错题':'全部'}}</a>
+        <a col-2 class="fixed-button" (click)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll" *ngIf="subjects[subjectIndex].diff">{{subjects[subjectIndex].showAll?'错题':'全部'}}</a>
         <ion-col no-padding>
-          <scroll-header [items]="subject.nos" [(selected)]="subject.categoryIndex" (selectedChange)="topic($event)"></scroll-header>
+          <scroll-header [items]="subjects[subjectIndex].nos" [(selected)]="subjects[subjectIndex].categoryIndex" (selectedChange)="topic($event)"></scroll-header>
         </ion-col>
       </ion-row>
-      <ng-template [ngIf]="subject.activity" [ngIfElse]="loadinga">
-        <div class="topics-content" *ngIf="subject.activity">
+      <ng-template [ngIf]="subjects[subjectIndex].activity" [ngIfElse]="loadinga">
+        <div class="topics-content" *ngIf="subjects[subjectIndex].activity">
           <div class="topics-item">
             <p footer>
-              满分：<span color="primary" ion-text>{{subject.activity.fullString}}</span>分&nbsp;&nbsp;&nbsp;我的得分：<span color="primary" ion-text>{{subject.activity.scoreString}}</span>分&nbsp;&nbsp;&nbsp;难度：<span color="primary" ion-text>{{subject.activity.levelString}}</span>
+              满分：<span color="primary" ion-text>{{subjects[subjectIndex].activity.fullString}}</span>分&nbsp;&nbsp;&nbsp;我的得分：<span color="primary" ion-text>{{subjects[subjectIndex].activity.scoreString}}</span>分&nbsp;&nbsp;&nbsp;难度：<span color="primary" ion-text>{{subjects[subjectIndex].activity.levelString}}</span>
             </p>
-            <p line-top footer *ngIf="subject.activity.objective&&subject.activity.reply?.length">
-              我的答案：<span ion-text [color]="primary">{{subject.activity.replyString}}</span>&nbsp;
+            <p line-top footer *ngIf="subjects[subjectIndex].activity.objective&&subjects[subjectIndex].activity.reply?.length">
+              我的答案：<span ion-text [color]="primary">{{subjects[subjectIndex].activity.replyString}}</span>&nbsp;
               <ion-icon name="checkmark"></ion-icon>&nbsp;&nbsp;&nbsp; 正确答案：
-              <span>{{subject.activity.answerString}}</span>
+              <span>{{subjects[subjectIndex].activity.answerString}}</span>
             </p>
           </div>
-          <div class="topics-item" *ngIf="!subject.activity.objective&&subject.activity.reply?.length">
+          <div class="topics-item" *ngIf="!subjects[subjectIndex].activity.objective&&subjects[subjectIndex].activity.reply?.length">
             <p line-bottom>我的答案</p>
             <div class="item-content">
-              <img-lazy [src]="reply.link" *ngFor="let reply of subject.activity.reply"></img-lazy>
+              <img-lazy [src]="reply.link" *ngFor="let reply of subjects[subjectIndex].activity.reply"></img-lazy>
             </div>
           </div>
         </div>
       </ng-template>
       <ng-template #loadinga>
-        <loading [status]="subject.activity"></loading>
+        <loading [status]="subjects[subjectIndex].activity"></loading>
       </ng-template>
     </div>
   </ng-template>
-  <ng-template #loading>
-    <loading [status]="subject"></loading>
-  </ng-template>
+  <!--  <ng-template #loading>
+    <loading [status]="subjects[subjectIndex]"></loading>
+  </ng-template> -->
   <ion-footer text-center>
     <p>
       <button ion-button block round [navPush]="pages.package">开通学情套餐&nbsp;&nbsp;查看错题诊断</button>
@@ -92,7 +104,7 @@
   <transition name="lantern" [if]="lantern">
     <div class="lantern">
       <p><span>深入挖掘</span>
-        <a (click)="lantern=false" float-right padding-horizontal>
+        <a (click)="closeLantern()" float-right padding-horizontal>
           <ion-icon name="close"></ion-icon>
         </a>
       </p>
