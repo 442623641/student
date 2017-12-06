@@ -19,7 +19,7 @@ export class ExamsProvider {
    *考试列表
    */
   exams(page: Pageview) {
-    return this.http.get('exam');
+    return this.http.get('exam', page);
   }
 
   /**

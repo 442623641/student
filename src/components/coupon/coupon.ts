@@ -15,8 +15,8 @@ import { PaymentProvider } from '../../providers/payment/payment';
 export class CouponComponent {
   //inited: boolean;
   page = COUPON_PAGE;
-  coupon: any = { couponCode: null, couponType: 1, money: 0, amount: 0 };
-  coupons: any[] = [];
+  coupon: any = { couponType: 1, money: 0, amount: 0 };
+  coupons: any[];
   params: any;
   _value: number;
   balance: number = 0;
@@ -35,7 +35,6 @@ export class CouponComponent {
   set value(val: number) {
     if (!val) return;
     if (!this.inited && this.type != 2) {
-      this.inited = true;
       this.paymentPro.getLocalBalance().then(res => {
         this.balance = res;
         this.check(val);
@@ -55,7 +54,7 @@ export class CouponComponent {
     this.subscribe = this.couponPro.checked$.subscribe(res => {
       this.emit(res ? Object.assign(res, {
         amount: Math.max(res.couponType > 0 ? (this.dvalue - res.money * 10) : this.dvalue * res.rate, 0)
-      }) : { couponCode: null, amount: this.dvalue, couponName: '选择优惠劵' })
+      }) : { amount: this.dvalue, couponName: '选择优惠劵' })
     });
   }
 
@@ -73,19 +72,22 @@ export class CouponComponent {
    *优惠劵列表
    */
   private getCoupons() {
-    if (this.coupons && this.coupons.length) {
+    if (this.inited) {
       return this.matriculate();
     }
     this.params = { isexpired: 0, type: this.type };
     this.couponPro.getlist(this.params).then(res => {
+      this.inited = true;
       console.log(res);
       if (!res || !res.list || !res.list.length) {
         this.coupons = null;
-        return this.emit({ couponCode: null, amount: this.dvalue, couponName: '无可用优惠劵' });
+        return this.emit({ amount: this.dvalue, couponName: '无可用优惠劵' });
       }
       this.coupons = res.list;
       this.matriculate();
-    });
+    }).catch(ex => {
+      this.inited = true;
+    })
   }
 
   /**
@@ -105,7 +107,7 @@ export class CouponComponent {
     return this.emit(Object.assign({}, { amount: Math.max(money, 0) }, this.coupons[index]));
   }
 
-  emit(coupon: any = { couponCode: null, amount: 0 }) {
+  emit(coupon: any = { amount: 0 }) {
     if (this.coupon.couponCode == coupon.couponCode && this.coupon.amount == coupon.amount) return;
     this.coupon = coupon;
     this.onChange.emit({ couponCode: coupon.couponCode, amount: parseFloat((coupon.amount).toFixed(1)) });

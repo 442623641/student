@@ -62,7 +62,7 @@ export class PaymentPage {
   }
   callback(msg: string, res ? ) {
     console.log(res);
-    this.nativePro.toast(msg);
+    this.nativePro.prompt(msg);
     this.processing = false;
   }
 }

@@ -34,7 +34,7 @@ export class DownlinkPage {
   }
   openShare() {
     let str = this.order.url + '  提取码：' + this.order.code;
-    this.clipboard.copy(str).then(res => this.nativePro.toast("\n  复制成功，快去粘贴下载吧  \n", 2500, 'center'));
+    this.clipboard.copy(str).then(res => this.nativePro.prompt("复制成功，快去粘贴下载吧"));
   }
 
 }

@@ -12,10 +12,15 @@
       transform: translateY(-1px);
       background-size: contain;
       .avatar {
-        padding: 10px;
+        background: #fff;
+        height: 6.5rem;
+        width: 6.5rem;
+        border-radius: 50%;
+        margin: 10px auto;
+        padding: 10px 0 0 0;
+        text-align: center;
         img {
-          max-height: 6.8rem;
-          border-radius: 50%;
+          max-height: 100%;
         }
       }
       p {
@@ -26,11 +31,7 @@
       }
     }
     ion-item-group {
-      margin-top: 20px; // .item>ion-icon,
-      // .item-inner>ion-icon {
-      //   min-height: 2.2rem;
-      //   font-size: 2.2rem;
-      // }
+      margin-top: 20px;
       .item-ios ion-icon[item-left],
       .item-ios ion-icon[item-right],
       .item-ios ion-icon[item-start],

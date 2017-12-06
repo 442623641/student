@@ -46,11 +46,6 @@ export class HomePage {
     claim: CLAIM_PAGE
   }
   @ViewChild('ball') ballEl: any;
-  // private optionWaterball: any;
-  // private scene: any;
-  // private pieOption: any;
-  // private state: number = 0;
-
   /*
   学情套餐信息
   */
@@ -104,6 +99,13 @@ export class HomePage {
   }
 
   open(should) {
+    //if (1) {
+    //   return this.nativePro.share().then(res => {
+    //     console.log(res);
+    //   }).catch(ex => {
+    //     console.log(ex);
+    //   })
+    //}
     this.navCtrl.push(this.pages.package, { guide: !this.package.open });
     this.packageSub && this.packageSub.unsubscribe();
     this.listen = this.paymentPro.achieve$.subscribe(res => {

@@ -7,11 +7,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>已购错题本</ion-title>
-    <ion-buttons end>
+    <!-- <ion-buttons end>
       <button ion-button [navPush]="pages.usage">帮助&nbsp;
         <ion-icon name="help-circle"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-navbar>
 </ion-header>
 <ion-content>
@@ -22,23 +22,29 @@
   <ng-template #entry>
     <ion-list>
       <ion-card *ngFor="let item of orders">
-        <ion-card-header line-bottom>
-          订单号：{{item.ordercode}}
-        </ion-card-header>
+        <button ion-item (click)="share(item)" *ngIf="item.code;else processing">订单号：{{item.ordercode}}
+          <ion-note item-right>分享下载地址</ion-note>
+        </button>
+        <ng-template #processing>
+          <ion-item>
+            订单号：{{item.ordercode}}
+            <ion-note item-right>正在生成...</ion-note>
+          </ion-item>
+        </ng-template>
         <ion-card-content>
           <p padding-top-10>订购科目：{{item.km}}</p>
           <p>订购类型：{{item.type}}</p>
           <p>消耗学贝：{{item.money}}学贝</p>
-          <p>下单时间：{{item.time}}</p>
+          <p>下单时间：{{item.time|date:'yyyy年M月dd日 hh:mm'}}</p>
         </ion-card-content>
-        <p text-right class="card-footer" line-top [ngSwitch]="!!item.code">
+        <!-- <p text-right class="card-footer" line-top [ngSwitch]="!!item.code">
           <ion-chip *ngSwitchCase="false" color="gray9">
             <ion-spinner color="white" item-left></ion-spinner>
             <ion-label padding-right-12>正在生成...</ion-label>
           </ion-chip>
           <button ion-button round [navPush]="pages.downlink" [navParams]="{order:item}" *ngSwitchCase="true">
             查看下载地址</button>
-        </p>
+        </p> -->
       </ion-card>
     </ion-list>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!end">

@@ -19,7 +19,7 @@ export class TabsPage {
   msgCount: number = 0;
 
   constructor(notifyPro: NotifyProvider) {
-    notifyPro.statistics().catch();
+    notifyPro.statistics().catch(ex => { console.log(ex) });
     notifyPro.count$.subscribe(res => this.msgCount = res);
   }
 

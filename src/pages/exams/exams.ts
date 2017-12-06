@@ -42,12 +42,13 @@ export class ExamsPage {
   ) {}
 
   ionViewDidLoad() {
+    //this.doRefresh();
     setTimeout(() => this.doRefresh(), 300);
   }
 
   doRefresh(event ? ) {
 
-    this.view = new Pageview();
+    this.view = new Pageview({ viewindex: 1, viewlength: 10 });
     let error = (res) => {
       console.error(res);
       this.latest = null;
@@ -57,6 +58,7 @@ export class ExamsPage {
     this.examsPro.exams(this.view).then(res => {
       if (!res || !res.latest) return error(res);
       this.latest = res.latest;
+      this.total = res.total;
       this.waterball = this.chartsPro.ball(this.latest.percent, this.latest.score);
       this.exams = res.exams;
       event && event.complete();

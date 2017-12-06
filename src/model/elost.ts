@@ -34,7 +34,8 @@ export class Elost {
 
     this.name = obj.name;
     this.count = obj.count;
-    this.type = obj.type || 0;
+    this.type = obj.type === undefined ? 1 : obj.type;
+
     obj.exams && obj.exams.length && this.append(obj.exams, obj.end, obj.index);
   }
 
@@ -99,7 +100,7 @@ export class LostOptions {
   score: number
   timekey ? : string;
   checked ? : boolean;
-  studentCode ? : string;
+  studentcode ? : string;
 
   constructor(obj) {
     this.name = obj.name;
@@ -110,7 +111,7 @@ export class LostOptions {
     this.score = obj.score;
     this.timekey = obj.timekey;
     this.checked = obj.checked;
-    obj.studentCode && (this.studentCode = obj.studentCode);
+    obj.studentcode && (this.studentcode = obj.studentcode);
   }
 }
 
@@ -161,7 +162,7 @@ export class LostParams {
       return {
         money: item.money,
         name: item.name,
-        count: item.icheckeds,
+        count: item.pagenum,
         promote: item.promote,
         examguids: item.exams.map(item => { return item.guid }).join(',')
       }

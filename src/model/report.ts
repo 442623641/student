@@ -104,9 +104,14 @@ export class ReportOptions {
   subjects: string[];
 
   /**
-   *成绩趋势科目列表,无总分
+   *成绩趋势科目列表
    */
   scoreSubjects: string[];
+
+  /**
+   *排名趋势科目列表
+   */
+  rankSubjects: string[];
 
   constructor(obj: any = { percent: 0, level: 1, studentCount: 1, scores: [], levelanalysis: null, learnanalysis: null, payment: false }) {
     this.level = obj.level;
@@ -119,7 +124,8 @@ export class ReportOptions {
     this.ranktrends = obj.ranktrends || [];
     this.scoretrends = obj.scoretrends || [];
     this.subjects = this.getSubjects();
-    this.scoreSubjects = this.subjects.filter(item => { return item != '总分' });
+    this.rankSubjects = obj.rankSubjects || [];
+    this.scoreSubjects = obj.scoreSubjects || []; //this.subjects.filter(item => { return item != '总分' });
     this.resetPayment(obj.payment);
   }
 

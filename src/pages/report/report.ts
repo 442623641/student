@@ -43,15 +43,16 @@ export class ReportPage {
 
   ionViewDidLoad() {
     setTimeout(() => {
-      this.exam = this.navParams.data;
-      this.showNavButton = this.navCtrl.getPrevious().id != DOCTOR_PAGE && this.exam.payment;
-      this.getReport(this.reportIndex).then(res => {
-        this.categorys = ReportCategory.filter(item => { return item.code <= res.level }).reverse();
-        this.categorysValue = this.categorys.map(item => { return item.name });
-        this.exam.payment || this.openPackageModal();
-        this.content.resize();
-        console.log(this.report);
-      });
+
+    this.exam = this.navParams.data;
+    this.showNavButton = this.navCtrl.getPrevious().id != DOCTOR_PAGE && this.exam.payment;
+    this.getReport(this.reportIndex).then(res => {
+      this.categorys = ReportCategory.filter(item => { return item.code <= res.level }).reverse();
+      this.categorysValue = this.categorys.map(item => { return item.name });
+      this.exam.payment || this.openPackageModal();
+      this.content.resize();
+      console.log(this.report);
+    });
     }, 550);
   }
 
@@ -114,6 +115,8 @@ export class ReportPage {
       levelanalysis: res.levelanalysis ? this.chartsPro.level(res.levelanalysis) : null,
       level: res.level,
       fields: res.fields,
+      scoreSubjects: res.scoreSubjects,
+      rankSubjects: res.rankSubjects,
       payment: res.buy
     }) : null;
     //console.log(this.report.scores.shift());

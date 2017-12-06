@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LostProvider } from '../../providers/lost/lost';
+import { NativeProvider } from '../../providers/native';
 import { PAYMENT_PAGE, ELOSTUSAGE_PAGE, DOWNLINK_PAGE } from '../pages.constants';
 //import { ElostguidePage } from '../elostguide/elostguide';
 import { Pageview } from '../../model/pageview';
@@ -33,6 +34,7 @@ export class ElostordersPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public lostPro: LostProvider,
+    private nativePro: NativeProvider
     //private modalCtrl: ModalController
   ) {}
 
@@ -83,6 +85,10 @@ export class ElostordersPage {
       event.complete();
       console.log(ex);
     });
+  }
+
+  share(item) {
+    this.nativePro.share(item.url, '七天网络错题本提取码：' + item.code);
   }
 
 }

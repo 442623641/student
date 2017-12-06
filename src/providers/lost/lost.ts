@@ -50,13 +50,11 @@ export class LostProvider {
     return this.http.get('errorbook/orderinfo', data);
   }
 
-
-
   /**
    *获取价格
    */
   price(data): Promise < any > {
-    return new Promise((resolve: any) => setTimeout(() => resolve({ money: 30, promote: 7 }), 1800));
+    return this.http.get('errorbook/getPageCount', data); //new Promise((resolve: any) => setTimeout(() => resolve({ money: 30, promote: 7 }), 1800));
   }
 
   /**

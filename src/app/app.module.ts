@@ -34,7 +34,8 @@ import { ActionSheet } from '@ionic-native/action-sheet';
 import { FilePath } from '@ionic-native/file-path';
 import { Contacts } from '@ionic-native/contacts';
 import { Clipboard } from '@ionic-native/clipboard';
-
+import { SpinnerDialog } from '@ionic-native/spinner-dialog';
+import { SocialSharing } from '@ionic-native/social-sharing';
 /**
  *Components module
  */
@@ -115,6 +116,8 @@ import { AddressProvider } from '../providers/address/address';
     FilePath,
     Contacts,
     Clipboard,
+    SpinnerDialog,
+    SocialSharing,
 
     /*
      * request service

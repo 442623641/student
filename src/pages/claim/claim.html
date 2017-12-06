@@ -12,8 +12,8 @@
   <ng-template #entry>
     <ion-list *ngFor="let item of unclaimes">
       <span class="unclaimed-month">{{item.time|date:'yyyy年M月'}}</span>
-      <button ion-item class="unclaimed-date" *ngFor="let value of item.data" (click)="claim(value)">
-        <span class="certain-date">{{value.day}}日</span>
+      <button ion-item *ngFor="let value of item.data" (click)="claim(value)" padding-vertical-8>
+        <span item-left>{{value.day}}日</span>
         <h2>{{value.examname}}</h2>
       </button>
     </ion-list>

@@ -3,7 +3,8 @@ import { Toast } from '@ionic-native/toast';
 import { Dialogs } from '@ionic-native/dialogs';
 import { ToastController, LoadingController, Platform, AlertController, ModalController } from 'ionic-angular';
 import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
-
+import { SpinnerDialog } from '@ionic-native/spinner-dialog';
+import { SocialSharing } from '@ionic-native/social-sharing';
 /**
  * added by 442623641@qq.com 201703161032.
  * 原生API
@@ -24,7 +25,10 @@ export class NativeProvider {
     private loadingCtrl: LoadingController,
     private ntoast: Toast,
     private dialogs: Dialogs,
-    private modalCtrl: ModalController) {
+    private modalCtrl: ModalController,
+    private spinnerDialog: SpinnerDialog,
+    private socialSharing: SocialSharing
+  ) {
     this.native = platform.is('mobile') && !platform.is('mobileweb');
   }
 
@@ -74,6 +78,33 @@ export class NativeProvider {
     }
   };
 
+
+  /**
+   * 统一调用此方法显示提示信息
+   * @param message 信息内容
+   * @param duration 显示时长
+   */
+  prompt = (message: string = '操作完成', duration: number = 3000) => {
+    if (this.native) {
+      return this.ntoast.showWithOptions({
+        message: message,
+        position: 'center',
+        duration: duration,
+        addPixelsY: -10,
+        styling: {
+          //opacity: 1,
+          //backgroundColor: '#f66e4f',
+          //textColor: '#666666',
+          cornerRadius: 14,
+          horizontalPadding: 60,
+          verticalPadding: 60,
+        }
+      }).subscribe()
+      //return this.ntoast.show(message, String(duration), 'middle').subscribe();
+    } else {
+      return this.toast(message, duration, 'middle');
+    }
+  };
 
   /**
    * 对话框
@@ -144,6 +175,14 @@ export class NativeProvider {
    * @param content 显示的内容
    */
   showLoading = (content: string = "加载中...") => {
+    if (this.native) {
+      setTimeout(() => { //最长显示10秒
+        this.loadRunning = false;
+        this.spinnerDialog.hide();
+      }, 10000);
+      this.loadRunning = true;
+      return this.spinnerDialog.show('', content, true);
+    };
     if (!this.loadRunning) {
       this.loadRunning = true;
       this.loading = this.loadingCtrl.create({
@@ -152,12 +191,12 @@ export class NativeProvider {
         showBackdrop: true,
         cssClass: "embedded",
         dismissOnPageChange: true,
-        duration: 5000
+        duration: 10000
       });
       this.loading.present();
       setTimeout(() => { //最长显示10秒
         this.loadRunning = false;
-      }, 5000);
+      }, 10000);
     }
   };
 
@@ -165,10 +204,12 @@ export class NativeProvider {
    * 关闭loading
    */
   hideLoading = () => {
-    if (this.loadRunning) {
-      this.loading.dismiss();
-      this.loadRunning = false;
+    if (this.native) {
+      this.loadRunning && this.spinnerDialog.hide();
+    } else {
+      this.loadRunning && this.loading.dismiss();
     }
+    this.loadRunning = false;
   };
 
   /**
@@ -209,20 +250,15 @@ export class NativeProvider {
   }
 
 
-
-
-  // /**
-  //  * @name 获取网络类型
-  //  */
-  // getNetworkType() {
-  //   if (!this.native) {
-  //     return true;
-  //   }
-  //   return navigator['connection']['type']; // "none","wifi","4g","3g","2g"...
-  // }
-
-  // isConnecting() {
-  //   return this.network.type != 'none';
-  // }
+  /**
+   * 分享到其他应用
+   * @param url
+   * @param message
+   * @param file
+   * @return {Promise<T>}
+   */
+  share(url: string = '', message: string = '', file: string | string[] = '') {
+    return this.socialSharing.share(message, '', file, url);
+  }
 
 }

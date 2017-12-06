@@ -96,7 +96,7 @@ export class PasswordPage {
   }
   private error(err = { message: '网络延时，请稍后再试' }) {
     console.error(err);
-    this.nativepro.toast(err.message);
+    this.nativepro.prompt(err.message);
     this.authForm['processing'] = false;
   }
 }

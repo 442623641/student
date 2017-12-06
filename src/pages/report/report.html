@@ -115,7 +115,7 @@
           <ion-card-header text-center color="primary">
             成绩趋势
           </ion-card-header>
-          <scroll-header [items]="reports[indexNum].scoreSubjects" (onChanged)="scoretrends(reports[indexNum].subjects[$event])" *ngIf="reports[indexNum].subjects.length" [(selected)]="reports[indexNum].scoretrendsIndex"></scroll-header>
+          <scroll-header [items]="reports[indexNum].scoreSubjects" (onChanged)="scoretrends(reports[indexNum].scoreSubjects[$event])" *ngIf="reports[indexNum].scoreSubjects.length" [(selected)]="reports[indexNum].scoretrendsIndex"></scroll-header>
           <ion-card-content style="height:220px;padding-right:0;">
             <!-- <ng-template [ngIf]="reports[indexNum].activityScoretrends" [ngIfElse]="loadinga"> -->
             <echarts-ng2 *ngIf="reports[indexNum].activityScoretrends;else loadinga" [option]="reports[indexNum].activityScoretrends" [style]="{'height':'195px'}"></echarts-ng2>
@@ -131,7 +131,7 @@
           <ion-card-header text-center color="primary">
             排名趋势
           </ion-card-header>
-          <scroll-header [items]="reports[indexNum].subjects" (onChanged)="ranktrends(reports[indexNum].subjects[$event])" *ngIf="reports[indexNum].subjects.length" [(selected)]="reports[indexNum].ranktrendsIndex"></scroll-header>
+          <scroll-header [items]="reports[indexNum].rankSubjects" (onChanged)="ranktrends(reports[indexNum].rankSubjects[$event])" *ngIf="reports[indexNum].rankSubjects.length" [(selected)]="reports[indexNum].ranktrendsIndex"></scroll-header>
           <ion-card-content style="height:220px;padding-right:0;">
             <!-- <ng-template [ngIf]="reports[indexNum].activityRanktrends" [ngIfElse]="loadingd"> -->
             <echarts-ng2 *ngIf="reports[indexNum].activityRanktrends;else loadingd" [option]="reports[indexNum].activityRanktrends" [style]="{ 'height': '195px'}"></echarts-ng2>

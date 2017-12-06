@@ -237,14 +237,14 @@
       color: color($colors, text);
     }
     .picker-below-highlight {
-      top: 120px;
+      //top: 120px;
       border-top: none !important;
       &:after {
         @extend .border-top;
       }
     }
     .picker-above-highlight {
-      height: 91px;
+      //height: 91px;
       border-bottom: none !important;
       &:after {
         @extend .border-bottom;

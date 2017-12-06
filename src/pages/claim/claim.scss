@@ -7,7 +7,6 @@ page-claim {
     background: #ffffff;
     right: 0;
     top: calc(100% - 1px);
-    -webkit-transform: scaleY(0.35);
     transform: scaleY(0.35);
   }
   .list-ios>.item-block:last-child {
@@ -18,42 +17,47 @@ page-claim {
   }
   .unclaimed-month {
     display: inline-block;
-    width: 7.5rem;
+    min-width: 10rem;
     height: 2.2rem;
-    background-color: #F66E4F;
+    background-color: color($colors, primary);
     text-align: center;
     color: white;
     border-radius: 0 2rem 2rem 0;
     margin: 1rem 0;
     line-height: 2.4rem;
+    overflow: visible;
   }
-  .unclaimed-date {
+  .item {
     position: relative;
-    border: none;
     &::before {
       content: '';
       display: inline-block;
-      height: 6.6rem;
-      background-color: #F68167;
       width: 1px;
-      margin-left: 1rem;
-    }
-    .certain-date {
-      width: 35px;
+      height: 32%;
+      background-color: color($colors, primary);
+      top: 0;
       position: absolute;
-      left: 1rem;
-      height: 2.6rem;
-      background-color: white;
-      z-index: 8;
-      display: block;
-      line-height: 2.6rem;
-      text-align: center;
-      bottom: 2rem;
-      color: #F68167;
+      left: 25px;
+    }
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 1px;
+      height: 32%;
+      background-color: color($colors, primary);
+      bottom: 0;
+      position: absolute;
+      left: 25px;
+    }
+    border: none;
+    span {
+      color: color($colors, primary);
     }
     h2 {
-      color: #414a60;
-      margin-left: 2.6rem;
+      color: color($colors, text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }

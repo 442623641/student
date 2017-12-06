@@ -29,7 +29,8 @@ export class LostordersPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LostorderPage');
-    setTimeout(() => this.doRefresh(), 300);
+    this.doRefresh();
+    //setTimeout(() => this.doRefresh(), 300);
   }
   doRefresh(event ? ) {
     this.page = new Pageview({ viewindex: 1, viewlength: 20 });

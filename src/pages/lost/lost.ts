@@ -110,9 +110,9 @@ export class LostPage {
 
     this.lostPro.price({
       km: lost.name,
-      exams: lost.exams.map(item => { return { guid: item.guid, studentCode: item.studentCode } }),
+      exams: lost.exams.map(item => { return { guid: item.guid, studentCode: item.studentcode } }),
       grade: this.userInfo.grade,
-      schoolGuid: this.userInfo.schoolGuid,
+      //schoolGuid: this.userInfo.schoolGuid,
       promote: lost.promote
     }).then(res => {
 
@@ -140,7 +140,7 @@ export class LostPage {
         this.losts = null;
         return;
       }
-      this.losts = res.map(item => { return new Elost(item) });
+      this.losts = res.map(item => { item.type = 0; return new Elost(item) });
     }).catch(e => this.losts = null);
   }
 

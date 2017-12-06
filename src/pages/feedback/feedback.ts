@@ -41,8 +41,8 @@ export class FeedbackPage {
             console.log(res);
             if (index == this.images.length - 1) {
               this.processing = false;
-              this.nativepro.toast('感谢您的反馈');
-              setTimeout(() => this.navCtrl.pop(), 800);
+              this.nativepro.prompt('感谢您的反馈');
+              setTimeout(() => this.navCtrl.pop(), 1500);
             }
           })
           .catch(err => {

@@ -49,10 +49,6 @@ export class LostpayPage {
     this.addressPro.last().then((res) => this.options.area = res).catch();
   }
 
-
-  /**
-   *确认下单
-   */
   couponChange(event) {
     this.options.couponcode = event.couponCode;
     this.amount = Number((event.amount / 10).toFixed(2));
