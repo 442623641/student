@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, ModalController } from 'ionic-angular';
-import { PAYMENT_PAGE, COUPON_PAGE } from '../pages.constants';
-import { PackageguidePage } from '../packageguide/packageguide';
+import { PAYMENT_PAGE, COUPON_PAGE, PACKAGEGUIDE_PAGE } from '../pages.constants';
+// /import { PackageguidePage } from '../packageguide/packageguide';
 import { PaymentOption } from '../../model/payment';
 import { PackageOption, PackageO } from '../../model/package';
 import { PackageProvider } from '../../providers/package/package';
@@ -41,7 +41,7 @@ export class PackagePage {
     this.package = new PackageO(event);
   }
   ionViewDidLoad() {
-    this.navParams.get('guide') && setTimeout(() => this.modalCtrl.create(PackageguidePage).present(), 800);
+    this.navParams.get('guide') && setTimeout(() => this.modalCtrl.create(PACKAGEGUIDE_PAGE).present(), 800);
   }
 
   tap(opt: PackageOption) {

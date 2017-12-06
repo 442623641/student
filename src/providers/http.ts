@@ -22,7 +22,7 @@ export class HttpProvider {
   private version: string = "1.0.0";
 
   isNative: boolean;
-  domin: string = 'http://studentapp.septnet.cc/';
+  domin: string = 'http://studentapp.septnet.cn/';
   token: string;
 
   /*

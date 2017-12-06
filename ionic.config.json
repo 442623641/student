@@ -10,62 +10,62 @@
   "proxies": [
   {
     "path": "/login",
-    "proxyUrl": "http://studentapp.septnet.cc/login"
+    "proxyUrl": "http://studentapp.septnet.cn/login"
   },
   {
     "path": "/index",
-    "proxyUrl": "http://studentapp.septnet.cc/index"
+    "proxyUrl": "http://studentapp.septnet.cn/index"
   },
   {
     "path": "/userinfo",
-    "proxyUrl": "http://studentapp.septnet.cc/userinfo"
+    "proxyUrl": "http://studentapp.septnet.cn/userinfo"
   },
   {
     "path": "/exam",
-    "proxyUrl": "http://studentapp.septnet.cc/exam"
+    "proxyUrl": "http://studentapp.septnet.cn/exam"
   },
   {
     "path": "/question",
-    "proxyUrl": "http://studentapp.septnet.cc/question"
+    "proxyUrl": "http://studentapp.septnet.cn/question"
   },
   {
     "path": "/message",
-    "proxyUrl": "http://studentapp.septnet.cc/message"
+    "proxyUrl": "http://studentapp.septnet.cn/message"
   },
   {
     "path": "/coupon",
-    "proxyUrl": "http://studentapp.septnet.cc/coupon"
+    "proxyUrl": "http://studentapp.septnet.cn/coupon"
   },
   {
     "path": "/trade",
-    "proxyUrl": "http://studentapp.septnet.cc/trade"
+    "proxyUrl": "http://studentapp.septnet.cn/trade"
   },
   {
     "path": "/newpwd",
-    "proxyUrl": "http://studentapp.septnet.cc/newpwd"
+    "proxyUrl": "http://studentapp.septnet.cn/newpwd"
   },
   {
     "path": "/errorbook",
-    "proxyUrl": "http://studentapp.septnet.cc/errorbook"
+    "proxyUrl": "http://studentapp.septnet.cn/errorbook"
   },
   {
     "path": "/payment",
-    "proxyUrl": "http://studentapp.septnet.cc/payment"
+    "proxyUrl": "http://studentapp.septnet.cn/payment"
   },
   {
     "path": "/freepayment",
-    "proxyUrl": "http://studentapp.septnet.cc/freepayment"
+    "proxyUrl": "http://studentapp.septnet.cn/freepayment"
   },
   {
     "path": "/register",
-    "proxyUrl": "http://studentapp.septnet.cc/register"
+    "proxyUrl": "http://studentapp.septnet.cn/register"
   },
   {
     "path": "/findpwd",
-    "proxyUrl": "http://studentapp.septnet.cc/findpwd"
+    "proxyUrl": "http://studentapp.septnet.cn/findpwd"
   },
   {
     "path": "/verifyImage",
-    "proxyUrl": "http://studentapp.septnet.cc/verifyImage"
+    "proxyUrl": "http://studentapp.septnet.cn/verifyImage"
   }]
 }

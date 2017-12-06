@@ -8,8 +8,8 @@
   <ion-navbar>
     <ion-title>{{exam.name}}</ion-title>
     <ion-buttons end>
-      <button ion-button [navPush]="pages.doctor" [navParams]="exam" *ngIf="showNavButton">
-        错题诊断
+      <button ion-button [navPush]="exam.payment?pages.doctor:pages.reply" [navParams]="exam" *ngIf="showNavButton">
+        {{exam.payment?'错题诊断':'答题情况'}}
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -70,10 +70,10 @@
         </ng-template>
       </ion-card>
       <ion-card *ngIf="reports[indexNum].subjects.length>2&&reports[indexNum].learnanalysis">
-        <ng-container *ngTemplateOutlet="cardModal;context:{name: '学情分析',comment:'优劣势学科一目了然，指引学习“航向”'}">
+        <ng-container *ngTemplateOutlet="cardModal;context:{name: '学科分析',comment:'优劣势学科一目了然，指引学习“航向”'}">
         </ng-container>
         <ion-card-header text-center color="primary">
-          学情分析
+          学科分析
         </ion-card-header>
         <ion-card-content>
           <echarts-ng2 [option]="reports[indexNum].learnanalysis" [style]="{'height': '210px'}"></echarts-ng2>
@@ -170,3 +170,13 @@
   </ng-template>
   <!-- </ng-template> -->
 </ion-content>
+<ion-footer no-border *ngIf='reports.length&&!exam.payment'>
+  <ion-toolbar color="transparent" no-padding>
+    <ion-row confirm padding-left>
+      <ion-col col-8 no-padding>
+        开通学情套餐，掌控一起
+      </ion-col>
+      <a [navPush]="pages.package">立即开通</a>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

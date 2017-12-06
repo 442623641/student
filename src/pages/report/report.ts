@@ -4,7 +4,7 @@ import { ExamsProvider } from '../../providers/exams/exams';
 import { ChartsProvider } from '../../providers/charts/charts';
 import { PaymentProvider } from '../../providers/payment/payment';
 import { ReportOptions, ReportCategory } from '../../model/report';
-import { DOCTOR_PAGE, PACKAGE_PAGE, RECHARGE_PAGE, REPORTMODAL_PAGE } from '../pages.constants';
+import { DOCTOR_PAGE, PACKAGE_PAGE, RECHARGE_PAGE, REPORTMODAL_PAGE, REPLY_PAGE } from '../pages.constants';
 /**
  * Generated class for the ReportPage page.
  *
@@ -19,7 +19,7 @@ import { DOCTOR_PAGE, PACKAGE_PAGE, RECHARGE_PAGE, REPORTMODAL_PAGE } from '../p
 })
 export class ReportPage {
   showAd: boolean = true;
-  pages: any = { doctor: DOCTOR_PAGE, package: PACKAGE_PAGE, recharge: RECHARGE_PAGE };
+  pages: any = { doctor: DOCTOR_PAGE, package: PACKAGE_PAGE, recharge: RECHARGE_PAGE, reply: REPLY_PAGE };
   @ViewChild('content') content: Content;
   @ViewChild('slider') slider: Slides;
   showNavButton: any;

@@ -49,7 +49,7 @@ export class ReportmodalPage {
     this.couponCount ? this.viewCtrl.dismiss({ page: PACKAGE_PAGE }) :
       this.enough ? this.paymentPro.sa({ ordertype: 'exam', examguid: this.guid })
       .then(res => {
-        this.nativePro.toast("成功生成本次学情报告");
+        this.nativePro.prompt("成功生成本次学情报告");
         this.viewCtrl.dismiss({ payment: true });
       }) :
       this.viewCtrl.dismiss({ page: RECHARGE_PAGE, dvalue: this.COIN - this.balance });

@@ -57,7 +57,8 @@ export class LoginPage {
   login(obj) {
     this.authForm['processing'] = true;
     this.userPro.login(obj).then(res => {
-        this.authForm['processing'] = false;
+        setTimeout(() => this.authForm['processing'] = false, 500);
+
         res && res.token && this.navCtrl.setRoot(res.school ? TabsPage : PersonalPage, {}, { animate: true, animation: 'md-transition', direction: 'forward' });
       })
       .catch((res = { message: "网络异常，请稍后再试" }) => {

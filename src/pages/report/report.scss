@@ -160,7 +160,7 @@ page-report {
 
   .card-modal {
     // align-items: center;
-    z-index: 3; // top: 48px;
+    z-index: 5; // top: 48px;
     top: 0;
     bottom: 0;
     left: 0;
@@ -176,6 +176,7 @@ page-report {
       opacity: .89;
       filter: blur(15px);
       height: calc(100% - 48px);
+      z-index: 3;
     }
     p {
       .button {
