@@ -28,8 +28,8 @@
         <br><span ion-text color="gray9">{{price}}学贝/科</span></ion-col>
       <ion-col col-8 class="row" justify-content-start no-padding padding-horizontal>
         <ion-col col-3>
-          <img src="assets/images/knowledge.png">
-          <div>知识点</div>
+          <img src="assets/images/error.png">
+          <div>错题集</div>
         </ion-col>
       </ion-col>
       <div class="triangle">
@@ -69,7 +69,7 @@
     <p padding-horizontal padding-vertical-10 text-right line-top>
       <span primary>{{order.value}}</span>学贝
     </p>
-    <p class="break" text-right>还需冲值<span primary>{{order.dvalue}}</span>学贝
+    <p class="break" text-right>还需充值<span primary>{{order.dvalue}}</span>学贝
       <br>小计：<span primary>{{order.dvalue/10}}</span>元（1元=10学贝）</p>
   </div>
   <coupon type="3" [value]="order.value" (onChange)="couponChange($event)"></coupon>

@@ -18,7 +18,7 @@ import { LOSTORDER_PAGE } from '../pages.constants';
 export class LostordersPage {
   LOSTORDER_PAGE = LOSTORDER_PAGE;
   orders: any[];
-  end: boolean;
+  total: number;
   page: Pageview;
   constructor(
     public navCtrl: NavController,
@@ -34,13 +34,14 @@ export class LostordersPage {
   }
   doRefresh(event ? ) {
     this.page = new Pageview({ viewindex: 1, viewlength: 20 });
-    this.end = false;
+    this.total = 0;
     this.lostPro.orders(this.page).then(res => {
       event && event.complete();
-      if (!res || !res.length) {
+      if (!res || !res.list || !res.list.length) {
         return this.orders = null;
       }
-      this.orders = res;
+      this.total = res.total;
+      this.orders = res.list;
     }).catch(ex => {
       event && event.complete();
       console.log(ex);
@@ -52,7 +53,7 @@ export class LostordersPage {
     this.page.viewindex++;
     this.lostPro.orders(this.page).then(res => {
       event.complete();
-      this.end = res ? !res.length : false;
+      //this.end = res ? !res.length : false;
       this.orders = this.orders.concat(res);
     }).catch(ex => {
       event.complete();

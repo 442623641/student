@@ -35,17 +35,19 @@ export class SchoolsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SchoolsPage');
-    this.personalPro.schools(this.params).then(res => {
-      if (!res || !res.length) {
+    setTimeout(() => {
+      this.personalPro.schools(this.params).then(res => {
+        if (!res || !res.length) {
+          this.db = this.schoolsCache = this.tempSchools = null;
+          return;
+        }
+        this.db = JSON.stringify(res.map(item => { return Object.assign(item, { cache: item.name, priority: 0 }) }));
+        this.schools = JSON.parse(this.db);
+      }).catch(ex => {
+        console.log(ex);
         this.db = this.schoolsCache = this.tempSchools = null;
-        return;
-      }
-      this.db = JSON.stringify(res.map(item => { return Object.assign(item, { cache: item.name, priority: 0 }) }));
-      this.schools = JSON.parse(this.db);
-    }).catch(ex => {
-      console.log(ex);
-      this.db = this.schoolsCache = this.tempSchools = null;
-    });
+      })
+    }, 350);
   }
 
   onInput(event) {

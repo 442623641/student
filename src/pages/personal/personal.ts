@@ -71,6 +71,11 @@ export class PersonalPage {
       this.db = JSON.parse(JSON.stringify(this.userInfo));
       this.db.school ?
         this.userPro.userInfo().then((info) => {
+          if (!info.city) {
+            this.userInfo = {};
+            this.db = JSON.parse(JSON.stringify(this.userInfo));
+            pickerSource();
+          }
           this.graduated = info.graduated;
           this.graduated && pickerSource();
           return Object.assign({ schoolGuid: info.school }, res)

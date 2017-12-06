@@ -103,7 +103,7 @@ export class Order {
 
   setValue(val: number) {
     this.value = val;
-    this.dvalue = Math.max(this.value - this.balance, 0);
+    this.dvalue = this.amount = Math.max(this.value - this.balance, 0);
   }
 
   setCoupon(obj: { amount: number, couponCode: string } = { amount: 0, couponCode: '' }) {

@@ -60,11 +60,14 @@ page-enalyzing {
       .col {
         padding: 0;
         span {
-          margin: 0 5px;
+          margin: 0 3px;
         }
         &:last-child {
-          line-height: 50px;
-          font-size: 1.6em;
+          // line-height: 50px;
+          font-size: 1.3em;
+          padding-right: 16px;
+          color: color($colors, gray9);
+          align-self: center;
         }
         &:nth-child(2) {
           margin-left: 12px;

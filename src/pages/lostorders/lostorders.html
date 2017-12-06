@@ -25,7 +25,7 @@
         </ion-card-content>
       </ion-card>
     </ion-list>
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!end">
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="orders.length<total">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ng-template>
