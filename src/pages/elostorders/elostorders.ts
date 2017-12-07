@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LostProvider } from '../../providers/lost/lost';
 import { NativeProvider } from '../../providers/native';
-import { PAYMENT_PAGE, ELOSTUSAGE_PAGE, DOWNLINK_PAGE } from '../pages.constants';
+import { PAYMENT_PAGE } from '../pages.constants';
 //import { ElostguidePage } from '../elostguide/elostguide';
 import { Pageview } from '../../model/pageview';
 
@@ -26,8 +26,8 @@ export class ElostordersPage {
    */
   pages: any = {
     payment: PAYMENT_PAGE,
-    usage: ELOSTUSAGE_PAGE,
-    downlink: DOWNLINK_PAGE
+    // usage: ELOSTUSAGE_PAGE,
+    // downlink: DOWNLINK_PAGE
   }
   page: Pageview;
   constructor(

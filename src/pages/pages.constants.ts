@@ -47,7 +47,7 @@ export const REPLY_PAGE = 'ReplyPage';
 
 export const SCHOOLS_PAGE = 'SchoolsPage';
 
-export const DOWNLINK_PAGE = 'DownlinkPage';
+//export const DOWNLINK_PAGE = 'DownlinkPage';
 
 //export const SETPWD_PAGE = 'SetpwdPage';
 
@@ -65,7 +65,7 @@ export const ELOSTORDERS_PAGE = 'ElostordersPage';
 export const ELOSTPAY_PAGE = 'ElostpayPage';
 export const ELOSTORDERMODAL_PAGE = 'ElostordermodalPage';
 export const ELOSTGUIDE_PAGE = 'ElostguidePage';
-export const ELOSTUSAGE_PAGE = 'ElostusagePage';
+//export const ELOSTUSAGE_PAGE = 'ElostusagePage';
 
 export const LOST_PAGE = 'LostPage';
 export const LOSTORDERS_PAGE = 'LostordersPage';

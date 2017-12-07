@@ -23,12 +23,11 @@ page-elost {
         margin-left: 16px;
       }
       .mess {
-        height: 120px;
-        display: table-cell;
+        padding: 30px 16px 16px 16px;
+        height: 120px; // display: table-cell;
         vertical-align: middle;
         color: #fff;
-        font-size: 1.5rem;
-        padding: 16px;
+        font-size: 1.5rem; //padding: 16px;
         text-align: center;
         span[primary] {
           font-size: 1.7rem;

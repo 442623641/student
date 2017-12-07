@@ -11,7 +11,7 @@
 </ion-header>
 <ion-content>
   <div class="content-inner">
-    <ion-textarea placeholder="输入您的反馈..." [(ngModel)]="text" max="300" maxLength="300" rows="8" [attr.length]="text?text.length:0">
+    <ion-textarea placeholder="输入您的反馈..." [(ngModel)]="text" max="300" maxlength="300" rows="7" [attr.length]="text?text.length:0">
     </ion-textarea>
     <div class="line"></div>
     <uploadimg (onChanged)="onChanged($event)"></uploadimg>

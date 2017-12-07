@@ -33,7 +33,6 @@ import { CallNumber } from '@ionic-native/call-number';
 import { ActionSheet } from '@ionic-native/action-sheet';
 import { FilePath } from '@ionic-native/file-path';
 import { Contacts } from '@ionic-native/contacts';
-import { Clipboard } from '@ionic-native/clipboard';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { SocialSharing } from '@ionic-native/social-sharing';
 /**
@@ -81,6 +80,9 @@ import { AddressProvider } from '../providers/address/address';
       modalEnter: 'modal-md-slide-in',
       modalLeave: 'modal-md-slide-out',
       tabsHideOnSubPages: true,
+      scrollPadding: false,
+      scrollAssist: true,
+      autoFocusAssist: false,
     }),
     ComponentsModule,
     LoginPageModule,
@@ -115,7 +117,6 @@ import { AddressProvider } from '../providers/address/address';
     HTTP,
     FilePath,
     Contacts,
-    Clipboard,
     SpinnerDialog,
     SocialSharing,
 

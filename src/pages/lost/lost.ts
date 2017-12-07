@@ -47,9 +47,10 @@ export class LostPage {
   }
 
   setElostSub: any;
+  replaceElostSub: any;
   achieveSub: any;
-  baseAmount: number = 0;
-  expressAmount: number = 10;
+  //baseAmount: number = 0;
+  //expressAmount: number = 10;
   payDisabled: boolean;
   constructor(
     private navCtrl: NavController,
@@ -64,20 +65,19 @@ export class LostPage {
   }
 
   ionViewDidLoad() {
-
     setTimeout(() => this.doRefresh(), 300);
-    this.lostPro.fee().then(res => {
-      this.baseAmount = res.basic || 0;
-      this.expressAmount = res.mail || 0;
-    }).catch();
   }
 
   print(item) {
     this.navCtrl.push(this.pages.lostoption, item).then(() => {
-      this.setElostSub = this.lostPro.setElost$.subscribe((res: Elost) => {
-        this.setElostSub.unsubscribe();
-        this.price(this.setLost(res));
+      this.replaceElostSub = this.lostPro.replaceElost$.subscribe((res: Elost) => {
+        console.log('addElostSub');
+        this.setLost(res);
       });
+      this.setElostSub = this.lostPro.setElost$.subscribe((res: Elost) => {
+        console.log('setElostSub');
+        this.price(this.setLost(res));
+      })
     });
   }
 
@@ -119,7 +119,7 @@ export class LostPage {
       if (!res.money) return exception(res);
       this.payDisabled = false;
       lost = Object.assign(lost, res, { processing: false })
-      lost.money += this.baseAmount;
+      //lost.money += this.baseAmount;
       this.calcAmount();
     }).catch(ex => exception(ex));
   }
@@ -155,7 +155,7 @@ export class LostPage {
   dopay() {
     let subjects = [];
     this.checkeds.forEach(item => item.echeckeds && subjects.push({ name: item.name, exams: item.exams.filter(i => { return i.checked; }) }))
-    this.navCtrl.push(this.pages.lostpay, { params: new LostParams(this.checkeds, this.amount), express: this.expressAmount });
+    this.navCtrl.push(this.pages.lostpay, { params: new LostParams(this.checkeds, this.amount) });
     this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
       let start = this.navCtrl.indexOf(this.viewCtrl);
       this.navCtrl.insert(start + 1, this.pages.lostOrders, {}, { animate: false }).then(() => {
@@ -169,10 +169,11 @@ export class LostPage {
 
   ionViewDidEnter() {
     this.achieveSub && this.achieveSub.unsubscribe();
+    this.setElostSub && this.setElostSub.unsubscribe();
+    this.replaceElostSub && this.replaceElostSub.unsubscribe();
   }
 
   ngOnDestroy() {
-    this.achieveSub && this.achieveSub.unsubscribe();
-    this.setElostSub && this.setElostSub.unsubscribe();
+    this.ionViewDidEnter();
   }
 }

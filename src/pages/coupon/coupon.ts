@@ -50,7 +50,7 @@ export class CouponPage {
    *获取优惠券列表
    */
   doRefresh(event ? ) {
-    this.view = Object.assign(new Pageview({ viewindex: 1, viewlength: 10 }), this.view, { isexpired: false });
+    this.view = Object.assign(new Pageview({ viewindex: 1, viewlength: 10 }), this.view, { isexpired: 0 });
     this.couponpro.getlist(this.view).then(res => {
       event && event.complete();
       if (!res || !res.list || !res.list.length) return this.coupons = null;

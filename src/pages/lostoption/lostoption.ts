@@ -20,7 +20,7 @@ import { Elost } from '../../model/elost';
 export class LostoptionPage {
   elost: Elost;
   page: { index: number, viewlength: number };
-  end: boolean;
+  //end: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -38,7 +38,7 @@ export class LostoptionPage {
 
   exams() {
 
-    this.end = false;
+    //this.end = false;
     this.page = { index: 0, viewlength: 10 };
     this.lostPro.exams(Object.assign({ subject: this.elost.name, type: this.elost.type }, this.page)).then(res => {
       if (!res || !res.exams || !res.exams.length) return this.elost.state = null;
@@ -51,17 +51,20 @@ export class LostoptionPage {
 
   doInfinite(event) {
     this.lostPro.exams(Object.assign({ subject: this.elost.name, type: this.elost.type }, this.page)).then(res => {
-      if (!res || !res.exams || !res.exams.length) return this.end = true;
+      event.complete();
+      if (!res || !res.exams || !res.exams.length) return;
       this.fill(res)
     }).catch(ex => {
+      event.complete();
       console.error(ex);
     })
   }
   fill(res) {
     this.page.index = res.index;
-    this.elost.append(res.exams, res.end, res.index);
-    this.end = res.end;
-    if (this.end) this.elost.count = this.elost.exams.length;
+    this.elost.append(res.exams, !res.end, res.index);
+    //this.end = res.end;
+    if (res.end) this.elost.count = this.elost.exams.length;
+    this.lostPro.replaceElost(this.elost);
   }
 
   save(shouldClose ? : boolean) {
