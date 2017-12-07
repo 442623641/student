@@ -7,8 +7,8 @@ import {Component, Input } from '@angular/core';
 
 export class LazyLoader {
   state: number = 0;
-  dx:any;
-  dy:any;
+  // dx:any;
+  // dy:any;
   @Input() src: string;
   @Input() alt: string;
   timer: any;
