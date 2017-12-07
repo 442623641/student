@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
 /**
  * Generated class for the PhotosviewerComponent component.
@@ -24,5 +24,9 @@ export class PhotosviewerComponent {
     });
     //console.log(this.urls);
   }
+
+  
+
+
 
 }
