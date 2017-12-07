@@ -1,5 +1,5 @@
 <!-- Generated template for the PaymentComponent component -->
 <ion-row confirm padding-left-10>
-  <ion-col col-9>应付<span primary>{{amount/10 | number}}</span>元</ion-col>
+  <ion-col col-8>应付<span primary>{{amount/10 | number}}</span>元</ion-col>
   <a (click)="order()" [attr.disabled]="amount<min||disabled?'':null"><span *ngIf="!processing">去支付</span><ion-spinner *ngIf="processing" color="white"></ion-spinner></a>
 </ion-row>

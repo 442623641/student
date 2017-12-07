@@ -13,14 +13,12 @@ import { PASSWORD_PAGE } from '../pages.constants';
 
 
 export class ValidationPage {
-  pages = {
-    confirm: PASSWORD_PAGE,
-  }
   ticket: any;
   authForm: FormGroup;
   token: string;
   checked: boolean = true;
   tips = "获取验证码";
+  verify = { phone: '', code: '' };
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -30,7 +28,7 @@ export class ValidationPage {
   ) {
     this.authForm = formBuilder.group({
       phone: ['', Validators.compose([Validators.minLength(11), Validators.maxLength(11), Validators.required, Validators.pattern("^1[34578][0-9]{9}$")])],
-      code: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(8)])],
+      code: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(6)])],
     });
     //this.authForm.controls.phone.setValue('18225605425');
   }
@@ -59,7 +57,7 @@ export class ValidationPage {
     this.validationPro.note({ token: this.ticket.token, tel: phone, yzm: this.ticket.img }, this.navParams.get('type')).then(res => {
       if (!res || !res.token) return;
       this.token = res.token;
-      this.authForm.controls.code.setValue(res.code);
+      this.verify = { code: res.code, phone: phone };
       let num = 60;
       this.tips = num + 's后重新获取';
       const timer = setInterval(() => {
@@ -75,7 +73,8 @@ export class ValidationPage {
   }
 
   onSubmit(value: any) {
-    this.navCtrl.push(this.pages.confirm, {
+    if (this.verify.code != value.code || value.phone != this.verify.phone) return this.nativePro.prompt("请输入正确的验证码");
+    this.navCtrl.push(PASSWORD_PAGE, {
       type: this.navParams.get('type'),
       params: Object.assign({
         token: this.token

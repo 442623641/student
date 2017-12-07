@@ -41,7 +41,7 @@ export class UploadimgComponent {
 
   }
   remove(i) {
-    this.urls.splice(i, 1);
+    this.zone.run(() => this.urls.splice(i, 1));
     this.items.splice(i, 1);
     this.onChanged.emit(this.items);
   }
@@ -67,7 +67,7 @@ export class UploadimgComponent {
 
   private add(item) {
     if (!item) return;
-    this.zone.run(() => this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl(item)));
+    this.zone.run(() => this.urls = this.urls.concat([this.sanitizer.bypassSecurityTrustResourceUrl(item)]));
     this.items.push(item);
     this.onChanged.emit(this.items);
   }

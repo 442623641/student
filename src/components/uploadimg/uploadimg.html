@@ -1,5 +1,5 @@
 <ion-row padding nowrap>
-  <ion-col col-3 no-padding margin-right-12 *ngFor="let url of urls;let i = index;" [imgviewer]="{title:'意见反馈',images:urls}">
+  <ion-col col-3 no-padding margin-right-12 *ngFor="let url of urls;let i = index;">
     <a (click)="remove(i)">
       <ion-icon name="remove-circle-outline" color="danger"></ion-icon>
     </a>

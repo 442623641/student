@@ -38,6 +38,7 @@ export class ElostPage {
   }
 
   setElostSub: any;
+  replaceElostSub: any;
   achieveSub: any;
   constructor(
     private navCtrl: NavController,
@@ -52,13 +53,15 @@ export class ElostPage {
   }
 
   print(item) {
+
     this.navCtrl.push(this.pages.lostoption, item).then(() => {
-      this.setElostSub = this.lostPro.setElost$.subscribe((res: Elost) => {
-        this.setElostSub.unsubscribe();
-        //console.log('setElost$');
-        this.showTips = false;
+      this.replaceElostSub = this.lostPro.replaceElost$.subscribe((res: Elost) => {
         this.setLost(res);
       });
+      this.setElostSub = this.lostPro.setElost$.subscribe((res: Elost) => {
+        this.showTips = false;
+        this.setLost(res);
+      })
     });
   }
 
@@ -110,13 +113,14 @@ export class ElostPage {
       });
     });
   }
+
   ionViewDidEnter() {
     this.achieveSub && this.achieveSub.unsubscribe();
-    //this.setElostSub && this.setElostSub.unsubscribe();
+    this.setElostSub && this.setElostSub.unsubscribe();
+    this.replaceElostSub && this.replaceElostSub.unsubscribe();
   }
 
   ngOnDestroy() {
-    this.achieveSub && this.achieveSub.unsubscribe();
-    this.setElostSub && this.setElostSub.unsubscribe();
+    this.ionViewDidEnter();
   }
 }

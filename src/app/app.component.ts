@@ -44,7 +44,10 @@ export class StudentApp {
   private login() {
     return this.userProvider.getLogin().then(login => {
       login && login.usercode && login.pwd ?
-        this.userProvider.login(login).then(res => this.to(!res || !res.token ? LoginPage : res.school ? TabsPage : PersonalPage)).catch(() => this.to(LoginPage)) :
+        this.userProvider
+        .login(login)
+        .then(res => this.to(!res || !res.token || !res.school ? LoginPage : TabsPage))
+        .catch(() => this.to(LoginPage)) :
         this.to(LoginPage);
     });
   }

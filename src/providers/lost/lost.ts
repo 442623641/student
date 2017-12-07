@@ -15,7 +15,9 @@ import { Elost } from '../../model/elost';
 export class LostProvider {
 
   private setElostSource: Subject < Elost > = new Subject < Elost > ();
+  private replaceElostSource: Subject < Elost > = new Subject < Elost > ();
   setElost$ = this.setElostSource.asObservable();
+  replaceElost$ = this.replaceElostSource.asObservable();
 
   constructor(public http: HttpProvider) {
     console.log('Hello LostProvider Provider');
@@ -23,6 +25,9 @@ export class LostProvider {
 
   setElost(obj: Elost) {
     this.setElostSource.next(obj);
+  }
+  replaceElost(obj: Elost) {
+    this.replaceElostSource.next(obj);
   }
 
   subjects() {

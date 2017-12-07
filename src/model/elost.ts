@@ -12,7 +12,7 @@ export class Elost {
   /**
    *考试列表是否已结束
    */
-  end: boolean;
+  unend: boolean;
 
   /**
    *金额
@@ -35,6 +35,7 @@ export class Elost {
     this.name = obj.name;
     this.count = obj.count;
     this.type = obj.type === undefined ? 1 : obj.type;
+    this.unend = this.unend === undefined ? true : this.unend;
 
     obj.exams && obj.exams.length && this.append(obj.exams, obj.end, obj.index);
   }
@@ -62,14 +63,14 @@ export class Elost {
   /**
    *追加考试列表
    *@param exams 考试列表
-   *@param end 是否已结束
+   *@param unend 是否已结束
    *@param index 考试索引
    */
-  append(exams, end ? , index ? ) {
+  append(exams, unend ? , index ? ) {
     if (!exams || !exams.length) return;
     this.exams = this.exams.concat(exams.map(item => { return new LostOptions(item) }));
     this.state = !!this.exams.length;
-    this.end = end || this.end;
+    this.unend = unend;
     this.index = index || this.index;
 
   }

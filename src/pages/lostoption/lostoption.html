@@ -13,7 +13,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding-top padding-left>
-  <loading [status]="elost?.state" *ngIf="!elost?.state;else entry"></loading>
+  <loading [status]="elost?.state" *ngIf="!elost?.state;else entry" mess="等待学校上传试卷，详情咨询：400-0309776"></loading>
   <ng-template #entry>
     <p>共 <span ion-text color="primary"> {{elost.count}} </span> 次考试，其中部分考试等待学校上传试卷。请从下方列表选购考试错题（支持多选）</p>
     <ion-list margin-top>
@@ -38,12 +38,12 @@
         </ion-card>
       </div>
     </ion-list>
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!end">
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="elost.unend">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ng-template>
 </ion-content>
-<ion-footer *ngIf="elost.state" no-border>
+<ion-footer *ngIf="elost.state!==null" no-border [style.visibility]="elost.state?'visible ':'hidden'">
   <ion-toolbar color="white" no-padding>
     <ion-row confirm>
       <ion-col col-8 padding-left>

@@ -44,9 +44,15 @@ export class LostpayPage {
     private addressPro: AddressProvider,
   ) {
     this.options = navParams.get('params');
-    this.expressAmount = navParams.get('express');
-    this.total = this.options.amount * 10 + this.expressAmount;
-    this.addressPro.last().then((res) => this.options.area = res).catch();
+    this.addressPro.last().then((res) => {
+      console.log(res);
+      this.options.area = res;
+      this.expressAmount = res.mail;
+      res.mail = undefined;
+      this.total = this.options.amount * 10 + this.expressAmount;
+    }).catch(ex => {
+      console.log(ex);
+    });
   }
 
   couponChange(event) {
@@ -55,6 +61,7 @@ export class LostpayPage {
     this.total = event.amount + this.expressAmount * 10;
     console.log(this.amount);
   }
+
   address() {
     this.navCtrl.push(this.pages.address, this.options.area).then((res) => {
       this.addressSub = this.addressPro.$onChange.subscribe(res => {
@@ -63,6 +70,7 @@ export class LostpayPage {
       })
     })
   }
+
   ionViewDidEnter() {
     this.addressSub && this.addressSub.unsubscribe();
   }
