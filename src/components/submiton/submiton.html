@@ -3,7 +3,7 @@
   <ion-icon item-left name="checkmark"></ion-icon> <span class="text">{{text}}</span></button> -->
 <button ion-button block (click)="onTap()" [disabled]="state===undefined" type="submit">
   <ng-template [ngIf]="state" [ngIfElse]="bubbles">
-    <ion-spinner name="bubbles" color="white"></ion-spinner>
+    <ion-spinner color="white"></ion-spinner>
   </ng-template>
   <ng-template #bubbles>
     <ng-content></ng-content>

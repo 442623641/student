@@ -14,39 +14,31 @@ export class ScrollheaderComponent {
   private db: string;
   len: number = 4;
   itemsValue: any[] = [];
+  selectedValue: number = 0;
+  offsetLeft: number;
   @ViewChild('scroll') scroll: any;
-  //@Input() volatile: boolean;
   @Input() set items(array: any[]) {
-    //this.itemsValue = array
-    //console.log(array);
     if (array && array.length && this.db != JSON.stringify(array)) {
       this.db = JSON.stringify(array);
       this.itemsValue = typeof array[0] === "string" ? array.map(item => { return { name: item, visible: true } }) : array;
-      //this.itemsValue[this.selectedValue].visible || (this.selected = this.itemsValue.findIndex(item => { return item.visible }));
-      //let len = this.itemsValue.filter(item => { return item.visible }).length;
       this.len = Math.max(this.itemsValue.filter(item => { return item.visible }).length, 4);
     }
 
   }
-  //@Input() items: any[] = [];
   @Output() selectedChange = new EventEmitter();
-  @Output() onChanged = new EventEmitter();
-
-  selectedValue: number = 0;
-
   @Input()
   get selected() {
     return this.selectedValue;
   }
 
   set selected(val: number) {
-    if (this.selectedValue == val) return;
-    this.selectedValue = val;
+    if (this.selectedValue == Number(val)) return;
+    this.selectedValue = Number(val);
     this.selectedChange.emit(this.selectedValue);
     this.setValue();
   }
 
-  offsetLeft: number;
+
 
   constructor(private el: ElementRef) {
     console.log('Hello ScrollheaderComponent Component');
@@ -57,14 +49,9 @@ export class ScrollheaderComponent {
   }
 
   tap(event) {
-    // if (this.len <= 4) {
-  //   return;
-  // }
-
-    let index = event.target.getAttribute('index');
-    if (!event.needScroll && (this.selected == index || !index && index !== "0")) return;
+    let index = Number(event.target.getAttribute('index'));
+    if (this.selected == index || !index && index !== 0) return;
     this.selected = index;
-    //this.scrollTo(event.target);
   }
 
   setValue() {
@@ -75,15 +62,11 @@ export class ScrollheaderComponent {
     element && this.scrollTo(element);
   }
 
-
   scrollTo(target) {
-
     let middle = this.scroll.scrollElement.offsetWidth / 2 - target.offsetWidth / 2;
     let rect = target.getBoundingClientRect();
     let x = rect.left - this.offsetLeft - middle;
     console.log(x);
     this.scroll.scrollToX(x, 220);
-    //console.log(rect);
-    //this.scroll.
   }
 }

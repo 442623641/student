@@ -55,13 +55,18 @@ export class ReplyPage {
     setTimeout(() => {
       //this.lantern = true;
       this.doctorPro.subject({ guid: this.exam.guid }).then(res => {
-        if (!res || !res.subjects || !res.subjects.length) return this.subjects = null;
+        if (!res || !res.subjects || !res.subjects.length) {
+          this.subjects = null;
+          this.lantern = true;
+          return;
+        }
         this.subjects = [];
         this.balls = res.subjects;
         this.fill(res.subject, res.subjects[this.subjectIndex]);
         setTimeout(() => this.balls.length > 1 && this.content.resize(), 120);
       }).catch(ex => {
         this.subjects = null;
+        this.lantern = true;
       });
     }, 350);
   }

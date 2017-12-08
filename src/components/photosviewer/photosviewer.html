@@ -18,7 +18,7 @@
   <ion-slides zoom="true" [pager]="urls.length>1">
     <ion-slide *ngFor="let img of urls">
       <div class="swiper-zoom-container">
-        <img-lazy [src]="img" [alt]="img"></img-lazy>
+        <img [src]="img" alt="img">
       </div>
     </ion-slide>
   </ion-slides>

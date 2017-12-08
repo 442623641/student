@@ -16,6 +16,7 @@ import { LoginPage } from '../../pages/login/login';
 })
 export class Loading {
   statusValue: boolean;
+  @Input() height: string = '100%';
   @Input() mess: string = '什么也木有';
   @Input() keys: string;
   @Input() set status(obj: any) {

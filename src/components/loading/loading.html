@@ -22,7 +22,7 @@
 </transition>
  -->
 <ng-container *ngIf="!statusValue">
-  <ion-row>
+  <ion-row [style.height]="height">
     <ion-spinner color="gray9" *ngIf="statusValue===undefined;else nodata"></ion-spinner>
     <ng-template #nodata>
       <ion-col>

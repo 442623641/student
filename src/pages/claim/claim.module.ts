@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ClaimPage } from './claim';
-import { ClaimmodalPageModule } from '../claimmodal/claimmodal.module';
+//import { ClaimmodalPageModule } from '../claimmodal/claimmodal.module';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
 @NgModule({
@@ -12,7 +12,7 @@ import { DirectivesModule } from '../../directives/directives.module';
     IonicPageModule.forChild(ClaimPage),
     ComponentsModule,
     DirectivesModule,
-    ClaimmodalPageModule,
+    //ClaimmodalPageModule,
   ],
 })
 export class ClaimPageModule {}

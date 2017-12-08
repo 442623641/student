@@ -14,7 +14,7 @@
     </ion-buttons>
   </ion-navbar>
   <div *ngIf="balls.length>1||stickTopicHeader" [class.transformY-45]="stickTopicHeader&&balls.length>1" class="sub-header" line-bottom>
-    <scroll-header [items]="balls" [(selected)]="subjectIndex" (selectedChange)="subjectSlider.slideTo($event)" *ngIf="balls.length>1" line-bottom></scroll-header>
+    <scroll-header [items]="balls" [(selected)]="subjectIndex" (selectedChange)="onChanged($event)" *ngIf="balls.length>1" line-bottom></scroll-header>
     <ion-row class="topics-header" *ngIf="stickTopicHeader">
       <a col-2 class="fixed-button" (click)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll" *ngIf="subjects[subjectIndex].diff">{{subjects[subjectIndex].showAll?'错题':'全部'}}</a>
       <ion-col no-padding>
@@ -24,10 +24,12 @@
   </div>
 </ion-header>
 <ion-content #content [fullscreen]="true" (ionScroll)="scrollHandler($event)" padding-bottom>
-  <ng-template [ngIf]="subjects[subjectIndex]" [ngIfElse]="loading">
+  <loading [status]="unloading" *ngIf="!unloading;else entry"></loading>
+  <ng-template #entry>
     <ion-slides #subjectSlider (ionSlideDidChange)="onSlideChanged($event)">
       <ion-slide *ngFor="let ball of balls">
-        <ng-container *ngIf="subjects[subjectIndex]?.name">
+        <loading [status]="subjects[subjectIndex]" *ngIf="!subjects[subjectIndex];else entryContent" height="80vh"></loading>
+        <ng-template #entryContent>
           <div class="card origin">
             <ion-row class="card-header" justify-content-between>
               <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
@@ -47,7 +49,7 @@
               <a (click)="openPercentModal()">查看更多</a>
             </ion-row>
           </div>
-        </ng-container>
+        </ng-template>
       </ion-slide>
     </ion-slides>
     <!-- </div> -->
@@ -60,7 +62,7 @@
       </ion-row>
       <div class="topics-content" *ngIf="subjects[subjectIndex].activity.full;else loadinga">
         <div class="topics-item">
-          <div class="item-content">
+          <div class="item-content" [imgviewer]="{title:subjects[subjectIndex].name+'第'+subjects[subjectIndex].activity+'题',images:subjects[subjectIndex].activity.paper}">
             <img-lazy [src]="url" *ngFor="let url of subjects[subjectIndex].activity.paper" [alt]="url"></img-lazy>
           </div>
           <p footer>
@@ -74,7 +76,7 @@
         </div>
         <div class="topics-item" *ngIf="!subjects[subjectIndex].activity.objective&&subjects[subjectIndex].activity.reply?.length">
           <p line-bottom>我的答案</p>
-          <div class="item-content">
+          <div class="item-content" [imgviewer]="{title:'我的答案',images:subjects[subjectIndex].activity.paper}">
             <img-lazy [src]="reply.link" *ngFor="let reply of subjects[subjectIndex].activity.reply" [alt]="reply.value"></img-lazy>
           </div>
         </div>
@@ -84,7 +86,7 @@
         </div>
         <div class="topics-item" *ngIf="subjects[subjectIndex].activity.resolve?.length">
           <p line-bottom>【解析】</p>
-          <div class="item-content">
+          <div class="item-content" [imgviewer]="{title:'解析',images:subjects[subjectIndex].activity.resolve}">
             <img-lazy [src]="url" *ngFor="let url of subjects[subjectIndex].activity.resolve" [alt]="url"></img-lazy>
           </div>
         </div>
@@ -94,22 +96,22 @@
               <ion-icon name="refresh"></ion-icon>&nbsp; 换一个
             </a>
           </p>
-          <div class="item-content">
+          <div class="item-content" [imgviewer]="{title:'优秀答案',images:exc.value[subjects[subjectIndex].activity.excellentNums[i]]}">
             <img-lazy [src]="url" *ngFor="let url of exc.value[subjects[subjectIndex].activity.excellentNums[i]]" [alt]="url">
             </img-lazy>
           </div>
         </div>
-        <ng-template #analyse [ngIf]="subjects[subjectIndex].activity.analyse.length===1" [ngIfElse]="analyseSlider">
-          <div class="topics-item">
-            <p line-bottom text-left>【{{subjects[subjectIndex].activity.analyse[0].no}} 题得分率】</p>
-            <echarts-ng2 [option]="subjects[subjectIndex].activity.analyse[0].options" [style]="{'height': 150+'px'}"></echarts-ng2>
-          </div>
-        </ng-template>
+        <div class="topics-item" *ngIf="subjects[subjectIndex].activity.analyse.length===1;else analyseSlider;">
+          <p line-bottom text-left>【{{subjects[subjectIndex].activity.analyse[0].no}} 题得分率】</p>
+          <echarts-ng2 [option]="subjects[subjectIndex].activity.analyse[0].options" [style]="{'height': 150+'px'}"></echarts-ng2>
+        </div>
         <ng-template #analyseSlider>
-          <ion-slides spaceBetween="10" pager="true" *ngIf="subjects[subjectIndex].activity.analyse.length>1">
+          <ion-slides spaceBetween="10" pager="true">
             <ion-slide *ngFor="let item of subjects[subjectIndex].activity.analyse;let y=index">
-              <ng-container *ngTemplateOutlet="analyse">
-              </ng-container>
+              <div class="topics-item">
+                <p line-bottom text-left>【{{item.no}} 题得分率】</p>
+                <echarts-ng2 [option]="item.options" [style]="{'height': 150+'px'}"></echarts-ng2>
+              </div>
             </ion-slide>
           </ion-slides>
         </ng-template>
@@ -118,8 +120,5 @@
         <loading [status]="subjects[subjectIndex].activity.full"></loading>
       </ng-template>
     </div>
-  </ng-template>
-  <ng-template #loading>
-    <loading [status]="subjects[subjectIndex]"></loading>
   </ng-template>
 </ion-content>

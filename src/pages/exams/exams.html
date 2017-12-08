@@ -14,7 +14,7 @@
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
-  <loading [status]="latest" *ngIf="!latest;else entry"></loading>
+  <loading [status]="latest" *ngIf="!latest;else entry" [mess]="unclaimed?'您有未认领考试，请先完成认领，我们再为您匹配数据':' 您没有任何考试信息，请去核实考试信息'"></loading>
   <ng-template #entry>
     <div class="banner" *ngIf="waterball">
       <h3>{{latest.name}}</h3>

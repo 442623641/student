@@ -1,10 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, Content, ModalController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, Content, ViewController } from 'ionic-angular';
 import { ExamsProvider } from '../../providers/exams/exams';
 import { ChartsProvider } from '../../providers/charts/charts';
 import { PaymentProvider } from '../../providers/payment/payment';
 import { ReportOptions, ReportCategory } from '../../model/report';
-import { DOCTOR_PAGE, PACKAGE_PAGE, RECHARGE_PAGE, REPORTMODAL_PAGE, REPLY_PAGE } from '../pages.constants';
+import { DOCTOR_PAGE, PACKAGE_PAGE, RECHARGE_PAGE, REPLY_PAGE } from '../pages.constants';
 import { NativeProvider } from '../../providers/native';
 import { CouponProvider } from '../../providers/coupon/coupon';
 /**
@@ -41,7 +41,6 @@ export class ReportPage {
     private navParams: NavParams,
     private examsPro: ExamsProvider,
     private chartsPro: ChartsProvider,
-    private modalCtrl: ModalController,
     private paymentPro: PaymentProvider,
     private viewCtrl: ViewController,
     private nativePro: NativeProvider,
@@ -172,8 +171,8 @@ export class ReportPage {
 
   doInfinite() {
     this.infinites[this.reportIndex] = false;
-    this.report.scoreSubjects.length && this.ranktrends(this.report.scoreSubjects[0]);
-    this.report.rankSubjects.length && this.scoretrends(this.report.rankSubjects[0]);
+    this.report.scoreSubjects.length && this.scoretrends(this.report.scoreSubjects[0]);
+    this.report.rankSubjects.length && this.ranktrends(this.report.rankSubjects[0]);
     this.comranks(this.report.subjects[0]);
     //console.log(event);
   }
@@ -249,23 +248,23 @@ export class ReportPage {
   /**
    *查看
    */
-  openPackageModal() {
-    let modal = this.modalCtrl.create(REPORTMODAL_PAGE, { guid: this.exam.guid });
-    modal.present();
-    modal.onDidDismiss((res = {}) => {
-      this.exam.payment = res.payment;
-      res.page &&
-        this.navCtrl.push(res.page, res.dvalue ? { params: { ordertype: 'exam', selectxbz: res.dvalue, skucode: `exam|${this.exam.guid}` } } : {}).then(res => {
-          let achieveSub = this.paymentPro.achieve$.subscribe(res => {
-            let start = this.navCtrl.indexOf(this.viewCtrl);
-            this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
-              this.exam.payment = true;
-              this.report.resetPayment(true);
-              achieveSub.unsubscribe();
-            });
-          });
-        })
-    });
-  }
+  // openPackageModal() {
+  //   let modal = this.modalCtrl.create(REPORTMODAL_PAGE, { guid: this.exam.guid });
+  //   modal.present();
+  //   modal.onDidDismiss((res = {}) => {
+  //     this.exam.payment = res.payment;
+  //     res.page &&
+  //       this.navCtrl.push(res.page, res.dvalue ? { params: { ordertype: 'exam', selectxbz: res.dvalue, skucode: `exam|${this.exam.guid}` } } : {}).then(res => {
+  //         let achieveSub = this.paymentPro.achieve$.subscribe(res => {
+  //           let start = this.navCtrl.indexOf(this.viewCtrl);
+  //           this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
+  //             this.exam.payment = true;
+  //             this.report.resetPayment(true);
+  //             achieveSub.unsubscribe();
+  //           });
+  //         });
+  //       })
+  //   });
+  // }
 
 }

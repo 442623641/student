@@ -83,6 +83,7 @@ import { AddressProvider } from '../providers/address/address';
       scrollPadding: false,
       scrollAssist: true,
       autoFocusAssist: false,
+      spinner: 'ios-small'
     }),
     ComponentsModule,
     LoginPageModule,

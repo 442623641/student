@@ -10,7 +10,7 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class NotifyProvider {
   private countSource = new Subject < any > ();
-  distribution: any;
+  distribution: any = {};
   count$ = this.countSource.asObservable();
 
   constructor(public http: HttpProvider) {

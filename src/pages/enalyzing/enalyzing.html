@@ -48,7 +48,7 @@
                 <ion-icon name="trash-outline"></ion-icon>
               </a>
             </ion-row>
-            <div class="content-img">
+            <div class="content-img" [imgviewer]="{title:'第'+que.no+'题',images:que.paper}">
               <img-lazy [src]="img" *ngFor="let img of que.paper"> </img-lazy>
             </div>
             <ion-row padding-vertical-8 split-line>

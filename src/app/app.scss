@@ -32,6 +32,13 @@
     min-height: 45px;
   }
 
+  [no-will-change]>.scroll-content {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: initial;
+    will-change: auto;
+  }
+
   [colorful] {
     width: 1em;
     height: 1em;

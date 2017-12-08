@@ -6,7 +6,7 @@ import { PipesModule } from '../../pipes/pipes.module';
 import { EchartsNg2Module } from 'echarts-ng2';
 import { ComponentsModule } from '../../components/components.module';
 // import { MreportComponent } from '../../components/mreport/mreport';
-import { ReportmodalPageModule } from '../reportmodal/reportmodal.module';
+//import { ReportmodalPageModule } from '../reportmodal/reportmodal.module';
 
 //import { ScrollheaderComponent } from '../../components/scrollheader/scrollheader';
 
@@ -22,7 +22,7 @@ import { ReportmodalPageModule } from '../reportmodal/reportmodal.module';
     EchartsNg2Module,
     ComponentsModule,
     PipesModule,
-    ReportmodalPageModule,
+    //ReportmodalPageModule,
   ],
   // entryComponents: [
   //   ReportmodalPage

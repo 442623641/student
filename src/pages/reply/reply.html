@@ -50,15 +50,6 @@
         </ion-slide>
       </ion-slides>
     </ng-template>
-    <!--  <ng-template #noslider>
-      <div class="card origin" *ngIf="subjects[subjectIndex]?.name" #subjectCard>
-        <ion-row class="card-header" justify-content-between>
-          <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
-        </ion-row>
-        <img-lazy [src]='subjects[subjectIndex].paper'></img-lazy>
-      </div>
-    </ng-template> -->
-    <!-- </div> -->
     <div class="topics" *ngIf="subjects[subjectIndex]?.name&&subject.category?.length">
       <ion-row class="topics-header" line-bottom *ngIf="!stickTopicHeader">
         <a col-2 class="fixed-button" (click)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll" *ngIf="subjects[subjectIndex].diff">{{subjects[subjectIndex].showAll?'错题':'全部'}}</a>

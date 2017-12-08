@@ -39,7 +39,7 @@ export const ENALYZINGMODAL_PAGE = 'EnalyzingmodalPage';
 export const PACKAGE_PAGE = 'PackagePage';
 export const PACKAGEGUIDE_PAGE = 'PackageguidePage';
 
-export const REPORTMODAL_PAGE = 'ReportmodalPage';
+//export const REPORTMODAL_PAGE = 'ReportmodalPage';
 
 export const REPLY_PAGE = 'ReplyPage';
 

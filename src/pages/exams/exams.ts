@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { Pageview } from '../../model/pageview';
 import { ExamsProvider } from '../../providers/exams/exams';
 import { ChartsProvider } from '../../providers/charts/charts';
+import { NotifyProvider } from '../../providers/notify/notify';
 import { PaymentProvider } from '../../providers/payment/payment';
 import { NativeProvider } from '../../providers/native';
 import { REPORT_PAGE, DOCTOR_PAGE, REPLY_PAGE } from '../pages.constants';
@@ -31,6 +32,7 @@ export class ExamsPage {
   waterball: any;
   option: any;
   achieveSub: any;
+  unclaimed: number = 0;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -38,12 +40,16 @@ export class ExamsPage {
     public chartsPro: ChartsProvider,
     private paymentPro: PaymentProvider,
     private viewCtrl: ViewController,
-    private nativePro: NativeProvider
-  ) {}
+    private nativePro: NativeProvider,
+    notifyPro: NotifyProvider
+  ) {
+    this.unclaimed = notifyPro.distribution.unclaimed;
+  }
 
   ionViewDidLoad() {
     //this.doRefresh();
     setTimeout(() => this.doRefresh(), 300);
+
   }
 
   doRefresh(event ? ) {

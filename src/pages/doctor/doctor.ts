@@ -36,8 +36,6 @@ export class DoctorPage {
   percents: any;
   balls: string[] = [];
 
-  swinged: boolean;
-
   /**
    *是否固定小题详细头部
    */
@@ -46,8 +44,9 @@ export class DoctorPage {
   /**
    *滚动timer
    */
-  scrollYStart: number;
   scrollTimer: any;
+  unloading: boolean;
+  scrolllProcessing: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -65,16 +64,21 @@ export class DoctorPage {
     setTimeout(() => {
       this.showNavButton = this.navCtrl.getPrevious().id != REPORT_PAGE;
       this.doctorPro.subject({ guid: this.exam.guid }).then(res => {
-        if (!res || !res.subject || !res.subject.no || !res.subject.no.length) return this.subject = null;
+        if (!res || !res.subject || !res.subject.no || !res.subject.no.length) return this.unloading = null;
+        this.unloading = true;
         this.balls = res.subjects;
         this.fill(res.subject, res.subjects[this.subjectIndex]);
         console.log(res);
         console.log(this.subjectSlider);
       }).catch(ex => {
         console.error(ex);
-        this.subject = null;
+        this.unloading = null;
       });
     }, 350);
+  }
+
+  onChanged(index) {
+    this.subjectSlider.slideTo(index);
   }
 
   onSlideChanged(slider) {
@@ -175,11 +179,12 @@ export class DoctorPage {
     this.subjects[this.subjectIndex] = val;
   }
   scrollHandler(event) {
-    this.zone.run(() => {
-      this.stickTopicHeader = event.scrollTop > this.subjectSlider.container.offsetHeight;
-    });
+    if (this.scrolllProcessing) return;
+    let show = event.scrollTop > this.subjectSlider.container.offsetHeight;
+    if (show == this.stickTopicHeader) return;
+    clearTimeout(this.scrollTimer);
+    this.scrolllProcessing = true;
+    this.scrollTimer = setTimeout(() => this.scrolllProcessing = false, 250);
+    this.zone.run(() => this.stickTopicHeader = show);
   }
-
-
-
 }
