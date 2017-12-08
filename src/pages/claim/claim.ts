@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { ClaimProvider } from '../../providers/claim/claim';
-//import { ExammodalPage } from '../exammodal/exammodal';
-//import { ClaimmodalPage } from '../claimmodal/claimmodal';
 import { NativeProvider } from "../../providers/native";
 import { NotifyProvider } from '../../providers/notify/notify';
 import { CLAIMMODAL_PAGE } from '../pages.constants';
@@ -38,16 +36,17 @@ export class ClaimPage {
   }
 
   claim(item) {
-    //let img = [];
     this.claimPro.examineeimg({ guid: item.examguid, studentcode: item.studentcodelist }).then(res => {
       res && this.openModal(item, res);
+      console.log(res);
     }).catch(err => {
       console.log(err);
     });
   }
 
   openModal(item, papers) {
-    let modal = this.modalCtrl.create(CLAIMMODAL_PAGE, { papers: papers, name: item.studentname });
+    console.log(item,'66666');
+    let modal = this.modalCtrl.create(CLAIMMODAL_PAGE, { papers: papers, name: item['studentname'] });
     modal.present();
     modal.onDidDismiss(res => {
       if (!res || !res.code) return;
@@ -68,7 +67,7 @@ export class ClaimPage {
     let exception = (res) => {
       event ? event.complete() : this.nativepro.hideLoading();
       this.unclaimes = null;
-    }
+    };
     this.claimPro.unclaimexam().then(res => {
       if (!res || !res.length) return exception(res);
       this.unclaimes = res;
