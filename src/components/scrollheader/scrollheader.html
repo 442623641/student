@@ -1,6 +1,6 @@
 <!-- Generated template for the ScrollheaderComponent component,add by leo zhang 201710010101 -->
 <iscroll [scrollX]="true" [scrollY]="false" #scroll>
-  <ion-row nowrap align-items-center justify-content-between [style.width]="((itemsValue.length-4)*0.25+1)*100+'%'" (click)="tap($event)">
+  <ion-row nowrap align-items-center justify-content-between [style.width]="((len-4)*0.25+1)*100+'%'" (click)="tap($event)">
     <ng-container *ngFor="let item of itemsValue;let i=index;">
       <ion-col [attr.index]="i" [class.select]="i==selectedValue" *ngIf='item.visible'>{{item.name}}
       </ion-col>

@@ -1,5 +1,5 @@
 <img [src]="src" (load)="onLoad()" [hidden]="state!=1" (error)="onError()" [attr.alt]="alt">
-<div *ngIf="state!=1" class="loader" (tap)="refresh()" [class.error]="state===-1&&!alt">
+<div *ngIf="state!=1" class="loader" [class.error]="state===-1&&!alt">
   <!-- <ion-icon name="ios-alert-outline" *ngIf="state===-1&&!alt" color="gray9"></ion-icon> -->
   <ion-spinner name="bubbles" color="gray9" *ngIf="state===0"></ion-spinner>
   <ng-container *ngIf="state==-1&&alt">{{alt}}</ng-container>

@@ -5,6 +5,8 @@ import { ChartsProvider } from '../../providers/charts/charts';
 import { PaymentProvider } from '../../providers/payment/payment';
 import { ReportOptions, ReportCategory } from '../../model/report';
 import { DOCTOR_PAGE, PACKAGE_PAGE, RECHARGE_PAGE, REPORTMODAL_PAGE, REPLY_PAGE } from '../pages.constants';
+import { NativeProvider } from '../../providers/native';
+import { CouponProvider } from '../../providers/coupon/coupon';
 /**
  * Generated class for the ReportPage page.
  *
@@ -30,6 +32,10 @@ export class ReportPage {
   reports: ReportOptions[] = [];
   infinites: boolean[] = [true, true];
 
+  couponCount: number = 0;
+  balance: number = 0;
+  achieveSub: any;
+
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
@@ -38,43 +44,23 @@ export class ReportPage {
     private modalCtrl: ModalController,
     private paymentPro: PaymentProvider,
     private viewCtrl: ViewController,
+    private nativePro: NativeProvider,
+    private couponPro: CouponProvider
   ) {}
 
   ionViewDidLoad() {
+    this.initializePackage();
     setTimeout(() => {
-
       this.exam = this.navParams.data;
+      this.exam.payment || this.couponPro.getcount().then(res => this.couponCount = res.count || 0).catch();
       this.showNavButton = this.navCtrl.getPrevious().id != DOCTOR_PAGE && this.exam.payment;
       this.getReport(this.reportIndex).then(res => {
         this.categorys = ReportCategory.filter(item => { return item.code <= res.level }).reverse();
         this.categorysValue = this.categorys.map(item => { return item.name });
-        this.exam.payment || this.openPackageModal();
         this.content.resize();
         console.log(this.report);
       });
     }, 550);
-  }
-
-  /**
-   *查看
-   */
-  openPackageModal() {
-    let modal = this.modalCtrl.create(REPORTMODAL_PAGE, { guid: this.exam.guid });
-    modal.present();
-    modal.onDidDismiss((res = {}) => {
-      this.exam.payment = res.payment;
-      res.page &&
-        this.navCtrl.push(res.page, res.dvalue ? { params: { ordertype: 'exam', selectxbz: res.dvalue, skucode: `exam|${this.exam.guid}` } } : {}).then(res => {
-          let achieveSub = this.paymentPro.achieve$.subscribe(res => {
-            let start = this.navCtrl.indexOf(this.viewCtrl);
-            this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
-              this.exam.payment = true;
-              this.report.resetPayment(true);
-              achieveSub.unsubscribe();
-            });
-          });
-        })
-    });
   }
 
   changeSlide($event) {
@@ -190,6 +176,96 @@ export class ReportPage {
     this.report.rankSubjects.length && this.scoretrends(this.report.rankSubjects[0]);
     this.comranks(this.report.subjects[0]);
     //console.log(event);
+  }
+
+  ionViewDidEnter() {
+    this.achieveSub && this.achieveSub.unsubscribe();
+  }
+
+
+  /**
+   *学情报告未生成时，初始化优惠券余额等信息
+   */
+  initializePackage() {
+    if (this.navParams.get('payment')) return;
+    this.couponPro.getcount().then(res => this.couponCount = res.count || 0).catch();
+    this.paymentPro.getLocalBalance().then(res => this.balance = res);
+  }
+
+
+  /**
+   *学情报告未生成是，点击查看学情报告
+   */
+  openPackage() {
+    const COIN = 100;
+    let callback = () => {
+      this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
+        let start = this.navCtrl.indexOf(this.viewCtrl);
+        this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
+          this.exam.payment = true;
+          this.report.resetPayment(true);
+          this.achieveSub.unsubscribe();
+        });
+      });
+    }
+
+    //有优惠劵前往学情套餐
+    if (this.couponCount) {
+      return this.nativePro.confirm(`您现有${this.couponCount}张优惠券，开通学情套餐更为划算哦！`, ['取消', '立即开通'], '开通学情套餐')
+        .then(btn => {
+          btn && this.navCtrl.push(PACKAGE_PAGE).then(() => callback())
+        })
+    }
+    //学贝充足，生产学情报告
+    if (this.balance >= COIN) {
+      return this.nativePro.confirm(`您当前持有${this.balance}学贝，生成本次学情报告需消耗${COIN}学贝`, ['取消', '立即生成'], '生成学情报告')
+        .then(btn => {
+          btn && this.paymentPro.sa({ ordertype: 'exam', examguid: this.exam.guid }).then(res => {
+            this.nativePro.prompt("成功生成学情报告");
+            this.exam.payment = true;
+          })
+        })
+    }
+
+    //学贝不足，充值
+    if (this.balance < COIN) {
+      return this.nativePro.confirm(`您当前持有${this.balance}学贝，生成本次学情报告需要${COIN}学贝，还需充值${COIN-this.balance}学贝`, ['取消', '立即充值'], '生成学情报告')
+        .then(btn => {
+          btn && this.navCtrl.push(RECHARGE_PAGE, {
+              params: {
+                ordertype: 'exam',
+                examguid: this.exam.guid,
+                selectxbz: COIN - this.balance,
+                skucode: `exam|${this.exam.guid}`
+              }
+            })
+            .then(res => callback());
+        })
+    }
+  }
+
+
+
+  /**
+   *查看
+   */
+  openPackageModal() {
+    let modal = this.modalCtrl.create(REPORTMODAL_PAGE, { guid: this.exam.guid });
+    modal.present();
+    modal.onDidDismiss((res = {}) => {
+      this.exam.payment = res.payment;
+      res.page &&
+        this.navCtrl.push(res.page, res.dvalue ? { params: { ordertype: 'exam', selectxbz: res.dvalue, skucode: `exam|${this.exam.guid}` } } : {}).then(res => {
+          let achieveSub = this.paymentPro.achieve$.subscribe(res => {
+            let start = this.navCtrl.indexOf(this.viewCtrl);
+            this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
+              this.exam.payment = true;
+              this.report.resetPayment(true);
+              achieveSub.unsubscribe();
+            });
+          });
+        })
+    });
   }
 
 }

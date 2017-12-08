@@ -14,8 +14,8 @@
     </ion-buttons>
   </ion-navbar>
   <div *ngIf="(balls.length>1||stickTopicHeader)" [class.transformY-45]="stickTopicHeader&&balls.length>1" class="sub-header" line-bottom [class.inactive]="lantern">
-    <scroll-header [items]="balls" (selectedChange)="subjectSlider.slideTo($event)" *ngIf="balls.length>1" line-bottom></scroll-header>
-    <ion-row class="topics-header" *ngIf="stickTopicHeader">
+    <scroll-header [items]="balls" [(selected)]="subjectIndex" (selectedChange)="subjectSlider.slideTo($event)" *ngIf="balls.length>1" line-bottom></scroll-header>
+    <ion-row class="topics-header" *ngIf="stickTopicHeader&&subjects">
       <a col-3 class="fixed-button" *ngIf="subjects[subjectIndex].diff" (click)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll">{{subjects[subjectIndex].showAll?'查看错题':'查看全部'}}</a>
       <ion-col no-padding>
         <scroll-header [items]="subjects[subjectIndex].nos" [(selected)]="subjects[subjectIndex].categoryIndex" (selectedChange)="topic($event)"></scroll-header>
@@ -24,13 +24,14 @@
   </div>
 </ion-header>
 <ion-content #content [fullscreen]="true" (ionScroll)="scrollHandler($event)" padding-bottom>
-  <loading [status]="subjects" *ngIf="!subjects;else entry"></loading>
+  <loading [status]="subjects" *ngIf="!subjects
+;else entry"></loading>
   <ng-template #entry>
     <div class="card origin" *ngIf="balls.length<2;else slider" #subjectCard>
       <ion-row class="card-header" justify-content-between>
         <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
       </ion-row>
-      <img-lazy [src]='subjects[subjectIndex]?.paper'></img-lazy>
+      <img-lazy [src]='subjects[subjectIndex].paper' [imgviewer]="{title:exam.name+subjects[subjectIndex].name,images:subjects[subjectIndex].paper}" *ngIf="subjects[subjectIndex]"></img-lazy>
     </div>
     <ng-template #slider>
       <ion-slides (ionSlideDidChange)="onSlideChanged($event)" #subjectSlider>
@@ -103,10 +104,16 @@
   </ion-footer>
   <transition name="lantern" [if]="lantern">
     <div class="lantern">
-      <p><span>深入挖掘</span>
-        <a (click)="closeLantern()" float-right padding-horizontal>
+      <ion-fab right>
+        <button ion-fab icon-only (click)="lantern=false" color="transparent">
           <ion-icon name="close"></ion-icon>
-        </a>
+        </button>
+      </ion-fab>
+      <p><span>深入挖掘</span>
+        <!-- < -->
+        <!-- <a (click)="closeLantern()" float-right padding-horizontal>
+          <ion-icon name="close"></ion-icon>
+        </a> -->
       </p>
       <p>正式利用每一道错题的途径</p>
       <p padding-12>

@@ -14,19 +14,28 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  <p class="affix" line-bottom *ngIf="affixOpt">
+  <p class="affix" line-bottom *ngIf="affixOpt&&enalyzingOpt?.state">
     <span>{{affixOpt.name}}</span>
     <span><span ion-text color="primary">{{affixOpt.count}}</span>道错题</span>
     <span float-right>{{affixOpt.time | date:'yyyy年M月d日'}}</span>
   </p>
 </ion-header>
 <ion-content (ionScroll)="scrollHandler($event)" #content>
-  <loading [status]="enalyzingOpt?enalyzingOpt.state:enalyzingOpt" *ngIf="!enalyzingOpt||!enalyzingOpt.state;else entry"></loading>
-  <ng-template #entry>
-    <div text-center style="width: 100%;" *ngIf="enalyzingOpt.unauthorized>=enalyzingOpt.total;else entrycontent">
+  <loading [status]="enalyzingOpt?enalyzingOpt.state:enalyzingOpt" *ngIf="!(enalyzingOpt&&enalyzingOpt.unauthorized&&enalyzingOpt.unauthorized>=enalyzingOpt.total)&&(!enalyzingOpt||!enalyzingOpt.state);else entry" [mess]="enalyzingOpt?.total?'什么也没木有':'等待学校上传试卷，详情咨询：400-0309776'"></loading>
+  <ng-container *ngIf="enalyzingOpt&&enalyzingOpt.unauthorized&&enalyzingOpt.unauthorized==enalyzingOpt.total">
+    <div text-center style="width: 100%;">
       <img src="assets/images/enalyzingbg.png">
     </div>
-    <ng-template #entrycontent>
+    <ion-footer>
+      <ion-toolbar>
+        <ion-title>
+          <button ion-button block [navPush]="pages.package">开通学情套餐</button>
+        </ion-title>
+      </ion-toolbar>
+    </ion-footer>
+  </ng-container>
+  <ng-template #entry>
+    <ng-container *ngIf="enalyzingOpt.unauthorized!=enalyzingOpt.total">
       <ng-container *ngFor="let exam of enalyzingOpt.exams;let e = index;">
         <p class="affix" line-bottom *ngIf="exam.count"><span>{{exam.name}}</span><span><span ion-text color="primary">
       {{exam.count}}</span>道错题</span><span float-right>{{exam.time | date:'yyyy年M月d日'}}</span></p>
@@ -59,16 +68,9 @@
       <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!enalyzingOpt.end">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>
-    </ng-template>
+    </ng-container>
   </ng-template>
 </ion-content>
-<ion-footer *ngIf="enalyzingOpt&&enalyzingOpt.unauthorized&&enalyzingOpt.unauthorized==enalyzingOpt.total">
-  <ion-toolbar>
-    <ion-title>
-      <button ion-button block [navPush]="pages.package">开通学情套餐</button>
-    </ion-title>
-  </ion-toolbar>
-</ion-footer>
 <sidenav [(open)]="showMenu" *ngIf="enalyzingOpt">
   <ion-item-group>
     <ion-item-divider color="light">科目</ion-item-divider>

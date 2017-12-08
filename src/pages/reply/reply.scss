@@ -3,7 +3,7 @@ page-reply {
   .topics loading .row {
     height: auto;
   }
-  .swiper loading .row{}
+  .swiper loading .row {}
   .sub-header {
     iscroll {
       max-height: 45px;
@@ -13,6 +13,9 @@ page-reply {
       max-height: 0;
       transition: max-height .3s .1s;
     }
+  }
+  .fab ion-icon {
+    font-size: 4.6rem;
   }
 
   .footer {

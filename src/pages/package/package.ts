@@ -29,6 +29,12 @@ export class PackagePage {
     private modalCtrl: ModalController,
   ) {}
   ngOnInit() {
+
+  }
+  balanceChange(event) {
+    this.package = new PackageO(event);
+  }
+  ionViewDidLoad() {
     this.packagePro.options().then(res => {
       if (!res || !res.length) return this.options = null;
       this.options = res;
@@ -36,11 +42,6 @@ export class PackagePage {
     }).catch(ex => {
       this.options = null;
     });
-  }
-  balanceChange(event) {
-    this.package = new PackageO(event);
-  }
-  ionViewDidLoad() {
     this.navParams.get('guide') && setTimeout(() => this.modalCtrl.create(PACKAGEGUIDE_PAGE).present(), 800);
   }
 

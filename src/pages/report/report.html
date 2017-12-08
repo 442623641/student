@@ -162,7 +162,7 @@
       <div class="card-modal">
         <h6 padding-vertical-12>{{comment}}</h6>
         <p>
-          <button ion-button round [navPush]="pages.package">查看{{name}}</button>
+          <button ion-button round (click)="openPackage()">查看{{name}}</button>
         </p>
       </div>
       <ion-backdrop></ion-backdrop>

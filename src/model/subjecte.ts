@@ -326,7 +326,7 @@ export class Subjecte {
         };
       }
     }
-    this.showAll = this.diff ? true : false;
+    this.showAll = false;
     // code...
   }
 
@@ -354,6 +354,9 @@ export class Subjecte {
     }) : this.category.map(item => {
       return { name: item.no, visible: !item.right }
     });
+    if (!this.nos[this.categoryIndex].visible) {
+      this.categoryIndex = this.nos.findIndex(item => { return item.visible });
+    }
     this._showAll = shouldShowAll;
   }
 

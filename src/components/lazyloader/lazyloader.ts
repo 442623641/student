@@ -27,6 +27,7 @@ export class LazyLoader {
   }
 
   onError() {
+    if (this.alt && (this.alt.indexOf('http://') > -1 || this.alt.indexOf('https://') > -1)) this.alt = null;
     clearTimeout(this.timer);
     this.state = -1;
   }

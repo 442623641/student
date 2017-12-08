@@ -116,7 +116,7 @@ export class NativeProvider {
     if (this.native) {
       return this.isIos() ? this.dialogs.confirm(title ? msg : title, title ? title : msg, btns).then(btn => {
         return btn - 1
-      }) : this.dialogs.confirm(msg, title, btns).then(btn => {
+      }) : this.dialogs.confirm(msg, '', btns).then(btn => {
         return btn - 1
       });
     }
