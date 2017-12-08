@@ -14,7 +14,7 @@
     </ion-buttons>
   </ion-navbar>
   <div *ngIf="balls.length>1||stickTopicHeader" [class.transformY-45]="stickTopicHeader&&balls.length>1" class="sub-header" line-bottom>
-    <scroll-header [items]="balls" (selectedChange)="subjectSlider.slideTo($event)" *ngIf="balls.length>1" line-bottom></scroll-header>
+    <scroll-header [items]="balls" [(selected)]="subjectIndex" (selectedChange)="subjectSlider.slideTo($event)" *ngIf="balls.length>1" line-bottom></scroll-header>
     <ion-row class="topics-header" *ngIf="stickTopicHeader">
       <a col-2 class="fixed-button" (click)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll" *ngIf="subjects[subjectIndex].diff">{{subjects[subjectIndex].showAll?'错题':'全部'}}</a>
       <ion-col no-padding>

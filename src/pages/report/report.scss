@@ -169,14 +169,15 @@ page-report {
     right: 0;
     position: absolute; // height: calc(100% - 48px);
     // width: 100%; //background: rgba(255, 255, 255, .85);
+    transform: translate3d(0, 0, 1px);
     &~ion-backdrop {
       @extend .blur;
       top: 48px;
       background: #fff;
-      opacity: .93;
-      filter: blur(15px);
+      opacity: .93; // filter: blur(15px);
       height: calc(100% - 48px);
       z-index: 3;
+      transform: translate3d(0, 0, -1px);
     }
     p {
       .button {

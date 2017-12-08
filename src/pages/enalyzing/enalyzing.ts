@@ -82,6 +82,7 @@ export class EnalyzingPage {
       //console.log(this.enalyzingOpt);
     }).catch(ex => {
       this.nativePro.hideLoading();
+      this.affixs.length = 0;
     })
   }
 

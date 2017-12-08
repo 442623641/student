@@ -25,7 +25,7 @@ export class ReplyPage {
   @ViewChild('subjectCard') subjectCard: any;
   lantern: boolean;
   showNavButton: boolean;
-  subjects: Subjecte[] = [];
+  subjects: Subjecte[];
   subjectIndex: number = 0;
 
   exam: any = {};
@@ -53,13 +53,16 @@ export class ReplyPage {
   ionViewDidLoad() {
     this.showNavButton = this.navCtrl.getPrevious().id != REPORT_PAGE;
     setTimeout(() => {
-      this.lantern = true;
+      //this.lantern = true;
       this.doctorPro.subject({ guid: this.exam.guid }).then(res => {
         if (!res || !res.subjects || !res.subjects.length) return this.subjects = null;
+        this.subjects = [];
         this.balls = res.subjects;
         this.fill(res.subject, res.subjects[this.subjectIndex]);
-        console.log(res);
-      }).catch(ex => {});
+        setTimeout(() => this.balls.length > 1 && this.content.resize(), 120);
+      }).catch(ex => {
+        this.subjects = null;
+      });
     }, 350);
   }
 
@@ -137,6 +140,5 @@ export class ReplyPage {
   }
   closeLantern() {
     this.lantern = false;
-    setTimeout(() => this.balls.length > 1 && this.content.resize(), 480);
   }
 }
