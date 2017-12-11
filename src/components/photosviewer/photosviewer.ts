@@ -25,14 +25,5 @@ export class PhotosviewerComponent {
       let us = typeof item === "string" ? [item] : item.link || item.value;
       this.urls = this.urls.concat(us);
     });
-    // if (!this.urls) {
-    //   this.nativePro.toast('图片不存在')
-    // }
-    //console.log(this.urls);
   }
-
-
-
-
-
 }

@@ -18,7 +18,7 @@
       <div [attr.name]="item.name">
         <span class="name">{{item.name}}</span>
         <div class="mess" *ngSwitchCase="false">
-          {{item.name}}共有<span primary>{{item.count}}</span>次考试，如需打印本科错题本，请点击下方“申请打印”选择需要打印的内容</div>
+          {{item.name}}共有<span primary>{{item.count}}</span>次考试，如需定制本科错题本，请点击下方“申请定制”选择需要定制的内容</div>
         <div class="mess" *ngSwitchCase="true">
           您共选择了<span primary>{{item.echeckeds}}</span>次考试，<span primary>{{item.icheckeds}}</span>道错题
           <ng-container *ngIf="item.promote">，匹配了<span primary>{{item.promote}}</span>道练习题</ng-container>
@@ -29,7 +29,7 @@
       <!-- <p text-center padding-12> -->
       <!-- <button ion-button (click)="print(item)" clear> -->
       <ng-container *ngIf="!item.processing;else processing;">
-        <a *ngSwitchCase="false" (click)="print(item)" class="card-footer">申请打印</a>
+        <a *ngSwitchCase="false" (click)="print(item)" class="card-footer">申请定制</a>
         <a *ngSwitchCase="true" (click)="print(item)" class="card-footer">修 改</a>
       </ng-container>
       <ng-template #processing>

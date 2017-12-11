@@ -7,7 +7,8 @@ page-address {
     margin-left: 0;
   }
   .label {
-    margin-right: 0;
+    margin-right: 0 !important;
+    overflow: visible!important;
   }
   .item {
     border-bottom: $border;

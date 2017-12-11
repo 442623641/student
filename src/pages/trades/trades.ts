@@ -17,7 +17,7 @@ export class TradesPage {
     public tradesPro: TradesProvider) {}
 
   ionViewDidLoad() {
-    setTimeout(() => this.doRefresh(), 300);
+    setTimeout(() => this.doRefresh(), 450);
   }
 
   doRefresh(event ? ) {

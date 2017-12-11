@@ -33,7 +33,7 @@ export class ClaimPage {
 
   ionViewDidLoad() {
     setTimeout(() =>
-      this.doRefresh(), 350);
+      this.doRefresh(), 450);
   }
 
   claim(item) {

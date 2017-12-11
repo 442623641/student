@@ -115,9 +115,9 @@ export class NativeProvider {
   confirm = (msg: string = "确定这样做？", btns: Array < string >= ["取消", "确认"], title: string = '') => {
     if (this.native) {
       return this.isIos() ? this.dialogs.confirm(title ? msg : title, title ? title : msg, btns).then(btn => {
-        return Math.max(btn - 1,0);
-      }) : this.dialogs.confirm(msg, '', [btns[0],'',btns[1]]).then(btn => {
-        return Math.max(btn - 1,0);
+        return Math.max(btn - 1, 0);
+      }) : this.dialogs.confirm(msg, '', [btns[0], '', btns[1]]).then(btn => {
+        return Math.max(btn - 2, 0);
       });
     }
     return new Promise((resolve, reject) => {

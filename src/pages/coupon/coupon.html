@@ -29,7 +29,7 @@
         <ion-row padding-vertical class="coupon-content" align-items-center (click)="setChecked(v.couponCode)" [ngSwitch]="v.couponType>0">
           <ion-col col-4 *ngSwitchCase="true"><span>{{ v.money }}</span><i class="normal" [class.expired]="v.expired">元</i>
           </ion-col>
-          <ion-col col-4 *ngSwitchCase="false"><span>{{ v.rate*100 }}</span><i class="normal" [class.expired]="v.expired">折</i>
+          <ion-col col-4 *ngSwitchCase="false"><span>{{ v.rate*10 }}</span><i class="normal" [class.expired]="v.expired">折</i>
           </ion-col>
           <ion-col class="row" justify-content-between>
             <span>{{ v.couponName }}

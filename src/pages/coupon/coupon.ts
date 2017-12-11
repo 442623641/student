@@ -38,7 +38,9 @@ export class CouponPage {
     this.checked = this.navParams.get('checked');
     this.coupons = this.navParams.get('coupons');
     if (!this.coupons) {
-      this.doRefresh();
+      setTimeout(() => {
+        this.doRefresh()
+      }, 450);
       this.setChecked = () => {}
     } else {
       this.showButton = true;

@@ -5,15 +5,13 @@ page-claim {
     width: 100%;
     position: absolute;
     background: #ffffff;
-    right: 0;
+    right: -40px !important;
     top: calc(100% - 1px);
     transform: scaleY(0.35);
   }
-  .list-ios>.item-block:last-child {
-    border: none;
-  }
   .list {
-    margin-bottom: .5rem;
+    margin-bottom: 0!important;
+    overflow: hidden;
   }
   .unclaimed-month {
     display: inline-block;
@@ -49,15 +47,10 @@ page-claim {
       position: absolute;
       left: 25px;
     }
-    border: none;
-    span {
+    span{
       color: color($colors, primary);
-    }
-    h2 {
-      color: color($colors, text);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      width: 50px;
+      margin-right: 0!important;
     }
   }
 }
