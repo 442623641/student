@@ -76,20 +76,23 @@ export class HomePage {
     this.userProvider.userInfo$.subscribe((userInfo: UserInfo) => this.userInfo = userInfo);
     this.loadData();
   }
-  balanceChange(event) {
-    console.log('balanceChange', event)
 
+  doRefresh(event) {
+    Promise.all([this.loadData(), this.paymentPro.balance()])
+      .then(res => {
+        event.complete();
+      }).catch(ex => {
+        event.complete();
+        this.package = null;
+      })
   }
 
   loadData() {
     return this.homeProvider.index().then(res => {
+      this.packageSub && this.packageSub.unsubscribe();
       this.package = new Package(res.package);
       if (!this.package.open) {
         this.packageSub = this.paymentPro.package$.subscribe(res => this.loadData());
-        console.log(res);
-      } else {
-        this.packageSub && this.packageSub.unsubscribe();
-        this.packageSub = undefined;
       }
     }).catch(ex => {
       console.log(ex);
@@ -99,13 +102,6 @@ export class HomePage {
   }
 
   open(should) {
-    //if (1) {
-    //   return this.nativePro.share().then(res => {
-    //     console.log(res);
-    //   }).catch(ex => {
-    //     console.log(ex);
-    //   })
-    //}
     this.navCtrl.push(this.pages.package, { guide: !this.package.open });
     this.packageSub && this.packageSub.unsubscribe();
     this.listen = this.paymentPro.achieve$.subscribe(res => {

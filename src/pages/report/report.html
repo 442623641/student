@@ -101,7 +101,6 @@
             <ng-template [ngIf]="reports[indexNum]?.activityComranks" [ngIfElse]="loadingb">
               <div *ngFor="let rank of reports[indexNum].activityComranks;let i =index;" class="rank-item" [attr.self]="rank.sort=='我'?'':null">
                 <span>{{rank.sort}}</span>
-                <!-- <span float-left *ngIf="rank.count">并列{{rank.count}}人</span> -->
                 <div [attr.data-count]="rank.count?'并列'+rank.count+'人':' '">{{rank.score}}</div>
               </div>
             </ng-template>
@@ -118,9 +117,7 @@
           </ion-card-header>
           <scroll-header [(selected)]="reports[indexNum].scoretrendsIndex" [items]="reports[indexNum].scoreSubjects" *ngIf="reports[indexNum].scoreSubjects.length" (selectedChange)="scoretrends(reports[indexNum].scoreSubjects[$event])"></scroll-header>
           <ion-card-content style="height:220px;padding-right:0;">
-            <!-- <ng-template [ngIf]="reports[indexNum].activityScoretrends" [ngIfElse]="loadinga"> -->
             <echarts-ng2 *ngIf="reports[indexNum].activityScoretrends;else loadinga" [option]="reports[indexNum].activityScoretrends" [style]="{'height':'195px'}"></echarts-ng2>
-            <!-- </ng-template> -->
             <ng-template #loadinga>
               <loading [status]="reports[indexNum].activityScoretrends"></loading>
             </ng-template>
@@ -134,9 +131,7 @@
           </ion-card-header>
           <scroll-header [(selected)]="reports[indexNum].ranktrendsIndex" [items]="reports[indexNum].rankSubjects" (selectedChange)="ranktrends(reports[indexNum].rankSubjects[$event])" *ngIf="reports[indexNum].rankSubjects.length"></scroll-header>
           <ion-card-content style="height:220px;padding-right:0;">
-            <!-- <ng-template [ngIf]="reports[indexNum].activityRanktrends" [ngIfElse]="loadingd"> -->
             <echarts-ng2 *ngIf="reports[indexNum].activityRanktrends;else loadingd" [option]="reports[indexNum].activityRanktrends" [style]="{ 'height': '195px'}"></echarts-ng2>
-            <!-- </ng-template> -->
             <ng-template #loadingd>
               <loading [status]="reports[indexNum].activityRanktrends"></loading>
             </ng-template>
@@ -169,13 +164,12 @@
       <ion-backdrop></ion-backdrop>
     </ng-container>
   </ng-template>
-  <!-- </ng-template> -->
 </ion-content>
 <ion-footer no-border *ngIf='reports.length&&!exam.payment'>
   <ion-toolbar color="transparent" no-padding>
     <ion-row confirm padding-left>
       <ion-col col-8 no-padding>
-        开通学情套餐，掌控一起
+        开通学情套餐，掌控一切
       </ion-col>
       <a [navPush]="pages.package">立即开通</a>
     </ion-row>

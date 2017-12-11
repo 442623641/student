@@ -35,14 +35,16 @@ export class PackagePage {
     this.package = new PackageO(event);
   }
   ionViewDidLoad() {
-    this.packagePro.options().then(res => {
-      if (!res || !res.length) return this.options = null;
-      this.options = res;
-      this.tap(res[0]);
-    }).catch(ex => {
-      this.options = null;
-    });
-    this.navParams.get('guide') && setTimeout(() => this.modalCtrl.create(PACKAGEGUIDE_PAGE).present(), 800);
+    setTimeout(() => {
+      this.packagePro.options().then(res => {
+        if (!res || !res.length) return this.options = null;
+        this.options = res;
+        this.tap(res[0]);
+      }).catch(ex => {
+        this.options = null;
+      });
+      this.navParams.get('guide') && this.modalCtrl.create(PACKAGEGUIDE_PAGE).present();
+    }, 350);
   }
 
   tap(opt: PackageOption) {

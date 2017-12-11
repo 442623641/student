@@ -17,7 +17,7 @@ export class AppProvider {
   /*
    *反馈消息
    */
-  feedback(data, path) {
-    return this.http.uploadFile('index/feedback', data, path);
+  feedback(data, path ? ) {
+    return path ? this.http.uploadFile('index/feedback', data, path) : this.http.post('index/feedback', data);
   }
 }

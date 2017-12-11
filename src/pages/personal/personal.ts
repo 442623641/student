@@ -5,8 +5,8 @@ import { StaticProvider } from '../../providers/static/static';
 import { UserInfo } from '../../model/userInfo';
 import { UserProvider } from '../../providers/user';
 import { NativeProvider } from '../../providers/native';
-import { PERSONAL_PAGE, SCHOOLS_PAGE } from '../pages.constants'
-import { TabsPage } from '../../pages/tabs/tabs';
+import { PERSONAL_PAGE, SCHOOLS_PAGE, TABS_PAGE, LOGIN_PAGE } from '../pages.constants'
+//import { TabsPage } from '../../pages/tabs/tabs';
 /**
  * Generated class for the PersonalPage page.
  *
@@ -45,6 +45,7 @@ export class PersonalPage {
   ) {}
 
   ngOnInit() {
+
     this.initialize();
   }
 
@@ -123,9 +124,9 @@ export class PersonalPage {
         grade: this.userInfo.grade
       }).then(res => {
         this.processing = undefined;
-        this.nativePro.toast('信息更新成功');
+        this.nativePro.prompt('信息更新成功');
         this.userPro.setUserInfo(this.userInfo);
-        setTimeout(() => this.navCtrl.parent ? this.navCtrl.pop() : this.appCtrl.getRootNav().setRoot(TabsPage, {}, { animate: true, animation: 'ios-transition', direction: 'forward' }), 1000);
+        setTimeout(() => this.navCtrl.getPrevious().name != LOGIN_PAGE ? this.navCtrl.pop() : this.appCtrl.getRootNav().setRoot(TABS_PAGE, {}, { animate: true, animation: 'ios-transition', direction: 'forward' }), 1000);
       }).catch(ex => {
         this.processing = undefined;
         this.nativePro.toast('更新失败，请稍后再试');

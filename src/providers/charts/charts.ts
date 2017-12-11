@@ -123,7 +123,6 @@ export class ChartsProvider {
         type: 'category',
         data: category,
         axisLabel: {
-          //formatter: '{value}',
           textStyle: {
             color: this.colors.label,
           },

@@ -33,7 +33,7 @@
     <ion-list no-lines *ngIf="exams.length">
       <ion-card *ngFor="let exam of exams">
         <ion-item class="card-header" no-lines>
-          <ion-label>{{exam.name}}</ion-label>
+          <ion-label item-content>{{exam.name}}</ion-label>
           <span item-right *ngIf="exam.payment">已生成</span>
         </ion-item>
         <ion-row nowrap justify-content-start class="desc">

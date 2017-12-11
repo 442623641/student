@@ -75,13 +75,12 @@ page-doctor {
         white-space: nowrap;
       }
     }
-    background: rgba(#fff, .85);
-    .col:not([select=true]) {
-      color: inherit;
-    }
-    [select=true].col {
-      color: color($colors, primary);
-    }
+    background: rgba(#fff, .85); // .col:not([select=true]) {
+    //   color: inherit;
+    // }
+    // [select=true].col {
+    //   color: color($colors, primary);
+    // }
   }
   .topics-header,
   .topics {

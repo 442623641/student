@@ -6,6 +6,12 @@ export class CategoryOptions {
    *题号
    */
   no ? : string;
+
+  /**
+   *题号
+   */
+  name ? : string;
+
   /**
    *原始卷
    */
@@ -97,6 +103,7 @@ export class CategoryOptions {
     this.level = obj.level || [];
     this.objective = obj.objective;
     this.no = obj.no;
+    this.name = obj.name;
 
 
 
@@ -231,7 +238,12 @@ export class Category extends CategoryOptions {
           lineStyle: {
             color: 'rgba(0,0,0,.05)'
           }
-        }
+        },
+        axisLabel: {
+          textStyle: {
+            color: '#666',
+          },
+        },
       }],
       yAxis: [{
         axisTick: {
@@ -240,6 +252,11 @@ export class Category extends CategoryOptions {
         axisLine: {
           lineStyle: {
             color: 'rgba(0,0,0,.05)'
+          }
+        },
+        axisLabel: {
+          textStyle: {
+            color: '#666',
           }
         }
       }],

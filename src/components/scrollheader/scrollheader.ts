@@ -22,8 +22,8 @@ export class ScrollheaderComponent {
       this.db = JSON.stringify(array);
       this.itemsValue = typeof array[0] === "string" ? array.map(item => { return { name: item, visible: true } }) : array;
       this.len = Math.max(this.itemsValue.filter(item => { return item.visible }).length, 4);
+      setTimeout(() => this.setValue(), 300);
     }
-
   }
   @Output() selectedChange = new EventEmitter();
   @Input()

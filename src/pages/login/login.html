@@ -6,7 +6,7 @@
 -->
 <ion-content hook="home">
   <ion-grid no-padding>
-    <ion-row class="banner" align-items-center>
+    <ion-row class="banner" align-items-center [class.fadeout]="fadeout">
       <h1 class="app-name" padding-top>小七助学</h1>
       <rocket #rocket [state]="authForm.valid?authForm['processing']?'launch':'ready':authForm.valid"></rocket>
     </ion-row>
@@ -16,13 +16,13 @@
           <ion-label color="gray9">
             <ion-icon name="person-outline"></ion-icon>
           </ion-label>
-          <ion-input type="number" formControlName="usercode" placeholder="请输入手机号码" max='11' maxlength="11" clearInput></ion-input>
+          <ion-input (ionBlur)="fadeout=false" (ionFocus)="fadeout=true" type="number" formControlName="usercode" placeholder="请输入手机号码" max='11' maxlength="11" clearInput></ion-input>
         </ion-item>
         <ion-item padding-top padding-right>
           <ion-label color="gray9">
             <ion-icon name="lock-outline"></ion-icon>
           </ion-label>
-          <ion-input [type]="eye?'text':'password'" placeholder="请输入密码" formControlName="pwd"></ion-input>
+          <ion-input (ionBlur)="fadeout=false" (ionFocus)="fadeout=true" [type]="eye?'text':'password'" placeholder="请输入密码" formControlName="pwd"></ion-input>
           <a item-right input-button-right ion-text color="gray6" (click)="eye=!eye">
             <ion-icon [name]="eye?'eye-outline':'eye-off-outline'"></ion-icon>
           </a>
@@ -33,7 +33,7 @@
         <button ion-button block outline [navPush]="pages.validation" [navParams]="{type:'register'}" type="button">注 册</button>
       </ion-row>
     </form>
-    <p text-center class="forgot">
+    <p text-center class="forgot" margin-bottom>
       <a ion-text color="gray9" [navPush]="pages.validation" [navParams]="{type:'recover'}">忘记密码？</a>
     </p>
   </ion-grid>

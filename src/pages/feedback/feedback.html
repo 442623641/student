@@ -17,8 +17,6 @@
     <uploadimg (onChanged)="onChanged($event)"></uploadimg>
   </div>
   <p padding>
-    <submiton [(state)]="processing" (onClick)="submit()">提交反馈</submiton>
-    <!-- <button ion-button block (click)="submit()">提交反馈</button>
- -->
+    <submiton [stateValue]="processing?processing:text?false:processing" (onClick)="submit()">提交反馈</submiton>
   </p>
 </ion-content>

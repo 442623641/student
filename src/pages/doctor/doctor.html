@@ -62,7 +62,7 @@
       </ion-row>
       <div class="topics-content" *ngIf="subjects[subjectIndex].activity.full;else loadinga">
         <div class="topics-item">
-          <div class="item-content" [imgviewer]="{title:subjects[subjectIndex].name+'第'+subjects[subjectIndex].activity+'题',images:subjects[subjectIndex].activity.paper}">
+          <div class="item-content" [imgviewer]="{title:subjects[subjectIndex].name+'第'+subjects[subjectIndex].activity.no+'题',images:subjects[subjectIndex].activity.paper}">
             <img-lazy [src]="url" *ngFor="let url of subjects[subjectIndex].activity.paper" [alt]="url"></img-lazy>
           </div>
           <p footer>
@@ -70,7 +70,7 @@
           </p>
           <p line-top footer *ngIf="subjects[subjectIndex].activity.objective&&subjects[subjectIndex].activity.reply?.length">
             我的答案：<span ion-text [color]="primary">{{subjects[subjectIndex].activity.replyString}}</span>&nbsp;
-            <ion-icon name="checkmark"></ion-icon>&nbsp;&nbsp;&nbsp; 正确答案：
+            <ion-icon [name]="subjects[subjectIndex].category[subjects[subjectIndex].categoryIndex].right?'checkmark':'close'"></ion-icon>&nbsp;&nbsp;&nbsp; 正确答案：
             <span>{{subjects[subjectIndex].activity.answerString}}</span>
           </p>
         </div>
@@ -102,14 +102,14 @@
           </div>
         </div>
         <div class="topics-item" *ngIf="subjects[subjectIndex].activity.analyse.length===1;else analyseSlider;">
-          <p line-bottom text-left>【{{subjects[subjectIndex].activity.analyse[0].no}} 题得分率】</p>
+          <p line-bottom text-left>【小题统计】</p>
           <echarts-ng2 [option]="subjects[subjectIndex].activity.analyse[0].options" [style]="{'height': 150+'px'}"></echarts-ng2>
         </div>
         <ng-template #analyseSlider>
           <ion-slides spaceBetween="10" pager="true">
             <ion-slide *ngFor="let item of subjects[subjectIndex].activity.analyse;let y=index">
               <div class="topics-item">
-                <p line-bottom text-left>【{{item.no}} 题得分率】</p>
+                <p line-bottom text-left>【{{item.no}} 题统计】</p>
                 <echarts-ng2 [option]="item.options" [style]="{'height': 150+'px'}"></echarts-ng2>
               </div>
             </ion-slide>

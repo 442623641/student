@@ -55,7 +55,7 @@ export class AddressPage {
       .then(res => {
         console.log(res);
         if (!res) return;
-        this.authForm.controls.tel.setValue(res.phoneNumbers[0] ? res.phoneNumbers[0].value : '')
+        this.authForm.controls.tel.setValue(res.phoneNumbers[0] && res.phoneNumbers[0].value ? res.phoneNumbers[0].value.replace(/ /g, '') : '')
         this.authForm.controls.name.setValue(res.displayName);
       })
       .catch(ex => console.log(ex));

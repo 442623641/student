@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>错题本</ion-title>
+    <ion-title>选择科目</ion-title>
     <ion-buttons end>
       <button ion-button [navPush]="pages.lostOrders">订单</button>
     </ion-buttons>
@@ -18,7 +18,7 @@
       <div [attr.name]="item.name">
         <span class="name">{{item.name}}</span>
         <div class="mess" *ngSwitchCase="false">
-          {{item.name}}共有<span primary>{{item.count}}</span>次考试，如需打印本科错题本请点击下方“申请打印”选择需要打印的内容</div>
+          {{item.name}}共有<span primary>{{item.count}}</span>次考试，如需定制本科错题本，请点击下方“申请定制”选择需要定制的内容</div>
         <div class="mess" *ngSwitchCase="true">
           您共选择了<span primary>{{item.echeckeds}}</span>次考试，共<span primary>{{item.icheckeds}}</span>道错题</div>
       </div>

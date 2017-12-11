@@ -181,7 +181,7 @@ export const ReportCategory = [{
   name: "本班",
   code: 1
 }, {
-  name: "校级",
+  name: "本校",
   code: 2
 }, {
   name: "联考",

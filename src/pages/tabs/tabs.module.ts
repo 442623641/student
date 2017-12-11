@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { TabsPage } from './tabs';
 import { HomePageModule } from '../../pages/home/home.module';
-import { UsercenterPageModule } from '../../pages/usercenter/usercenter.module';
-import { NewsPageModule } from '../../pages/news/news.module';
+// import { UsercenterPageModule } from '../../pages/usercenter/usercenter.module';
+//import { NewsPageModule } from '../../pages/news/news.module';
 
 /**
  *Components module
@@ -19,8 +19,8 @@ import { NewsPageModule } from '../../pages/news/news.module';
   imports: [
     IonicPageModule.forChild(TabsPage),
     HomePageModule,
-    UsercenterPageModule,
-    NewsPageModule,
+    //UsercenterPageModule,
+    //NewsPageModule,
   ]
 })
 export class TabsModule {}

@@ -52,14 +52,14 @@ export class ReportPage {
     setTimeout(() => {
       this.exam = this.navParams.data;
       this.exam.payment || this.couponPro.getcount().then(res => this.couponCount = res.count || 0).catch();
-      this.showNavButton = this.navCtrl.getPrevious().id != DOCTOR_PAGE && this.exam.payment;
+      this.showNavButton = this.navCtrl.getPrevious().id != DOCTOR_PAGE;
       this.getReport(this.reportIndex).then(res => {
         this.categorys = ReportCategory.filter(item => { return item.code <= res.level }).reverse();
         this.categorysValue = this.categorys.map(item => { return item.name });
         this.content.resize();
-        console.log(this.report);
+        //console.log(this.report);
       });
-    }, 550);
+    }, 350);
   }
 
   changeSlide($event) {
@@ -82,7 +82,8 @@ export class ReportPage {
     return this.examsPro.report({ guid: this.exam.guid, level: level }).then(res => {
       this.exam.payment = res.buy;
       this.fill(reportIndex, res);
-      setTimeout(() => this.doInfinite(), 1500);
+      this.doInfinite();
+      // setTimeout(() => this.doInfinite(), 1500);
       return res;
     }).catch(ex => this.reports[reportIndex] = null);
   }

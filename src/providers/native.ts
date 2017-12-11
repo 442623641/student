@@ -14,7 +14,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 export class NativeProvider {
   private loadRunning: boolean = false;
   public native: boolean;
-  private loading: any;
+  public loading: any;
   private imageShowing: boolean;
 
 
@@ -115,9 +115,9 @@ export class NativeProvider {
   confirm = (msg: string = "确定这样做？", btns: Array < string >= ["取消", "确认"], title: string = '') => {
     if (this.native) {
       return this.isIos() ? this.dialogs.confirm(title ? msg : title, title ? title : msg, btns).then(btn => {
-        return btn - 1
-      }) : this.dialogs.confirm(msg, '', btns).then(btn => {
-        return btn - 1
+        return Math.max(btn - 1,0);
+      }) : this.dialogs.confirm(msg, '', [btns[0],'',btns[1]]).then(btn => {
+        return Math.max(btn - 1,0);
       });
     }
     return new Promise((resolve, reject) => {
@@ -179,7 +179,7 @@ export class NativeProvider {
       setTimeout(() => { //最长显示10秒
         this.loadRunning = false;
         this.spinnerDialog.hide();
-      }, 10000);
+      }, 60000);
       this.loadRunning = true;
       return this.spinnerDialog.show('', content, true);
     };
@@ -196,7 +196,7 @@ export class NativeProvider {
       this.loading.present();
       setTimeout(() => { //最长显示10秒
         this.loadRunning = false;
-      }, 10000);
+      }, 60000);
     }
   };
 

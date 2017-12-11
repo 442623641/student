@@ -142,7 +142,9 @@ export class EnalyzingPage {
    *准备移除
    */
   remove(que: any) {
-    this.nativePro.confirm('删除后不可恢复', ['取消', '删除'], '确认删除吗').then(btn => que.delete = btn);
+    this.nativePro.confirm('删除后不可恢复', ['取消','删除'], '确认删除吗?').then(btn => {
+      que.delete = !!btn;
+    });
   }
 
   /**
@@ -152,7 +154,7 @@ export class EnalyzingPage {
 
     let exam = this.enalyzingOpt.exams[e];
     this.enalyzingPro
-      .remove({ no: exam.questions[q].no, subject: this.enalyzingOpt.option.subject, guid: exam.guid })
+      .remove({ no: exam.questions[q].name, subject: this.enalyzingOpt.option.subject, guid: exam.guid })
       .then(res => {})
       .catch(ex => console.log(ex));
     this.enalyzingOpt.remove(e, q);

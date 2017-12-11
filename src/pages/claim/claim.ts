@@ -28,11 +28,12 @@ export class ClaimPage {
     public modalCtrl: ModalController,
     private claimPro: ClaimProvider,
     private nativepro: NativeProvider,
-    private notifyPro: NotifyProvider
+    private notifyPro: NotifyProvider,
   ) {}
 
   ionViewDidLoad() {
-    this.doRefresh();
+    setTimeout(() =>
+      this.doRefresh(), 350);
   }
 
   claim(item) {
@@ -45,16 +46,15 @@ export class ClaimPage {
   }
 
   openModal(item, papers) {
-    console.log(item,'66666');
     let modal = this.modalCtrl.create(CLAIMMODAL_PAGE, { papers: papers, name: item['studentname'] });
     modal.present();
     modal.onDidDismiss(res => {
       if (!res || !res.code) return;
       this.claimPro.claimexam({ guid: item.examguid, studentcode: res.code })
         .then(res => {
-          res && res.claimed && this.notifyPro.add('unclaimed', -1);
           this.nativepro.showLoading();
           this.doRefresh();
+          res && res.claim && this.notifyPro.add('unclaimed', -1);
         })
         .catch(err => {
           console.log(err);

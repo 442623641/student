@@ -15,12 +15,17 @@ page-exams {
   .card {
     .card-header {
       .item-inner {
+        .label {
+          font-size: 1.5rem;
+          white-space: normal;
+        }
         span {
           border: 0.55px solid rgba(color($colors, primary), .45);
           color: color($colors, primary);
           font-size: 1.2rem;
-          padding: 3px;
+          padding: 0 3px 3px 3px;
           border-radius: 2px;
+          align-self: start;
         }
       }
     }

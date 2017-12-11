@@ -56,8 +56,11 @@
     padding: 0 3px;
   }
 
-  .content ion-footer {
-    position: fixed;
+  .content {
+    ion-footer,
+    ion-header {
+      position: fixed;
+    }
   }
 
   .footer .toolbar:first-child .toolbar-background {

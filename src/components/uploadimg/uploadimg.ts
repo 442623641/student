@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, NgZone } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActionSheet, ActionSheetOptions } from '@ionic-native/action-sheet';
-
+import { NativeProvider } from '../../providers/native';
 
 /**
  * Generated class for the UploadimgComponent component.
@@ -20,7 +20,8 @@ export class UploadimgComponent {
   constructor(
     private actionSheet: ActionSheet,
     private sanitizer: DomSanitizer,
-    private zone: NgZone
+    private zone: NgZone,
+    private nativePro: NativeProvider
   ) {}
 
   picker() {
@@ -59,6 +60,7 @@ export class UploadimgComponent {
     //}
     navigator['camera'].getPicture(res => {
       console.log(res);
+      if (this.items.indexOf(res) > -1) this.nativePro.toast('图片不可重复上传');
       this.add(res);
     }, (err) => {
       console.log(err);

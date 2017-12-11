@@ -2,60 +2,51 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { TabsPage } from '../pages/tabs/tabs';
-//import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
-import { PersonalPage } from '../pages/personal/personal';
 import { UserProvider } from '../providers/user';
-//import { NativeProvider } from '../providers/native';
-//import { HttpHandler } from '../providers/httpHandler';
+import { LOGIN_PAGE, TABS_PAGE } from '../pages/pages.constants';
+import { HardbackProvider } from '../providers/hardback';
 @Component({
-  template: '<ion-nav [root]="rootPage" #rootNav></ion-nav>'
+  template: '<ion-nav #rootNav></ion-nav>'
 })
 
 export class StudentApp {
   @ViewChild('rootNav') rootNav: NavController;
-  rootPage: any; //= TabsPage;
 
   constructor(
     platform: Platform,
     statusBar: StatusBar,
     private splashScreen: SplashScreen,
-    private userProvider: UserProvider,
-    //private httpHandler: HttpHandler,
-    //private nativeProvider: NativeProvider
+    private userPro: UserProvider,
+    private hardbackPro: HardbackProvider
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+
+      this.hardbackPro.registerBackButtonAction();
+
       statusBar.styleLightContent();
       if (platform.is('android')) {
         statusBar.backgroundColorByHexString("#f66e4f");
       }
-      //splashScreen.hide();
-      // this.httpHandler.handleAuth$.subscribe(info => {
-
-      //   this.rootNav.setRoot(LoginPage, {}, { animate: true, animation: 'md-transition', direction: 'back' })
-      // });
       this.login();
     });
   }
 
   private login() {
-    return this.userProvider.getLogin().then(login => {
+    return this.userPro.getLogin().then(login => {
       login && login.usercode && login.pwd ?
-        this.userProvider
+        this.userPro
         .login(login)
-        .then(res => this.to(!res || !res.token || !res.school ? LoginPage : TabsPage))
-        .catch(() => this.to(LoginPage)) :
-        this.to(LoginPage);
+        .then(res => this.to(!res || !res.token || !res.school ? LOGIN_PAGE : TABS_PAGE))
+        .catch(() => this.to(LOGIN_PAGE)) :
+        this.to(LOGIN_PAGE);
     });
   }
 
   to(page: any) {
-    this.rootPage = page;
-    setTimeout(() => this.splashScreen.hide(), 300);
+    this.rootNav.setRoot(page).then(() => {
+      setTimeout(() => this.splashScreen.hide(), 450);
+    })
   }
-
-
 }

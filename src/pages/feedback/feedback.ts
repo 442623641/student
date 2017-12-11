@@ -31,23 +31,30 @@ export class FeedbackPage {
   }
 
   submit() {
+    this.processing = true;
+    let sucess = () => {
+      this.nativepro.prompt('感谢您的反馈');
+      setTimeout(() => {
+        this.processing = false;
+        this.navCtrl.pop()
+      }, 800);
+    }
     let guid: string = '';
+    if (!this.images.length) {
+      return this.appPro.feedback({ desc: this.text, guid: guid })
+        .then(res => sucess())
+        .catch(ex => this.nativepro.prompt(ex.message))
+    }
     this.images.forEach((item, index) => {
       this.filePath.resolveNativePath(item).then(path => {
         this.appPro.feedback({ desc: this.text, guid: guid }, path)
           .then(res => {
             if (!res || !res.guid) return;
             guid = res.guid;
-            console.log(res);
-            if (index == this.images.length - 1) {
-              this.processing = false;
-              this.nativepro.prompt('感谢您的反馈');
-              setTimeout(() => this.navCtrl.pop(), 1500);
-            }
+            index == this.images.length - 1 && sucess()
           })
           .catch(err => {
             console.error(err);
-            //this.nativepro.toast(err.message);
           });
       }).catch(err => console.error(err));
     })

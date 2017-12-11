@@ -9,6 +9,9 @@ page-login {
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: 0 100%;
+    transition: opacity .5s;
+    will-change: opacity;
+    opacity: 1;
     &:after {
       content: '';
       height: 1px;
@@ -18,7 +21,15 @@ page-login {
       bottom: top;
       align-self: flex-end;
     }
+    &.fadeout {
+      opacity: 0; // transition: opacity .3s;
+    }
   }
+
+  ion-grid {
+    background-color: color($colors, primary);
+  }
+
 
   .app-name {
     width: 100%;

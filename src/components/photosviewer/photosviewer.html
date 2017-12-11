@@ -1,24 +1,19 @@
 <!-- Generated template for the PhotosviewerComponent component,add by leo zhang 201710010101 -->
-<ion-header>
-  <ion-navbar>
-    <ion-buttons start>
-      <button ion-button icon-only (click)="viewCtrl.dismiss()" clear>
-        <ion-icon name="close"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>{{title}}</ion-title>
-    <!-- <ion-buttons start>
-      <button ion-button icon-only (click)="share()" clear>
-        <ion-icon name="md-share"></ion-icon>
-      </button>
-    </ion-buttons> -->
-  </ion-navbar>
-</ion-header>
 <ion-content [fullscreen]='true' color="white">
+  <ion-header>
+    <ion-navbar color="transparent">
+      <ion-buttons start>
+        <button ion-button icon-only (click)="viewCtrl.dismiss()" clear large>
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>{{title}}</ion-title>
+    </ion-navbar>
+  </ion-header>
   <ion-slides zoom="true" [pager]="urls.length>1">
     <ion-slide *ngFor="let img of urls">
       <div class="swiper-zoom-container">
-        <img [src]="img" alt="img">
+        <img-lazy [src]="img" [alt]="img"></img-lazy>
       </div>
     </ion-slide>
   </ion-slides>

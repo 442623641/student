@@ -9,7 +9,11 @@ photosviewer {
   .swiper-pagination-bullet-active {
     background: #fff;
   }
-  .loader p {
-    color: #fff;
+  .loader {
+    color: color($colors, text);
+    background: #fff;
+  }
+  .toolbar-background {
+    background: rgba(0, 0, 0, .25) !important;
   }
 }

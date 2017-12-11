@@ -11,15 +11,6 @@ import * as Icon from 'iconcolorful';
 
 enableProdMode();
 Icon.enableColorful();
-// import { AboutPage } from '../pages/about/about';
-// import { ContactPage } from '../pages/contact/contact';
-
-/**
- *page module
- */
-import { PersonalPageModule } from '../pages/personal/personal.module';
-import { LoginPageModule } from '../pages/login/login.module';
-import { TabsModule } from '../pages/tabs/tabs.module';
 
 /*
  * native plugins
@@ -35,8 +26,10 @@ import { FilePath } from '@ionic-native/file-path';
 import { Contacts } from '@ionic-native/contacts';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { SocialSharing } from '@ionic-native/social-sharing';
+
+//import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
 /**
- *Components module
+ *Providers
  */
 import { ComponentsModule } from '../components/components.module';
 import { HttpProvider } from '../providers/http';
@@ -63,11 +56,11 @@ import { MessageProvider } from '../providers/message/message';
 import { TradesProvider } from '../providers/trades/trades';
 import { DoctorProvider } from '../providers/doctor/doctor';
 import { AddressProvider } from '../providers/address/address';
-
+import { HardbackProvider } from '../providers/hardback';
 @NgModule({
   declarations: [
     StudentApp,
-    //PhotosviewerComponent,
+    //PhotosviewerComponent
   ],
   imports: [
     BrowserModule,
@@ -86,16 +79,7 @@ import { AddressProvider } from '../providers/address/address';
       spinner: 'ios-small'
     }),
     ComponentsModule,
-    LoginPageModule,
-    TabsModule,
-    PersonalPageModule,
-    // UsercenterPageModule,
-    // NewsPageModule,
     IonicStorageModule.forRoot(),
-
-
-
-
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -150,6 +134,7 @@ import { AddressProvider } from '../providers/address/address';
     TradesProvider,
     AddressProvider,
     DoctorProvider,
+    HardbackProvider,
   ]
 })
 export class AppModule {}
