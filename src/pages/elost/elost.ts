@@ -49,7 +49,7 @@ export class ElostPage {
   ) {}
 
   ionViewDidLoad() {
-    setTimeout(() => this.doRefresh(), 300);
+    setTimeout(() => this.doRefresh(), 450);
   }
 
   print(item) {

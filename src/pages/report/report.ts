@@ -59,7 +59,7 @@ export class ReportPage {
         this.content.resize();
         //console.log(this.report);
       });
-    }, 350);
+    }, 550);
   }
 
   changeSlide($event) {
@@ -216,6 +216,7 @@ export class ReportPage {
           btn && this.navCtrl.push(PACKAGE_PAGE).then(() => callback())
         })
     }
+
     //学贝充足，生产学情报告
     if (this.balance >= COIN) {
       return this.nativePro.confirm(`您当前持有${this.balance}学贝，生成本次学情报告需消耗${COIN}学贝`, ['取消', '立即生成'], '生成学情报告')
@@ -243,29 +244,5 @@ export class ReportPage {
         })
     }
   }
-
-
-
-  /**
-   *查看
-   */
-  // openPackageModal() {
-  //   let modal = this.modalCtrl.create(REPORTMODAL_PAGE, { guid: this.exam.guid });
-  //   modal.present();
-  //   modal.onDidDismiss((res = {}) => {
-  //     this.exam.payment = res.payment;
-  //     res.page &&
-  //       this.navCtrl.push(res.page, res.dvalue ? { params: { ordertype: 'exam', selectxbz: res.dvalue, skucode: `exam|${this.exam.guid}` } } : {}).then(res => {
-  //         let achieveSub = this.paymentPro.achieve$.subscribe(res => {
-  //           let start = this.navCtrl.indexOf(this.viewCtrl);
-  //           this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
-  //             this.exam.payment = true;
-  //             this.report.resetPayment(true);
-  //             achieveSub.unsubscribe();
-  //           });
-  //         });
-  //       })
-  //   });
-  // }
 
 }

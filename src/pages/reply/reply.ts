@@ -68,7 +68,7 @@ export class ReplyPage {
         this.subjects = null;
         this.lantern = true;
       });
-    }, 350);
+    }, 450);
   }
 
   onSlideChanged(slider) {

@@ -47,8 +47,9 @@ export class ExcellentPage {
   }
 
   ionViewDidLoad() {
-    this.package && this.initialize();
-
+    setTimeout(() => {
+      this.package && this.initialize()
+    }, 350);
   }
   initialize() {
     this.option = new EOptions({ subject: this.subjectNames[0], grade: this.grades[0].code });

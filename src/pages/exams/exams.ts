@@ -48,7 +48,7 @@ export class ExamsPage {
 
   ionViewDidLoad() {
     //this.doRefresh();
-    setTimeout(() => this.doRefresh(), 300);
+    setTimeout(() => this.doRefresh(), 400);
 
   }
 

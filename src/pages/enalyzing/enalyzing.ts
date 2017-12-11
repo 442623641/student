@@ -4,7 +4,9 @@ import { EnalyzingOptions, EOptions } from '../../model/enalyzing';
 import { Times } from '../../model/times';
 import { PACKAGE_PAGE, ENALYZINGMODAL_PAGE } from '../pages.constants';
 import { EnalyzingProvider } from '../../providers/enalyzing/enalyzing';
+
 import { NativeProvider } from '../../providers/native';
+
 import { PaymentProvider } from '../../providers/payment/payment';
 /**
  * Generated class for the EnalyzingPage page.
@@ -36,6 +38,7 @@ export class EnalyzingPage {
   subjectNames: string[];
   tempOption: EOptions;
   achieveSub: any;
+  modal: any;
   constructor(
     public enalyzingPro: EnalyzingProvider,
     public nativePro: NativeProvider,
@@ -49,9 +52,8 @@ export class EnalyzingPage {
   ionViewDidLoad() {
     setTimeout(() => {
       this.enalyzingPro.index().then(res => {
-        if (!res || !res.subject) {
-          this.enalyzingOpt = null;
-        }
+        if (!res || !res.subject) return this.enalyzingOpt = null;
+
         this.subjectNames = res.subject;
         this.enalyzingOpt = new EnalyzingOptions(res, { subject: this.subjectNames[0] });
         this.tempOption = this.enalyzingOpt.option.clone();
@@ -142,7 +144,7 @@ export class EnalyzingPage {
    *准备移除
    */
   remove(que: any) {
-    this.nativePro.confirm('删除后不可恢复', ['取消','删除'], '确认删除吗?').then(btn => {
+    this.nativePro.confirm('删除后不可恢复', ['取消', '删除'], '确认删除吗?').then(btn => {
       que.delete = !!btn;
     });
   }
@@ -179,9 +181,9 @@ export class EnalyzingPage {
    */
   openPackageModal() {
     if (!this.enalyzingOpt.unauthorized || this.enalyzingOpt.unauthorized == this.enalyzingOpt.total) return;
-    let modal = this.modalCtrl.create(ENALYZINGMODAL_PAGE, { option: { total: this.enalyzingOpt.total, unauthorized: this.enalyzingOpt.unauthorized } });
-    modal.present();
-    modal.onDidDismiss(res => res && res.open &&
+    this.modal = this.modalCtrl.create(ENALYZINGMODAL_PAGE, { option: { total: this.enalyzingOpt.total, unauthorized: this.enalyzingOpt.unauthorized } });
+    this.modal.present();
+    this.modal.onDidDismiss(res => res && res.open &&
       this.navCtrl.push(PACKAGE_PAGE).then(() => {
         this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
           this.achieveSub.unsubscribe();
@@ -193,5 +195,8 @@ export class EnalyzingPage {
   }
   ionViewDidEnter() {
     this.achieveSub && this.achieveSub.unsubscribe();
+  }
+  ngOnDestory() {
+    this.modal && this.modal.dismiss && this.modal.dismiss();
   }
 }

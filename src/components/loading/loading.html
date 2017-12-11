@@ -4,23 +4,6 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<!-- <transition [if]="!state" name="loading">
-  <div class="loading">
-    <ion-spinner name="bubbles"></ion-spinner>
-    <div class="mess">正在加载...</div>
-  </div>
-</transition>
-<transition [if]="state>399" name="nodata">
-  <div class="loading" *ngIf="state>399">
-    <ion-icon name="ios-alert-outline"></ion-icon>
-    <div class="mess ">暂无记录</div>
-    <!-- <div class="mess animated-background ">
-      <div text-left>小七</div>
-      <div text-right>助手</div>
-    </div> -->
-<!--   </div>then thenBlock else elseBlock
-</transition>
- -->
 <ng-container *ngIf="!statusValue">
   <ion-row [style.height]="height">
     <ion-spinner color="gray9" *ngIf="statusValue===undefined;else nodata"></ion-spinner>
@@ -29,13 +12,6 @@
         <img src="assets/images/400.png">
         <span>{{mess}}</span>
       </ion-col>
-      <!-- <ion-icon name="ios-alert-outline"></ion-icon> -->
     </ng-template>
   </ion-row>
 </ng-container>
-<!-- <ng-template #nodata>
-  <ion-row align-items-center justify-content-center>
-    <ion-icon name="ios-alert-outline"></ion-icon>
-    <div class="mess">暂无记录</div>
-  </ion-row>
-</ng-template> -->

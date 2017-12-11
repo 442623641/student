@@ -6,8 +6,8 @@
 -->
 <ion-content hook="home">
   <ion-grid no-padding>
-    <ion-row class="banner" align-items-center [class.fadeout]="fadeout">
-      <h1 class="app-name" padding-top>小七助学</h1>
+    <ion-row class="banner" align-items-center>
+      <h1 class="app-name" padding-top [class.fadeout]="fadeout">小七助学</h1>
       <rocket #rocket [state]="authForm.valid?authForm['processing']?'launch':'ready':authForm.valid"></rocket>
     </ion-row>
     <form [formGroup]="authForm" (ngSubmit)="login(authForm.value)">
