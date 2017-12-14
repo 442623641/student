@@ -30,7 +30,6 @@ export class UserProvider {
     userInfo && this.http.setToken(userInfo.token);
     return userInfo && userInfo.school ? Promise.all([this.staticPro.getAddressName(userInfo.city), this.staticPro.getGradeName(userInfo.grade)])
       .then(ress => {
-        console.log(ress);
         userInfo.cityName = ress[0];
         userInfo.gradeName = ress[1];
         this.setUserInfo(userInfo);

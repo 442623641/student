@@ -19,7 +19,7 @@ import 'rxjs/add/operator/map';
  */
 @Injectable()
 export class HttpProvider {
-  private version: string = "1.0.0";
+  version: string = '1.0.0';
 
   isNative: boolean;
   domin: string = 'http://studentapp.septnet.cc/';
@@ -127,6 +127,9 @@ export class HttpProvider {
       .then(res => this.json(res))
       .catch(err => this.catchError(err));
   }
+  downloadFile(url, filePath, body ? ) {
+    return this.nativeHttp.downloadFile(url, body || {}, {}, filePath)
+  }
 
   /*
    * http get sdk 请求
@@ -213,7 +216,8 @@ export class HttpProvider {
     if (typeof value == 'undefined') return;
     return key + '=' + encodeURIComponent(value === null ? '' : String(value));
   }
-  catchError(err = { message: '网络延时，请稍后再试' }) {
+
+  private catchError(err = { message: '网络延时，请稍后再试' }) {
     //autoCompletethis.han
     err.message = err.message || '网络延时，请稍后再试';
     this.handleService.handleError(err);

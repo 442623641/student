@@ -14,7 +14,7 @@ export class Package {
     this.open = obj.open;
     let now = new Date();
     let date = new Date(this.expires);
-    this.days = Math.floor((date.getTime() - now.getTime()) / (24 * 60 * 60 * 1000));
+    this.days = Math.max(Math.floor((date.getTime() - now.getTime()) / (24 * 60 * 60 * 1000)), 0);
 
   }
 }

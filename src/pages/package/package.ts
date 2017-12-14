@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, ModalController } from 'ionic-angular';
-import { PAYMENT_PAGE, COUPON_PAGE, PACKAGEGUIDE_PAGE } from '../pages.constants';
+import { IonicPage } from 'ionic-angular';
+import { PAYMENT_PAGE, COUPON_PAGE } from '../pages.constants';
 // /import { PackageguidePage } from '../packageguide/packageguide';
 import { PaymentOption } from '../../model/payment';
 import { PackageOption, PackageO } from '../../model/package';
@@ -24,13 +24,8 @@ export class PackagePage {
   options: PackageOption[];
 
   constructor(
-    private navParams: NavParams,
     private packagePro: PackageProvider,
-    private modalCtrl: ModalController,
   ) {}
-  ngOnInit() {
-
-  }
   balanceChange(event) {
     this.package = new PackageO(event);
   }
@@ -43,7 +38,6 @@ export class PackagePage {
       }).catch(ex => {
         this.options = null;
       });
-      this.navParams.get('guide') && this.modalCtrl.create(PACKAGEGUIDE_PAGE).present();
     }, 350);
   }
 

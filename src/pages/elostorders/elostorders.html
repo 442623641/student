@@ -23,7 +23,7 @@
     <ion-list>
       <ion-card *ngFor="let item of orders">
         <button ion-item (click)="share(item)" *ngIf="item.code;else processing">订单号：{{item.ordercode}}
-          <ion-note item-right>分享下载地址</ion-note>
+          <span item-right ion-text primary>分享下载地址</span>
         </button>
         <ng-template #processing>
           <ion-item>

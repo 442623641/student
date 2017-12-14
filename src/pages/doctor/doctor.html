@@ -34,13 +34,12 @@
             <ion-row class="card-header" justify-content-between>
               <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
             </ion-row>
-            <img-lazy [src]='subjects[subjectIndex].paper' [imgviewer]="{title:exam.name+subjects[subjectIndex].name,images:subjects[subjectIndex].paper}"></img-lazy>
+            <img-lazy [src]='subjects[subjectIndex].thumbnail' [imgviewer]="{title:exam.name+subjects[subjectIndex].name,images:subjects[subjectIndex].paper}"></img-lazy>
           </div>
           <div class="card percents" *ngIf='subjects[subjectIndex]?.percents'>
             <ion-row class="card-header" justify-content-between>
               <ion-col col-5 text-left><i></i>小题得分情况</ion-col>
-              <ion-col><i></i>年级得分率</ion-col>
-              <ion-col><i></i>我的得分率</ion-col>
+              <ion-col *ngFor="let le of legend"><i></i>{{le}}</ion-col>
             </ion-row>
             <div class="card-content">
               <echarts-ng2 [option]='subjects[subjectIndex]?.percents' [style]="{'height': 210+'px'}"></echarts-ng2>
@@ -74,13 +73,19 @@
             <span>{{subjects[subjectIndex].activity.answerString}}</span>
           </p>
         </div>
+        <div class="topics-item" *ngIf="!subjects[subjectIndex].activity.objective&&subjects[subjectIndex].activity.answer?.length">
+          <p line-bottom>正确答案</p>
+          <div class="item-content" [imgviewer]="{title:'正确答案',images:subjects[subjectIndex].activity.answer}">
+            <img-lazy [src]="answer.link" *ngFor="let answer of subjects[subjectIndex].activity.answer" [alt]="answer.value"></img-lazy>
+          </div>
+        </div>
         <div class="topics-item" *ngIf="!subjects[subjectIndex].activity.objective&&subjects[subjectIndex].activity.reply?.length">
           <p line-bottom>我的答案</p>
-          <div class="item-content" [imgviewer]="{title:'我的答案',images:subjects[subjectIndex].activity.paper}">
+          <div class="item-content" [imgviewer]="{title:'我的答案',images:subjects[subjectIndex].activity.reply}">
             <img-lazy [src]="reply.link" *ngFor="let reply of subjects[subjectIndex].activity.reply" [alt]="reply.value"></img-lazy>
           </div>
         </div>
-        <div class="topics-item" *ngIf="subjects[subjectIndex].activity.topic">
+        <div class="topics-item" *ngIf="subjects[subjectIndex].activity.topic&&subjects[subjectIndex].activity.topic!=''">
           <p line-bottom>【知识点】</p>
           <p footer>{{subjects[subjectIndex].activity.topic}}</p>
         </div>

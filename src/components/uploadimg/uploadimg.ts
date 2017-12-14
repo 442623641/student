@@ -27,11 +27,9 @@ export class UploadimgComponent {
   picker() {
     if (this.items.length > 3) return;
     let options: ActionSheetOptions = {
-      // title: '',
-      // subtitle: '',
       buttonLabels: ['拍照', '从手机相册选择'],
       addCancelButtonWithLabel: '取消',
-      //androidTheme: this.actionSheet.ANDROID_THEMES.THEME_HOLO_DARK,
+      androidTheme: this.actionSheet.ANDROID_THEMES.THEME_HOLO_DARK,
       destructiveButtonLast: true
     };
 
@@ -60,7 +58,7 @@ export class UploadimgComponent {
     //}
     navigator['camera'].getPicture(res => {
       console.log(res);
-      if (this.items.indexOf(res) > -1) this.nativePro.toast('图片不可重复上传');
+      if (this.items.indexOf(res) > -1) return this.nativePro.toast('图片不可重复上传');
       this.add(res);
     }, (err) => {
       console.log(err);

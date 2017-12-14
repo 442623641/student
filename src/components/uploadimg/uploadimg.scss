@@ -8,9 +8,11 @@ uploadimg {
       top: 0;
       right: 0;
       font-size: 1.2em;
+      height: 100%;
     }
     img {
       height: 100%;
+      max-height: calc(10rem - 32px);
     }
     &>a {
       height: 60px;

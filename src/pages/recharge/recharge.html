@@ -20,7 +20,7 @@
     <p class="break">选择或输入学贝 （<span primary>1元=10学贝</span>)</p>
     <ion-item>
       <ion-label>充值学贝</ion-label>
-      <ion-input placeholder="选择或输入金额" [(ngModel)]="amount" maxlength="10000" max="10000" min="10" type="number"></ion-input>
+      <ion-input (ionBlur)="$event.setValue(amount)" placeholder="选择或输入金额" [(ngModel)]="amount" type="integer" min="10" max="10000"></ion-input>
       <ion-note item-right>学贝</ion-note>
     </ion-item>
     <ion-row justify-content-between line-bottom class="amount-buttons">

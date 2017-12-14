@@ -85,6 +85,21 @@ page-report {
       line-height: 36px;
       padding: 7px 0;
       height: 50px;
+      div {
+        //padding-right: 45px;
+        text-align: left; //margin-left: 23px;
+        height: 100%; //margin: 8px 0 8px 24px;
+        background: rgba($color, 0.4); // text-align: center; //height: 34px; //width: calc(100% - 60px);
+        &:before {
+          content: attr(data-count);
+          color: #7cb5ec;
+          float: left;
+          padding-left: 10px;
+          font-size: 1.4rem;
+          width: 35%;
+          height: 100%;
+        }
+      }
       span {
         &:first-child {
           color: #fff;
@@ -98,21 +113,8 @@ page-report {
           margin-top: -4px;
           line-height: 45px;
         }
-      }
-      div {
-        //padding-right: 45px;
-        text-align: left;
-        margin-left: 23px;
-        height: 100%; //margin: 8px 0 8px 24px;
-        background: rgba($color, 0.4); // text-align: center; //height: 34px; //width: calc(100% - 60px);
-        &:before {
-          content: attr(data-count);
-          color: #7cb5ec;
-          float: left;
-          padding-left: 10px;
-          font-size: 1.4rem;
-          width: 35%;
-          height: 100%;
+        &~div {
+          margin-left: 23px;
         }
       }
       &[self] {

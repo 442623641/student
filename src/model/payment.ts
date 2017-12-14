@@ -13,7 +13,7 @@ export class PaymentParams {
    *third:第三方活动支付,
    *errorbook:错题本
    */
-  ordertype: 'elecerrorbook' | 'coin' | 'exam' | 'package' | 'third';
+  ordertype: 'elecerrorbook' | 'coin' | 'exam' | 'package' | 'third' | 'errorbook';
 
   /**
    *examguid

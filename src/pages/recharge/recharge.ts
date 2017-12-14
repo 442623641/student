@@ -22,6 +22,7 @@ export class RechargePage {
   params: PaymentOption;
   amount: number = 100;
   need: number = 0;
+  lastVal: number;
 
   constructor(
     public navCtrl: NavController,
@@ -45,4 +46,12 @@ export class RechargePage {
     this.amount = val;
   }
 
+  onInput(e) {
+    if (!e.target.valueAsNumber && e.which) {
+      this.amount = e.target.value = this.lastVal;
+      return;
+    }
+    if (e.target.valueAsNumber > 10000) this.amount = e.target.value = 10000;
+    this.lastVal = e.target.value;
+  }
 }

@@ -29,9 +29,6 @@ export class DoctorProvider {
   }
 
   excellent(data: any) {
-
     return this.http.get('question/excellent', data);
   }
-
-
 }

@@ -24,9 +24,6 @@ export class DoctorPage {
 
   @ViewChild('content') content: Content;
   @ViewChild('subjectSlider') subjectSlider: Slides;
-  //@ViewChild('segmentSlider') segmentSlider: Slides;
-  // @ViewChild('topicSlider') topicSlider: Slides;
-  //@ViewChild('percentsElement') percentsElement: any;
 
   showNavButton: boolean;
   subjects: Subjecte[] = [];
@@ -48,6 +45,11 @@ export class DoctorPage {
   unloading: boolean;
   scrolllProcessing: boolean;
 
+  /**
+   *小题得分率
+   */
+  legend: string[];
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -65,11 +67,10 @@ export class DoctorPage {
       this.showNavButton = this.navCtrl.getPrevious().id != REPORT_PAGE;
       this.doctorPro.subject({ guid: this.exam.guid }).then(res => {
         if (!res || !res.subject || !res.subject.no || !res.subject.no.length) return this.unloading = null;
+        this.legend = res.subject.legend;
         this.unloading = true;
         this.balls = res.subjects;
         this.fill(res.subject, res.subjects[this.subjectIndex]);
-        console.log(res);
-        console.log(this.subjectSlider);
       }).catch(ex => {
         console.error(ex);
         this.unloading = null;
@@ -89,7 +90,6 @@ export class DoctorPage {
     this.subjectIndex = slider.getActiveIndex();
     //第一次加载
     this.getSubject(this.balls[this.subjectIndex]);
-    console.log(this.subject);
 
   }
 

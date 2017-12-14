@@ -67,6 +67,10 @@
     border: none;
   }
 
+  .footer ion-title {
+    padding: 0 0px 1px;
+  }
+
   .toolbar-background-ios {
     -webkit-backdrop-filter: blur(15px);
   }
@@ -335,6 +339,22 @@
       max-height: 0;
       opacity: 0;
       transform: translateX(-100%);
+    }
+  }
+
+  .toast-tip {
+    .toast-wrapper {
+      background: #F44336;
+      left: 0;
+      right: 0;
+      padding-left: 16px;
+      transform: translateY(0px) !important;
+      box-shadow: 0 5px 10px #ef5b3a; //animation: blin 5s infinite;
+    }
+    .toast-button {
+      margin-top: 0.2rem;
+      padding: 12px 16px 12px;
+      height: 30px;
     }
   }
   /**

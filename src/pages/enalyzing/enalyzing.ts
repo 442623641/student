@@ -80,7 +80,7 @@ export class EnalyzingPage {
       this.package = true;
       this.nativePro.hideLoading();
       this.openPackageModal();
-
+      this.content.scrollToTop();
       //console.log(this.enalyzingOpt);
     }).catch(ex => {
       this.nativePro.hideLoading();

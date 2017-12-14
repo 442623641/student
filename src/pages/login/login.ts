@@ -45,7 +45,6 @@ export class LoginPage {
       this.authForm.setValue(res);
     })
   }
-
   login(obj) {
     this.authForm['processing'] = true;
     this.userPro.login(obj).then(res => {

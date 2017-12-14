@@ -1,10 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { UserProvider } from '../providers/user';
+import { AppProvider } from '../providers/app/app';
 import { LOGIN_PAGE, TABS_PAGE } from '../pages/pages.constants';
-import { HardbackProvider } from '../providers/hardback';
+
 @Component({
   template: '<ion-nav #rootNav></ion-nav>'
 })
@@ -13,23 +13,15 @@ export class StudentApp {
   @ViewChild('rootNav') rootNav: NavController;
 
   constructor(
-    platform: Platform,
-    statusBar: StatusBar,
     private splashScreen: SplashScreen,
     private userPro: UserProvider,
-    private hardbackPro: HardbackProvider
+    appPro: AppProvider,
+    platform: Platform,
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-
-      this.hardbackPro.registerBackButtonAction();
-
-      statusBar.styleLightContent();
-      if (platform.is('android')) {
-        statusBar.backgroundColorByHexString("#f66e4f");
-      }
-      this.login();
+      appPro.initiliaze().then(() => this.login());
     });
   }
 

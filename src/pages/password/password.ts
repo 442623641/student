@@ -44,9 +44,13 @@ export class PasswordPage {
   }
 
   save(obj) {
-    console.log(typeof this[this.type]);
-    //typeof this[this.type] != 'function' || console.error('缺少参数type，register：注册，recover：找回密码，reset：修改密码');
+    if (obj.oldpassword && obj.password == obj.oldpassword) return this.nativepro.toast('旧密码与新密码相同')
     this[this.type](obj);
+  }
+  onInput(e) {
+    console.log(e);
+    return false;
+
   }
 
   /**

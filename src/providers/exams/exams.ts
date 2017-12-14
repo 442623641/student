@@ -50,6 +50,4 @@ export class ExamsProvider {
     return this.http.get('exam/rank', data);
   }
 
-
-
 }

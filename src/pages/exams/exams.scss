@@ -16,6 +16,7 @@ page-exams {
     .card-header {
       .item-inner {
         .label {
+          margin-top: 16px;
           font-size: 1.5rem;
           white-space: normal;
         }
@@ -23,9 +24,10 @@ page-exams {
           border: 0.55px solid rgba(color($colors, primary), .45);
           color: color($colors, primary);
           font-size: 1.2rem;
-          padding: 0 3px 3px 3px;
+          padding: 3px;
+          margin-top: 16px;
           border-radius: 2px;
-          align-self: start;
+          align-self: flex-start;
         }
       }
     }

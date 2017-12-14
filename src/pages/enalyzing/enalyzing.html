@@ -45,12 +45,6 @@
           <ion-col col-9 ion-text color="text" text-left>{{exam.name}}</ion-col>
           <ion-col text-right col-3><span primary>{{exam.count}}</span>道错题</ion-col>
         </ion-row>
-        <!--   <p class="affix" line-bottom *ngIf="exam.count">
-          <span>{{exam.name}}</span>
-          <span>
-            <span primary>{{exam.count}}</span>道错题
-          </span>
-        </p> -->
         <transition name="block" [if]="!que.delete" *ngFor="let que of exam.questions;let q = index;" (afterLeave)="del(e,q)">
           <div class="block-card">
             <ion-row justify-content-between class="block-card-header" nowrap line-bottom>
@@ -86,8 +80,9 @@
 <sidenav [(open)]="showMenu" *ngIf="enalyzingOpt">
   <ion-item-group>
     <ion-item-divider color="light">科目</ion-item-divider>
-    <ion-row justify-content-between>
-      <a col-3 *ngFor="let item of subjectNames" [attr.seleted]="tempOption.subject == item" (click)="tempOption.subject = item">{{item}}</a>
+    <ion-row justify-content-start class="subjects">
+      <ion-col col-4 *ngFor="let item of subjectNames"><a [attr.seleted]="tempOption.subject == item" (click)="tempOption.subject = item">{{item}}</a>
+      </ion-col>
     </ion-row>
   </ion-item-group>
   <ion-item-group margin-top>

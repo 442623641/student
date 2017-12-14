@@ -93,8 +93,8 @@ page-home {
   .refresher-pulling-icon,
   .refresher-refreshing-icon {
     color: #fff;
-    ion-spinner * {
-      fill: #fff !important;
+    line {
+      stroke: #fff !important;
     }
   }
 }

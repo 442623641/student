@@ -279,6 +279,11 @@ export class Category extends CategoryOptions {
  *错题诊断 科目
  */
 export class Subjecte {
+
+  /**
+   *缩略图
+   */
+  thumbnail: string;
   /**
    *原始答卷
    */
@@ -329,6 +334,7 @@ export class Subjecte {
     this.percents = percents;
 
     this.paper = obj.paper;
+    this.thumbnail = obj.thumbnail;
     this.no = obj.no;
     this.series = obj.series;
     this.category = obj.category.map(item => { return new Category(item) });

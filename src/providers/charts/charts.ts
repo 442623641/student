@@ -238,21 +238,9 @@ export class ChartsProvider {
   radar(obj: { legend, indicator, series }) {
     const icons = ['rect', 'circle', 'triangle'];
     return {
-      // title: {
-      //   bottom: 16,
-      //   top: 16,
-      //   left: 14,
-      //   text: '学情分析',
-      //   textStyle: {
-      //     color: this.colors.text,
-      //     fontWeight: 400,
-      //     fontSize: 14
-      //   }
-      // },
+
       legend: {
         top: 0,
-        // bottom: 16,
-        // right: 16,
         itemHeight: 8,
         itemWidth: 12,
         textStyle: {
@@ -260,19 +248,12 @@ export class ChartsProvider {
         },
         data: obj.legend.map((item, index) => { return { name: item, icon: icons[index] } }),
       },
-      // grid: {
-      //   top: 35,
-      //   left: 8,
-      //   right: 0,
-      //   bottom: 0,
-      //   containLabel: true
-      // },
 
       color: [this.colors.primary, "#FFEB3B", '#D7D7D7'],
       radar: [{
-        center: ["50%", "60%"],
+        center: ["50%", "55%"],
         indicator: obj.indicator,
-        radius: '65%',
+        radius: '62%',
         shape: 'circle',
         name: {
           textStyle: {
@@ -310,18 +291,14 @@ export class ChartsProvider {
   level(obj) {
 
     return {
-      // title: {
-      //   bottom: 18,
-      //   top: 16,
-      //   left: 14,
-
-      //   text: '层次分析',
-      //   textStyle: {
-      //     color: this.colors.text,
-      //     fontWeight: 400,
-      //     fontSize: 14
-      //   }
-      // },
+      tooltip: {
+        trigger: 'axis',
+        backgroundColor: 'rgba(246,110,79,.75)',
+        textStyle: {
+          fontSize: 12
+        },
+        extraCssText: 'text-align:left;box-shadow: 1px 5px 10px #f66e4f;',
+      },
       legend: {
         top: 0,
         // bottom: 16,
@@ -411,8 +388,16 @@ export class ChartsProvider {
   /**
    *成绩趋势
    */
-  scoretrend(obj, inverse ? ) {
+  scoretrend(obj, name, inverse ? ) {
     return {
+      tooltip: {
+        trigger: 'axis',
+        backgroundColor: 'rgba(246,110,79,.75)',
+        textStyle: {
+          fontSize: 12
+        },
+        extraCssText: 'text-align:left;box-shadow: 0px 3px 10px #f66e4f;',
+      },
       legend: {
         itemHeight: 10,
         itemWidth: 20,
@@ -456,7 +441,7 @@ export class ChartsProvider {
             return Math.max(value.min - 10, 0);
           },
           // max: 100,
-          name: inverse ? '排名' : "得分率 %",
+          name: name,
           nameTextStyle: {
             color: this.colors.label
           },

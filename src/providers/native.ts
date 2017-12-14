@@ -5,6 +5,7 @@ import { ToastController, LoadingController, Platform, AlertController, ModalCon
 import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { AppVersion } from '@ionic-native/app-version';
 /**
  * added by 442623641@qq.com 201703161032.
  * 原生API
@@ -19,7 +20,7 @@ export class NativeProvider {
 
 
   constructor(
-    private platform: Platform,
+    public platform: Platform,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
@@ -27,9 +28,10 @@ export class NativeProvider {
     private dialogs: Dialogs,
     private modalCtrl: ModalController,
     private spinnerDialog: SpinnerDialog,
-    private socialSharing: SocialSharing
+    private socialSharing: SocialSharing,
+    private appVersion: AppVersion,
   ) {
-    this.native = platform.is('mobile') && !platform.is('mobileweb');
+    this.native = this.isMobile();
   }
 
   /**
@@ -56,9 +58,6 @@ export class NativeProvider {
     return this.isMobile() && (this.platform.is('ios') || this.platform.is('ipad') || this.platform.is('iphone'));
   }
 
-  isIpad() {
-    return this.isMobile() && this.platform.is('ipad');
-  }
 
   /**
    * 统一调用此方法显示提示信息
@@ -77,6 +76,21 @@ export class NativeProvider {
       }).present();
     }
   };
+
+  tip(message: string = '操作完成', duration: number = 1000000) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: duration,
+      position: 'top',
+      showCloseButton: true,
+      closeButtonText: 'x',
+      //cssClass: 'toast-tip',
+      dismissOnPageChange: true,
+    })
+    toast.present();
+    return toast;
+    //return this.toast(message, duration, 'middle');
+  }
 
 
   /**
@@ -112,11 +126,11 @@ export class NativeProvider {
    * @buttons 按钮
    * @return {Promise<T>}
    */
-  confirm = (msg: string = "确定这样做？", btns: Array < string >= ["取消", "确认"], title: string = '') => {
+  confirm = (msg: string = "确定这样做？", btns: Array < string >= ["取消", "确认"], title: string = '', shouldTitle ? : boolean) => {
     if (this.native) {
       return this.isIos() ? this.dialogs.confirm(title ? msg : title, title ? title : msg, btns).then(btn => {
         return Math.max(btn - 1, 0);
-      }) : this.dialogs.confirm(msg, '', [btns[0], '', btns[1]]).then(btn => {
+      }) : this.dialogs.confirm(msg, shouldTitle ? title : '', [btns[0], '', btns[1]]).then(btn => {
         return Math.max(btn - 2, 0);
       });
     }
@@ -259,6 +273,19 @@ export class NativeProvider {
    */
   share(url: string = '', message: string = '', file: string | string[] = '') {
     return this.socialSharing.share(message, '', file, url);
+  }
+
+
+  /**
+   * 版本号
+   * @return {Promise<T>}
+   */
+  version() {
+    if (this.native) {
+      return this.appVersion.getVersionNumber();
+    } else {
+      return Promise.resolve('1.0.0');
+    }
   }
 
 }

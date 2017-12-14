@@ -1,15 +1,21 @@
 import { NgModule } from '@angular/core';
-import { HookDirective } from './hook/hook';
+import { AnalyticsDirective } from './analytics/analytics';
 import { ImgviewerDirective } from './imgviewer/imgviewer';
+import { InputDirective } from './input/input';
+//import { PasswordDirective } from './password/password';
 
 @NgModule({
   declarations: [
-    HookDirective,
+    AnalyticsDirective,
     ImgviewerDirective,
+    InputDirective,
+    //PasswordDirective,
   ],
   exports: [
-    HookDirective,
+    AnalyticsDirective,
     ImgviewerDirective,
+    InputDirective,
+    //PasswordDirective,
   ]
 })
 export class DirectivesModule {}

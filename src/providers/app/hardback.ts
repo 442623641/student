@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Platform, App, NavController, Tabs, Keyboard } from 'ionic-angular';
-import { NativeProvider } from './native';
+import { NativeProvider } from '../native';
 
 
 @Injectable()

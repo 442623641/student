@@ -33,6 +33,7 @@ export class ReportPage {
   infinites: boolean[] = [true, true];
 
   couponCount: number = 0;
+  price: number = 0;
   balance: number = 0;
   achieveSub: any;
 
@@ -57,7 +58,7 @@ export class ReportPage {
         this.categorys = ReportCategory.filter(item => { return item.code <= res.level }).reverse();
         this.categorysValue = this.categorys.map(item => { return item.name });
         this.content.resize();
-        //console.log(this.report);
+        this.price = res.coin;
       });
     }, 550);
   }
@@ -102,7 +103,7 @@ export class ReportPage {
       fields: res.fields,
       scoreSubjects: res.scoreSubjects,
       rankSubjects: res.rankSubjects,
-      payment: res.buy
+      payment: res.buy,
     }) : null;
     //console.log(this.report.scores.shift());
   }
@@ -144,7 +145,7 @@ export class ReportPage {
       subject: name
     }).then(res => {
       if (!res) this.report.activityRanktrends = null;
-      this.report.activityRanktrends = this.chartsPro.scoretrend(res, true);
+      this.report.activityRanktrends = this.chartsPro.scoretrend(res, res.name || '排名', true);
       //console.log(res);
     }).catch(ex => this.report.activityRanktrends = null);
   }
@@ -164,7 +165,7 @@ export class ReportPage {
       })
       .then(res => {
         if (!res) this.report.activityScoretrends = null;
-        this.report.activityScoretrends = this.chartsPro.scoretrend(res);
+        this.report.activityScoretrends = this.chartsPro.scoretrend(res, "得分率 %");
         //console.log(res);
       })
       .catch(ex => this.report.activityScoretrends = null);
@@ -187,9 +188,12 @@ export class ReportPage {
    *学情报告未生成时，初始化优惠券余额等信息
    */
   initializePackage() {
+
     if (this.navParams.get('payment')) return;
     this.couponPro.getcount().then(res => this.couponCount = res.count || 0).catch();
     this.paymentPro.getLocalBalance().then(res => this.balance = res);
+    //this.examsPro.reportfee().then(res => this.price = res[0].value);
+
   }
 
 
@@ -197,7 +201,7 @@ export class ReportPage {
    *学情报告未生成是，点击查看学情报告
    */
   openPackage() {
-    const COIN = 100;
+    const COIN = this.price;
     let callback = () => {
       this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
         let start = this.navCtrl.indexOf(this.viewCtrl);
@@ -208,6 +212,7 @@ export class ReportPage {
         });
       });
     }
+
 
     //有优惠劵前往学情套餐
     if (this.couponCount) {

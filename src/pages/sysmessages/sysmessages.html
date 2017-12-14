@@ -20,8 +20,8 @@
         <div class="block-content" padding-horizontal padding-bottom-12>
           <h6 no-margin padding-bottom-12 padding-top class="font-weight-normal">{{item.title}}</h6>
           <p class="paragraph">
-            {{item.content}}
-            <span class="ellipsis" *ngIf="item.content.length > 45">...</span>
+            {{item.description}}
+            <span class="ellipsis" *ngIf="item.description.length > 45">...</span>
           </p>
         </div>
         <button ion-item no-lines (click)="message(item)">查看详情</button>

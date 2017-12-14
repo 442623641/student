@@ -72,7 +72,10 @@ export class ExcellentPage {
       this.total = res.total;
       this.excellentsOpts = res.questions.map((item) => { return new ExcellentOptions(item) });
       this.processing = false;
-      setTimeout(() => this.nativePro.hideLoading(), 650);
+      setTimeout(() => {
+        this.nativePro.hideLoading();
+        this.content.scrollToTop();
+      }, 350);
     }).catch(ex => error(ex));
 
   }
@@ -138,6 +141,7 @@ export class ExcellentPage {
         images: imgs
       };
       this.nativePro.hideLoading();
+
     }).catch((ex) => error(ex));
   }
   toast(message) {

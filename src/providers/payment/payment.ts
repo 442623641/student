@@ -137,5 +137,4 @@ export class PaymentProvider {
         return Promise.reject({ status: 405, message: 'Invalid order type' });
     }
   }
-
 }

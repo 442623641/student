@@ -28,9 +28,10 @@ export class AddressProvider {
         res.checked = true;
         return this.add(res);
       }
-      return {};
+      return res || {};
     })
   }
+
   change(res) {
     res.checked = true;
     this.addressSource.next(res);

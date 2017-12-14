@@ -16,13 +16,13 @@
           <ion-label color="gray9">
             <ion-icon name="person-outline"></ion-icon>
           </ion-label>
-          <ion-input (ionBlur)="fadeout=false" (ionFocus)="fadeout=true" type="number" formControlName="usercode" placeholder="请输入手机号码" max='11' maxlength="11" clearInput></ion-input>
+          <ion-input (ionBlur)="fadeout=false" (ionFocus)="fadeout=true" type="tel" formControlName="usercode" placeholder="请输入手机号码" maxlength="11" clearInput></ion-input>
         </ion-item>
         <ion-item padding-top padding-right>
           <ion-label color="gray9">
             <ion-icon name="lock-outline"></ion-icon>
           </ion-label>
-          <ion-input (ionBlur)="fadeout=false" (ionFocus)="fadeout=true" [type]="eye?'text':'password'" placeholder="请输入密码" formControlName="pwd"></ion-input>
+          <ion-input entype="password" (ionBlur)="fadeout=false" (ionFocus)="fadeout=true" [type]="eye?'text':'password'" placeholder="请输入密码" formControlName="pwd"></ion-input>
           <a item-right input-button-right ion-text color="gray6" (click)="eye=!eye">
             <ion-icon [name]="eye?'eye-outline':'eye-off-outline'"></ion-icon>
           </a>

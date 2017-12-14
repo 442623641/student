@@ -60,4 +60,8 @@ page-login {
     bottom: 0;
     width: 100%;
   }
+  .fadeout~rocket .loader {
+    top: 7vh;
+    transition: top .5s;
+  }
 }

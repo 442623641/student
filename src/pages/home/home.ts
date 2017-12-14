@@ -16,8 +16,9 @@ import {
   EXCELLENT_PAGE,
   ELOSTGUIDE_PAGE,
   CLAIM_PAGE,
+  PACKAGEGUIDE_PAGE,
   PACKAGE_PAGE,
-  LOSTGUIDE_PAGE
+  LOSTGUIDE_PAGE,
 } from '../pages.constants';
 
 
@@ -36,6 +37,7 @@ import {
 export class HomePage {
   pages: any = {
     package: PACKAGE_PAGE,
+    packageguide: PACKAGEGUIDE_PAGE,
     recharge: RECHARGE_PAGE,
     personal: PERSONAL_PAGE,
     exams: EXAMS_PAGE,
@@ -102,7 +104,7 @@ export class HomePage {
   }
 
   open(should) {
-    this.navCtrl.push(this.pages.package, { guide: !this.package.open });
+    this.navCtrl.push(this.package.open ? PACKAGE_PAGE : PACKAGEGUIDE_PAGE);
     this.packageSub && this.packageSub.unsubscribe();
     this.listen = this.paymentPro.achieve$.subscribe(res => {
       let start = this.navCtrl.indexOf(this.viewCtrl);

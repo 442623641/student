@@ -41,7 +41,7 @@
                   {{item}}
                 </ion-col>
               </ion-row>
-              <p><span>排名 {{score.rank}}</span> 领先 {{score.percent | percent}} 的考生</p>
+              <p *ngIf="score.percent"><span *ngIf="!!score.rank">排名 {{score.rank}}</span> 领先 {{score.percent | percent}} 的考生</p>
             </ion-col>
           </ion-row>
         </ng-template>
@@ -100,7 +100,7 @@
           <ion-card-content class="rank-list">
             <ng-template [ngIf]="reports[indexNum]?.activityComranks" [ngIfElse]="loadingb">
               <div *ngFor="let rank of reports[indexNum].activityComranks;let i =index;" class="rank-item" [attr.self]="rank.sort=='我'?'':null">
-                <span>{{rank.sort}}</span>
+                <span *ngIf="rank.sort">{{rank.sort}}</span>
                 <div [attr.data-count]="rank.count?'并列'+rank.count+'人':' '">{{rank.score}}</div>
               </div>
             </ng-template>

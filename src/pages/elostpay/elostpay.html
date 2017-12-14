@@ -15,7 +15,7 @@
     <ion-col text-right>
       <coin (balanceChange)="balanceChange($event)"></coin>学贝</ion-col>
   </ion-row>
-  <p class="break">已订购项目</p>
+  <p class="break">已订购科目</p>
   <ion-row class="tr">
     <ion-col text-left>{{subjectNames.join('/')}}</ion-col>
     <ion-col text-right>共<span primary>{{subjectNames.length}}</span>科</ion-col>
@@ -70,7 +70,8 @@
       <span primary>{{order.value}}</span>学贝
     </p>
     <p class="break" text-right>还需充值<span primary>{{order.dvalue}}</span>学贝
-      <br>小计：<span primary>{{order.dvalue/10}}</span>元（1元=10学贝）</p>
+      <br>小计：
+      <currency [value]="order.dvalue/10"></currency>（1元=10学贝）</p>
   </div>
   <coupon type="3" [value]="order.value" (onChange)="couponChange($event)"></coupon>
 </ion-content>

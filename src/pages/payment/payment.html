@@ -13,7 +13,8 @@
   <ion-item-group margin-top>
     <ion-item>
       <span item-left>支付金额</span>
-      <ion-label item-end><span primary>{{amount}}</span>元</ion-label>
+      <currency item-end [value]="amount"></currency>
+      <!-- <ion-label item-end><span primary>{{amount|currency:'CNY':'symbol-narrow':'1.2-2'}}</span></ion-label> -->
     </ion-item>
   </ion-item-group>
   <ion-item-group radio-group [(ngModel)]="payType">
@@ -36,20 +37,10 @@
       <ion-radio value="wa" check-icon></ion-radio>
     </ion-item>
     <agreecheck [(check)]="checked" type="payment" (checkChange)="checkChange($event)"></agreecheck>
-    <!-- <ion-item no-lines>
-      <svg colorful aria-hidden="true" item-left>
-        <use xlink:href="#icon-unionpay"></use>
-      </svg>
-      <ion-label>银联支付</ion-label>
-      <ion-radio value="unionpay" check-icon></ion-radio>
-    </ion-item> -->
-    <!-- <ion-item-divider class="agreement" [navPush]="pages.agreement">
-      <ion-label>本人已阅读并同意<a [navPush]="pages.agreement">《七天网络数据增值服务支付协议》</a></ion-label>
-      <ion-checkbox checked="true"></ion-checkbox>
-    </ion-item-divider> -->
   </ion-item-group>
   <p padding>
     <submiton (stateChange)="pay()" [(state)]="processing">{{processing?'正在支付...':'确定支付'}}</submiton>
     <!-- <button ion-button block (click)="pay()">确认支付</button> -->
   </p>
+  <ion-backdrop style="z-index: 999;" *ngIf="processing"></ion-backdrop>
 </ion-content>

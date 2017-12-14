@@ -28,7 +28,8 @@
     </ion-item-group>
     <p class="break" text-right>
       <label>还需充值<span primary>{{package.dvalue}}</span>学贝
-        <br>小计：<span primary>{{package.dvalue/10}}</span>元（1元=10学贝）</label>
+        <br>小计：
+        <currency [value]="package.dvalue/10"></currency>（1元=10学贝）</label>
     </p>
     <coupon type="1" [value]="package.option.value" (onChange)="couponChange($event)" *ngIf="options"></coupon>
     <ion-item-group class="desc">

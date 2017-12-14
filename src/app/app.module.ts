@@ -3,12 +3,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
-//import {HttpClientModule} from '@angular/common/http';
-
 import { StudentApp } from './app.component';
-
 import * as Icon from 'iconcolorful';
-
 enableProdMode();
 Icon.enableColorful();
 
@@ -26,8 +22,11 @@ import { FilePath } from '@ionic-native/file-path';
 import { Contacts } from '@ionic-native/contacts';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { AppVersion } from '@ionic-native/app-version';
+import { FileOpener } from '@ionic-native/file-opener';
+import { File } from '@ionic-native/file';
+import { ThemeableBrowser } from '@ionic-native/themeable-browser';
 
-//import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
 /**
  *Providers
  */
@@ -46,7 +45,8 @@ import { SeptnetpayProvider } from '../providers/payment/septnetpay';
 import { LostProvider } from '../providers/lost/lost';
 import { PackageProvider } from '../providers/package/package';
 import { NotifyProvider } from '../providers/notify/notify';
-import { AppProvider } from '../providers/app/app';
+
+
 import { ExamsProvider } from '../providers/exams/exams';
 import { ChartsProvider } from '../providers/charts/charts';
 import { ClaimProvider } from '../providers/claim/claim';
@@ -56,7 +56,12 @@ import { MessageProvider } from '../providers/message/message';
 import { TradesProvider } from '../providers/trades/trades';
 import { DoctorProvider } from '../providers/doctor/doctor';
 import { AddressProvider } from '../providers/address/address';
-import { HardbackProvider } from '../providers/hardback';
+import { BrowserProvider } from '../providers/browser/browser';
+
+import { AppProvider } from '../providers/app/app';
+import { AnalyticsProvider } from '../providers/app/analytics';
+import { HardbackProvider } from '../providers/app/hardback';
+import { UpgradeProvider } from '../providers/app/upgrade';
 @NgModule({
   declarations: [
     StudentApp,
@@ -80,6 +85,7 @@ import { HardbackProvider } from '../providers/hardback';
     }),
     ComponentsModule,
     IonicStorageModule.forRoot(),
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -100,10 +106,14 @@ import { HardbackProvider } from '../providers/hardback';
     StatusBar,
     CallNumber,
     HTTP,
-    FilePath,
     Contacts,
     SpinnerDialog,
     SocialSharing,
+    AppVersion,
+    FileOpener,
+    File,
+    FilePath,
+    ThemeableBrowser,
 
     /*
      * request service
@@ -125,7 +135,6 @@ import { HardbackProvider } from '../providers/hardback';
     LostProvider,
     PackageProvider,
     NotifyProvider,
-    AppProvider,
     EnalyzingProvider,
     LostProvider,
     CouponProvider,
@@ -134,7 +143,12 @@ import { HardbackProvider } from '../providers/hardback';
     TradesProvider,
     AddressProvider,
     DoctorProvider,
+    BrowserProvider,
+
+    AppProvider,
     HardbackProvider,
+    UpgradeProvider,
+    AnalyticsProvider,
   ]
 })
 export class AppModule {}

@@ -6,11 +6,6 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-buttons>
-      <button ion-button clear icon-only (click)="viewCtrl.dismiss()">
-        <ion-icon name="close"></ion-icon>
-      </button>
-    </ion-buttons>
     <ion-title>学情套餐</ion-title>
   </ion-navbar>
 </ion-header>
@@ -19,7 +14,7 @@
     <p>开通学情套餐</p>
     <p>享 <span class="banner-num">7</span> 大数据服务</p>
     <p>帮助孩子学习更高效</p>
-    <button ion-button class="banner-btn" margin-top (click)="viewCtrl.dismiss()">立即开通</button>
+    <button ion-button class="banner-btn" margin-top (click)="go()">立即开通</button>
   </div>
   <ion-card padding-horizontal-12 padding-top-12>
     <p><span>考生成绩</span> <span>“相对成绩”精确定位</span></p>
@@ -106,8 +101,8 @@
 </ion-content>
 <ion-footer no-border>
   <ion-toolbar>
-    <ion-title>
-      <button ion-button block (click)="viewCtrl.dismiss()">开通学情套餐</button>
+    <ion-title no-padding>
+      <button ion-button block (click)="go()">开通学情套餐</button>
     </ion-title>
   </ion-toolbar>
 </ion-footer>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, ViewController } from 'ionic-angular';
+import { PACKAGE_PAGE } from '../pages.constants';
 
 /**
  * Generated class for the PackageguidePage page.
@@ -15,5 +16,12 @@ import { IonicPage, ViewController } from 'ionic-angular';
 })
 export class PackageguidePage {
 
-  constructor(public viewCtrl: ViewController) {}
+  constructor(private navCtrl: NavController, private viewCtrl: ViewController) {}
+  go() {
+    this.navCtrl.push(PACKAGE_PAGE).then(() =>
+      setTimeout(() => {
+        this.navCtrl.removeView(this.viewCtrl, { animate: false })
+      }, 300)
+    );
+  }
 }

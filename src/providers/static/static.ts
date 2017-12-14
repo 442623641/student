@@ -70,7 +70,7 @@ export class StaticProvider {
         });
         return name;
       });
-      return (name || '已毕业').trim();
+      return (name || '毕业').trim();
     });
 
   }

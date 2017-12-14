@@ -129,7 +129,7 @@ export class PersonalPage {
         setTimeout(() => this.navCtrl.getPrevious().name != LOGIN_PAGE ? this.navCtrl.pop() : this.appCtrl.getRootNav().setRoot(TABS_PAGE, {}, { animate: true, animation: 'ios-transition', direction: 'forward' }), 1000);
       }).catch(ex => {
         this.processing = undefined;
-        this.nativePro.toast('更新失败，请稍后再试');
+        this.nativePro.toast(ex.massege);
       });
     })
 

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 import { UserProvider } from '../../providers/user';
+import { UpgradeProvider } from '../../providers/app/upgrade';
 import { ABOUTUS_PAGE } from '../pages.constants';
+import { NativeProvider } from '../../providers/native';
 /**
  * Generated class for the SetupPage page.
  *
@@ -15,11 +17,14 @@ import { ABOUTUS_PAGE } from '../pages.constants';
   templateUrl: 'setup.html',
 })
 export class SetupPage {
-  pages:any={
+  pages: any = {
     aboutus: ABOUTUS_PAGE
+
   };
   constructor(
-    private userProvider: UserProvider
+    private userProvider: UserProvider,
+    private upgradePro: UpgradeProvider,
+    private nativePro: NativeProvider
   ) {}
   logout() {
     this.userProvider.logout();
@@ -27,6 +32,11 @@ export class SetupPage {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SetupPage');
+  }
+  checkUpdate() {
+    this.upgradePro.checkUpdate().then(res => {
+      res || this.nativePro.toast('已经是最新版本');
+    })
   }
 
 }

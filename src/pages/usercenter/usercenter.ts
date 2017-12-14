@@ -64,8 +64,8 @@ export class UsercenterPage {
   }
 
   get desc() {
-    let grade = this.userInfo.gradeName ? `【${this.userInfo.gradeName} 】` : '';
-    return `${this.userInfo.cityName} ${this.userInfo.school} ${grade}`;
+    let grade = this.userInfo.gradeName ? `【${this.userInfo.gradeName}】` : '';
+    return `${this.userInfo.cityName} ${this.userInfo.school}${grade}`;
   }
 
 

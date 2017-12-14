@@ -3,18 +3,29 @@
   <ion-header>
     <ion-navbar color="transparent">
       <ion-buttons start>
-        <button ion-button icon-only (click)="viewCtrl.dismiss()" clear large>
+        <button ion-button icon-only (click)="viewCtrl.dismiss()" clear>
           <ion-icon name="close"></ion-icon>
         </button>
       </ion-buttons>
       <ion-title>{{title}}</ion-title>
     </ion-navbar>
   </ion-header>
-  <ion-slides zoom="true" [pager]="urls.length>1">
-    <ion-slide *ngFor="let img of urls">
-      <div class="swiper-zoom-container">
-        <img-lazy [src]="img" [alt]="img"></img-lazy>
+  <!-- Swiper -->
+  <div class="swiper-container" id="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let item of urls;let i=index">
+        <div class="swiper-zoom-container" [ngSwitch]="item.isImg">
+          <ng-container *ngSwitchCase="true">
+            <ion-spinner color="white" *ngIf="!states[i]"></ion-spinner>
+            <img [src]="item.url" (load)="load(i)" (error)="states[i]=-1" [hidden]="states[i]!==1" *ngIf="states[i]!=-1;else error;">
+            <ng-template #error>
+              <img src="assets/images/default.png">
+            </ng-template>
+          </ng-container>
+          <span *ngSwitchCase="false" ion-text color="white">{{item.url}}</span>
+        </div>
       </div>
-    </ion-slide>
-  </ion-slides>
+    </div>
+    <div class="swiper-pagination swiper-pagination-white" id='swiper-pagination' *ngIf="urls.length>1"></div>
+  </div>
 </ion-content>

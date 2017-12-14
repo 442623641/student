@@ -44,12 +44,12 @@ export class LostpayPage {
     private addressPro: AddressProvider,
   ) {
     this.options = navParams.get('params');
+    this.amount = this.options.amount;
     this.addressPro.last().then((res) => {
-      console.log(res);
       this.options.area = res;
       this.expressAmount = res.mail;
       res.mail = undefined;
-      this.total = this.options.amount * 10 + this.expressAmount;
+      this.total = (this.amount + this.expressAmount) * 10;
     }).catch(ex => {
       console.log(ex);
     });
@@ -57,7 +57,7 @@ export class LostpayPage {
 
   couponChange(event) {
     this.options.couponcode = event.couponCode;
-    this.amount = Number((event.amount / 10).toFixed(2));
+    this.amount = event.amount / 10;
     this.total = event.amount + this.expressAmount * 10;
     console.log(this.amount);
   }
