@@ -25,17 +25,17 @@
         <ion-col class="coin" [ngSwitch]="package.open">
           <ng-container *ngSwitchCase="false">
             <img src="assets/images/diamond.png">
-            <a class="button" (click)="open()">立即开通</a>
+            <a class="button" (touch)="open()" event="home_openPackage">立即开通</a>
           </ng-container>
           <ng-container *ngSwitchCase="true">
             <div style="font-size: 1.2rem;padding-top: 16px;"><span style="font-size: 1.6rem;font-weight: 500">{{package.days}}</span>天</div>
             <div style="font-size: 1.2rem;padding-bottom: 10px;">剩余天数</div>
-            <a class="button" (click)="open()">续 费</a>
+            <a class="button" (touch)="open()" event="home_recharge">续 费</a>
           </ng-container>
         </ion-col>
       </ion-row>
       <div class="banner">
-        <img src="assets/images/packagead.png" (click)="open()">
+        <img src="assets/images/packagead.png" (touch)="open()" event="home_packageBanner">
       </div>
       <div class="card">
         <div class="card-header">
@@ -43,26 +43,26 @@
           <span>基础数据服务</span>
         </div>
         <ion-row class="card-content">
-          <a [navPush]="pages.exams" href="javascript:void(0);">
+          <a [navPush]="pages.exams" href="javascript:void(0);" event="home_goExams">
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-ianalysis"></use>
             </svg>
             <!-- <ion-icon name="headset"></ion-icon> -->
             <div>成绩分析</div>
           </a>
-          <a [navPush]="pages.enalyzing">
+          <a [navPush]="pages.enalyzing" event="home_goEnalyzing">
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-icause"></use>
             </svg>
             <div>错题分析</div>
           </a>
-          <a [navPush]="pages.excellent" [navParams]="{package:package.open}">
+          <a [navPush]="pages.excellent" [navParams]="{package:package.open}" event="home_goExcellent">
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-iset"></use>
             </svg>
             <div>名校试题</div>
           </a>
-          <a [navPush]="pages.claim">
+          <a [navPush]="pages.claim" event="home_goClaim">
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-iclaim"></use>
             </svg>
@@ -77,14 +77,14 @@
           <!-- <span>成绩如何提升？</span> -->
         </div>
         <ion-row class="card-content">
-          <a col-3 [navPush]="pages.lost">
+          <a col-3 [navPush]="pages.lost" event="home_goLost">
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-ierrorbook"></use>
             </svg>
             <div>错题本
               <br>（纸质版）</div>
           </a>
-          <a [navPush]="pages.elost" col-3>
+          <a [navPush]="pages.elost" col-3 event="home_goElost">
             <svg colorful aria-hidden="true" item-left>
               <use xlink:href="#icon-ieerrorbook"></use>
             </svg>

@@ -13,11 +13,14 @@ import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 })
 export class TopicsPage {
   options: any;
+  legend: string[];
+
   constructor(
     navParams: NavParams,
     public viewCtrl: ViewController,
   ) {
     this.options = navParams.get('options');
+    this.legend = navParams.get('legend');
   }
 
 }

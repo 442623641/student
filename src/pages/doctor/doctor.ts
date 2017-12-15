@@ -164,7 +164,14 @@ export class DoctorPage {
    *查看更多哦小题得分情况
    */
   openPercentModal() {
-    let modal = this.modalCtrl.create(TOPICS_PAGE, { options: this.chartsPro.percents(this.subject.no, this.subject.series) }, { enterAnimation: 'modal-md-slide-in', leaveAnimation: 'modal-md-slide-out' });
+    let modal = this.modalCtrl.create(TOPICS_PAGE, {
+      legend: this.legend,
+      options: this.chartsPro.percents(this.subject.no,
+        this.subject.series)
+    }, {
+      enterAnimation: 'modal-md-slide-in',
+      leaveAnimation: 'modal-md-slide-out'
+    });
     modal.present();
   }
 

@@ -38,6 +38,14 @@ page-enalyzing {
   .header {
     .affix {
       background: rgba(255, 255, 255, 0.85);
+      .col:first-child {
+        span {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          display: inherit;
+          overflow: hidden;
+        }
+      }
     }
   }
 

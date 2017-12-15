@@ -10,27 +10,22 @@ import { AnalyticsProvider } from '../../providers/app/analytics';
 @Directive({
   selector: 'ion-content,[hook]' // Attribute selector
 })
-export class AnalyticsDirective {
-  subenter: any;
-  subleave: any;
+export class PageDirective {
+  enterSubscribe: any;
+  leaveSubscribe: any;
   constructor(viewCtrl: ViewController, analyticsPro: AnalyticsProvider) {
     const pageName = viewCtrl.name;
-    this.subleave = viewCtrl.didEnter.subscribe((res) => {
+    this.enterSubscribe = viewCtrl.didEnter.subscribe((res) => {
       analyticsPro.pageEnter(pageName);
-      //console.log('page end ' + this.page);
     })
-    this.subenter = viewCtrl.didLeave.subscribe((res) => {
+    this.leaveSubscribe = viewCtrl.didLeave.subscribe((res) => {
       analyticsPro.pageLeave(pageName);
-      //console.log('page leave ' + this.page);
     })
-
   }
 
   ngOnDestroy() {
-    this.subenter && this.subenter.unsubscribe();
-    this.subleave && this.subleave.unsubscribe();
-    //this.mobclickAgent.onPageEnd(this.umengPage);
-    //this.mobclickAgent.onPageEnd(this.umengPage);
+    this.enterSubscribe && this.enterSubscribe.unsubscribe();
+    this.leaveSubscribe && this.leaveSubscribe.unsubscribe();
   }
 
 }

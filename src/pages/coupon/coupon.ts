@@ -106,9 +106,9 @@ export class CouponPage {
    *保存选中
    */
   save() {
-    this.couponpro.checked(this.coupons.find(item => {
+    this.couponpro.checked(this.coupons ? this.coupons.find(item => {
       return item.couponCode == this.checked;
-    }));
+    }) : null);
     this.navCtrl.pop();
   }
 }

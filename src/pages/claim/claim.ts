@@ -71,7 +71,7 @@ export class ClaimPage {
       if (!res || !res.length) return exception(res);
       this.unclaimes = res;
       event && event.complete();
-      console.log(res);
+      //console.log(res);
       this.nativepro.hideLoading();
 
     }).catch(ex => exception(ex));

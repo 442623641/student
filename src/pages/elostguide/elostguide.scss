@@ -163,8 +163,7 @@ page-elostguide {
     width: 95%;
     margin: 0 auto;
     padding: 16px;
-    color: color($colors, text);
-    line-height: 1.8rem;
+    color: color($colors, text); // line-height: 1.8rem;
     background-color: #f2f2f2;
     border: 1px dotted color($colors, primary);
     border-radius: 10px;
@@ -175,7 +174,7 @@ page-elostguide {
       color: color($colors, primary);
     }
     p {
-      margin-top: 10px;
+      margin-top: 6px;
     }
   }
 }

@@ -63,9 +63,13 @@ export class LoginPage {
           })
         }
       })
-      .catch((res = { message: "网络异常，请稍后再试" }) => {
+      .catch((res = { message: "网络异常，请稍后再试", status: 500 }) => {
         this.authForm['processing'] = false;
         this.nativePro.toast(res.message);
+        if (res.status == 1404) {
+          setTimeout(() =>
+            this.navCtrl.push(this.pages.validation, { type: 'register', phone: obj.usercode }), 800);
+        }
       })
   }
 

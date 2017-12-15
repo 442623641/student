@@ -19,8 +19,8 @@
     <span float-right>{{exam.time | date:'yyyy年M月d日'}}</span>
     <span><span primary>{{affixOpt.count}}</span>道错题</span>
   </p> -->
-  <ion-row class="affix" line-bottom *ngIf="affixOpt&&enalyzingOpt?.state">
-    <ion-col col-9 ion-text color="text" text-left>{{affixOpt.name}}</ion-col>
+  <ion-row class="affix" nowrap line-bottom *ngIf="affixOpt&&enalyzingOpt?.state">
+    <ion-col col-9 ion-text color="text" text-left><span>{{affixOpt.name}}</span></ion-col>
     <ion-col text-right col-3><span primary>{{affixOpt.count}}</span>道错题</ion-col>
   </ion-row>
 </ion-header>

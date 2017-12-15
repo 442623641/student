@@ -192,7 +192,6 @@ export class ReportPage {
     if (this.navParams.get('payment')) return;
     this.couponPro.getcount().then(res => this.couponCount = res.count || 0).catch();
     this.paymentPro.getLocalBalance().then(res => this.balance = res);
-    //this.examsPro.reportfee().then(res => this.price = res[0].value);
 
   }
 
@@ -228,6 +227,7 @@ export class ReportPage {
         .then(btn => {
           btn && this.paymentPro.sa({ ordertype: 'exam', examguid: this.exam.guid }).then(res => {
             this.nativePro.prompt("成功生成学情报告");
+            this.paymentPro.achieve({ len: this.navCtrl.length(), result: res, type: 'exam' })
             this.exam.payment = true;
           })
         })

@@ -118,7 +118,6 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
-    console.log('ionViewDidEnter');
     this.listen && this.listen.unsubscribe();
     this.packageSub = this.packageSub ? this.paymentPro.package$.subscribe(res => this.loadData()) : this.packageSub;
   }
