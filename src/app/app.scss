@@ -207,41 +207,21 @@
   }
 
   [split-line]>*:not(:last-child()) {
-    border-right: .55px solid rgba(0, 0, 0, .15);
+    // border-right: .55px solid rgba(0, 0, 0, .15);
+    &:after {
+      content: '';
+      height: 80%;
+      float: right;
+      width: 1px;
+      background: rgba(0, 0, 0, 0.15);
+      margin: 3px 0;
+      transform: scaleX(0.5);
+    }
   }
 
   .col {
     text-align: center;
   }
-  /*
-  // --------------------------------------------------
-  //icon bounce*/
-
-  @keyframes icon-bounce {
-    0%,
-    100% {
-      transform: rotate(0deg);
-    }
-    25% {
-      transform: rotate(15deg);
-    }
-
-    50% {
-      transform: rotate(-15deg);
-    }
-
-    75% {
-
-      transform: rotate(5deg);
-    }
-
-    85% {
-
-      transform: rotate(-5deg);
-    }
-  } // .activated .tab-button-icon:before {
-  //   animation: icon-bounce 0.5s alternate;
-  // }
   /* // --------------------------------------------------
   //address picker*/
 
@@ -280,40 +260,7 @@
         padding-right: 16px;
       }
     }
-  }
-  /*
-  //override segment style*/
-
-  .segment-md .segment-button {
-    border-bottom-color: rgba(#fff, .85);
-    opacity: 1;
-    background-color: rgba(#fff, .85);
-    &.segment-activated {
-      border-color: color($colors, primary) !important;
-      color: color($colors, primary) !important;
-    }
-  }
-  /**
-  *loading style
-  */
-
-  .row[loading] {
-    height: 100%;
-    min-height: 200px;
-    align-items: center;
-    justify-content: center;
-    color: darken($background-color, 25%);
-    font-size: 3em;
-    .spinner-ios-bubbles circle,
-    .spinner-md-bubbles circle {
-      fill: darken($background-color, 25%);
-    }
-  }
-  /**
-  *loading style
-  */
-
-  // leave animate add by leo 20171102
+  } // leave animate add by leo 20171102
   // /
   .leave-block,
   .leave-active-block {
@@ -328,7 +275,7 @@
     0% {
       max-height: 100vh;
       opacity: 1;
-      transform: translateX(20%);
+      transform: translateX(0%);
     }
     80% {
       max-height: 100vh;
@@ -344,11 +291,11 @@
 
   .toast-tip {
     .toast-wrapper {
-      background: #F44336;
-      left: 0;
-      right: 0;
-      padding-left: 16px;
-      transform: translateY(0px) !important;
+      //background: #F44336;
+      // left: 0;
+      // right: 0;
+      // padding-left: 16px;
+      //transform: translateY(0px) !important;
       box-shadow: 0 5px 10px #ef5b3a; //animation: blin 5s infinite;
     }
     .toast-button {

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { HomePage } from './home';
-//import { ExamsPageModule } from '../exams/exams.module';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
 
@@ -11,7 +10,6 @@ import { DirectivesModule } from '../../directives/directives.module';
   ],
   imports: [
     IonicPageModule.forChild(HomePage),
-    //ExamsPageModule,
     ComponentsModule,
     DirectivesModule,
   ],

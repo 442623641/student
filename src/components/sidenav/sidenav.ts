@@ -28,6 +28,4 @@ export class SidenavComponent {
     console.log('Hello SidenavComponent Component');
   }
 
-  ngAfterViewInit() {}
-
 }

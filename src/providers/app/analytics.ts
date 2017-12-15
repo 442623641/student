@@ -13,7 +13,7 @@ declare let Umeng: any;
 export class AnalyticsProvider {
   debugMode: boolean;
   native: boolean;
-  events: any[];
+  events: any[] = [];
   constructor(platform: Platform) {
     console.log('Hello AnalyticsProvider Provider');
     this.native = platform.is('mobile') && !platform.is('mobileweb')

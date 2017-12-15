@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { ReplyPage } from './reply';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
+
 @NgModule({
   declarations: [
     ReplyPage,
@@ -10,7 +11,7 @@ import { DirectivesModule } from '../../directives/directives.module';
   imports: [
     IonicPageModule.forChild(ReplyPage),
     ComponentsModule,
-    DirectivesModule
+    DirectivesModule,
   ],
 })
 export class ReplyPageModule {}

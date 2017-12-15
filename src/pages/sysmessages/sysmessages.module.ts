@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { SysmessagesPage } from './sysmessages';
-// import { SysmessagePageModule } from '../sysmessage/sysmessage.module';
 import { ComponentsModule } from '../../components/components.module';
-// import { MessageProvider } from '../../providers/message/message';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -11,11 +10,8 @@ import { ComponentsModule } from '../../components/components.module';
   ],
   imports: [
     IonicPageModule.forChild(SysmessagesPage),
-    // SysmessagePageModule,
-    ComponentsModule
+    ComponentsModule,
+    DirectivesModule,
   ],
-  // providers: [
-  //   MessageProvider
-  // ]
 })
 export class SysmessagesPageModule {}

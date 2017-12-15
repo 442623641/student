@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { NewsPage } from './news';
-// import { ClaimPageModule } from '../claim/claim.module'
-// import { SysmessagesPageModule } from '../sysmessages/sysmessages.module'
+import { ComponentsModule } from '../../components/components.module';
+import { DirectivesModule } from '../../directives/directives.module';
 @NgModule({
   declarations: [
     NewsPage
   ],
   imports: [
     IonicPageModule.forChild(NewsPage),
-    // ClaimPageModule,
-    // SysmessagesPageModule
+    ComponentsModule,
+    DirectivesModule,
   ],
 })
 export class NewsPageModule {}

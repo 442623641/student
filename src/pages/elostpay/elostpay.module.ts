@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ElostpayPage } from './elostpay';
+
+import { CouponComponentModule } from '../../components/coupon/coupon.module';
+import { PaymentComponentModule } from '../../components/payment/payment.module';
 import { ComponentsModule } from '../../components/components.module';
-//import { lostpayProvider } from '../../providers/lostpay/lostpay';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -10,10 +13,10 @@ import { ComponentsModule } from '../../components/components.module';
   ],
   imports: [
     IonicPageModule.forChild(ElostpayPage),
+    PaymentComponentModule,
+    CouponComponentModule,
     ComponentsModule,
+    DirectivesModule,
   ],
-  // providers:[
-  // 	lostpayProvider,
-  // ]
 })
 export class LostpayPageModule {}

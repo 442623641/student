@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ExcellentPage } from './excellent';
-//import { EnalyzingProvider } from '../../providers/enalyzing/enalyzing';
+import { SidenavComponentModule } from '../../components/sidenav/sidenav.module';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
 @NgModule({
@@ -12,6 +12,7 @@ import { DirectivesModule } from '../../directives/directives.module';
     IonicPageModule.forChild(ExcellentPage),
     ComponentsModule,
     DirectivesModule,
+    SidenavComponentModule,
   ],
 })
 export class ExcellentPageModule {}

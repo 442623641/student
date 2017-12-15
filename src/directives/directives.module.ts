@@ -3,7 +3,6 @@ import { PageDirective } from './analytics/page';
 import { EventDirective } from './analytics/event';
 import { ImgviewerDirective } from './imgviewer/imgviewer';
 import { InputDirective } from './input/input';
-//import { PasswordDirective } from './password/password';
 
 @NgModule({
   declarations: [
@@ -11,14 +10,12 @@ import { InputDirective } from './input/input';
     ImgviewerDirective,
     InputDirective,
     EventDirective
-    //PasswordDirective,
   ],
   exports: [
     PageDirective,
     ImgviewerDirective,
     InputDirective,
     EventDirective,
-    //PasswordDirective,
   ]
 })
 export class DirectivesModule {}

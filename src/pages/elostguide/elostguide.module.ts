@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ElostguidePage } from '../elostguide/elostguide';
-import { ComponentsModule } from '../../components/components.module';
 import { ElostPageModule } from '../elost/elost.module';
+import { ComponentsModule } from '../../components/components.module';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import { ElostPageModule } from '../elost/elost.module';
   imports: [
     IonicPageModule.forChild(ElostguidePage),
     ComponentsModule,
+    DirectivesModule,
     ElostPageModule,
   ],
 })

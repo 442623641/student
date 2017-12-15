@@ -38,8 +38,8 @@
           </div>
           <div class="card percents" *ngIf='subjects[subjectIndex]?.percents'>
             <ion-row class="card-header" justify-content-between>
-              <ion-col col-5 text-left><i></i>小题得分情况</ion-col>
-              <ion-col *ngFor="let le of legend"><i></i>{{le}}</ion-col>
+              <ion-col col-4 text-left><i></i>小题得分情况</ion-col>
+              <ion-col *ngFor="let le of legend" text-right><i></i>{{le}}</ion-col>
             </ion-row>
             <div class="card-content">
               <echarts-ng2 [option]='subjects[subjectIndex]?.percents' [style]="{'height': 210+'px'}"></echarts-ng2>
