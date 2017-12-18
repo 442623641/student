@@ -5,8 +5,8 @@ import { Elost, LostParams } from '../../model/elost';
 import { LOSTOPTION_PAGE, LOSTORDERS_PAGE, LOSTPAY_PAGE } from '../pages.constants';
 import { PaymentProvider } from '../../providers/payment/payment';
 import { NativeProvider } from '../../providers/native';
-import { UserProvider } from '../../providers/user';
-import { UserInfo } from '../../model/userInfo';
+//import { UserProvider } from '../../providers/user';
+//import { UserInfo } from '../../model/userInfo';
 /**
  * Generated class for the LostPage page.
  * Add by leo zhang 201710010101
@@ -19,7 +19,7 @@ import { UserInfo } from '../../model/userInfo';
   templateUrl: 'lost.html',
 })
 export class LostPage {
-  userInfo: UserInfo;
+  //userInfo: UserInfo;
   //@ViewChild('content') content: Content;
   showTips: boolean;
   /**
@@ -58,10 +58,10 @@ export class LostPage {
     private paymentPro: PaymentProvider,
     private viewCtrl: ViewController,
     private nativePro: NativeProvider,
-    userPro: UserProvider
+    //userPro: UserProvider
 
   ) {
-    userPro.getUserInfo().then(res => this.userInfo = res);
+    //userPro.getUserInfo().then(res => this.userInfo = res);
   }
 
   ionViewDidLoad() {
@@ -71,11 +71,9 @@ export class LostPage {
   print(item) {
     this.navCtrl.push(this.pages.lostoption, item).then(() => {
       this.replaceElostSub = this.lostPro.replaceElost$.subscribe((res: Elost) => {
-        console.log('addElostSub');
         this.setLost(res);
       });
       this.setElostSub = this.lostPro.setElost$.subscribe((res: Elost) => {
-        console.log('setElostSub');
         this.price(this.setLost(res));
       })
     });
@@ -108,12 +106,15 @@ export class LostPage {
       this.nativePro.toast(ex.message || '网络延时，请稍后再试');
     }
 
+    let checkExams = [];
+    lost.exams.forEach(exam => {
+      exam.checked && checkExams.push({ guid: exam.guid, studentCode: exam.studentcode });
+    });
+
     this.lostPro.price({
       km: lost.name,
-      exams: lost.exams.map(item => { return { guid: item.guid, studentCode: item.studentcode } }),
-      grade: this.userInfo.grade,
-      //schoolGuid: this.userInfo.schoolGuid,
-      promote: lost.promote
+      exams: checkExams,
+      promote: lost.isPromote
     }).then(res => {
 
       if (!res.money) return exception(res);

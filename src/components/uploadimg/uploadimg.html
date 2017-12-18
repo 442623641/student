@@ -1,11 +1,11 @@
 <ion-row padding nowrap align-items-center>
   <ion-col col-3 no-padding margin-right-12 *ngFor="let url of urls;let i = index;">
-    <a (click)="remove(i)">
+    <a (touch)="remove(i)" event="feedback_remove">
       <ion-icon name="remove-circle-outline" color="danger"></ion-icon>
     </a>
     <img [src]="url">
   </ion-col>
-  <a (click)="picker()" *ngIf='urls.length<3' col-2>
+  <a (touch)="picker()" *ngIf='urls.length<3' col-2 event="feedback_picker">
     <ion-icon name="ios-camera-outline"></ion-icon>
     <p class="count">{{urls.length}}/3 </p>
   </a>

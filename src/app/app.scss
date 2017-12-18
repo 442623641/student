@@ -32,6 +32,11 @@
     min-height: 45px;
   }
 
+  [box-shadow] {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  }
+
+
   [no-will-change]>.scroll-content {
     overflow-x: hidden;
     overflow-y: hidden;
@@ -67,14 +72,15 @@
     border: none;
   }
 
+  .footer .toolbar {
+    padding: 0 !important;
+  }
+
   .footer ion-title {
     padding: 0 0px 1px;
-  }
-
-  .toolbar-background-ios {
-    -webkit-backdrop-filter: blur(15px);
-  }
-
+  } // .toolbar-background-ios {
+  //   -webkit-backdrop-filter: blur(15px);
+  // }
   .blur {
     -webkit-backdrop-filter: blur(15px);
     background: rgba(255, 255, 255, .85);
@@ -84,8 +90,22 @@
     opacity: .4;
   }
 
-  .header .toolbar:last-child:not([border]) .toolbar-background {
-    border: none !important;
+  [ol]:before {
+    content: '';
+    padding: 0 2px;
+    background: color($colors, primary);
+    margin-right: 8px;
+    display: inline;
+  }
+
+
+  .header {
+    .toolbar:last-child:not([border]) .toolbar-background {
+      border: none !important;
+    }
+    .toolbar~.toolbar {
+      min-height: 40px;
+    }
   }
   /* border style */
 
@@ -306,6 +326,39 @@
   }
   /**
   */
+  /*
+  // --------------------------------------------------
+  //icon bounce*/
+
+  @keyframes icon-zoom {
+    0% {
+      font-size: $tabs-ios-tab-icon-size; //transform: scale3d(1, 1, 1) translateY(0);
+      transform: translate3d(0, 0, 0);
+    }
+    65% {
+      font-size: 36px; //transform: scale3d(1.1, 1.16, 1) translateY(-2px);
+      transform: translate3d(0, -4px, 0);
+    }
+    100% {
+      font-size: 30px; //font-size: 30px; //transform: scale3d(1, 1, 1) translateY(0);
+      transform: translate3d(0, -2px, 0);
+    }
+  }
+
+  .tab-button {
+    overflow: visible;
+    &[aria-selected=true] .tab-button-icon {
+      font-size: 30px;
+      transform: translate3d(0, -2px, 0);
+      overflow: visible;
+      animation: icon-zoom 0.32s 80ms;
+      &:before {
+        text-shadow: 0px 0px 12px rgba(color($colors, primary), 0.59);
+      }
+    }
+  }
+  /* // --------------------------------------------------
+  **/
 
   // padding margin 10, 12 add by leo 20171019
   //

@@ -6,7 +6,7 @@ page-reply {
   .swiper loading .row {}
   .sub-header {
     iscroll {
-      max-height: 45px;
+      max-height: 40px;
       transition: max-height .3s .2s;
     }
     &.inactive iscroll {
@@ -37,7 +37,7 @@ page-reply {
       }
     }
     position: absolute;
-    top: 45px;
+    top: 43px;
     z-index: 99;
     text-align: center;
     background: #ffbe40;
@@ -57,7 +57,7 @@ page-reply {
   .lantern.enter-active-lantern,
   .leave-lantern {
     opacity: 1;
-    top: 45px;
+    top: 43px;
     transition: all .38s;
   }
 }

@@ -8,13 +8,14 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class ChartsProvider {
-  colors: any = {
+  colors: { primary, line, label, text, shadow } = {
     primary: '#f66e4f',
-    //text: '#414a60',
     line: "rgba(0,0,0,.05)",
     label: "#666",
     text: '#414a60',
+    shadow: 'rgba(246,110,79,.75)'
   }
+  shadow: string = 'text-align:left;box-shadow: 1px 5px 10px ' + this.colors.primary + ';'
   constructor() {
     console.log('Hello ChartsProvider Provider');
   }
@@ -236,9 +237,9 @@ export class ChartsProvider {
    *学情分析
    */
   radar(obj: { legend, indicator, series }) {
-    const icons = ['rect', 'circle', 'triangle'];
+    const icons = ['rect', 'circle', 'triangle'],
+      colour = [this.colors.primary, '#FFEB3B', '#D7D7D7'];
     return {
-
       legend: {
         top: 0,
         itemHeight: 8,
@@ -249,41 +250,169 @@ export class ChartsProvider {
         data: obj.legend.map((item, index) => { return { name: item, icon: icons[index] } }),
       },
 
-      color: [this.colors.primary, "#FFEB3B", '#D7D7D7'],
-      radar: [{
-        center: ["50%", "55%"],
-        indicator: obj.indicator,
-        radius: '62%',
-        shape: 'circle',
-        name: {
-          textStyle: {
-            color: this.colors.label,
-          }
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'line'
         },
-        splitArea: {
-          areaStyle: {
-            color: ['#FEFEFE'],
+        textStyle: {
+          color: '#fff',
+          fontStyle: 'normal',
+          fontSize: '12'
+        },
+        backgroundColor: this.colors.shadow,
+        extraCssText: this.shadow,
+      },
+
+      angleAxis: {
+        type: 'category',
+        data: obj.indicator.map((item, index) => item.name),
+        z: 0,
+        boundaryGap: false,
+        color: '#fff',
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: this.colors.label,
+            type: 'solid'
           }
         },
         axisLine: {
+          show: true,
+          startAngle: 0,
           lineStyle: {
-            color: '#ccc'
+            color: this.colors.label,
+            type: 'solid'
           }
         },
+        axisTick: {
+          show: false
+        }
+      },
+
+      radiusAxis: {
         splitLine: {
+          show: true,
           lineStyle: {
-            color: '#E6E6E6'
+            color: '#ccc',
+            type: 'solid'
+          }
+        },
+
+        splitNumber: 3,
+        axisLine: {
+          show: false,
+          lineStyle: {
+            color: '#ccc',
+          }
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          fontSize: 12,
+          align: 'center',
+          verticalAlign: 'bottom',
+          padding: '100'
+        }
+      },
+
+      polar: {
+        center: ['50%', '55%'],
+        radius: '65%'
+      },
+
+      series: obj.series.map((item, index) => {
+        return {
+          type: 'line',
+          data: obj.series[index],
+          coordinateSystem: 'polar',
+          name: obj.legend[index],
+          stack: 'a',
+          symbol: icons[index],
+          symbolSize: 9,
+          itemStyle: {
+            normal: {
+              color: colour[index],
+            }
           }
         }
-      }],
-      series: [{
-        type: 'radar',
-        data: obj.series.map((item, index) => { return { symbolSize: 9, value: item, name: obj.legend[index], symbol: icons[index] } }),
-      }]
+      })
+
     }
-
-
   }
+  // radar(obj: { legend, indicator, series }) {
+  //   const icons = ['rect', 'circle', 'triangle'];
+  //   return {
+  //     tooltip: {
+  //       trigger: 'item',
+  //       // axisPointer: {
+  //       //     type: 'cross'
+  //       // },
+  //       formatter: function(params) {
+  //         var  res  =  params.name + '<br/>';  
+  //         for (let i = 0; i < obj.legend.length; i++) {
+  //           if (params.name == obj.legend[i]) {
+  //             for (let j = 0; j < obj.series[i].length; j++) {
+  //               res += `<span style="width: 50%;display: inline-block;">${obj.indicator[j]['name']}：${obj.series[i][j]}  </span>`
+  //             }
+  //           }
+  //         }
+  //         return res;
+  //       },
+  //       backgroundColor: 'rgba(246,110,79,.75)',
+  //       extraCssText: 'text-align:left;box-shadow: 1px 5px 10px #f66e4f;font-size:12px;white-space:normal;width:160px;',
+  //     },
+
+
+  //     legend: {
+  //       top: 0,
+  //       itemHeight: 8,
+  //       itemWidth: 12,
+  //       textStyle: {
+  //         color: this.colors.label
+  //       },
+  //       data: obj.legend.map((item, index) => { return { name: item, icon: icons[index] } }),
+  //     },
+
+  //     color: [this.colors.primary, "#FFEB3B", '#D7D7D7'],
+  //     radar: [{
+  //       center: ["50%", "55%"],
+  //       indicator: obj.indicator,
+  //       radius: '75%',
+  //       shape: 'circle',
+  //       name: {
+  //         fontSize: 10,
+  //         color: this.colors.label,
+  //         textStyle: {
+  //           color: this.colors.label,
+  //         }
+  //       },
+  //       nameGap: 5,
+  //       splitArea: {
+  //         areaStyle: {
+  //           color: ['#FEFEFE'],
+  //         }
+  //       },
+  //       axisLine: {
+  //         lineStyle: {
+  //           color: '#ccc'
+  //         }
+  //       },
+  //       splitLine: {
+  //         lineStyle: {
+  //           color: '#E6E6E6'
+  //         }
+  //       }
+  //     }],
+  //     series: [{
+  //       type: 'radar',
+  //       data: obj.series.map((item, index) => { return { symbolSize: 9, value: item, name: obj.legend[index], symbol: icons[index] } }),
+  //     }]
+  //   }
+
+
+  // }
 
   /**
    *层次分析
@@ -293,11 +422,11 @@ export class ChartsProvider {
     return {
       tooltip: {
         trigger: 'axis',
-        backgroundColor: 'rgba(246,110,79,.75)',
+        backgroundColor: this.colors.shadow,
         textStyle: {
           fontSize: 12
         },
-        extraCssText: 'text-align:left;box-shadow: 1px 5px 10px #f66e4f;',
+        extraCssText: this.shadow,
       },
       legend: {
         top: 0,
@@ -392,11 +521,25 @@ export class ChartsProvider {
     return {
       tooltip: {
         trigger: 'axis',
-        backgroundColor: 'rgba(246,110,79,.75)',
+        backgroundColor: this.colors.shadow,
         textStyle: {
           fontSize: 12
         },
-        extraCssText: 'text-align:left;box-shadow: 0px 3px 10px #f66e4f;',
+        extraCssText: this.shadow,
+        formatter: function(params) {
+          if (params) {
+            let index = params[0].dataIndex;
+            let res = obj.category[index] + '<br/>';
+            if (obj.legend.length > 1) {
+              res += '满分:' + obj.full[0][index] + '<br/>';
+              res += obj.legend[0] + '：' + obj.score[0][index] + '<br/>';
+              res += obj.legend[1] + '：' + obj.avg[0][index];
+            } else {
+              res += obj.legend[0] + '：' + obj.series[0][index];
+            }
+            return res;
+          }
+        },
       },
       legend: {
         itemHeight: 10,

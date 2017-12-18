@@ -1,5 +1,5 @@
 <!-- Generated template for the CouponComponent component -->
-<button ion-item *ngIf="dvalue>0" [navPush]="page" [navParams]="{coupons:coupons,params:params,checked:coupon?.couponCode}" no-lines>
+<button ion-item *ngIf="dvalue>0" [navPush]="page" [navParams]="{coupons:coupons,params:params,checked:coupon?.couponCode}" no-lines event="coupon_goCoupon">
   <ion-label>使用优惠劵</ion-label>
   <ion-note item-right>
     {{coupon?coupon.couponName:coupons.length?'选择优惠劵':'暂无可用的优惠劵'}}

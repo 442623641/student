@@ -94,7 +94,7 @@ export class CouponComponent {
    *最优选择
    */
   private matriculate() {
-    if (!this.coupons || !this.coupons.length || this.dvalue <= 0) return;
+    if (!this.coupons || !this.coupons.length || this.dvalue <= 0) return this.emit({ amount: this.dvalue, couponName: '无可用优惠劵' });
     let money = this.dvalue,
       index = 0;
     this.coupons.forEach((item, i) => {
@@ -104,10 +104,11 @@ export class CouponComponent {
         index = i;
       }
     });
-    return this.emit(Object.assign({}, { amount: Math.max(money, 0) }, this.coupons[index]));
+    this.emit({ amount: Math.max(money, 0), couponCode: this.coupons[index].couponCode, couponName: this.coupons[index].couponName });
   }
 
-  emit(coupon: any = { amount: 0 }) {
+  emit(coupon ? : any) {
+    coupon = coupon || { amount: this.dvalue };
     if (this.coupon.couponCode == coupon.couponCode && this.coupon.amount == coupon.amount) return;
     this.coupon = coupon;
     this.onChange.emit({ couponCode: coupon.couponCode, amount: parseFloat((coupon.amount).toFixed(1)) });

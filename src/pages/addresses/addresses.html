@@ -17,13 +17,13 @@
         <p>{{item.area}}&nbsp;{{item.address}}</p>
       </ion-item>
       <ion-row justify-content-between align-items-center>
-        <a col-5 text-left (click)="checked(i)">
+        <a col-5 text-left (touch)="checked(i)">
           <ion-icon [name]="item.checked?'checkmark-circle':'radio-button-off-outline'" color="primary"></ion-icon>
         </a>
-        <a (click)="remove(i)">
+        <a (touch)="remove(i)">
           <ion-icon name="trash-outline"></ion-icon> 删除
         </a>
-        <a (click)="edit(item)">
+        <a (touch)="edit(item)">
           <ion-icon name="create-outline"></ion-icon> 编辑
         </a>
       </ion-row>
@@ -32,7 +32,7 @@
 </ion-content>
 <ion-footer no-border>
   <ion-toolbar no-padding>
-    <button full clear ion-button (click)="edit()" color="white" no-margin>
+    <button full clear ion-button (touch)="edit()" color="white" no-margin>
       <ion-icon name="add"></ion-icon>新增收货地址</button>
   </ion-toolbar>
 </ion-footer>

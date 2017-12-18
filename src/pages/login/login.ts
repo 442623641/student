@@ -51,12 +51,11 @@ export class LoginPage {
         if (!res || !res.token) return;
         if (res.school) {
           this.appCtrl.getRootNav().setRoot(TABS_PAGE, {}, {
+            animate: true,
             animation: 'md-transition',
-            direction: 'forward',
+            direction: 'back',
             duration: 500
-          }).then(res => {
-            this.authForm['processing'] = false;
-          })
+          }).then(res => this.authForm['processing'] = false)
         } else {
           this.navCtrl.push(PERSONAL_PAGE).then(res => {
             this.authForm['processing'] = false;

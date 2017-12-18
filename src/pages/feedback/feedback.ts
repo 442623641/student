@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { AppProvider } from '../../providers/app/app';
 import { NativeProvider } from "../../providers/native";
-import { FilePath } from '@ionic-native/file-path';
 /**
  * Generated class for the FeedbackPage page.
  *
@@ -23,7 +22,7 @@ export class FeedbackPage {
     private navCtrl: NavController,
     private appPro: AppProvider,
     private nativepro: NativeProvider,
-    private filePath: FilePath
+    //private filePath: FilePath
   ) {}
   onChanged(event) {
     this.images = event || [];
@@ -46,17 +45,17 @@ export class FeedbackPage {
         .catch(ex => this.nativepro.prompt(ex.message))
     }
     this.images.forEach((item, index) => {
-      this.filePath.resolveNativePath(item).then(path => {
-        this.appPro.feedback({ desc: this.text, guid: guid }, path)
-          .then(res => {
-            if (!res || !res.guid) return;
-            guid = res.guid;
-            index == this.images.length - 1 && sucess()
-          })
-          .catch(err => {
-            console.error(err);
-          });
-      }).catch(err => console.error(err));
+
+      this.appPro.feedback({ desc: this.text, guid: guid }, item)
+        .then(res => {
+          if (!res || !res.guid) return;
+          guid = res.guid;
+          index == this.images.length - 1 && sucess()
+        })
+        .catch(err => {
+          console.error(err);
+        });
+      //}).catch(err => console.error(err));
     })
   }
 

@@ -12,16 +12,18 @@ import { PACKAGE } from '../providers.constants';
 @Injectable()
 export class PackageProvider {
   _default: number;
+  token: string;
   constructor(
     public http: HttpProvider,
     private storage: Storage,
 
   ) {
     console.log('Hello PackageProvider Provider');
+    this.token = http.token;
   }
 
   default () {
-    if (this._default) {
+    if (this._default && this.token == this.http.token) {
       return Promise.resolve(this._default);
     } else {
       return this.options().then(res => {
@@ -31,7 +33,7 @@ export class PackageProvider {
   }
 
   options(data: { type: string } = { type: 'pa' }) {
-    if (this._default) {
+    if (this._default && this.token == this.http.token) {
       return this.locals();
     }
     return this.http.post('payment/getxbz', data).then(res => {
@@ -43,10 +45,6 @@ export class PackageProvider {
 
   locals() {
     return this.storage.get(PACKAGE);
-  }
-
-  payment() {
-
   }
 
 }

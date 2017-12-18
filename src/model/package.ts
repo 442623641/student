@@ -18,6 +18,7 @@ export class Package {
 
   }
 }
+
 /**
  *套餐
  */
@@ -45,8 +46,10 @@ export class PackageO extends Order {
    */
   option ? : PackageOption;
 
-  constructor(balance: number) {
+  constructor(balance: number, opt ? : PackageOption) {
     super(balance);
+    opt && this.setPackage(opt);
+
   }
 
   setPackage(obj: PackageOption) {
@@ -56,3 +59,8 @@ export class PackageO extends Order {
 
 
 }
+export const PACKAGEOPTIONS: PackageOption[] = [
+  { name: '一年学情套餐', value: 1000, year: 1 },
+  { name: '两年学情套餐', value: 1960, year: 2 },
+  { name: '三年学情套餐', value: 2850, year: 3 }
+]

@@ -10,70 +10,72 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding-bottom>
-  <ion-row class="tr">
-    <ion-col text-left>当前余额</ion-col>
-    <ion-col text-right>
-      <coin (balanceChange)="balanceChange($event)"></coin>学贝</ion-col>
-  </ion-row>
-  <p class="break">已订购科目</p>
-  <ion-row class="tr">
-    <ion-col text-left>{{subjectNames.join('/')}}</ion-col>
-    <ion-col text-right>共<span primary>{{subjectNames.length}}</span>科</ion-col>
-  </ion-row>
-  <p class="break">选择订购类型</p>
-  <div class="block">
-    <!-- <a class="row" justify-content-end (click)="setPrice(80)" [attr.checked]="price==80"> -->
-    <a class="row" justify-content-end checked="true">
-      <ion-col col-4>基础版
-        <br><span ion-text color="gray9">{{price}}学贝/科</span></ion-col>
-      <ion-col col-8 class="row" justify-content-start no-padding padding-horizontal>
-        <ion-col col-3>
-          <img src="assets/images/error.png">
-          <div>错题集</div>
+  <loading [status]="products" *ngIf="!products;else entry"></loading>
+  <ng-template #entry>
+    <ion-row class="tr">
+      <ion-col text-left>当前余额</ion-col>
+      <ion-col text-right>
+        <coin (balanceChange)="balanceChange($event)"></coin>学贝</ion-col>
+    </ion-row>
+    <p class="break">已订购科目</p>
+    <ion-row class="tr">
+      <ion-col text-left>{{subjectNames.join('/')}}</ion-col>
+      <ion-col text-right>共<span primary>{{subjectNames.length}}</span>科</ion-col>
+    </ion-row>
+    <p class="break">选择订购类型</p>
+    <div class="block">
+      <!-- <a class="row" justify-content-end (touch)="setPrice(80)" [attr.checked]="price==80"> -->
+      <a class="row" justify-content-end checked="true" (touch)="ckecked(0)" event="elostpay_pickProduct">
+        <ion-col col-4>{{products[0].name}}
+          <br><span ion-text color="gray9">{{products[0].value}}学贝/科</span></ion-col>
+        <ion-col col-8 class="row" justify-content-start no-padding padding-horizontal>
+          <ion-col col-3>
+            <img src="assets/images/error.png">
+            <div>错题集</div>
+          </ion-col>
         </ion-col>
-      </ion-col>
-      <div class="triangle">
-        <ion-icon name="checkmark"></ion-icon>
-      </div>
-    </a>
-    <!-- <a class="row" justify-content-end (click)="setPrice(100)" [attr.checked]="price==100">
-  <ion-col col-4>
-    <ion-col col-4>优享版
-      <br><span ion-text color="gray9">100学贝/科</span></ion-col>
-  </ion-col>
-  <ion-col col-8 class="row" justify-content-start no-padding padding-horizontal>
-    <ion-col col-3>
-      <img src="assets/images/error.png">
-      <div>错题</div>
-    </ion-col>
-    <ion-col no-padding col-1>
-      <ion-icon name="add-outline" padding-bottom color="gray9"></ion-icon>
-    </ion-col>
-    <ion-col col-3>
-      <img src="assets/images/knowledge.png">
-      <div>知识点</div>
-    </ion-col>
-    <ion-col no-padding col-1>
-      <ion-icon name="add-outline" padding-bottom color="gray9"></ion-icon>
-    </ion-col>
-    <ion-col col-3><img src="assets/images/exercises.png">
-      <div>练习题</div>
-    </ion-col>
-  </ion-col>
-  <div class="triangle">
-    <ion-icon name="checkmark"></ion-icon>
-  </div>
-</a>
- -->
-    <!-- </ion-row> -->
-    <p padding-horizontal padding-vertical-10 text-right line-top>
-      <span primary>{{order.value}}</span>学贝
-    </p>
-    <p class="break" text-right>还需充值<span primary>{{order.dvalue}}</span>学贝
-      <br>小计：
-      <currency [value]="order.dvalue/10"></currency>（1元=10学贝）</p>
-  </div>
-  <coupon type="3" [value]="order.value" (onChange)="couponChange($event)"></coupon>
+        <div class="triangle">
+          <ion-icon name="checkmark"></ion-icon>
+        </div>
+      </a>
+      <a class="row" justify-content-end (touch)="ckecked(1)" [attr.checked]="checkedIndex==1" event="elostpay_pickProduct" *ngIf="products[1]">
+        <ion-col col-4>
+          <ion-col col-4>{{products[1].name}}
+            <br><span ion-text color="gray9">{{products[1].value}}学贝/科</span></ion-col>
+        </ion-col>
+        <ion-col col-8 class="row" justify-content-start no-padding padding-horizontal>
+          <ion-col col-3>
+            <img src="assets/images/error.png">
+            <div>错题</div>
+          </ion-col>
+          <ion-col no-padding col-1>
+            <ion-icon name="add-outline" padding-bottom color="gray9"></ion-icon>
+          </ion-col>
+          <ion-col col-3>
+            <img src="assets/images/knowledge.png">
+            <div>知识点</div>
+          </ion-col>
+          <ion-col no-padding col-1>
+            <ion-icon name="add-outline" padding-bottom color="gray9"></ion-icon>
+          </ion-col>
+          <ion-col col-3><img src="assets/images/exercises.png">
+            <div>练习题</div>
+          </ion-col>
+        </ion-col>
+        <div class="triangle">
+          <ion-icon name="checkmark"></ion-icon>
+        </div>
+      </a>
+      <!-- </ion-row> -->
+      <p padding-horizontal padding-vertical-10 text-right line-top>
+        <span primary>{{order.value}}</span>学贝
+      </p>
+      <p class="break" text-right>还需充值<span primary>{{order.dvalue}}</span>学贝
+        <br>小计：
+        <currency [value]="order.dvalue/10"></currency>（1元=10学贝）</p>
+    </div>
+    <coupon type="3" [value]="order.value" (onChange)="couponChange($event)"></coupon>
+  </ng-template>
 </ion-content>
 <ion-footer no-border>
   <ion-toolbar no-padding color="white">

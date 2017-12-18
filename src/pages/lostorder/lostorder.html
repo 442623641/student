@@ -21,7 +21,7 @@
           订单号：{{order.ordercode}}
           <br> 订单科目：{{order.km}}
           <br> 订单金额：<span primary>{{order.money}}</span>元
-          <br> 下单时间：{{order.ordertime|date:'yyyy年M月d日 hh:mm'}}
+          <br> 下单时间：{{order.ordertime}}
         </p>
       </ion-item>
       <ion-item class="iorder-items">
@@ -40,7 +40,7 @@
         </ion-avatar>
         <p padding-left-12>
           定制时间：{{order.madetime}}
-          <br>预寄出时间：{{order.mailtime|date:'yyyy年M月d日 hh:mm'}}
+          <br>预寄出时间：{{order.mailtime}}
           <br>订单金额：<span primary>{{order.money}}</span>元
           <br>收货地址：{{order.address}}
           <br>

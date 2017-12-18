@@ -8,7 +8,7 @@
   <ion-navbar>
     <ion-title>选择科目</ion-title>
     <ion-buttons end>
-      <button ion-button [navPush]="pages.lostOrders">订单</button>
+      <button ion-button [navPush]="pages.lostOrders" event="lost_goLostorders">订单</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -26,12 +26,12 @@
           <currency [value]="item.money"></currency>
         </div>
       </div>
-      <!-- <a (click)="print(item)">{{item.echeckeds?'修改':'申请打印'}}</a> -->
+      <!-- <a (touch)="print(item)">{{item.echeckeds?'修改':'申请打印'}}</a> -->
       <!-- <p text-center padding-12> -->
-      <!-- <button ion-button (click)="print(item)" clear> -->
+      <!-- <button ion-button (touch)="print(item)" clear> -->
       <ng-container *ngIf="!item.processing;else processing;">
-        <a *ngSwitchCase="false" (click)="print(item)" class="card-footer">申请定制</a>
-        <a *ngSwitchCase="true" (click)="print(item)" class="card-footer">修 改</a>
+        <a *ngSwitchCase="false" (touch)="print(item)" class="card-footer" event="lost_goLostopstions">申请定制</a>
+        <a *ngSwitchCase="true" (touch)="print(item)" class="card-footer" event="lost_goLostopstions">修 改</a>
       </ng-container>
       <ng-template #processing>
         <p text-center padding-12>
@@ -54,7 +54,7 @@
           总计
           <currency [value]="amount"></currency>
         </ion-col>
-        <a (click)="dopay()" [attr.disabled]="payDisabled?'':null">确认定制</a>
+        <a (touch)="dopay()" [attr.disabled]="payDisabled?'':null" event="lost_goLostpay">确认定制</a>
       </ion-row>
     </ion-toolbar>
   </ion-footer>

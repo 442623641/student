@@ -15,22 +15,7 @@ export class MessageProvider {
   getItem() {
     return this.http.get('message/messagestatistics')
   }
-  //获取未认领的考试
-  // unclaimexam(){
-  //   return this.http.get('exam/unclaimexam')
-  // }
-  // /**
-  //  * 获取考号图像
-  //  */
-  // examineeimg(data){
-  //   return this.http.get('exam/studentcodeImg',data,true);
-  // }
-  // /*
-  // *认领考试
-  //  */
-  // claimexam(data){
-  //   return this.http.post('exam/claimexam',data);
-  // }
+
   //设置为已读系统消息
   readed(data) {
     return this.http.post('message/readsystemmessage', data)

@@ -13,10 +13,10 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  <div *ngIf="balls.length>1||stickTopicHeader" [class.transformY-45]="stickTopicHeader&&balls.length>1" class="sub-header" line-bottom>
+  <div *ngIf="balls.length>1||stickTopicHeader" [class.transformY-45]="stickTopicHeader&&balls.length>1" class="sub-header" box-shadow>
     <scroll-header [items]="balls" [(selected)]="subjectIndex" (selectedChange)="onChanged($event)" *ngIf="balls.length>1" line-bottom></scroll-header>
     <ion-row class="topics-header" *ngIf="stickTopicHeader">
-      <a col-2 class="fixed-button" (click)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll" *ngIf="subjects[subjectIndex].diff">{{subjects[subjectIndex].showAll?'错题':'全部'}}</a>
+      <a event="doctor_showAll" col-2 class="fixed-button" (touch)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll" *ngIf="subjects[subjectIndex].diff">{{subjects[subjectIndex].showAll?'错题':'全部'}}</a>
       <ion-col no-padding>
         <scroll-header [items]="subjects[subjectIndex].nos" [(selected)]="subjects[subjectIndex].categoryIndex" (selectedChange)="topic($event)"></scroll-header>
       </ion-col>
@@ -34,7 +34,7 @@
             <ion-row class="card-header" justify-content-between>
               <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
             </ion-row>
-            <img-lazy [src]='subjects[subjectIndex].thumbnail' [imgviewer]="{title:exam.name+subjects[subjectIndex].name,images:subjects[subjectIndex].paper}"></img-lazy>
+            <img-lazy event="doctor_paperViewer" [src]='subjects[subjectIndex].thumbnail' [imgviewer]="{title:exam.name+subjects[subjectIndex].name,images:subjects[subjectIndex].paper}"></img-lazy>
           </div>
           <div class="card percents" *ngIf='subjects[subjectIndex]?.percents'>
             <ion-row class="card-header" justify-content-between>
@@ -45,7 +45,7 @@
               <echarts-ng2 [option]='subjects[subjectIndex]?.percents' [style]="{'height': 210+'px'}"></echarts-ng2>
             </div>
             <ion-row class="card-footer">
-              <a (click)="openPercentModal()">查看更多</a>
+              <a (touch)="openPercentModal()" event="doctor_openPercentModal">查看更多</a>
             </ion-row>
           </div>
         </ng-template>
@@ -54,14 +54,14 @@
     <!-- </div> -->
     <div class="topics" *ngIf="subjects[subjectIndex]?.name&&subjects[subjectIndex].category?.length">
       <ion-row class="topics-header" line-bottom *ngIf="!stickTopicHeader">
-        <a col-2 class="fixed-button" (click)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll" *ngIf="subjects[subjectIndex].diff">{{subjects[subjectIndex].showAll?'错题':'全部'}}</a>
+        <a event="doctor_showAll" col-2 class="fixed-button" (touch)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll" *ngIf="subjects[subjectIndex].diff">{{subjects[subjectIndex].showAll?'错题':'全部'}}</a>
         <ion-col no-padding>
           <scroll-header [items]="subjects[subjectIndex].nos" [(selected)]="subjects[subjectIndex].categoryIndex" (selectedChange)="topic($event)"></scroll-header>
         </ion-col>
       </ion-row>
       <div class="topics-content" *ngIf="subjects[subjectIndex].activity.full;else loadinga">
         <div class="topics-item">
-          <div class="item-content" [imgviewer]="{title:subjects[subjectIndex].name+'第'+subjects[subjectIndex].activity.no+'题',images:subjects[subjectIndex].activity.paper}">
+          <div event="doctor_itemViewer" class="item-content" [imgviewer]="{title:subjects[subjectIndex].name+'第'+subjects[subjectIndex].activity.no+'题',images:subjects[subjectIndex].activity.paper}">
             <img-lazy [src]="url" *ngFor="let url of subjects[subjectIndex].activity.paper" [alt]="url"></img-lazy>
           </div>
           <p footer>
@@ -74,47 +74,47 @@
           </p>
         </div>
         <div class="topics-item" *ngIf="!subjects[subjectIndex].activity.objective&&subjects[subjectIndex].activity.answer?.length">
-          <p line-bottom>正确答案</p>
-          <div class="item-content" [imgviewer]="{title:'正确答案',images:subjects[subjectIndex].activity.answer}">
+          <p line-bottom ol>正确答案</p>
+          <div class="item-content" event="doctor_answerViewer" [imgviewer]="{title:'正确答案',images:subjects[subjectIndex].activity.answer}">
             <img-lazy [src]="answer.link" *ngFor="let answer of subjects[subjectIndex].activity.answer" [alt]="answer.value"></img-lazy>
           </div>
         </div>
         <div class="topics-item" *ngIf="!subjects[subjectIndex].activity.objective&&subjects[subjectIndex].activity.reply?.length">
-          <p line-bottom>我的答案</p>
-          <div class="item-content" [imgviewer]="{title:'我的答案',images:subjects[subjectIndex].activity.reply}">
+          <p line-bottom ol>我的答案</p>
+          <div class="item-content" event="doctor_replyViewer" [imgviewer]="{title:'我的答案',images:subjects[subjectIndex].activity.reply}">
             <img-lazy [src]="reply.link" *ngFor="let reply of subjects[subjectIndex].activity.reply" [alt]="reply.value"></img-lazy>
           </div>
         </div>
         <div class="topics-item" *ngIf="subjects[subjectIndex].activity.topic&&subjects[subjectIndex].activity.topic!=''">
-          <p line-bottom>【知识点】</p>
+          <p line-bottom ol>知识点</p>
           <p footer>{{subjects[subjectIndex].activity.topic}}</p>
         </div>
         <div class="topics-item" *ngIf="subjects[subjectIndex].activity.resolve?.length">
-          <p line-bottom>【解析】</p>
-          <div class="item-content" [imgviewer]="{title:'解析',images:subjects[subjectIndex].activity.resolve}">
+          <p line-bottom ol>解析</p>
+          <div class="item-content" event="doctor_resolveViewer" [imgviewer]="{title:'解析',images:subjects[subjectIndex].activity.resolve}">
             <img-lazy [src]="url" *ngFor="let url of subjects[subjectIndex].activity.resolve" [alt]="url"></img-lazy>
           </div>
         </div>
         <div class="topics-item" *ngFor="let exc of subjects[subjectIndex].activity.excellent;let i =index;">
-          <p line-bottom class='p-button'><span *ngIf="subjects[subjectIndex].activity.excellent.length>1">第{{exc.no}}题</span>优秀答案
-            <a (click)="excellent(i)" float-right>
+          <p line-bottom class='p-button' ol><span *ngIf="subjects[subjectIndex].activity.excellent.length>1">第{{exc.no}}题</span>优秀答案
+            <a (touch)="excellent(i)" float-right event="doctor_excellent">
               <ion-icon name="refresh"></ion-icon>&nbsp; 换一个
             </a>
           </p>
-          <div class="item-content" [imgviewer]="{title:'优秀答案',images:exc.value[subjects[subjectIndex].activity.excellentNums[i]]}">
+          <div class="item-content" event="doctor_excellentViewer" [imgviewer]="{title:'优秀答案',images:exc.value[subjects[subjectIndex].activity.excellentNums[i]]}">
             <img-lazy [src]="url" *ngFor="let url of exc.value[subjects[subjectIndex].activity.excellentNums[i]]" [alt]="url">
             </img-lazy>
           </div>
         </div>
         <div class="topics-item" *ngIf="subjects[subjectIndex].activity.analyse.length===1;else analyseSlider;">
-          <p line-bottom text-left>【小题统计】</p>
+          <p line-bottom text-left ol>小题统计</p>
           <echarts-ng2 [option]="subjects[subjectIndex].activity.analyse[0].options" [style]="{'height': 150+'px'}"></echarts-ng2>
         </div>
         <ng-template #analyseSlider>
           <ion-slides spaceBetween="10" pager="true">
             <ion-slide *ngFor="let item of subjects[subjectIndex].activity.analyse;let y=index">
               <div class="topics-item">
-                <p line-bottom text-left>【{{item.no}} 题统计】</p>
+                <p line-bottom text-left ol>{{item.no}}题统计</p>
                 <echarts-ng2 [option]="item.options" [style]="{'height': 150+'px'}"></echarts-ng2>
               </div>
             </ion-slide>

@@ -44,7 +44,10 @@ export class PasswordPage {
   }
 
   save(obj) {
-    if (obj.oldpassword && obj.password == obj.oldpassword) return this.nativepro.toast('旧密码与新密码相同')
+    if (obj.oldpassword && obj.password == obj.oldpassword) {
+      this.authForm['processing'] = false;
+      return this.nativepro.toast('旧密码与新密码相同')
+    }
     this[this.type](obj);
   }
   onInput(e) {

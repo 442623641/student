@@ -60,7 +60,7 @@ export class ReportPage {
         this.content.resize();
         this.price = res.coin;
       });
-    }, 550);
+    }, 650);
   }
 
   changeSlide($event) {
@@ -201,17 +201,20 @@ export class ReportPage {
    */
   openPackage() {
     const COIN = this.price;
+    let success = () => {
+      this.exam.payment = true;
+      this.report.resetPayment(this.exam.payment);
+    }
+
     let callback = () => {
       this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
         let start = this.navCtrl.indexOf(this.viewCtrl);
         this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
-          this.exam.payment = true;
-          this.report.resetPayment(true);
+          success()
           this.achieveSub.unsubscribe();
         });
       });
     }
-
 
     //有优惠劵前往学情套餐
     if (this.couponCount) {
@@ -228,7 +231,7 @@ export class ReportPage {
           btn && this.paymentPro.sa({ ordertype: 'exam', examguid: this.exam.guid }).then(res => {
             this.nativePro.prompt("成功生成学情报告");
             this.paymentPro.achieve({ len: this.navCtrl.length(), result: res, type: 'exam' })
-            this.exam.payment = true;
+            success()
           })
         })
     }

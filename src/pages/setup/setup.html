@@ -12,19 +12,19 @@
 <ion-content>
   <!-- <ion-list no-lines margin-top> -->
   <ion-list margin-top no-lines>
-    <button ion-item (click)="checkUpdate()">
+    <button ion-item (touch)="checkUpdate()" event="setup_checkVersion">
       <ion-icon name="sync" item-start></ion-icon>
       版本 {{upgradePro.localVersion}}
       <ion-spinner item-end *ngIf="upgradePro.updating"></ion-spinner>
       <ion-note item-end>{{upgradePro.updating?'正在更新...':upgradePro.localVersion!=upgradePro.remoteVersion?('最新版本'+upgradePro.remoteVersion):'已是最新版本'}}</ion-note>
     </button>
-    <button ion-item [navPush]="pages.aboutus" no-lines>
+    <button ion-item [navPush]="pages.aboutus" no-lines event="setup_goAbout">
       <ion-icon name="information-circle-outline" item-start></ion-icon>
       关于我们
     </button>
   </ion-list>
   <!-- </ion-list> -->
   <p padding>
-    <button ion-button block (click)="logout()">退出登录</button>
+    <button ion-button block (touch)="logout()" event="setup_logout">退出登录</button>
   </p>
 </ion-content>

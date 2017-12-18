@@ -11,7 +11,7 @@
 </ion-header>
 <ion-content padding-vertical>
   <ion-list no-lines>
-    <button ion-item no-lines [ngSwitch]="!!options.area.name" (click)="address()">
+    <button ion-item no-lines [ngSwitch]="!!options.area.name" (touch)="address()" event="lostorders_address">
       <ion-icon name="pin-outline" item-start></ion-icon>
       <ng-container *ngSwitchCase="false">
         添加收货地址
@@ -30,7 +30,8 @@
       </ion-item>
     </ion-item-group>
     <coupon type="2" [value]="options.amount*10" (onChange)="couponChange($event)" margin-top></coupon>
-    <p class="break" text-right>小计：<currency [value]="amount"></currency>
+    <p class="break" text-right>小计：
+      <currency [value]="amount"></currency>
     </p>
     <ion-item>
       <ion-label item-start>运费</ion-label>

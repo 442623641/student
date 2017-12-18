@@ -4,7 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-card>
+<ion-card hook="EnalyzingmodalPage">
   <ion-card-header>
     开通学情套餐
     <p>历次考试错题分析尽在掌握</p>
@@ -26,9 +26,9 @@
   </ion-item>
   <div class="strong">您共有<span>{{option.total}}</span>次考试，还有<span>{{option.unauthorized}}</span>次学情报告未生成。建议开通学情套餐，错题分析更为精确！</div>
   <p text-center style="padding-bottom: 10px;">
-    <button ion-button round (click)="onTap()">立即开通</button>
+    <button ion-button round (touch)="onTap()" event="enalyzingmodal_openPackage">立即开通</button>
   </p>
 </ion-card>
-<button ion-button clear icon-only color="white" (click)="viewCtrl.dismiss()">
+<button ion-button clear icon-only color="white" (touch)="viewCtrl.dismiss()" event="enalyzing_close">
   <ion-icon name="close-circle-outline"></ion-icon>
 </button>

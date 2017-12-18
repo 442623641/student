@@ -20,10 +20,10 @@ export class ElostpayPage {
 
   subjects: Elost[];
   subjectNames: any[];
-  /**
-   * 单价
-   */
-  price: number = 80;
+  // /**
+  //  * 单价
+  //  */
+  // price: number = 80;
 
   /**
    * child pages
@@ -42,6 +42,9 @@ export class ElostpayPage {
 
   eguids: { name: string, exams: string }[];
 
+  products = [{ name: '基础版', type: 0, value: 80 }];
+  checkedIndex = 0;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -58,23 +61,35 @@ export class ElostpayPage {
         }).join(',')
       }
     });
-    this.setPrice(this.price);
+    this.ckecked(0)
     //console.log(this.eguids);
+  }
+  ckecked(index) {
+    if (this.checkedIndex === index) return;
+    this.checkedIndex = index;
+    this.setPrice();
+
   }
 
   balanceChange(event) {
-    this.order = new Order(event, this.subjects.length * this.price);
-    this.setPrice(this.price);
+    this.order = new Order(event, this.subjects.length * this.products[this.checkedIndex].value);
+    this.setPrice();
   }
 
-  // ionViewDidLoad() {
+  ionViewDidLoad() {
+    setTimeout(() => {
+      this.lostPro.products().then(res => {
+        if (!res || !res.length) return this.products = null;
+        this.products = res;
+      }).catch(res => {
+        this.products = null;
+      })
+    }, 500);
+  }
 
-  //   console.log('ionViewDidLoad LostpayPage');
-  // }
-
-  setPrice(val: number) {
-    this.price = val;
-    this.order.setValue(this.subjects.length * this.price);
+  setPrice() {
+    //this.price = val;
+    this.order.setValue(this.subjects.length * this.products[this.checkedIndex].value);
     this.setParams(this.order);
   }
 

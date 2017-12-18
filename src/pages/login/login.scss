@@ -1,6 +1,6 @@
 page-login {
   .content {
-    background: #fff;
+    background: linear-gradient(to bottom, color($colors, primary) 0%, color($colors, primary) 20%, #fff 31%, #fff 100%);
   }
   .banner {
     height: 30.5vh;
@@ -22,7 +22,7 @@ page-login {
   }
 
   ion-grid {
-    background-color: color($colors, primary);
+    background-color: #fff;
   }
 
 

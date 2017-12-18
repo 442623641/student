@@ -22,12 +22,12 @@
           <ion-input type="tel" formControlName="tel" placeholder="输入联系方式" clearInput></ion-input>
         </ion-item>
       </ion-col>
-      <a class="telbook" col-3 (click)="pickContact()">
+      <a class="telbook" col-3 (touch)="pickContact()" event="address_telbook">
         <ion-icon name="person-add-outline"></ion-icon>
         <br>选联系人
       </a>
     </ion-row>
-    <button ion-item no-lines>
+    <button ion-item no-lines event="address_picker">
       <ion-label item-start>所在地区：</ion-label>
       <ion-note item-start *ngIf="!authForm.controls.area.valid">选择所在地区</ion-note>
       <city-picker item-start formControlName="area" cancelText='取消' doneText='完成' separator='' [citiesData]="cityData">
@@ -38,7 +38,7 @@
       <ion-input type="text" placeholder="输入详细地址" formControlName="address"></ion-input>
     </ion-item>
     <p padding margin-top>
-      <button ion-button block [disabled]="!authForm.valid">保 存</button>
+      <button ion-button block [disabled]="!authForm.valid" event="address_save">保 存</button>
     </p>
   </form>
 </ion-content>

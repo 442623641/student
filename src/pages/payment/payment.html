@@ -27,20 +27,20 @@
         <use xlink:href="#icon-alipay"></use>
       </svg>
       <ion-label>支付宝支付</ion-label>
-      <ion-radio value="za" check-icon></ion-radio>
+      <ion-radio value="za" check-icon event="payment_pickPay"></ion-radio>
     </ion-item>
     <ion-item no-lines>
       <svg colorful aria-hidden="true" item-left>
         <use xlink:href="#icon-wepay"></use>
       </svg>
       <ion-label>微信支付</ion-label>
-      <ion-radio value="wa" check-icon></ion-radio>
+      <ion-radio value="wa" check-icon event="payment_pickPay"></ion-radio>
     </ion-item>
     <agreecheck [(check)]="checked" type="payment" (checkChange)="checkChange($event)"></agreecheck>
   </ion-item-group>
   <p padding>
-    <submiton (stateChange)="pay()" [(state)]="processing">{{processing?'正在支付...':'确定支付'}}</submiton>
-    <!-- <button ion-button block (click)="pay()">确认支付</button> -->
+    <submiton (stateChange)="pay()" [(state)]="processing" event="payment_enter">{{processing?'正在支付...':'确定支付'}}</submiton>
+    <!-- <button ion-button block (touch)="pay()">确认支付</button> -->
   </p>
   <ion-backdrop style="z-index: 999;" *ngIf="processing"></ion-backdrop>
 </ion-content>

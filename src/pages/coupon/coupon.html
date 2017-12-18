@@ -8,7 +8,7 @@
   <ion-navbar>
     <ion-title>我的优惠券</ion-title>
     <ion-buttons *ngIf="showButton" end>
-      <button ion-button clear (click)="save()">确定</button>
+      <button ion-button clear (touch)="save()" event="copon_enter">确定</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -21,12 +21,12 @@
     <ion-col col-9 no-padding>
       <input type="text" placeholder="请输入优惠码" [(ngModel)]="codes">
     </ion-col>
-    <a (click)="search()" col-3>添加</a>
+    <a (touch)="search()" col-3 event="copon_search">添加</a>
   </ion-row>
   <ng-template [ngIf]="coupons" [ngIfElse]="loading">
     <ion-list>
       <ion-card *ngFor="let v of coupons;let i=index;" [class.expire]="v.expired" [attr.checked]="v.couponCode==checked">
-        <ion-row padding-vertical class="coupon-content" align-items-center (click)="setChecked(v.couponCode)" [ngSwitch]="v.couponType>0">
+        <ion-row padding-vertical class="coupon-content" align-items-center (touch)="setChecked(v.couponCode)" [ngSwitch]="v.couponType>0" event="coupon_picker">
           <ion-col col-4 *ngSwitchCase="true"><span>{{ v.money }}</span><i class="normal" [class.expired]="v.expired">元</i>
           </ion-col>
           <ion-col col-4 *ngSwitchCase="false"><span>{{ v.rate*10 }}</span><i class="normal" [class.expired]="v.expired">折</i>

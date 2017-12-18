@@ -2,7 +2,8 @@ import { Component, EventEmitter, Output, NgZone } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActionSheet, ActionSheetOptions } from '@ionic-native/action-sheet';
 import { NativeProvider } from '../../providers/native';
-
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { FilePath } from '@ionic-native/file-path';
 /**
  * Generated class for the UploadimgComponent component.
  * Add by leo zhang 201710010101
@@ -21,7 +22,9 @@ export class UploadimgComponent {
     private actionSheet: ActionSheet,
     private sanitizer: DomSanitizer,
     private zone: NgZone,
-    private nativePro: NativeProvider
+    private nativePro: NativeProvider,
+    private camera: Camera,
+    private filePath: FilePath,
   ) {}
 
   picker() {
@@ -56,19 +59,23 @@ export class UploadimgComponent {
     //saveToPhotoAlbum: true, //是否保存到相册
     //  sourceType: sourceType, //是打开相机拍照还是打开相册选择 0 PHOTOLIBRARY :, 相册选择, 1 CAMERA : 拍照,SAVEDPHOTOALBUM : 2
     //}
-    navigator['camera'].getPicture(res => {
+    this.camera.getPicture({ sourceType: sourceType }).then(res => {
       console.log(res);
-      if (this.items.indexOf(res) > -1) return this.nativePro.toast('图片不可重复上传');
+      if (this.items.indexOf(res) > -1) return this.nativePro.toast('改图片已经存在');
       this.add(res);
-    }, (err) => {
+    }).catch((err) => {
       console.log(err);
-    }, { sourceType: sourceType });
+    })
   }
 
   private add(item) {
     if (!item) return;
     this.zone.run(() => this.urls = this.urls.concat([this.sanitizer.bypassSecurityTrustResourceUrl(item)]));
-    this.items.push(item);
-    this.onChanged.emit(this.items);
+    this.filePath.resolveNativePath(item).then(path => {
+      this.items.push(path);
+      this.onChanged.emit(this.items);
+    }).catch(ex => {
+      console.log(ex);
+    })
   }
 }

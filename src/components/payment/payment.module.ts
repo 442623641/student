@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
 import { PaymentComponent } from './payment';
 import { ComponentsModule } from '../components.module';
+import { DirectivesModule } from '../../directives/directives.module';
 //import { CurrencyComponentModule } from '../currency/currency.module';
 
 @NgModule({
@@ -13,6 +14,7 @@ import { ComponentsModule } from '../components.module';
     CommonModule,
     IonicModule,
     ComponentsModule,
+    DirectivesModule,
     //CurrencyComponentModule,
   ],
   exports: [

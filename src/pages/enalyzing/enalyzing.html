@@ -9,35 +9,21 @@
   <ion-navbar>
     <ion-title>错题分析</ion-title>
     <ion-buttons end *ngIf="enalyzingOpt">
-      <button ion-button (click)="showMenu=true">
+      <button event="enalyzing_filter" ion-button (touch)="showMenu=true">
         筛选
       </button>
     </ion-buttons>
   </ion-navbar>
-  <!--   <p class="affix" line-bottom *ngIf="affixOpt&&enalyzingOpt?.state">
-    <span>{{affixOpt.name}}</span>
-    <span float-right>{{exam.time | date:'yyyy年M月d日'}}</span>
-    <span><span primary>{{affixOpt.count}}</span>道错题</span>
-  </p> -->
-  <ion-row class="affix" nowrap line-bottom *ngIf="affixOpt&&enalyzingOpt?.state">
+  <ion-row class="affix" nowrap box-shadow *ngIf="affixOpt&&enalyzingOpt?.state">
     <ion-col col-9 ion-text color="text" text-left><span>{{affixOpt.name}}</span></ion-col>
     <ion-col text-right col-3><span primary>{{affixOpt.count}}</span>道错题</ion-col>
   </ion-row>
 </ion-header>
 <ion-content (ionScroll)="scrollHandler($event)" #content>
   <loading [status]="enalyzingOpt?enalyzingOpt.state:enalyzingOpt" *ngIf="!(enalyzingOpt&&enalyzingOpt.unauthorized&&enalyzingOpt.unauthorized>=enalyzingOpt.total)&&(!enalyzingOpt||!enalyzingOpt.state);else entry" [mess]="enalyzingOpt?.total?'什么也没木有':'等待学校上传试卷，详情咨询：400-0309776'"></loading>
-  <ng-container *ngIf="enalyzingOpt&&enalyzingOpt.unauthorized&&enalyzingOpt.unauthorized==enalyzingOpt.total">
-    <div text-center style="width: 100%;">
-      <img src="assets/images/enalyzingbg.png">
-    </div>
-    <ion-footer>
-      <ion-toolbar>
-        <ion-title>
-          <button ion-button block [navPush]="pages.package">开通学情套餐</button>
-        </ion-title>
-      </ion-toolbar>
-    </ion-footer>
-  </ng-container>
+  <div text-center style="width: 100%;" *ngIf="enalyzingOpt&&enalyzingOpt.unauthorized&&enalyzingOpt.unauthorized==enalyzingOpt.total">
+    <img src="assets/images/enalyzingbg.png">
+  </div>
   <ng-template #entry>
     <ng-container *ngIf="enalyzingOpt.unauthorized!=enalyzingOpt.total">
       <ng-container *ngFor="let exam of enalyzingOpt.exams;let e = index;">
@@ -50,22 +36,22 @@
             <ion-row justify-content-between class="block-card-header" nowrap line-bottom>
               <ion-col col-3>第{{que.no}}题</ion-col>
               <ion-col col-auto><span>满分:{{que.tofull}}分</span><span>我的得分:{{que.toscore}}分</span><span>难度:{{que.tolevel}}</span></ion-col>
-              <a (click)="remove(que)" class="col">
+              <a (touch)="remove(que)" class="col" event="enalyzing_remove">
                 <ion-icon name="trash-outline"></ion-icon>
               </a>
             </ion-row>
-            <div class="content-img" [imgviewer]="{title:'第'+que.no+'题',images:que.paper}">
+            <div class="content-img" event="enalyzing_paperViewer" [imgviewer]="{title:'第'+que.no+'题',images:que.paper}">
               <img-lazy [src]="img" *ngFor="let img of que.paper"> </img-lazy>
             </div>
             <ion-row padding-vertical-8 split-line>
               <ng-template [ngIf]="que.objective" [ngIfElse]="objective">
-                <a *ngIf="que.reply?.length" (click)="toast(que.replyString)">我的答案</a>
-                <a *ngIf="que.answer?.length" (click)="toast(que.answerString)">标准答案</a>
+                <a *ngIf="que.reply?.length" (touch)="toast(que.replyString)" event="enalyzing_reply">我的答案</a>
+                <a *ngIf="que.answer?.length" (touch)="toast(que.answerString)" event="enalyzing_answer">标准答案</a>
               </ng-template>
               <ng-template #objective>
-                <a [imgviewer]="{title:exam.name,images:que.reply}" *ngIf="que.reply?.length">我的答案</a>
-                <a (click)="excellent(e,q)" *ngIf="que.excellent?.length" [imgviewer]="que.imgviewer">优秀答卷</a>
-                <a [imgviewer]="{title:exam.name,images:que.answer}" *ngIf="que.answer?.length">标准答案</a>
+                <a [imgviewer]="{title:exam.name,images:que.reply}" *ngIf="que.reply?.length" event="enalyzing_reply">我的答案</a>
+                <a (touch)="excellent(e,q)" *ngIf="que.excellent?.length" [imgviewer]="que.imgviewer" event="enalyzing_excellent">优秀答卷</a>
+                <a [imgviewer]="{title:exam.name,images:que.answer}" *ngIf="que.answer?.length" event="enalyzing_answer">标准答案</a>
               </ng-template>
             </ion-row>
           </div>
@@ -77,24 +63,31 @@
     </ng-container>
   </ng-template>
 </ion-content>
+<ion-footer *ngIf="enalyzingOpt&&enalyzingOpt.unauthorized&&enalyzingOpt.unauthorized==enalyzingOpt.total">
+  <ion-toolbar>
+    <ion-title>
+      <button ion-button block [navPush]="pages.package">开通学情套餐</button>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>
 <sidenav [(open)]="showMenu" *ngIf="enalyzingOpt">
   <ion-item-group>
     <ion-item-divider color="light">科目</ion-item-divider>
     <ion-row justify-content-start class="subjects">
-      <ion-col col-4 *ngFor="let item of subjectNames"><a [attr.seleted]="tempOption.subject == item" (click)="tempOption.subject = item">{{item}}</a>
+      <ion-col col-4 *ngFor="let item of subjectNames"><a [attr.seleted]="tempOption.subject == item" (touch)="tempOption.subject = item" event="enalyzing_pickSubject">{{item}}</a>
       </ion-col>
     </ion-row>
   </ion-item-group>
   <ion-item-group margin-top>
     <ion-item-divider color="light">时间</ion-item-divider>
     <ion-row justify-content-between>
-      <a col-5 *ngFor="let item of times" [attr.seleted]="tempOption.month == item.month" (click)="tempOption.month = item.month">{{item.name}}</a>
+      <a col-5 *ngFor="let item of times" [attr.seleted]="tempOption.month == item.month" (touch)="tempOption.month = item.month" event="enalyzing_pickMonth">{{item.name}}</a>
     </ion-row>
   </ion-item-group>
   <!-- </ion-content> -->
   <ion-footer>
     <p margin>
-      <button ion-button block (click)="save()">确 定</button>
+      <button ion-button block (touch)="save()" event="enalyzing_save">确 定</button>
     </p>
   </ion-footer>
 </sidenav>

@@ -111,6 +111,7 @@ export class PersonalPage {
 
   save() {
     if (this.state) return;
+    if (/^.*[~!@#\$%\^&\*\(\)_+\-=\[\]\{\}\\\|\'\";:,\<\>\/\?\s+0123456789].*$/.test(this.userInfo.name)) return this.nativePro.toast('请输入正确的姓名')
     this.processing = false;
     this.nativePro.confirm("保存后不可更改？", ['取消', '保存'], '确认保存吗').then(res => {
       this.processing = !!res;
@@ -129,7 +130,7 @@ export class PersonalPage {
         setTimeout(() => this.navCtrl.getPrevious().name != LOGIN_PAGE ? this.navCtrl.pop() : this.appCtrl.getRootNav().setRoot(TABS_PAGE, {}, { animate: true, animation: 'ios-transition', direction: 'forward' }), 1000);
       }).catch(ex => {
         this.processing = undefined;
-        this.nativePro.toast(ex.massege);
+        this.nativePro.toast(ex.message);
       });
     })
 

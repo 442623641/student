@@ -150,6 +150,9 @@ export class ExcellentPage {
   ionViewDidEnter() {
     this.achieveSub && this.achieveSub.unsubscribe();
   }
+  ionViewWillLeave() {
+    this.showMenu = false;
+  }
 
 
 }

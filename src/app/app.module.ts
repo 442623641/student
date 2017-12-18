@@ -26,7 +26,7 @@ import { AppVersion } from '@ionic-native/app-version';
 import { FileOpener } from '@ionic-native/file-opener';
 import { File } from '@ionic-native/file';
 import { ThemeableBrowser } from '@ionic-native/themeable-browser';
-
+import { Camera } from '@ionic-native/camera';
 /**
  *Providers
  */
@@ -59,7 +59,7 @@ import { AddressProvider } from '../providers/address/address';
 import { BrowserProvider } from '../providers/browser/browser';
 
 import { AppProvider } from '../providers/app/app';
-import { AnalyticsProvider } from '../providers/app/analytics';
+import { MobclickagentProvider } from '../providers/app/mobclickagent';
 import { HardbackProvider } from '../providers/app/hardback';
 import { UpgradeProvider } from '../providers/app/upgrade';
 @NgModule({
@@ -81,7 +81,8 @@ import { UpgradeProvider } from '../providers/app/upgrade';
       scrollPadding: false,
       scrollAssist: true,
       autoFocusAssist: false,
-      spinner: 'ios-small'
+      spinner: 'ios-small',
+      //pageTransitionDelay: '16'
     }),
     ComponentsModule,
     IonicStorageModule.forRoot(),
@@ -94,8 +95,6 @@ import { UpgradeProvider } from '../providers/app/upgrade';
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-
-
     /*
      * native plugins
      */
@@ -114,6 +113,7 @@ import { UpgradeProvider } from '../providers/app/upgrade';
     File,
     FilePath,
     ThemeableBrowser,
+    Camera,
 
     /*
      * request service
@@ -148,7 +148,7 @@ import { UpgradeProvider } from '../providers/app/upgrade';
     AppProvider,
     HardbackProvider,
     UpgradeProvider,
-    AnalyticsProvider,
+    MobclickagentProvider,
   ]
 })
 export class AppModule {}

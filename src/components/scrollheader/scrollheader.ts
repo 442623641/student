@@ -22,7 +22,7 @@ export class ScrollheaderComponent {
       this.db = JSON.stringify(array);
       this.itemsValue = typeof array[0] === "string" ? array.map(item => { return { name: item, visible: true } }) : array;
       this.len = Math.max(this.itemsValue.filter(item => { return item.visible }).length, 4);
-      setTimeout(() => this.setValue(), 300);
+      setTimeout(() => this.setValue(0), 120);
     }
   }
   @Output() selectedChange = new EventEmitter();
@@ -54,19 +54,19 @@ export class ScrollheaderComponent {
     this.selected = index;
   }
 
-  setValue() {
+  setValue(duration: number = 220) {
     if (this.len <= 4) {
       return;
     }
     let element = this.el.nativeElement.querySelector(`ion-col[index="${this.selectedValue}"]`);
-    element && this.scrollTo(element);
+    element && this.scrollTo(element, duration);
   }
 
-  scrollTo(target) {
+  scrollTo(target, duration) {
     let middle = this.scroll.scrollElement.offsetWidth / 2 - target.offsetWidth / 2;
     let rect = target.getBoundingClientRect();
     let x = rect.left - this.offsetLeft - middle;
     console.log(x);
-    this.scroll.scrollToX(x, 220);
+    this.scroll.scrollToX(x, duration);
   }
 }

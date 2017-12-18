@@ -1,6 +1,6 @@
-import { Directive } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 import { ViewController } from 'ionic-angular';
-import { AnalyticsProvider } from '../../providers/app/analytics';
+import { MobclickagentProvider } from '../../providers/app/mobclickagent';
 /**
  * Generated class for the HookDirective directive.
  *
@@ -11,15 +11,23 @@ import { AnalyticsProvider } from '../../providers/app/analytics';
   selector: 'ion-content,[hook]' // Attribute selector
 })
 export class PageDirective {
+  @Input() hook: string;
   enterSubscribe: any;
   leaveSubscribe: any;
-  constructor(viewCtrl: ViewController, analyticsPro: AnalyticsProvider) {
-    const pageName = viewCtrl.name;
-    this.enterSubscribe = viewCtrl.didEnter.subscribe((res) => {
-      analyticsPro.pageEnter(pageName);
-    })
+  constructor(analyticsPro: MobclickagentProvider, viewCtrl: ViewController) {
+    setTimeout(() => this.init(analyticsPro, viewCtrl), 120);
+  }
+
+  init(analyticsPro: MobclickagentProvider, viewCtrl: ViewController) {
+    const pageName = this.hook || viewCtrl.id;
+    analyticsPro.onPageBegin(pageName);
     this.leaveSubscribe = viewCtrl.didLeave.subscribe((res) => {
-      analyticsPro.pageLeave(pageName);
+      analyticsPro.onPageEnd(pageName);
+      this.leaveSubscribe.unsubscribe();
+      this.enterSubscribe = viewCtrl.didEnter.subscribe((res) => {
+        this.ngOnDestroy();
+        this.init(analyticsPro, viewCtrl);
+      })
     })
   }
 

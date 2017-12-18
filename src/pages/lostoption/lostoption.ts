@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LostProvider } from '../../providers/lost/lost';
 import { NativeProvider } from '../../providers/native';
 import { Elost } from '../../model/elost';
-//import {} from '../pages.constants';
+import { LOST_PAGE } from '../pages.constants';
 
 /**
  * Generated class for the LostoptionPage page.
@@ -65,11 +65,21 @@ export class LostoptionPage {
     //this.end = res.end;
     if (res.end) this.elost.count = this.elost.exams.length;
     this.lostPro.replaceElost(this.elost);
+    console.log(this.elost.exams);
   }
 
   save(shouldClose ? : boolean) {
-    this.elost && this.lostPro.setElost(this.elost);
-    shouldClose && this.navCtrl.pop();
+    let pop = () => {
+      this.elost && this.lostPro.setElost(this.elost);
+      shouldClose && this.navCtrl.pop();
+    }
+
+    this.navCtrl.getPrevious().id == LOST_PAGE ? this.nativePro
+      .confirm('是否需要匹配相关知识点？', ['不需要', '需要'], '错题相关知识点')
+      .then(btn => {
+        this.elost.isPromote = !!btn ? 1 : 0;
+        pop()
+      }) : pop();
   }
 
 }

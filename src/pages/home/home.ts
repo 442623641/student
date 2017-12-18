@@ -51,7 +51,7 @@ export class HomePage {
   /*
   学情套餐信息
   */
-  private package: Package;
+  private package: Package = { open: false, expires: '2016-12-31', type: 0, days: 0 };
 
   /*
   我的信息

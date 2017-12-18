@@ -32,7 +32,7 @@ export class HttpHandler {
     if (this.loging) return;
     this.loging = true;
     message && this.nativePro.toast(message);
-    if (this.appCtrl.getActiveNav().name == LOGIN) return;
+    if (this.appCtrl.getActiveNav().getActive().id == LOGIN) return;
     this.appCtrl.getRootNav().setRoot(LOGIN, {}, { animate: true, animation: 'md-transition', direction: 'back' });
     setTimeout(() => this.loging = false, 1000);
     //this.handleAuthSource.next(message);

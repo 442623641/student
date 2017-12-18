@@ -10,7 +10,7 @@
       <ion-searchbar [(ngModel)]="input" (ionInput)="onInput($event)" placeholder="输入学校名称查询">
       </ion-searchbar>
       <ion-buttons right>
-        <button ion-button clear (click)="save()">确定</button>
+        <button ion-button clear (touch)="save()" event="school_enter">确定</button>
       </ion-buttons>
     </ion-toolbar>
   </ion-navbar>
@@ -18,7 +18,7 @@
 <ion-content>
   <ng-template [ngIf]="tempSchools" [ngIfElse]="loading">
     <ion-list radio-group [(ngModel)]="checked" no-lines>
-      <ion-item *ngFor="let item of tempSchools">
+      <ion-item *ngFor="let item of tempSchools" event="school_picker">
         <ion-label> {{item.name}}</ion-label>
         <ion-radio [value]="item"></ion-radio>
       </ion-item>

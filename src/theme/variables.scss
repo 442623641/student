@@ -82,6 +82,7 @@ green:#6adcb7,
 $text-color:color($colors, text);
 $toolbar-background:color($colors, primary);
 $toolbar-ios-button-font-size:1.6rem;
+$tabs-ios-tab-icon-size:27px;
 $background-color:#f2f3f4;
 $item-ios-body-text-font-size:1.6rem;
 $item-ios-divider-background:color($colors, transparent);
@@ -101,7 +102,7 @@ $refresher-icon-color:color($colors, gray9);
 $refresher-icon-font-size:22px;
 $refresher-text-color:color($colors, gray9);
 $refresher-text-font-size:14px;
-
+$infinite-scroll-loading-color:color($colors, gray9);
 $infinite-scroll-loading-margin-bottom:10px;
 $card-ios-font-size:1.5rem;
 $card-ios-box-shadow-color:rgba(0, 0, 0, .15);

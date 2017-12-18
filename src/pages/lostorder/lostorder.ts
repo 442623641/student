@@ -21,7 +21,11 @@ export class LostorderPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LostorderPage');
     this.lostPro.order({ guid: this.navParams.get('guid') })
-      .then(res => this.order = res)
+      .then(res => {
+        this.order = res;
+        this.order.ordertime = this.order.ordertime.replace(/-/g, "/");
+        this.order.ordertime = this.order.mailtime.replace(/-/g, "/")
+      })
       .catch(ex => console.log(ex));
   }
 

@@ -100,20 +100,21 @@ export class NativeProvider {
    */
   prompt = (message: string = '操作完成', duration: number = 3000) => {
     if (this.native) {
-      return this.ntoast.showWithOptions({
-        message: message,
-        position: 'center',
-        duration: duration,
-        addPixelsY: -10,
-        styling: {
-          //opacity: 1,
-          //backgroundColor: '#f66e4f',
-          //textColor: '#666666',
-          cornerRadius: 14,
-          horizontalPadding: 60,
-          verticalPadding: 60,
-        }
-      }).subscribe()
+      // return this.ntoast.showWithOptions({
+      //   message: message,
+      //   position: 'center',
+      //   duration: duration,
+      //   addPixelsY: -10,
+      //   styling: {
+      //     //opacity: 1,
+      //     //backgroundColor: '#f66e4f',
+      //     //textColor: '#666666',
+      //     cornerRadius: 14,
+      //     horizontalPadding: 60,
+      //     verticalPadding: 60,
+      //   }
+      // }).subscribe()
+      return this.toast(message, 3000, 'center');
       //return this.ntoast.show(message, String(duration), 'middle').subscribe();
     } else {
       return this.toast(message, duration, 'middle');
@@ -189,7 +190,7 @@ export class NativeProvider {
    * @param content 显示的内容
    */
   showLoading = (content: string = "加载中...") => {
-    if (this.native) {
+    if (this.isAndroid()) {
       setTimeout(() => { //最长显示10秒
         this.loadRunning = false;
         this.spinnerDialog.hide();
@@ -205,9 +206,10 @@ export class NativeProvider {
         showBackdrop: true,
         cssClass: "embedded",
         dismissOnPageChange: true,
-        duration: 10000
+        duration: 60000
       });
       this.loading.present();
+
       setTimeout(() => { //最长显示10秒
         this.loadRunning = false;
       }, 60000);
@@ -218,7 +220,7 @@ export class NativeProvider {
    * 关闭loading
    */
   hideLoading = () => {
-    if (this.native) {
+    if (this.isAndroid()) {
       this.loadRunning && this.spinnerDialog.hide();
     } else {
       this.loadRunning && this.loading.dismiss();

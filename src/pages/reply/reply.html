@@ -8,7 +8,7 @@
   <ion-navbar>
     <ion-title>{{exam.name}}</ion-title>
     <ion-buttons end *ngIf="showNavButton">
-      <button ion-button [navPush]='pages.report' [navParams]="exam">
+      <button ion-button [navPush]='pages.report' [navParams]="exam" event="reply_goReport">
         学情报告
       </button>
     </ion-buttons>
@@ -16,7 +16,7 @@
   <div *ngIf="(balls.length>1||stickTopicHeader)" [class.transformY-45]="stickTopicHeader&&balls.length>1" class="sub-header" line-bottom [class.inactive]="lantern">
     <scroll-header [items]="balls" [(selected)]="subjectIndex" (selectedChange)="subjectSlider.slideTo($event)" *ngIf="balls.length>1" line-bottom></scroll-header>
     <ion-row class="topics-header" *ngIf="stickTopicHeader&&subjects">
-      <a col-3 class="fixed-button" *ngIf="subjects[subjectIndex].diff" (click)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll">{{subjects[subjectIndex].showAll?'查看错题':'查看全部'}}</a>
+      <a col-2 class="fixed-button" *ngIf="subjects[subjectIndex].diff" (touch)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll" event="reply_showAll">{{subjects[subjectIndex].showAll?'错题':'全部'}}</a>
       <ion-col no-padding>
         <scroll-header [items]="subjects[subjectIndex].nos" [(selected)]="subjects[subjectIndex].categoryIndex" (selectedChange)="topic($event)"></scroll-header>
       </ion-col>
@@ -31,7 +31,7 @@
       <ion-row class="card-header" justify-content-between>
         <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
       </ion-row>
-      <img-lazy [src]='subjects[subjectIndex].paper' [imgviewer]="{title:exam.name+subjects[subjectIndex].name,images:subjects[subjectIndex].paper}" *ngIf="subjects[subjectIndex]"></img-lazy>
+      <img-lazy event="reply_paperViewer" [src]='subjects[subjectIndex].paper' [imgviewer]="{title:exam.name+subjects[subjectIndex].name,images:subjects[subjectIndex].paper}" *ngIf="subjects[subjectIndex]"></img-lazy>
     </div>
     <ng-template #slider>
       <ion-slides (ionSlideDidChange)="onSlideChanged($event)" #subjectSlider>
@@ -43,7 +43,7 @@
                 <ion-row class="card-header" justify-content-between>
                   <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
                 </ion-row>
-                <img-lazy [src]='subjects[i]?.paper'></img-lazy>
+                <img-lazy [src]='subjects[i]?.paper' event="reply_itemViewer"></img-lazy>
               </div>
             </ng-container>
           </ng-template>
@@ -52,7 +52,7 @@
     </ng-template>
     <div class="topics" *ngIf="subjects[subjectIndex]?.name&&subject.category?.length">
       <ion-row class="topics-header" line-bottom *ngIf="!stickTopicHeader">
-        <a col-2 class="fixed-button" (click)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll" *ngIf="subjects[subjectIndex].diff">{{subjects[subjectIndex].showAll?'错题':'全部'}}</a>
+        <a col-2 class="fixed-button" (touch)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll" *ngIf="subjects[subjectIndex].diff" event="reply_showAll">{{subjects[subjectIndex].showAll?'错题':'全部'}}</a>
         <ion-col no-padding>
           <scroll-header [items]="subjects[subjectIndex].nos" [(selected)]="subjects[subjectIndex].categoryIndex" (selectedChange)="topic($event)"></scroll-header>
         </ion-col>
@@ -63,14 +63,14 @@
             <p footer>
               满分：<span color="primary" ion-text>{{subjects[subjectIndex].activity.fullString}}</span>分&nbsp;&nbsp;&nbsp;我的得分：<span color="primary" ion-text>{{subjects[subjectIndex].activity.scoreString}}</span>分&nbsp;&nbsp;&nbsp;难度：<span color="primary" ion-text>{{subjects[subjectIndex].activity.levelString}}</span>
             </p>
-            <p line-top footer *ngIf="subjects[subjectIndex].activity.objective&&subjects[subjectIndex].activity.reply?.length">
+            <p line-top footer ol *ngIf="subjects[subjectIndex].activity.objective&&subjects[subjectIndex].activity.reply?.length">
               我的答案：<span ion-text [color]="primary">{{subjects[subjectIndex].activity.replyString}}</span>&nbsp;
-              <ion-icon name="checkmark"></ion-icon>&nbsp;&nbsp;&nbsp; 正确答案：
+              <ion-icon [name]="subjects[subjectIndex].category[subjects[subjectIndex].categoryIndex].right?'checkmark':'close'"></ion-icon>&nbsp;&nbsp;&nbsp; 正确答案：
               <span>{{subjects[subjectIndex].activity.answerString}}</span>
             </p>
           </div>
           <div class="topics-item" *ngIf="!subjects[subjectIndex].activity.objective&&subjects[subjectIndex].activity.reply?.length">
-            <p line-bottom>我的答案</p>
+            <p line-bottom ol>我的答案</p>
             <div class="item-content">
               <img-lazy [src]="reply.link" *ngFor="let reply of subjects[subjectIndex].activity.reply"></img-lazy>
             </div>
@@ -87,28 +87,24 @@
   </ng-template> -->
   <ion-footer text-center>
     <p>
-      <button ion-button block round [navPush]="pages.package">开通学情套餐&nbsp;&nbsp;查看错题诊断</button>
+      <button ion-button block round [navPush]="pages.package" event="reply_openPackage">开通学情套餐&nbsp;&nbsp;查看错题诊断</button>
     </p>
-    <button style="height: 2rem" ion-button clear color="white" icon-only (click)="lantern=true">
+    <button style="height: 2rem" ion-button clear color="white" icon-only (touch)="lantern=true" event="reply_openLantern">
       <ion-icon name="arrow-down"></ion-icon>
     </button>
   </ion-footer>
   <transition name="lantern" [if]="lantern">
     <div class="lantern">
       <ion-fab right>
-        <button ion-fab icon-only (click)="lantern=false" color="transparent">
+        <button ion-fab icon-only (touch)="lantern=false" color="transparent" event="reply_closeLantern">
           <ion-icon name="close"></ion-icon>
         </button>
       </ion-fab>
       <p><span>深入挖掘</span>
-        <!-- < -->
-        <!-- <a (click)="closeLantern()" float-right padding-horizontal>
-          <ion-icon name="close"></ion-icon>
-        </a> -->
       </p>
       <p>正式利用每一道错题的途径</p>
       <p padding-12>
-        <button ion-button round [navPush]="pages.package">开通学情套餐</button>
+        <button ion-button round [navPush]="pages.package" event="reply_openPackage">开通学情套餐</button>
       </p>
       <div class="lantern-card">
         <img src="assets/images/mreply.png">

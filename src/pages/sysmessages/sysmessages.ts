@@ -44,9 +44,11 @@ export class SysmessagesPage {
   message(msg) {
     msg.state = 1;
     if (msg.linkaddress) {
-      return this.browserPro.start({ url: msg.linkaddress, title: msg.title });
+      this.browserPro.start({ url: msg.linkaddress, title: msg.title });
+      this.messagePro.readed({ guid: msg.guid });
+    } else {
+      this.navCtrl.push(SYSMESSAGE_PAGE, { guid: msg.guid });
     }
-    this.navCtrl.push(SYSMESSAGE_PAGE, { guid: msg.guid });
     this.notifyPro.add('unread', -1);
   }
 

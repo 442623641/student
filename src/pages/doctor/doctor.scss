@@ -16,7 +16,7 @@ page-doctor {
     background: color($colors, white);
     .card-header {
       position: relative;
-      padding: 8px 12px;
+      padding: 8px 16px;
       &:after {
         @extend .border-bottom;
       }
@@ -38,8 +38,11 @@ page-doctor {
           background: rgba(#ccc, .8);
           vertical-align: -0.105em;
         }
-        &:nth-child(3) i {
-          background: color($colors, primary);
+        &:nth-child(3) {
+          padding-right: 0;
+          i {
+            background: color($colors, primary);
+          }
         }
       }
     }
@@ -55,7 +58,7 @@ page-doctor {
     //background: color($colors, primary);
     background: color($colors, primary);
     color: #fff;
-    height: 43px;
+    height: 40px;
     line-height: 36px;
   }
   .swiper-slide {
@@ -67,7 +70,7 @@ page-doctor {
   }
   .header iscroll,
   .topics iscroll {
-    height: 43px;
+    height: 40px;
     .row {
       // height: 100%;
       line-height: 36px;
@@ -87,7 +90,7 @@ page-doctor {
     font-size: 1.5rem;
     width: 100%;
     .row {
-      height: 43px;
+      height: 40px;
     }
     loading .row {
       height: 80vh;
@@ -109,6 +112,12 @@ page-doctor {
         width: 100%;
         display: block;
       }
+      p[footer] {
+        .icon {
+          vertical-align: text-top;
+        }
+      }
+
       p:not([footer]) {
         font-weight: 500;
       }
@@ -118,34 +127,12 @@ page-doctor {
       }
     }
   }
-  .percents.card {
-    margin- &.open {
-      .drop {
-        padding-top: 8px;
-      }
-      .card-content {
-        padding-bottom: 70px;
-      }
-    }
-
-    .drop {
-      padding: 60px 0 8px 0;
-      background: linear-gradient(to top, #fff 0%, rgba(#fff, .1) 100%);
-      position: absolute;
-      bottom: 0px;
-      width: 100%;
-      transition: padding 0.3s;
-      .button {
-        padding: 0 2.3em;
-      }
-    }
-    .card-content {
-      padding-bottom: 0px;
-      max-height: 200px;
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
-    }
+  .card-content {
+    padding: 0px 10px 16px 10px;
+    max-height: 200px;
+    overflow: hidden;
   }
+
   .sub-header {
     will-change: transform;
     transition: transform 0.38s;

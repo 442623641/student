@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { NativeProvider } from '../native';
 import { UpgradeProvider } from './upgrade';
 import { HardbackProvider } from './hardback';
-import { AnalyticsProvider } from './analytics';
+import { MobclickagentProvider } from './mobclickagent';
 
 /*
   Generated class for the AppProvider provider.
@@ -21,7 +21,7 @@ export class AppProvider {
     private nativePro: NativeProvider,
     private upgradePro: UpgradeProvider,
     private statusBar: StatusBar,
-    private analyticsPro: AnalyticsProvider,
+    private analyticsPro: MobclickagentProvider,
     private hardbackPro: HardbackProvider,
   ) {
     console.log('Hello AppProvider Provider');
@@ -43,7 +43,7 @@ export class AppProvider {
     } else if (this.nativePro.isIos()) {
       //ios
       analyticsConfig = {
-        appkey: '5a3210f3f43e48252a000274',
+        appkey: '5a355e1b8f4a9d4558000c93',
         channel: 'App Store'
       }
     }
@@ -56,7 +56,7 @@ export class AppProvider {
       console.log(`The ${version} version of the【小七助手】is ready`);
       this.http.setVersion(version);
       //检查更新
-      setTimeout(() => this.upgradePro.checkUpdate(version), 1000);
+      setTimeout(() => this.upgradePro.checkUpdate(version), 3000);
     })
   }
 

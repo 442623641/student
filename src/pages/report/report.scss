@@ -1,16 +1,31 @@
 page-report {
-  .tip {
-    height: 40px;
-    line-height: 40px;
-    background: rgba(#fff, 0.85);
-    text-align: center;
+  .content {
+    &>.fixed-content,
+    &>.scroll-content {
+      padding-top: 0 !important;
+    }
   }
-  .slides {
+  .tip {
+    height: 41px;
+    line-height: 41px;
+    background: #fff;
+    text-align: center;
+    transform: translateY(-1px);
+  }
+  .swiper-slide {
+    font-size: inherit;
     iscroll {
       height: 100%;
-    } //height: calc(100% - 146px);
+    }
+    .slide-zoom {
+      height: 100%;
+      &>iscroll>.scroll-content {
+        padding-top: 86px;
+      }
+    }
+
     scroll-header iscroll {
-      height: 43px;
+      height: 40px;
       .row {
         border: none;
         font-size: 1.4rem;
@@ -21,20 +36,19 @@ page-report {
     }
   }
 
-  .swiper-slide {
-    font-size: inherit;
-    .slide-zoom {
-      height: 100%;
-    }
-  }
-
-
   .card {
     position: relative;
     .card-header {
       padding-bottom: 10px;
     }
     padding-bottom: 16px;
+    &.learnanalysis {
+      overflow: visible; // padding: 0;
+      .card-content {
+        overflow: visible;
+        padding: 0;
+      }
+    }
     &.score-card {
       &>.row {
         padding: 5px 0;
@@ -63,6 +77,7 @@ page-report {
           }
         }
         p {
+          font-size: 1.3rem;
           text-align: left;
           padding-left: 26px;
           color: color($colors, gray9);
@@ -70,13 +85,13 @@ page-report {
             padding: 2px 6px;
             background: color($colors, primary);
             color: #fff;
-            border-radius: 3px;
-            font-size: 1.4rem;
+            border-radius: 3px; // font-size: 1.4rem;
           }
         }
       }
     }
   }
+
   .rank-list {
     $color: #7cb5ec;
     padding-top: 10px;
@@ -130,45 +145,59 @@ page-report {
       }
     }
   }
+
   .ion-ios-star-outline {
     background: #f56d4e;
   }
+
   .ion-ios-ichinese {
     background: #ff8820;
   }
+
   .ion-ios-imath {
     background: #04b8d9;
   }
+
   .ion-ios-ienglish {
     background: #b564ef;
   }
+
   .ion-ios-ibulb {
     background: #7788f2;
   }
+
   .ion-ios-ichemistry {
     background: #3ad1a4;
   }
+
   .ion-ios-ibiology {
     background: #ffc001;
   }
+
   .ion-ios-ipolitics {
     background: #d74ce8;
   }
+
   .ion-ios-ihistory {
     background: #3ac8d1;
   }
+
   .ion-ios-igeography {
     background: #54adff;
   }
+
   .ion-ios-iscience {
     background: #5872f8;
   }
+
   .ion-ios-iliterature {
     background: #ff5454;
   }
+
   .ion-ios-icustom {
     background: #f56d4e;
   }
+
   .ion-ios-iother {
     background: #54adff;
   }

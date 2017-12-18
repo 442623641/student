@@ -25,11 +25,11 @@
     </ng-template>
     <ng-template #citybinding>
       <ng-container [ngSwitch]="!!userInfo.city">
-        <button ion-item *ngSwitchCase="false" (click)="openPicker('city')">
+        <button ion-item *ngSwitchCase="false" (touch)="openPicker('city')" event="personal_pickerCity">
           <ion-icon name="pin" item-start></ion-icon>
           <ion-note>选择省市，绑定后不可修改</ion-note>
         </button>
-        <button ion-item *ngSwitchCase="true" (click)="openPicker('city')">
+        <button ion-item *ngSwitchCase="true" (touch)="openPicker('city')" event="personal_pickerCity">
           <ion-icon name="pin" item-start></ion-icon>
           <ion-label>{{userInfo.cityName}}</ion-label>
         </button>
@@ -45,11 +45,11 @@
     </ng-template>
     <ng-template #schoolbinding>
       <ng-container [ngSwitch]="!!userInfo.school">
-        <button ion-item [navPush]="pages.schools" [navParams]="{city:userInfo.city}" [attr.disabled]="!!userInfo.city?null:''" *ngSwitchCase="false">
+        <button ion-item [navPush]="pages.schools" [navParams]="{city:userInfo.city}" [attr.disabled]="!!userInfo.city?null:''" *ngSwitchCase="false" event="personal_goSchools">
           <ion-icon name="podium" item-start></ion-icon>
           <ion-note>选择学校，绑定后不可修改</ion-note>
         </button>
-        <button ion-item *ngSwitchCase="true" [navPush]="pages.schools" [navParams]="{city:userInfo.city}">
+        <button ion-item *ngSwitchCase="true" [navPush]="pages.schools" [navParams]="{city:userInfo.city}" event="personal_goSchools">
           <ion-icon name="podium" item-start></ion-icon>
           <ion-label>{{userInfo.school}}</ion-label>
         </button>
@@ -62,7 +62,7 @@
         <ion-icon name="bookmark" item-start></ion-icon>
         {{userInfo.gradeName}}
       </ion-item>
-      <button ion-item *ngSwitchCase="false" (click)="openPicker('grade')" [ngSwitch]="!!userInfo.gradeName">
+      <button ion-item *ngSwitchCase="false" (touch)="openPicker('grade')" [ngSwitch]="!!userInfo.gradeName" event="personal_pickGrade">
         <ion-icon name="bookmark" item-start></ion-icon>
         <ion-note *ngSwitchCase="false">选择年级，绑定后不可修改</ion-note>
         <ion-label *ngSwitchCase="true">{{userInfo.gradeName}}</ion-label>
@@ -70,28 +70,28 @@
     </ng-container>
     <!-- grede end -->
     <ion-item class="role" no-lines>
-      <button ion-button clear (click)="userInfo.role='p'" item-start [attr.disabled]="db.role?'':null" color="text">
+      <button ion-button clear (touch)="userInfo.role='p'" item-start [attr.disabled]="db.role?'':null" color="text" event="personal_pickRole">
         <ion-icon [name]="userInfo.role=='p'?'checkmark-circle':'radio-button-off'" item-start color="primary"></ion-icon>
         我是家长
       </button>
-      <button ion-button clear (click)="userInfo.role='s'" item-end [attr.disabled]="db.role?'':null" color="text">
-        <ion-icon [name]="userInfo.role=='s'?'checkmark-circle':'radio-button-off'" item-start color="primary"></ion-icon>
+      <button ion-button clear (touch)="userInfo.role='s'" item-end [attr.disabled]="db.role?'':null" color="text" event="personal_pickRole">
+        <ion-icon [name]=" userInfo.role=='s' ? 'checkmark-circle': 'radio-button-off'" item-start color="primary"></ion-icon>
         我是学生
       </button>
     </ion-item>
-    <p class="break" break *ngIf="db&&db.role&&db.gradeName&&db.school&&db.cityName">
+    <p class="break" break *ngIf="db&&db.role&&db.gradeName&&db.school&&db.cityName&&!graduated">
       <ion-icon name="information-circle" color="primary"></ion-icon>
       如需修改信息，请拨打
-      <tel>400-0309776</tel>
+      <tel event="personal_4000309776">400-0309776</tel>
     </p>
-    <p class="agreement" *ngIf="graduated">
+    <p class="break" *ngIf="graduated">
       恭喜您毕业了！如果新的学习里程还需要小七的陪伴，请点击下方按钮重新绑定信息哦！
     </p>
   </ion-item-group>
   <p padding *ngIf="db&&!db.role&&!db.gradeName&&!db.school&&!db.cityName||graduated" [ngSwitch]="!!graduated">
     <!-- <submiton></submiton> -->
     <submiton *ngSwitchCase="false" [stateValue]="processing===undefined?state:processing" (onClick)="save($event)">保 存</submiton>
-    <button *ngSwitchCase="true" ion-button block (click)="rebinding()">{{'重新绑定'}}</button>
+    <button *ngSwitchCase="true" ion-button block (touch)="rebinding()">{{'重新绑定'}}</button>
   </p>
 </ion-content>
 <city-picker style="display: none;" cancelText='取消' doneText='完成' separator=' ' (ionChange)="onChange($event)" #pickerCmp [(ngModel)]="picker.text" *ngIf="picker">

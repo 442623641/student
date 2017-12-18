@@ -17,7 +17,7 @@
   <ng-template #entry>
     <ion-list *ngIf="orders;else loading;">
       <ion-card *ngFor="let item of orders">
-        <button ion-item [navPush]="LOSTORDER_PAGE" [navParams]="item">订单号：{{item.ordercode}}</button>
+        <button ion-item [navPush]="LOSTORDER_PAGE" [navParams]="item" event="lostorders_goLostorder">订单号：{{item.ordercode}}</button>
         <ion-card-content>
           <p padding-top-10>订购科目：{{item.km}}</p>
           <p>订单金额：<span primary>{{item.money}}</span>元</p>

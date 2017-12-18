@@ -118,6 +118,7 @@ export class EnalyzingPage {
       this.toast('暂无优秀答案，请稍后再试');
       this.nativePro.hideLoading();
     };
+    this.nativePro.showLoading();
     this.enalyzingPro.excellent({
       guid: exam.guid,
       subject: this.enalyzingOpt.option.subject,
@@ -196,7 +197,12 @@ export class EnalyzingPage {
   ionViewDidEnter() {
     this.achieveSub && this.achieveSub.unsubscribe();
   }
+  ionViewWillLeave() {
+    this.showMenu = false;
+  }
+
   ngOnDestory() {
     this.modal && this.modal.dismiss && this.modal.dismiss();
   }
+
 }

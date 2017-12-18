@@ -21,7 +21,11 @@ export class Elost {
   /**
    *推荐题
    */
-  promote: number = 0;
+  promote: number;
+  /**
+   *是否需要推荐题
+   */
+  isPromote: 0 | 1;
   pagenum: number = 0;
 
   /**
@@ -99,7 +103,7 @@ export class LostOptions {
   pcount: number
   qcount: number
   score: number
-  timekey ? : string;
+  timekey ? : any;
   checked ? : boolean;
   studentcode ? : string;
 
@@ -110,7 +114,7 @@ export class LostOptions {
     this.pcount = obj.pcount;
     this.qcount = obj.qcount;
     this.score = obj.score;
-    this.timekey = obj.timekey;
+    obj.timekey && (this.timekey = obj.timekey);
     this.checked = obj.checked;
     obj.studentcode && (this.studentcode = obj.studentcode);
   }

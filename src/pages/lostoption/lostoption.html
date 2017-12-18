@@ -8,7 +8,7 @@
   <ion-navbar>
     <ion-title>{{elost?.name}}</ion-title>
     <ion-buttons end>
-      <button clear ion-button (click)="save(true)">确定</button>
+      <button clear ion-button (touch)="save(true)" event="lostoption_enter">确定</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -18,10 +18,10 @@
     <p>共 <span ion-text color="primary"> {{elost.count}} </span> 次考试，其中部分考试等待学校上传试卷。请从下方列表选购考试错题（支持多选）</p>
     <ion-list margin-top>
       <div class="block" *ngFor="let exam of elost.exams">
-        <div *ngIf="exam.timekey" class="line-month">{{exam.timekey | date:'yyyy年M月'}}</div>
+        <div *ngIf="exam.timekey" class="line-month">{{exam.timekey}}</div>
         <p class="line-day"><i></i><span>{{exam.day}}日</span></p>
         <ion-card>
-          <ion-item class="card-header" no-lines icon-right (click)="exam.checked=!exam.checked">
+          <ion-item class="card-header" no-lines icon-right event="lostoption_picker" (touch)="exam.checked=!exam.checked">
             {{exam.name}}
             <ion-icon name='checkmark-circle-outline' color="green" item-end *ngIf="exam.checked"></ion-icon>
           </ion-item>
@@ -31,7 +31,7 @@
           <ion-row split-line>
             <ion-col align-self-center>{{exam.score}}分</ion-col>
             <ion-col>
-              <button [color]="exam.checked?'green':'primary'" ion-button icon-left clear small (click)="exam.checked=!exam.checked;">
+              <button event="lostoption_picker" [color]="exam.checked?'green':'primary'" ion-button icon-left clear small (touch)="exam.checked=!exam.checked;">
                 <ion-icon name='cart-outline'></ion-icon>加入订购</button>
             </ion-col>
           </ion-row>
@@ -49,7 +49,7 @@
       <ion-col col-8 padding-left>
         已选择&nbsp;<span ion-text color="primary">{{elost.echeckeds}}</span>&nbsp;场考试，共<span ion-text color="primary">  {{elost.icheckeds}} </span>道错题
       </ion-col>
-      <a col-4 no-padding [ngSwitch]="elost.echeckeds>=elost.exams.length" (click)="elost.checkedAll=elost.echeckeds<elost.exams.length">
+      <a col-4 no-padding [ngSwitch]="elost.echeckeds>=elost.exams.length" (touch)="elost.checkedAll=elost.echeckeds<elost.exams.length" event="lostoption_select">
         <ng-container *ngSwitchCase="false">
           <ion-icon name="radio-button-off-outline"></ion-icon>
           &nbsp;全选

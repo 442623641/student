@@ -4,5 +4,5 @@
   <ion-col col-8>应付
     <currency [value]="amount/10"></currency>
   </ion-col>
-  <a (click)="order()" [attr.disabled]="amount<min||disabled?'':null"><span *ngIf="!processing">去支付</span><ion-spinner *ngIf="processing" color="white"></ion-spinner></a>
+  <a (touch)="order()" [attr.disabled]="amount<min||disabled?'':null" [event]="'payment_'+options.ordertype"><span *ngIf="!processing">去支付</span><ion-spinner *ngIf="processing" color="white"></ion-spinner></a>
 </ion-row>

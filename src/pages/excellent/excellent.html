@@ -9,7 +9,7 @@
   <ion-navbar>
     <ion-title>名校试题</ion-title>
     <ion-buttons end *ngIf="package">
-      <button ion-button (click)="showMenu=true">
+      <button ion-button (touch)="showMenu=true" event="excellent_filter">
         筛选
       </button>
     </ion-buttons>
@@ -22,16 +22,16 @@
         <ion-col col-2 class="no">{{total-q-1}}</ion-col>
         <ion-col col-auto>共有{{que.total}}人参加考试&nbsp;&nbsp;{{que.count}}人答错&nbsp;&nbsp;得分率{{que.percent}}%</ion-col>
       </ion-row>
-      <div class="content-img" [imgviewer]="{title:'共有'+que.total+'人参加考试'+que.count+'人答错',images:que.paper}">
+      <div class="content-img" event="excellent_paperViewer" [imgviewer]="{title:'共有'+que.total+'人参加考试'+que.count+'人答错',images:que.paper}">
         <img-lazy [src]="img" *ngFor="let img of que.paper"> </img-lazy>
       </div>
       <ion-row padding-vertical-8 split-line>
         <ng-template [ngIf]="que.objective" [ngIfElse]="objective">
-          <a *ngIf="que.answer?.length" (click)="toast(que.answerString)">标准答案</a>
+          <a *ngIf="que.answer?.length" (touch)="toast(que.answerString)" event="excellent_answer">标准答案</a>
         </ng-template>
         <ng-template #objective>
-          <a (click)="excellent(que)" *ngIf="que.excellent?.length" [imgviewer]="que.imgviewer">优秀答卷</a>
-          <a [imgviewer]="{title:option.subject,images:que.answer}" *ngIf="que.answer?.length">标准答案</a>
+          <a (touch)="excellent(que)" *ngIf="que.excellent?.length" [imgviewer]="que.imgviewer" event="excellent_excellent">优秀答卷</a>
+          <a [imgviewer]="{title:option.subject,images:que.answer}" *ngIf="que.answer?.length" event="excellent_answer">标准答案</a>
         </ng-template>
       </ion-row>
     </div>
@@ -47,32 +47,32 @@
       <div text-center style="width: 100%;margin-bottom: 42px;">
         <img src="assets/images/excellentbg.png">
       </div>
-      <ion-footer no-border>
-        <ion-toolbar>
-          <ion-title>
-            <button ion-button block (click)="open()">开通学情套餐</button>
-          </ion-title>
-        </ion-toolbar>
-      </ion-footer>
     </ng-template>
   </ng-template>
 </ion-content>
+<ion-footer no-border *ngIf="!excellentsOpts&&!package">
+  <ion-toolbar>
+    <ion-title>
+      <button ion-button block (touch)="open()" event="excellent_openPackage">开通学情套餐</button>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>
 <sidenav [(open)]="showMenu" *ngIf="subjectNames&&tempOption">
   <ion-item-group>
     <ion-item-divider color="light">科目</ion-item-divider>
     <ion-row justify-content-between>
-      <a col-3 *ngFor="let item of subjectNames" [attr.seleted]="tempOption.subject == item" (click)="tempOption.subject = item">{{item}}</a>
+      <a col-3 *ngFor="let item of subjectNames" [attr.seleted]="tempOption.subject == item" (touch)="tempOption.subject = item" event="excellent_pickSubject">{{item}}</a>
     </ion-row>
   </ion-item-group>
   <ion-item-group margin-top>
     <ion-item-divider color="light">年级</ion-item-divider>
     <ion-row justify-content-between>
-      <a col-5 *ngFor="let item of grades" [attr.seleted]="tempOption.grade == item.code" (click)="tempOption.grade = item.code">{{item.name}}</a>
+      <a col-5 *ngFor="let item of grades" [attr.seleted]="tempOption.grade == item.code" (touch)="tempOption.grade = item.code" event="excellent_pickGrade">{{item.name}}</a>
     </ion-row>
   </ion-item-group>
   <ion-footer>
     <p margin>
-      <button ion-button block (click)="save()">确 定</button>
+      <button ion-button block (touch)="save()" event="excellent_save">确 定</button>
     </p>
   </ion-footer>
 </sidenav>

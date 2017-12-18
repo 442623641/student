@@ -1,9 +1,10 @@
 <!-- Generated template for the PhotosviewerComponent component,add by leo zhang 201710010101 -->
-<ion-content [fullscreen]='true' color="white">
+<ion-content [fullscreen]='true' color="white" hook="PhotosviewerPage">
   <ion-header>
+    <div padding-8 showWhen="ios"></div>
     <ion-navbar color="transparent">
       <ion-buttons start>
-        <button ion-button icon-only (click)="viewCtrl.dismiss()" clear>
+        <button ion-button icon-only (touch)="viewCtrl.dismiss()" clear event="photosviewer_close">
           <ion-icon name="close"></ion-icon>
         </button>
       </ion-buttons>

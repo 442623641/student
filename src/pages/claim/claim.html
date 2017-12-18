@@ -8,11 +8,11 @@
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
-  <loading [status]="unclaimes" *ngIf="!unclaimes;else entry;"></loading>
+  <loading [status]="unclaimes" *ngIf="!unclaimes;else entry;" mess="暂无认领考试信息"></loading>
   <ng-template #entry>
     <ion-list *ngFor="let item of unclaimes" no-lines>
-      <span class="unclaimed-month">{{item.time|date:'yyyy年M月'}}</span>
-      <button ion-item *ngFor="let value of item.data" (click)="claim(value)" padding-vertical-8>
+      <span class="unclaimed-month">{{item.time}}</span>
+      <button ion-item *ngFor="let value of item.data" (touch)="claim(value)" event="claim_claim">
         <span item-left>{{value.day}}日</span>
         <span style="color:#414a60;white-space: normal;word-break: break-all;">{{value.examname}}</span>
       </button>

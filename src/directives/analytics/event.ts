@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Renderer2, Input, Output, EventEmitter } from '@angular/core';
 import { ViewController } from 'ionic-angular';
-import { AnalyticsProvider } from '../../providers/app/analytics';
+import { MobclickagentProvider } from '../../providers/app/mobclickagent';
 /**
  * Generated class for the HookDirective directive.
  *
@@ -8,10 +8,10 @@ import { AnalyticsProvider } from '../../providers/app/analytics';
  * Directives.
  */
 @Directive({
-  selector: '[event]' // Attribute selector
+  selector: '[touch],[event]' // Attribute selector
 })
 export class EventDirective {
-  @Output('touch') touch: EventEmitter < any > = new EventEmitter();
+  @Output('touch') touch: EventEmitter < any > = new EventEmitter < any > ();
   @Input() event: string;
   enterSubscribe: any;
   leaveSubscribe: any;
@@ -19,29 +19,28 @@ export class EventDirective {
   islisten: boolean;
   constructor(
     private viewCtrl: ViewController,
-    private analyticsPro: AnalyticsProvider,
+    private analyticsPro: MobclickagentProvider,
     private el: ElementRef,
     private render: Renderer2) {
 
   }
   ngAfterViewInit() {
     this.bind();
-    setTimeout(() => {
+    this.leaveSubscribe = this.viewCtrl.didLeave.subscribe((res) => {
+      this.leaveSubscribe.unsubscribe();
+      this.unbind();
       this.enterSubscribe = this.viewCtrl.didEnter.subscribe((res) => {
-        this.bind();
+        this.ngOnDestroy();
+        this.ngAfterViewInit();
       });
-      this.leaveSubscribe = this.viewCtrl.didLeave.subscribe((res) => {
-        this.unbind();
-      });
-    }, 500)
+    });
   }
-
 
   private bind() {
     if (this.islisten) return;
     this.listen = this.render.listen(this.el.nativeElement, 'click', (e) => {
       this.touch.observers.length && this.touch.next(e);
-      this.analyticsPro.event(this.event);
+      this.analyticsPro.onEvent(this.event);
     });
     this.islisten = true;
   }

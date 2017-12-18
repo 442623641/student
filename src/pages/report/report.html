@@ -4,22 +4,23 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header no-shadow>
+<ion-header box-shadow>
   <ion-navbar>
     <ion-title>{{exam.name}}</ion-title>
     <ion-buttons end>
-      <button ion-button [navPush]="exam.payment?pages.doctor:pages.reply" [navParams]="exam" *ngIf="showNavButton">
+      <button ion-button [navPush]="exam.payment?pages.doctor:pages.reply" [navParams]="exam" *ngIf="showNavButton" [event]="exam.payment?'report_goDoctor':'report_goReply'">
         {{exam.payment?'错题诊断':'答题情况'}}
       </button>
     </ion-buttons>
   </ion-navbar>
-  <ion-toolbar no-border color="transparent" no-padding>
-    <scroll-header [(selected)]="reportIndex" [items]="categorysValue" (selectedChange)="changeSlide($event)" *ngIf="categorys?.length>1"></scroll-header>
+  <ion-toolbar no-border color="transparent" no-padding *ngIf="categorys?.length>1">
+    <scroll-header [(selected)]="reportIndex" [items]="categorysValue" (selectedChange)="changeSlide($event)"></scroll-header>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true" #content [attr.no-will-change]="categorys.length<2?null:''">
+<ion-content fullscreen="true" #content [attr.no-will-change]="categorys.length<2?null:''">
   <ng-template #frame [ngIf]="categorys.length<2" [ngIfElse]="tslider" let-indexNum="indexNum">
     <ng-template [ngIf]="reports[indexNum]" [ngIfElse]="loadingc">
+      <div padding-8 showWhen="ios"></div>
       <p line-bottom line-top class="tip">总计{{reports[indexNum].studentCount}}名考生 领先{{reports[indexNum].percent|percent}}考生</p>
       <ion-card class="score-card">
         <ion-card-header text-center color="primary">
@@ -41,7 +42,7 @@
                   {{item}}
                 </ion-col>
               </ion-row>
-              <p *ngIf="score.percent"><span *ngIf="!!score.rank">排名 {{score.rank}}</span> 领先 {{score.percent | percent}} 的考生</p>
+              <p *ngIf="score.percent!=''&&score.percent>=0"><span *ngIf="score.rank!='' &&score.rank>=0">排名 {{score.rank}}</span> 领先 {{score.percent | percent}} 的考生</p>
             </ion-col>
           </ion-row>
         </ng-template>
@@ -69,14 +70,14 @@
           </ion-row>
         </ng-template>
       </ion-card>
-      <ion-card *ngIf="reports[indexNum].subjects.length>2&&reports[indexNum].learnanalysis">
+      <ion-card *ngIf="reports[indexNum].subjects.length>2&&reports[indexNum].learnanalysis" class="learnanalysis">
         <ng-container *ngTemplateOutlet="cardModal;context:{name: '学科分析',comment:'优劣势学科一目了然，指引学习“航向”'}">
         </ng-container>
         <ion-card-header text-center color="primary">
           学科分析
         </ion-card-header>
         <ion-card-content>
-          <echarts-ng2 [option]="reports[indexNum].learnanalysis" [style]="{'height': '210px'}"></echarts-ng2>
+          <echarts-ng2 [option]="reports[indexNum].learnanalysis" [style]="{'height': '260px'}"></echarts-ng2>
         </ion-card-content>
       </ion-card>
       <ion-card *ngIf="reports[indexNum].levelanalysis">
@@ -96,7 +97,7 @@
           <ion-card-header text-center color="primary">
             排名对比
           </ion-card-header>
-          <scroll-header *ngIf="reports[indexNum].subjects.length" [items]="reports[indexNum].subjects" [(selected)]="reports[indexNum].comranksIndex" (selectedChange)="comranks(reports[indexNum].subjects[$event])"></scroll-header>
+          <scroll-header *ngIf="reports[indexNum].subjects.length" [items]="reports[indexNum].subjects" [(selected)]="reports[indexNum].comranksIndex" (selectedChange)="comranks(reports[indexNum].subjects[$event])" event="report_comranksFilter"></scroll-header>
           <ion-card-content class="rank-list">
             <ng-template [ngIf]="reports[indexNum]?.activityComranks" [ngIfElse]="loadingb">
               <div *ngFor="let rank of reports[indexNum].activityComranks;let i =index;" class="rank-item" [attr.self]="rank.sort=='我'?'':null">
@@ -115,7 +116,7 @@
           <ion-card-header text-center color="primary">
             成绩趋势
           </ion-card-header>
-          <scroll-header [(selected)]="reports[indexNum].scoretrendsIndex" [items]="reports[indexNum].scoreSubjects" *ngIf="reports[indexNum].scoreSubjects.length" (selectedChange)="scoretrends(reports[indexNum].scoreSubjects[$event])"></scroll-header>
+          <scroll-header [(selected)]="reports[indexNum].scoretrendsIndex" [items]="reports[indexNum].scoreSubjects" *ngIf="reports[indexNum].scoreSubjects.length" (selectedChange)="scoretrends(reports[indexNum].scoreSubjects[$event])" event="report_scoretrendsFilter"></scroll-header>
           <ion-card-content style="height:220px;padding-right:0;">
             <echarts-ng2 *ngIf="reports[indexNum].activityScoretrends;else loadinga" [option]="reports[indexNum].activityScoretrends" [style]="{'height':'195px'}"></echarts-ng2>
             <ng-template #loadinga>
@@ -129,7 +130,7 @@
           <ion-card-header text-center color="primary">
             排名趋势
           </ion-card-header>
-          <scroll-header [(selected)]="reports[indexNum].ranktrendsIndex" [items]="reports[indexNum].rankSubjects" (selectedChange)="ranktrends(reports[indexNum].rankSubjects[$event])" *ngIf="reports[indexNum].rankSubjects.length"></scroll-header>
+          <scroll-header [(selected)]="reports[indexNum].ranktrendsIndex" [items]="reports[indexNum].rankSubjects" (selectedChange)="ranktrends(reports[indexNum].rankSubjects[$event])" *ngIf="reports[indexNum].rankSubjects.length" event="report_ranktrendsFilter"></scroll-header>
           <ion-card-content style="height:220px;padding-right:0;">
             <echarts-ng2 *ngIf="reports[indexNum].activityRanktrends;else loadingd" [option]="reports[indexNum].activityRanktrends" [style]="{ 'height': '195px'}"></echarts-ng2>
             <ng-template #loadingd>
@@ -146,7 +147,7 @@
   <ng-template #tslider>
     <ion-slides *ngIf="categorys.length>1" #slider (ionSlideWillChange)="onSlideChanged($event)">
       <ion-slide *ngFor="let ball of categorys;let i=index;">
-        <iscroll scrollY="true">
+        <iscroll scrollY="true" class="padding-86">
           <ng-container *ngTemplateOutlet="frame;context:{indexNum: i}">
           </ng-container>
         </iscroll>
@@ -158,7 +159,7 @@
       <div class="card-modal">
         <h6 padding-vertical-12>{{comment}}</h6>
         <p>
-          <button ion-button round (click)="openPackage()">查看{{name}}</button>
+          <button ion-button round (touch)="openPackage()" event="report_open">查看{{name}}</button>
         </p>
       </div>
       <ion-backdrop></ion-backdrop>
@@ -171,7 +172,7 @@
       <ion-col col-8 no-padding>
         开通学情套餐，掌控一切
       </ion-col>
-      <a [navPush]="pages.package">立即开通</a>
+      <a [navPush]="pages.package" event="report_openPackage">立即开通</a>
     </ion-row>
   </ion-toolbar>
 </ion-footer>

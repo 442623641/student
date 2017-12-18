@@ -9,7 +9,7 @@
     </ion-refresher-content>
   </ion-refresher>
   <ion-item-group padding-vertical>
-    <button ion-item [navPush]="pages.claim">
+    <button ion-item [navPush]="pages.claim" event="news_goClaim">
       <ion-avatar item-start class="circle-blue" text-end>
         <ion-icon item-left name="paper" color="white" class="relative"></ion-icon>
       </ion-avatar>
@@ -18,7 +18,7 @@
       <!--<p>共n条认领消息</p>-->
       <ion-badge item-end *ngIf="news.unclaimed">{{news.unclaimed}}</ion-badge>
     </button>
-    <button [navPush]="pages.smessage" ion-item>
+    <button [navPush]="pages.smessage" ion-item event="news_goSmessage">
       <ion-avatar item-start class="circle-yellow">
         <ion-icon item-left name="chatbubbles" color="white" class="relative-left"></ion-icon>
       </ion-avatar>

@@ -22,8 +22,8 @@
   <ng-template #entry>
     <ion-list>
       <ion-card *ngFor="let item of orders">
-        <button ion-item (click)="share(item)" *ngIf="item.code;else processing">订单号：{{item.ordercode}}
-          <span item-right ion-text primary>获取下载地址</span>
+        <button ion-item (touch)="share(item)" *ngIf="item.code;else processing">订单号：{{item.ordercode}}
+          <span item-right ion-text primary event="elostorders_share">获取下载地址</span>
         </button>
         <ng-template #processing>
           <ion-item>
@@ -35,7 +35,7 @@
           <p padding-top-10>订购科目：{{item.km}}</p>
           <p>订购类型：{{item.type}}</p>
           <p>消耗学贝：{{item.money}}学贝</p>
-          <p>下单时间：{{item.time|date:'yyyy年M月dd日 hh:mm'}}</p>
+          <p>下单时间：{{item.time}}</p>
         </ion-card-content>
         <!-- <p text-right class="card-footer" line-top [ngSwitch]="!!item.code">
           <ion-chip *ngSwitchCase="false" color="gray9">

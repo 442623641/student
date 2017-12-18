@@ -16,13 +16,10 @@ page-personal {
     }
   }
   .break {
+    font-size: 1.4rem;
     ion-icon {
       vertical-align: -0.04em;
       color: color($colors, primary);
     }
-  }
-  p.agreement {
-    color: color($colors, gray9);
-    padding: 16px;
   }
 }

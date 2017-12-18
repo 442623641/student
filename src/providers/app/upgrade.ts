@@ -13,7 +13,6 @@ import { Platform } from 'ionic-angular';
 */
 @Injectable()
 export class UpgradeProvider {
-
   localVersion: string;
   remoteVersion: string;
   updating: boolean;
@@ -67,13 +66,15 @@ export class UpgradeProvider {
    */
   private download(url, fileName) {
     this.updating = true;
-    this.nativePro.tip('正在下载安装包...');
+    let tip = this.nativePro.tip('正在下载安装包...');
     this.http.downloadFile(url, this.file.externalCacheDirectory + fileName)
       .then((entry) => {
         this.updating = false;
+        tip.dismiss();
         this.install(fileName);
       }).catch(ex => {
         this.updating = false;
+        tip.dismiss();
         console.log(ex);
       })
   }

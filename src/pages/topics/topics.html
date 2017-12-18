@@ -10,11 +10,11 @@
     <ion-col *ngFor="let le of legend" text-right><i></i>{{le}}</ion-col>
   </ion-row>
 </ion-header>
-<ion-content [fullscreen]="true">
-  <echarts-ng2 [option]='options' [style]="{'height': 45*options.yAxis.data.length+'px'}"></echarts-ng2>
+<ion-content [fullscreen]="true" hook="TopicsPage">
+  <echarts-ng2 [option]='options' [style]="{'height': 45*(options.yAxis.data.length+1)+'px'}"></echarts-ng2>
 </ion-content>
 <ion-footer class="blur">
   <p text-center ion-text (tap)="viewCtrl.dismiss()" style="padding:12px" line-top>
-    <a>关闭更多</a>
+    <a event="topics_close">关闭更多</a>
   </p>
 </ion-footer>

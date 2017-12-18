@@ -26,11 +26,15 @@ export class PhotosviewerComponent {
     let images = navParams.get('images') || [];
     images = typeof images === "string" ? [images] : images;
     images.forEach(item => {
-      let us = typeof item === "string" ? [item] : item.link || item.value;
-      this.urls = this.urls.concat(us.map(item => {
+      let us = this.toArray(typeof item === "string" ? item : item.link || item.value);
+      this.urls = us.length ? this.urls.concat(us.map(item => {
         return { url: item, isImg: item.indexOf('http://') > -1 || item.indexOf('https://') > -1 }
-      }));
+      })) : this.urls;
     });
+  }
+  toArray(obj) {
+    if (!obj) return [];
+    return typeof obj === "string" ? [obj] : obj;
   }
   ngAfterViewInit() {
     this.swiper = new Swiper('#swiper-container', {
