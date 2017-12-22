@@ -179,11 +179,6 @@ export class ReportPage {
     //console.log(event);
   }
 
-  ionViewDidEnter() {
-    this.achieveSub && this.achieveSub.unsubscribe();
-  }
-
-
   /**
    *学情报告未生成时，初始化优惠券余额等信息
    */
@@ -199,7 +194,7 @@ export class ReportPage {
   /**
    *学情报告未生成是，点击查看学情报告
    */
-  openPackage() {
+  generate() {
     const COIN = this.price;
     let success = () => {
       this.exam.payment = true;
@@ -242,5 +237,23 @@ export class ReportPage {
         })
     }
   }
+
+  openPackage() {
+    this.navCtrl.push(PACKAGE_PAGE).then(res => {
+      this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
+        let start = this.navCtrl.indexOf(this.viewCtrl);
+        this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
+          this.exam.payment = true;
+          this.report.resetPayment(true);
+          this.achieveSub.unsubscribe();
+        });
+      });
+    })
+  }
+
+  ionViewDidEnter() {
+    this.achieveSub && this.achieveSub.unsubscribe();
+  }
+
 
 }

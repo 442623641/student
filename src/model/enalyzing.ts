@@ -153,9 +153,21 @@ export class EnalyzingOptions {
     this.option.month = month || this.option.month;
     this.page = { index: obj.index || 0, noindex: obj.noindex || 0, viewLength: 5 };
     this.end = obj.end;
-    this.exams = this.exams.concat(obj.exams.map(item => {
-      return new ExamOptions(item);
-    }));
+    obj.exams.forEach(exam => {
+      if (exam.name) {
+        this.exams.push(new ExamOptions(exam))
+      } else {
+        this.exams[this.exams.length - 1]
+          .questions = this.exams[this.exams.length - 1]
+          .questions.concat(exam.questions
+            .map(q => {
+              return new CategoryOptions(q);
+            }))
+      }
+    });
+    // this.exams = this.exams.concat(obj.exams.map(item => {
+    //   return new ExamOptions(item);
+    // }));
 
   }
 

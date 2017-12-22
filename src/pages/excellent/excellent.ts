@@ -68,15 +68,17 @@ export class ExcellentPage {
     this.tempOption = this.option.clone();
     this.pageview = new Pageview();
     this.content.scrollToTop();
-    this.excellentPro.excellents(Object.assign({}, this.pageview, this.option)).then(res => {
-      if (!res || !res.questions || !res.questions.length) return error(res);
-      this.total = res.total;
-      this.excellentsOpts = res.questions.map((item) => { return new ExcellentOptions(item) });
-      this.processing = false;
-      setTimeout(() => {
-        this.nativePro.hideLoading();
-      }, 350);
-    }).catch(ex => error(ex));
+    this.excellentPro.excellents(Object.assign({}, this.pageview, this.option))
+      .then(res => {
+        if (!res || !res.questions || !res.questions.length) return error(res);
+        this.excellentsOpts = res.questions.map((item) => { return new ExcellentOptions(item) });
+        this.processing = false;
+        setTimeout(() => {
+          this.nativePro.hideLoading()
+          this.total = res.total;
+        }, 350);
+      })
+      .catch(ex => error(ex));
 
   }
 

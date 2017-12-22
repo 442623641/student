@@ -91,13 +91,27 @@ export class ExamsPage {
         this.navCtrl.insert(start + 1, this.pages.doctor, item, { animate: false }).then(() => {
           this.navCtrl.remove(start + 2, res.len - start - 1).then(() => {
             this.achieveSub.unsubscribe();
-            //this.nativePro.showLoading();
-            //this.doRefresh();
           });
         });
       });
     });
   }
+
+  toReport(item) {
+    this.navCtrl.push(this.pages.report, item).then((res) => {
+      if (item.payment) return;
+      this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
+        this.achieveSub.unsubscribe();
+        if (res.type == "package") {
+          this.latest.payment = true;
+          this.exams.map(item => { return item.payment = true });
+        } else if (res.type == "exam") {
+          item.payment = true;
+        }
+      });
+    });
+  }
+
   ionViewDidEnter() {
     this.achieveSub && this.achieveSub.unsubscribe();
   }

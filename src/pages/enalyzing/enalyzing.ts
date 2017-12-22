@@ -74,13 +74,13 @@ export class EnalyzingPage {
 
   subject() {
     this.enalyzingPro && this.nativePro.showLoading();
+    this.content.scrollToTop();
     this.enalyzingPro.topics(this.enalyzingOpt.option).then(res => {
       this.enalyzingOpt = new EnalyzingOptions(res, this.enalyzingOpt.option);
       this.affix();
       this.package = true;
       this.nativePro.hideLoading();
       this.openPackageModal();
-      this.content.scrollToTop();
       //console.log(this.enalyzingOpt);
     }).catch(ex => {
       this.nativePro.hideLoading();

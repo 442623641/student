@@ -160,7 +160,7 @@
       <div class="card-modal">
         <h6 padding-vertical-12>{{comment}}</h6>
         <p>
-          <button ion-button round (touch)="openPackage()" event="report_open">查看{{name}}</button>
+          <button ion-button round (touch)="generate()" event="report_open">查看{{name}}</button>
         </p>
       </div>
       <ion-backdrop></ion-backdrop>
@@ -173,7 +173,7 @@
       <ion-col col-8 no-padding>
         开通学情套餐，掌控一切
       </ion-col>
-      <a [navPush]="pages.package" event="report_openPackage">立即开通</a>
+      <a (touch)="openPackage()" event="report_openPackage">立即开通</a>
     </ion-row>
   </ion-toolbar>
 </ion-footer>

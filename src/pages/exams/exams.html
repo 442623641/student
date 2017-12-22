@@ -19,10 +19,10 @@
     <div class="banner" *ngIf="waterball">
       <h3>{{latest.name}}</h3>
       <p ion-text color="gray9">发布时间：{{latest.time}}</p>
-      <echart [option]="waterball" [navPush]='pages.report' [navParams]="latest" event="exams_goLatestReport"></echart>
+      <echart [option]="waterball" (touch)="toReport(latest)" event="exams_goLatestReport"></echart>
       <ion-row justify-content-between>
         <ion-col col-6>
-          <button ion-button outline block [navPush]='pages.report' [navParams]="latest" event="exams_goLatestReport">学情报告</button>
+          <button ion-button outline block (touch)="toReport(latest)" event="exams_goLatestReport">学情报告</button>
         </ion-col>
         <ion-col col-6 [ngSwitch]="!!latest.payment">
           <button *ngSwitchCase="true" ion-button outline block color="green" [navPush]='pages.doctor' [navParams]="latest" event="exams_goDoctor">错题诊断</button>
@@ -41,7 +41,7 @@
             <ion-icon name="time-outline"></ion-icon> 发布时间：{{exam.time}}</ion-col>
         </ion-row>
         <ion-row [ngSwitch]="!!exam.payment" padding-vertical-8 split-line>
-          <a [navPush]='pages.report' [navParams]="exam" event="exams_goReport">学情报告</a>
+          <a (touch)="toReport(exam)" event="exams_goReport">学情报告</a>
           <a *ngSwitchCase="true" [navPush]='pages.doctor' [navParams]="exam" ion-text color="green" event="exams_goDoctor">错题诊断</a>
           <a *ngSwitchCase="false" (touch)="toReply(exam)" ion-text color="green" event="exams_goReply">答题情况</a>
         </ion-row>
