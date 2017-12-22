@@ -14,10 +14,76 @@ export class MobclickagentProvider {
   debugMode: boolean;
   native: boolean;
   events: any[] = [];
+
+
   constructor(platform: Platform) {
     console.log('Hello AnalyticsProvider Provider');
     this.native = platform.is('mobile') && !platform.is('mobileweb')
   }
+
+  /**
+   * 自定义事件数量统计
+   *
+   * @param eventId
+   *            string类型.事件ID，注意需要先在友盟网站注册此ID
+   */
+  onEvent(eventId: string) {};
+  /**
+   * 自定义事件数量统计
+   *
+   * @param eventId
+   *            NSString类型.事件ID， 注意需要先在友盟网站注册此ID
+   * @param eventLabel
+   *            NSString类型.事件标签，事件的一个属性说明
+   */
+  //onEventWithLabel(eventId: string, eventLabel: string){};
+  /**
+   * 自定义事件数量统计
+   *
+   * @param eventId
+   *            NSString类型.事件ID， 注意需要先在友盟网站注册此ID
+   * @param eventData
+   *            NSDictionary类型.当前事件的属性集合，最多支持10个K-V值
+   */
+  onEventWithParameters(eventId: string, eventData: any[]) {};
+  /**
+   * 统计帐号登录接口 *
+   *
+   * @param UID
+   *            用户账号ID,长度小于64字节
+   */
+  profileSignInWithPUID(UID: string) {};
+  /**
+   * 帐号统计退出接口
+   */
+  profileSignOff() {};
+  /**
+   * 页面统计开始时调用
+   *
+   * @param pageName
+   *            NSString类型.页面名称
+   */
+  onPageBegin(pageName: string) {};
+  /**
+   * 页面统计结束时调用
+   *
+   * @param pageName
+   *            NSString类型.页面名称
+   */
+  onPageEnd(pageName: string) {};
+
+  /**
+   * 真实消费（充值）的时候调用此方法 1.AppStore 2.支付宝 3.网银 4.财付通 5.移动 6.联通 7.电信 8.paypal
+   *
+   * @param money
+   *            double类型.本次消费金额
+   * @param coin
+   *            double类型.本次消费等值的虚拟币
+   * @param source
+   *            int类型.本次消费的途径，网银，支付宝 等
+   */
+
+  pay(money: number, coin: number, source: number) {};
   config(config ? , debugMode ? ) {
     this.debugMode = debugMode;
     if (!this.native) {
@@ -28,57 +94,6 @@ export class MobclickagentProvider {
     }
 
   }
-
-  /**
-   * 自定义事件数量统计
-   *
-   * @param eventId
-   *            string类型.事件ID，注意需要先在友盟网站注册此ID
-   */
-  onEvent: Function;
-  /**
-   * 自定义事件数量统计
-   *
-   * @param eventId
-   *            NSString类型.事件ID， 注意需要先在友盟网站注册此ID
-   * @param eventLabel
-   *            NSString类型.事件标签，事件的一个属性说明
-   */
-  onEventWithLabel: Function;
-  /**
-   * 自定义事件数量统计
-   *
-   * @param eventId
-   *            NSString类型.事件ID， 注意需要先在友盟网站注册此ID
-   * @param eventData
-   *            NSDictionary类型.当前事件的属性集合，最多支持10个K-V值
-   */
-  onEventWithParameters: Function;
-  /**
-   * 统计帐号登录接口 *
-   *
-   * @param UID
-   *            用户账号ID,长度小于64字节
-   */
-  profileSignInWithPUID: Function;
-  /**
-   * 帐号统计退出接口
-   */
-  profileSignOff: Function;
-  /**
-   * 页面统计开始时调用
-   *
-   * @param pageName
-   *            NSString类型.页面名称
-   */
-  onPageBegin: Function = (e) => {};
-  /**
-   * 页面统计结束时调用
-   *
-   * @param pageName
-   *            NSString类型.页面名称
-   */
-  onPageEnd: Function;
 
   /**
    * 真机环境
@@ -95,7 +110,8 @@ export class MobclickagentProvider {
 
     this.onPageBegin = MobclickAgent.onPageBegin;
 
-    this.onPageEnd = MobclickAgent.onPageBegin;
+    this.onPageEnd = MobclickAgent.onPageEnd;
+    this.pay = MobclickAgent.pay;
     console.log('cordova mobclickAgent loaded success');
   }
   /**
@@ -122,6 +138,9 @@ export class MobclickagentProvider {
     }
     this.onPageEnd = (pageName) => {
       console.log('onPageEnd', JSON.stringify([pageName]));
+    }
+    this.pay = (money, coin, source) => {
+      console.log(source + ' pay', 'money:' + money + ',coin:' + coin);
     }
     console.log('web mobclickAgent loaded success');
   }

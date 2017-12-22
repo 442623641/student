@@ -31,13 +31,13 @@ export class ReplyPage {
   exam: any = {};
   balls: string[] = [];
 
-  affixH: number;
-
-
   /**
    *是否固定小题详细头部
    */
   stickTopicHeader: boolean;
+  scrolllProcessing: boolean;
+  scrollTimer: any;
+  affixH: number;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -114,11 +114,7 @@ export class ReplyPage {
       return;
     }
     this.doctorPro.topic({ guid: this.exam.guid, subject: this.subject.name, th: this.subject.activity.name }).then(res => {
-      if (!res || !res.question) {
-        //this.subject.activity.fullString=null;
-        //this.subject.activity = null;
-        return;
-      };
+      if (!res || !res.question) return;
       this.subject.activity.merge(res.question);
     }).catch((ex) => {
       console.log(ex);
@@ -137,11 +133,18 @@ export class ReplyPage {
     this.subjects[this.subjectIndex] = val;
   }
 
+
+  /**
+   *头部滚动处理
+   */
   scrollHandler(event) {
-    if (this.lantern) return;
-    this.zone.run(() => {
-      this.stickTopicHeader = event.scrollTop > this.affixH;
-    });
+    if (this.scrolllProcessing || this.lantern) return;
+    let show = event.scrollTop > this.affixH;
+    if (show == this.stickTopicHeader) return;
+    clearTimeout(this.scrollTimer);
+    this.scrolllProcessing = true;
+    this.scrollTimer = setTimeout(() => this.scrolllProcessing = false, 250);
+    this.zone.run(() => this.stickTopicHeader = show);
   }
   closeLantern() {
     this.lantern = false;

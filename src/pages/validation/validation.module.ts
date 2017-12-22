@@ -4,6 +4,7 @@ import { ValidationPage } from './validation';
 import { ValidationProvider } from '../../providers/validation/validation';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
+import { AgreecheckComponentModule } from '../../components/agreecheck/agreecheck.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { DirectivesModule } from '../../directives/directives.module';
     IonicPageModule.forChild(ValidationPage),
     ComponentsModule,
     DirectivesModule,
+    AgreecheckComponentModule,
   ],
   providers: [
     ValidationProvider

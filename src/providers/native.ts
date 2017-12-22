@@ -6,6 +6,10 @@ import { PhotosviewerComponent } from '../components/photosviewer/photosviewer';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { AppVersion } from '@ionic-native/app-version';
+/* beautify ignore:start */
+declare let ProgressIndicator: any;
+/* beautify ignore:end */
+
 /**
  * added by 442623641@qq.com 201703161032.
  * 原生API
@@ -98,27 +102,19 @@ export class NativeProvider {
    * @param message 信息内容
    * @param duration 显示时长
    */
-  prompt = (message: string = '操作完成', duration: number = 3000) => {
-    if (this.native) {
-      // return this.ntoast.showWithOptions({
-      //   message: message,
-      //   position: 'center',
-      //   duration: duration,
-      //   addPixelsY: -10,
-      //   styling: {
-      //     //opacity: 1,
-      //     //backgroundColor: '#f66e4f',
-      //     //textColor: '#666666',
-      //     cornerRadius: 14,
-      //     horizontalPadding: 60,
-      //     verticalPadding: 60,
-      //   }
-      // }).subscribe()
-      return this.toast(message, 3000, 'center');
-      //return this.ntoast.show(message, String(duration), 'middle').subscribe();
+  success = (message: string = '操作完成', duration: number = 2000) => {
+    if (this.isIos()) {
+      ProgressIndicator.hide();
+      ProgressIndicator.showSuccess(false, message);
+      return new Promise(resolve => setTimeout(() => {
+        ProgressIndicator.hide();
+        resolve();
+      }, duration));
     } else {
-      return this.toast(message, duration, 'middle');
+      this.toast(message, duration, 'center');
+      return new Promise(resolve => setTimeout(() => resolve(), duration));
     }
+
   };
 
   /**
@@ -127,12 +123,14 @@ export class NativeProvider {
    * @buttons 按钮
    * @return {Promise<T>}
    */
-  confirm = (msg: string = "确定这样做？", btns: Array < string >= ["取消", "确认"], title: string = '', shouldTitle ? : boolean) => {
+  confirm = (msg: string = "确定这样做？", btns: Array < string >= ["取消", "确认"], title: string = '', shouldTitle ? : boolean, shouldBackButtonIndex ? : boolean) => {
     if (this.native) {
       return this.isIos() ? this.dialogs.confirm(title ? msg : title, title ? title : msg, btns).then(btn => {
-        return Math.max(btn - 1, 0);
+        console.log('clicked button index:' + btn);
+        return shouldBackButtonIndex ? btn : Math.max(btn - 1, 0);
       }) : this.dialogs.confirm(msg, shouldTitle ? title : '', [btns[0], '', btns[1]]).then(btn => {
-        return Math.max(btn - 2, 0);
+        console.log('clicked button index:' + btn);
+        return shouldBackButtonIndex ? btn == 3 ? 2 : btn : Math.max(btn - 2, 0);
       });
     }
     return new Promise((resolve, reject) => {
@@ -143,12 +141,12 @@ export class NativeProvider {
         buttons: [{
           text: btns[0],
           handler: () => {
-            resolve(0);
+            resolve(shouldBackButtonIndex ? 1 : 0);
           }
         }, {
           text: btns[1],
           handler: () => {
-            resolve(1);
+            resolve(shouldBackButtonIndex ? 2 : 1);
           }
         }]
       });
@@ -190,16 +188,20 @@ export class NativeProvider {
    * @param content 显示的内容
    */
   showLoading = (content: string = "加载中...") => {
+    if (this.loadRunning) {
+      return;
+    }
+    this.loadRunning = true;
+    let progressCtrl: any;
     if (this.isAndroid()) {
-      setTimeout(() => { //最长显示10秒
-        this.loadRunning = false;
-        this.spinnerDialog.hide();
-      }, 60000);
-      this.loadRunning = true;
-      return this.spinnerDialog.show('', content, true);
-    };
-    if (!this.loadRunning) {
-      this.loadRunning = true;
+      progressCtrl = this.spinnerDialog;
+      this.spinnerDialog.hide();
+      this.spinnerDialog.show('', content, true);
+    } else if (this.isIos()) {
+      progressCtrl = ProgressIndicator;
+      ProgressIndicator.hide();
+      ProgressIndicator.showSimpleWithLabel(false, content);
+    } else {
       this.loading = this.loadingCtrl.create({
         spinner: 'ios',
         content: content,
@@ -209,11 +211,14 @@ export class NativeProvider {
         duration: 60000
       });
       this.loading.present();
-
       setTimeout(() => { //最长显示10秒
         this.loadRunning = false;
       }, 60000);
     }
+    setTimeout(() => { //最长显示10秒
+      this.loadRunning = false;
+      progressCtrl.hide();
+    }, 60000);
   };
 
   /**
@@ -222,6 +227,8 @@ export class NativeProvider {
   hideLoading = () => {
     if (this.isAndroid()) {
       this.loadRunning && this.spinnerDialog.hide();
+    } else if (this.isIos()) {
+      ProgressIndicator.hide();
     } else {
       this.loadRunning && this.loading.dismiss();
     }

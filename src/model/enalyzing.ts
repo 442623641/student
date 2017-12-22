@@ -38,6 +38,11 @@ export class ExamOptions {
    */
   time: string;
 
+  /**
+   *题目个数
+   */
+  count: number;
+
 
   //count: number;
 
@@ -50,20 +55,26 @@ export class ExamOptions {
     this.guid = obj.guid;
     this.name = obj.name;
     this.time = obj.time;
+    this.count = obj.count;
     this.questions = obj.questions && obj.questions.length ? obj.questions.map(q => {
       return new CategoryOptions(q);
     }) : [];
+
   }
 
-  /**
-   *考试题目计数
-   */
-  get count(): number {
-    return this.questions ? this.questions.length : 0;
-  }
+  // /**
+  //  *考试题目计数
+  //  */
+  // get count(): number {
+  //   return this.questions ? this.questions.length : 0;
+  // }
+
 
   remove(i: number) {
-    this.questions && this.questions[i] && this.questions.splice(i, 1);
+    if (this.questions && this.questions[i]) {
+      this.count--;
+      this.questions.splice(i, 1);
+    }
     return this.questions.length;
   }
 }

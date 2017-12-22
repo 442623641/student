@@ -44,46 +44,37 @@ export class PasswordPage {
   }
 
   save(obj) {
-    if (obj.oldpassword && obj.password == obj.oldpassword) {
-      this.authForm['processing'] = false;
-      return this.nativepro.toast('旧密码与新密码相同')
-    }
+    if (obj.oldpassword && obj.password == obj.oldpassword) return this.nativepro.toast('旧密码与新密码相同')
     this[this.type](obj);
-  }
-  onInput(e) {
-    console.log(e);
-    return false;
-
   }
 
   /**
-   *注册
-   */
-  private register(obj) {
+   *注册 
+  //  */
+  register(obj) {
     this.authForm['processing'] = true;
-    this.passwordPro.register({ token: this.params.token, code: this.params.code, pwd: obj.password, rpwd: obj.repassword }).then(res => {
+    this.passwordPro.register({ token: this.params.token, pwd: obj.password, rpwd: obj.repassword, code: this.params.code }).then(res => {
       console.log(res);
       this.sucess('注册成功');
     }).catch(err => this.error(err));
+
   }
 
   /**
    *设置密码
    */
-  private recover(obj) {
+  recover(obj) {
     this.authForm['processing'] = true;
-    this.passwordPro.verify({ token: this.params.token, code: this.params.code, tel: this.params.phone }).then(res => {
-      this.passwordPro.recover({ token: res.token, pwd: obj.password, rpwd: obj.password, tel: this.params.phone }).then(res => {
-        console.log(res);
-        this.sucess('设置成功');
-      }) //.catch((err) => this.error(err));
-    }).catch(err => this.error(err));
+    this.passwordPro.recover({ token: this.params.pwdtoken, pwd: obj.password, rpwd: obj.password, tel: this.params.phone }).then(res => {
+      console.log(res);
+      this.sucess('设置成功');
+    }).catch((err) => this.error(err));
   }
 
   /**
    *修改密码
    */
-  private reset(obj) {
+  reset(obj) {
     this.authForm['processing'] = true;
     this.passwordPro.reset({ opwd: obj.oldpassword, pwd: obj.password, rpwd: obj.password }).then(res => {
       console.log(res);
@@ -92,7 +83,7 @@ export class PasswordPage {
   }
 
   private sucess(msg: string) {
-    this.nativepro.toast(msg);
+    this.nativepro.success(msg);
     this.authForm['processing'] = false;
     this.userPro.getLogin().then(res => {
       res = res || { usercode: '' };
@@ -103,7 +94,7 @@ export class PasswordPage {
   }
   private error(err = { message: '网络延时，请稍后再试' }) {
     console.error(err);
-    this.nativepro.prompt(err.message);
+    this.nativepro.toast(err.message);
     this.authForm['processing'] = false;
   }
 }

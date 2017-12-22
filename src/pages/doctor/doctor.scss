@@ -3,13 +3,20 @@ page-doctor {
     position: relative;
     z-index: 1;
   }
-  .slides {
-    height: auto;
+  .subejct-slider {
+    height: 502px;
+    max-height: 502px;
+    .swiper-wrapper {
+      height: 502px;
+      max-height: 502px;
+    }
   }
+
   .card {
     &.origin {
       img {
         max-height: 120px;
+        height: 120px;
       }
     }
     margin: 16px 0;
@@ -24,6 +31,7 @@ page-doctor {
         &:first-child {
           padding-left: 0;
           i {
+            border-radius: 2px;
             background: color($colors, primary);
             padding: 0 2px;
             margin-right: 8px;
@@ -59,7 +67,7 @@ page-doctor {
     background: color($colors, primary);
     color: #fff;
     height: 40px;
-    line-height: 36px;
+    line-height: 33px;
   }
   .swiper-slide {
     font-size: inherit;
@@ -116,11 +124,9 @@ page-doctor {
         .icon {
           vertical-align: text-top;
         }
-      }
-
-      p:not([footer]) {
-        font-weight: 500;
-      }
+      } //   p:not([footer]) {
+      //   font-weight: 500;
+      // }
       .item-content {
         padding: 10px;
         text-align: center;
@@ -128,7 +134,7 @@ page-doctor {
     }
   }
   .card-content {
-    padding: 0px 10px 16px 10px;
+    padding: 0px 16px 16px 16px;
     max-height: 200px;
     overflow: hidden;
   }

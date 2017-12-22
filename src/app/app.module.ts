@@ -73,16 +73,12 @@ import { UpgradeProvider } from '../providers/app/upgrade';
     IonicModule.forRoot(StudentApp, {
       backButtonText: '',
       mode: 'ios',
-      iconMode: 'ios',
+      // iconMode: 'ios',
       tabsPlacement: 'bottom',
       modalEnter: 'modal-md-slide-in',
       modalLeave: 'modal-md-slide-out',
       tabsHideOnSubPages: true,
-      scrollPadding: false,
-      scrollAssist: true,
-      autoFocusAssist: false,
       spinner: 'ios-small',
-      //pageTransitionDelay: '16'
     }),
     ComponentsModule,
     IonicStorageModule.forRoot(),

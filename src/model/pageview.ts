@@ -4,9 +4,9 @@ export class Pageview {
   constructor(obj: {
     viewindex: number,
     viewlength: number
-  } = { viewindex: 1, viewlength: 5 }) {
+  } = { viewindex: 1, viewlength: 10 }) {
     this.viewindex = obj.viewindex || 1;
-    this.viewlength = obj.viewlength || 5;
+    this.viewlength = obj.viewlength || 10;
     // code...
   }
 }

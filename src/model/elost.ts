@@ -121,7 +121,7 @@ export class LostOptions {
 }
 
 export class LostParams {
-  readonly ordertype: string = 'errorbook';
+  readonly ordertype ? : string = 'errorbook';
   exams: {
     name: string,
     count: number,
@@ -158,7 +158,7 @@ export class LostParams {
   /**
    *支付金额
    */
-  amount: number;
+  amount ? : number;
 
   constructor(obj: Elost[], amount: number) {
     // code...
@@ -168,7 +168,7 @@ export class LostParams {
         money: item.money,
         name: item.name,
         count: item.pagenum,
-        promote: item.promote,
+        promote: item.isPromote,
         examguids: item.exams.map(item => { return item.guid }).join(',')
       }
     });

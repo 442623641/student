@@ -33,9 +33,9 @@ export class PackageProvider {
   }
 
   options(data: { type: string } = { type: 'pa' }) {
-    if (this._default && this.token == this.http.token) {
-      return this.locals();
-    }
+    // if (this._default && this.token == this.http.token) {
+    //   return this.locals();
+    // }
     return this.http.post('payment/getxbz', data).then(res => {
       this.storage.set(PACKAGE, res);
       this._default = res.find(item => { return item.year == 1 });

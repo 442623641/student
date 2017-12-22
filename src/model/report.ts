@@ -68,6 +68,11 @@ export class ReportOptions {
   learnanalysis: any;
 
   /**
+   *学情分析偏移量
+   */
+  offset: number;
+
+  /**
    *排名对比
    */
   comranks: any[];
@@ -113,6 +118,11 @@ export class ReportOptions {
    */
   rankSubjects: string[];
 
+  /**
+   *成绩计算权重
+   */
+  weight: string;
+
   constructor(obj: any = { percent: 0, level: 1, studentCount: 1, scores: [], levelanalysis: null, learnanalysis: null, payment: false }) {
     this.percent = obj.percent;
     this.level = obj.level;
@@ -126,6 +136,8 @@ export class ReportOptions {
     this.scoretrends = obj.scoretrends || [];
     this.subjects = this.getSubjects();
     this.rankSubjects = obj.rankSubjects || [];
+    this.weight = obj.weight;
+    this.offset = obj.offset;
     this.scoreSubjects = obj.scoreSubjects || []; //this.subjects.filter(item => { return item != '总分' });
     this.resetPayment(obj.payment);
   }

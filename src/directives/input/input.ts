@@ -13,7 +13,7 @@ export class InputDirective {
   private regExp; //: RegExp;
   @Input() type: string;
   @Input() entype: string;
-  @Input() min: number = 0;
+  @Input() min: number;
   @Input() max: number;
   @Input() maxlength: number;
   @Input() enpattern: any;
@@ -26,8 +26,7 @@ export class InputDirective {
    */
   @HostListener('ionBlur', ['$event'])
   onblur(e) {
-    this.type == "integer" &&
-      e.setValue(Math.max(e.value, this.min));
+    this.min >= 0 && e.setValue(Math.max(e.value, this.min));
   }
 
   @HostListener('ionChange', ['$event'])

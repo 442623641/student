@@ -6,7 +6,7 @@ import { PaymentProvider } from '../../providers/payment/payment';
 import { ReportOptions, ReportCategory } from '../../model/report';
 import { DOCTOR_PAGE, PACKAGE_PAGE, RECHARGE_PAGE, REPLY_PAGE } from '../pages.constants';
 import { NativeProvider } from '../../providers/native';
-import { CouponProvider } from '../../providers/coupon/coupon';
+//import { CouponProvider } from '../../providers/coupon/coupon';
 /**
  * Generated class for the ReportPage page.
  *
@@ -32,7 +32,7 @@ export class ReportPage {
   reports: ReportOptions[] = [];
   infinites: boolean[] = [true, true];
 
-  couponCount: number = 0;
+  // couponCount: number = 0;
   price: number = 0;
   balance: number = 0;
   achieveSub: any;
@@ -45,14 +45,13 @@ export class ReportPage {
     private paymentPro: PaymentProvider,
     private viewCtrl: ViewController,
     private nativePro: NativeProvider,
-    private couponPro: CouponProvider
   ) {}
 
   ionViewDidLoad() {
     this.initializePackage();
     setTimeout(() => {
       this.exam = this.navParams.data;
-      this.exam.payment || this.couponPro.getcount().then(res => this.couponCount = res.count || 0).catch();
+      //this.exam.payment || this.couponPro.getcount().then(res => this.couponCount = res.count || 0).catch();
       this.showNavButton = this.navCtrl.getPrevious().id != DOCTOR_PAGE;
       this.getReport(this.reportIndex).then(res => {
         this.categorys = ReportCategory.filter(item => { return item.code <= res.level }).reverse();
@@ -104,8 +103,9 @@ export class ReportPage {
       scoreSubjects: res.scoreSubjects,
       rankSubjects: res.rankSubjects,
       payment: res.buy,
+      weight: res.weight
     }) : null;
-    //console.log(this.report.scores.shift());
+    console.log(JSON.stringify(this.report.learnanalysis));
   }
 
   get report(): ReportOptions {
@@ -145,7 +145,7 @@ export class ReportPage {
       subject: name
     }).then(res => {
       if (!res) this.report.activityRanktrends = null;
-      this.report.activityRanktrends = this.chartsPro.scoretrend(res, res.name || '排名', true);
+      this.report.activityRanktrends = this.chartsPro.ranktrend(res, res.name || '排名');
       //console.log(res);
     }).catch(ex => this.report.activityRanktrends = null);
   }
@@ -165,7 +165,7 @@ export class ReportPage {
       })
       .then(res => {
         if (!res) this.report.activityScoretrends = null;
-        this.report.activityScoretrends = this.chartsPro.scoretrend(res, "得分率 %");
+        this.report.activityScoretrends = this.chartsPro.scoretrend(res);
         //console.log(res);
       })
       .catch(ex => this.report.activityScoretrends = null);
@@ -190,7 +190,7 @@ export class ReportPage {
   initializePackage() {
 
     if (this.navParams.get('payment')) return;
-    this.couponPro.getcount().then(res => this.couponCount = res.count || 0).catch();
+    //this.couponPro.getcount().then(res => this.couponCount = res.count || 0).catch();
     this.paymentPro.getLocalBalance().then(res => this.balance = res);
 
   }
@@ -210,18 +210,10 @@ export class ReportPage {
       this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
         let start = this.navCtrl.indexOf(this.viewCtrl);
         this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
-          success()
+          res.amount >= (COIN - this.balance) && success()
           this.achieveSub.unsubscribe();
         });
       });
-    }
-
-    //有优惠劵前往学情套餐
-    if (this.couponCount) {
-      return this.nativePro.confirm(`您现有${this.couponCount}张优惠券，开通学情套餐更为划算哦！`, ['取消', '立即开通'], '开通学情套餐')
-        .then(btn => {
-          btn && this.navCtrl.push(PACKAGE_PAGE).then(() => callback())
-        })
     }
 
     //学贝充足，生产学情报告
@@ -229,15 +221,13 @@ export class ReportPage {
       return this.nativePro.confirm(`您当前持有${this.balance}学贝，生成本次学情报告需消耗${COIN}学贝`, ['取消', '立即生成'], '生成学情报告')
         .then(btn => {
           btn && this.paymentPro.sa({ ordertype: 'exam', examguid: this.exam.guid }).then(res => {
-            this.nativePro.prompt("成功生成学情报告");
+            this.nativePro.success("生成成功");
             this.paymentPro.achieve({ len: this.navCtrl.length(), result: res, type: 'exam' })
             success()
           })
         })
-    }
-
-    //学贝不足，充值
-    if (this.balance < COIN) {
+    } else {
+      //学贝不足，充值
       return this.nativePro.confirm(`您当前持有${this.balance}学贝，生成本次学情报告需要${COIN}学贝，还需充值${COIN-this.balance}学贝`, ['取消', '立即充值'], '生成学情报告')
         .then(btn => {
           btn && this.navCtrl.push(RECHARGE_PAGE, {

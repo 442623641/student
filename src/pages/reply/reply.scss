@@ -3,6 +3,11 @@ page-reply {
   .topics loading .row {
     height: auto;
   }
+  .slides,
+  .swiper-wrapper {
+    height: 200px;
+    max-height: 200px;
+  }
   .swiper loading .row {}
   .sub-header {
     iscroll {
@@ -19,8 +24,11 @@ page-reply {
   }
 
   .footer {
-    background: #ffbe40;
-    padding: 16px 16px 0 16px;
+
+    .toolbar-content {
+      background: #ffbe40;
+      padding: 16px 16px 0 16px;
+    }
   }
   .lantern {
     p {
@@ -59,5 +67,16 @@ page-reply {
     opacity: 1;
     top: 43px;
     transition: all .38s;
+  }
+
+  .enter-footer,
+  .footer.leave-active-footer {
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .footer.enter-active-footer,
+  .leave-footer {
+    opacity: 1;
+    transition: opacity .3s;
   }
 }

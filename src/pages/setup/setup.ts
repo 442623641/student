@@ -28,10 +28,6 @@ export class SetupPage {
   ) {}
   logout() {
     this.userProvider.logout();
-    //this.navCtrl.setRoot(LoginPage, {}, { animation: 'wp-transition', animate: true });
-  }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SetupPage');
   }
   checkUpdate() {
     this.upgradePro.checkUpdate().then(res => {

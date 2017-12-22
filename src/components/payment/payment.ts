@@ -15,11 +15,13 @@ import { NativeProvider } from '../../providers/native';
   templateUrl: 'payment.html'
 })
 export class PaymentComponent {
+
   @Input() amount: number = 0;
   @Input() options: PaymentOption; // { amount: 0, ordertype: 'package' }; //{ amount: number, coupon: string, coin: number, type: string, biz: any };
   @Output() fulfill: EventEmitter < any > = new EventEmitter();
   @Input() min: number = 0;
   @Input() disabled: boolean;
+  db: string;
   processing: boolean;
   orderCode: string;
   constructor(
@@ -37,7 +39,7 @@ export class PaymentComponent {
     if (this.processing) return;
     this.processing = true;
     if (this.amount > 0) {
-      this.orderCode ? this.toPayment() :
+      this.db == JSON.stringify(this.options) ? this.toPayment() :
         this.paymentPro.code(this.options).then(res => {
           if (!res || !res.ordercode) return this.catchError(res);
           this.orderCode = res.ordercode;
@@ -46,11 +48,15 @@ export class PaymentComponent {
         }).catch(ex => this.catchError(ex))
 
     } else {
-      this.paymentPro.sa(this.options).then(res => {
-        this.paymentPro.achieve({ len: this.navCtrl.length(), result: res, type: this.options.ordertype });
-        this.nativePro.prompt('支付成功');
-        this.processing = false;
-      }).catch(ex => this.catchError(ex));
+      this.paymentPro.sa(this.options)
+        .then(res => {
+          //setTimeout(() => this.paymentPro.achieve({ len: this.navCtrl.length(), result: res, type: this.options.ordertype, amount: this.amount }), 1000);
+          this.nativePro.success('支付成功').then(() => {
+            this.paymentPro.achieve({ len: this.navCtrl.length(), result: res, type: this.options.ordertype, amount: this.amount })
+          })
+          this.processing = false;
+        })
+        .catch(ex => this.catchError(ex));
     }
   }
   catchError(res ? ) {
@@ -60,11 +66,11 @@ export class PaymentComponent {
   }
 
   toPayment() {
-
+    this.db = JSON.stringify(this.options);
     this.navCtrl.push(PAYMENT_PAGE, {
       params: { ordertype: this.options.ordertype, ordercode: this.orderCode },
       amount: this.amount,
-    }).then(() => this.processing = false);
+    }).then(() => { this.processing = false });
   }
 
 }

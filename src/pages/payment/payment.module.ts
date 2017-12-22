@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { PaymentPage } from './payment';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
+import { AgreecheckComponentModule } from '../../components/agreecheck/agreecheck.module';
 @NgModule({
   declarations: [
     PaymentPage,
@@ -11,6 +12,7 @@ import { DirectivesModule } from '../../directives/directives.module';
     IonicPageModule.forChild(PaymentPage),
     ComponentsModule,
     DirectivesModule,
+    AgreecheckComponentModule,
   ],
 })
 export class PaymentPageModule {}

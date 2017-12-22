@@ -38,6 +38,11 @@ page-report {
 
   .card {
     position: relative;
+    &.text-left {
+      .col {
+        text-align: left;
+      }
+    }
     .card-header {
       padding-bottom: 10px;
     }
@@ -64,9 +69,8 @@ page-report {
       }
       .score-item {
         .col {
-          text-align: center;
+          // text-align: left;
           align-self: center;
-          &:first-child {}
           .icon {
             margin-right: 5px;
             font-size: 1.8em; //background: #FFEB3B;
@@ -79,7 +83,7 @@ page-report {
         p {
           font-size: 1.3rem;
           text-align: left;
-          padding-left: 26px;
+          padding-left: 5px;
           color: color($colors, gray9);
           span {
             padding: 2px 6px;

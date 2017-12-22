@@ -1,8 +1,7 @@
 import { HttpProvider } from "../http";
 import { Injectable } from '@angular/core';
-import { AppVersion } from '@ionic-native/app-version';
+import { Config } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 import { NativeProvider } from '../native';
 import { UpgradeProvider } from './upgrade';
 import { HardbackProvider } from './hardback';
@@ -23,6 +22,7 @@ export class AppProvider {
     private statusBar: StatusBar,
     private analyticsPro: MobclickagentProvider,
     private hardbackPro: HardbackProvider,
+    private config: Config
   ) {
     console.log('Hello AppProvider Provider');
   }
@@ -40,6 +40,11 @@ export class AppProvider {
       this.statusBar.backgroundColorByHexString("#f66e4f");
       //安卓硬件返回功能
       this.hardbackPro.registerBackButtonAction();
+
+      //键盘弹出
+      this.config.set('android', 'scrollPadding', false);
+      this.config.set('android', 'scrollAssist', true);
+      this.config.set('android', 'autoFocusAssist', false);
     } else if (this.nativePro.isIos()) {
       //ios
       analyticsConfig = {

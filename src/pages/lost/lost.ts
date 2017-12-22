@@ -120,6 +120,7 @@ export class LostPage {
       if (!res.money) return exception(res);
       this.payDisabled = false;
       lost = Object.assign(lost, res, { processing: false })
+      lost.isPromote || (lost.promote = undefined);
       //lost.money += this.baseAmount;
       this.calcAmount();
     }).catch(ex => exception(ex));

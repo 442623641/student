@@ -11,8 +11,8 @@ import { Component, Input } from '@angular/core';
   templateUrl: 'currency.html'
 })
 export class CurrencyComponent {
-  integerDigits: string;
-  fractionDigits: string;
+  integerDigits: string = '0';
+  fractionDigits: string = '00';
   _value: any;
   @Input() set value(val: any) {
     val = Number(val);

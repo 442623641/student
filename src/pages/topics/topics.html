@@ -11,7 +11,7 @@
   </ion-row>
 </ion-header>
 <ion-content [fullscreen]="true" hook="TopicsPage">
-  <echarts-ng2 [option]='options' [style]="{'height': 45*(options.yAxis.data.length+1)+'px'}"></echarts-ng2>
+  <echart [option]='options' [style.height.px]="45*(options.yAxis.data.length+1)"></echart>
 </ion-content>
 <ion-footer class="blur">
   <p text-center ion-text (tap)="viewCtrl.dismiss()" style="padding:12px" line-top>

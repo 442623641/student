@@ -125,9 +125,10 @@ export class PersonalPage {
         grade: this.userInfo.grade
       }).then(res => {
         this.processing = undefined;
-        this.nativePro.prompt('信息更新成功');
         this.userPro.setUserInfo(this.userInfo);
-        setTimeout(() => this.navCtrl.getPrevious().name != LOGIN_PAGE ? this.navCtrl.pop() : this.appCtrl.getRootNav().setRoot(TABS_PAGE, {}, { animate: true, animation: 'ios-transition', direction: 'forward' }), 1000);
+        this.nativePro.success('更新成功').then(() => {
+          this.navCtrl.getPrevious().name != LOGIN_PAGE ? this.navCtrl.pop() : this.appCtrl.getRootNavs()[0].setRoot(TABS_PAGE, {}, { animate: true, animation: 'ios-transition', direction: 'forward' })
+        })
       }).catch(ex => {
         this.processing = undefined;
         this.nativePro.toast(ex.message);

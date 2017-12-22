@@ -32,7 +32,7 @@ export class AddressPage {
   ) {
     this.options = navParams.data || {};
     this.authForm = formBuilder.group({
-      tel: [this.options.tel, Validators.compose([Validators.maxLength(11), Validators.required])],
+      tel: [this.options.tel, Validators.compose([Validators.minLength(11), Validators.maxLength(11), Validators.required, Validators.pattern("^1[34578][0-9]{9}$")])],
       name: [this.options.name, Validators.compose([Validators.required])],
       address: [this.options.address, Validators.compose([Validators.required])],
       area: [this.options.area, Validators.compose([Validators.required])],
@@ -41,9 +41,7 @@ export class AddressPage {
       this.cityData = res;
     });
   }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddressPage');
-  }
+
   save(values) {
     console.log(values);
     this.addressPro.add(values);
@@ -55,8 +53,8 @@ export class AddressPage {
       .then(res => {
         console.log(res);
         if (!res) return;
-        this.authForm.controls.tel.setValue(res.phoneNumbers[0] && res.phoneNumbers[0].value ? res.phoneNumbers[0].value.replace(/ /g, '') : '')
-        this.authForm.controls.name.setValue(res.displayName);
+        this.authForm.controls.tel.setValue(res.phoneNumbers[0] && res.phoneNumbers[0].value ? res.phoneNumbers[0].value.replace(/ /g, '').replace(/-/g, '') : '')
+        this.authForm.controls.name.setValue(res.name.formatted.replace(/ /g, ''));
       })
       .catch(ex => console.log(ex));
   }

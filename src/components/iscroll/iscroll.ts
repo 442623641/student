@@ -132,7 +132,7 @@ export class Iscroll {
       }
       let currentFrameId = null,
         frames = 0,
-        interval = Math.ceil(offsetY * 50 / duration),
+        interval = Math.ceil(offsetY * 50 / Math.max(duration, 50)),
         start = this.getScrollTop();
 
       offsetY = offsetY < 0 ? Math.max(-start, offsetY) : Math.min(maxTop, offsetY);
@@ -171,7 +171,7 @@ export class Iscroll {
       }
       let currentFrameId = null,
         frames = 0,
-        interval = Math.ceil(offsetX * 50 / duration),
+        interval = Math.ceil(offsetX * 50 / Math.max(duration, 50)),
         start = this.getScrollLeft();
 
       offsetX = offsetX < 0 ? Math.max(-start, offsetX) : Math.min(maxLeft, offsetX);

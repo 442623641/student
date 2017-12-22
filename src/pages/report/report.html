@@ -21,8 +21,8 @@
   <ng-template #frame [ngIf]="categorys.length<2" [ngIfElse]="tslider" let-indexNum="indexNum">
     <ng-template [ngIf]="reports[indexNum]" [ngIfElse]="loadingc">
       <div padding-8 showWhen="ios"></div>
-      <p line-bottom line-top class="tip">总计{{reports[indexNum].studentCount}}名考生 领先{{reports[indexNum].percent|percent}}考生</p>
-      <ion-card class="score-card">
+      <p line-bottom class="tip">总计{{reports[indexNum].studentCount}}名考生 领先{{reports[indexNum].percent}}考生</p>
+      <ion-card class="score-card" [class.text-left]="exam.payment">
         <ion-card-header text-center color="primary">
           我的成绩
         </ion-card-header>
@@ -32,7 +32,7 @@
             <ion-col *ngFor="let item of reports[indexNum].fields">{{item.name}}</ion-col>
           </ion-row>
           <ion-row line-top *ngFor="let score of reports[indexNum].scores" class='score-item'>
-            <ion-col col-4 col-sm>
+            <ion-col col-4 col-sm text-center>
               <ion-icon name="{{score.name|subcon}}"></ion-icon>
               {{score.name | slice:0:2}}
             </ion-col>
@@ -42,7 +42,7 @@
                   {{item}}
                 </ion-col>
               </ion-row>
-              <p *ngIf="score.percent!=''&&score.percent>=0"><span *ngIf="score.rank!='' &&score.rank>=0">排名 {{score.rank}}</span> 领先 {{score.percent | percent}} 的考生</p>
+              <p *ngIf="score.percent"><span *ngIf="score.rank!='' &&score.rank>=0">排名 {{score.rank}}</span> 领先 {{score.percent}} 的考生</p>
             </ion-col>
           </ion-row>
         </ng-template>
@@ -53,7 +53,7 @@
             <ion-col>{{reports[indexNum].fields[reports[indexNum].fields.length-1].name}}</ion-col>
           </ion-row>
           <ion-row line-top *ngFor="let score of reports[indexNum].scores" class='score-item'>
-            <ion-col col-4 col-sm>
+            <ion-col col-4 col-sm text-center>
               <ion-icon name="{{score.name|subcon}}"></ion-icon>
               {{score.name | slice:0:2}}
             </ion-col>
@@ -69,6 +69,7 @@
             </ion-col>
           </ion-row>
         </ng-template>
+        <p *ngIf="reports[indexNum].weight" line-top ion-text color="gray9" margin-horizontal padding-vertical-8>{{reports[indexNum].weight}}</p>
       </ion-card>
       <ion-card *ngIf="reports[indexNum].subjects.length>2&&reports[indexNum].learnanalysis" class="learnanalysis">
         <ng-container *ngTemplateOutlet="cardModal;context:{name: '学科分析',comment:'优劣势学科一目了然，指引学习“航向”'}">
@@ -77,7 +78,7 @@
           学科分析
         </ion-card-header>
         <ion-card-content>
-          <echarts-ng2 [option]="reports[indexNum].learnanalysis" [style]="{'height': '260px'}"></echarts-ng2>
+          <echart [option]="reports[indexNum].learnanalysis" style="height:260px"></echart>
         </ion-card-content>
       </ion-card>
       <ion-card *ngIf="reports[indexNum].levelanalysis">
@@ -87,7 +88,7 @@
           层次分析
         </ion-card-header>
         <ion-card-content>
-          <echarts-ng2 [option]="reports[indexNum].levelanalysis" [style]="{'height': '210px'}"></echarts-ng2>
+          <echart [option]="reports[indexNum].levelanalysis"></echart>
         </ion-card-content>
       </ion-card>
       <ng-container *ngIf="!infinites[indexNum]">
@@ -118,7 +119,7 @@
           </ion-card-header>
           <scroll-header [(selected)]="reports[indexNum].scoretrendsIndex" [items]="reports[indexNum].scoreSubjects" *ngIf="reports[indexNum].scoreSubjects.length" (selectedChange)="scoretrends(reports[indexNum].scoreSubjects[$event])" event="report_scoretrendsFilter"></scroll-header>
           <ion-card-content style="height:220px;padding-right:0;">
-            <echarts-ng2 *ngIf="reports[indexNum].activityScoretrends;else loadinga" [option]="reports[indexNum].activityScoretrends" [style]="{'height':'195px'}"></echarts-ng2>
+            <echart *ngIf="reports[indexNum].activityScoretrends;else loadinga" [option]="reports[indexNum].activityScoretrends" style="height:195px"></echart>
             <ng-template #loadinga>
               <loading [status]="reports[indexNum].activityScoretrends"></loading>
             </ng-template>
@@ -132,7 +133,7 @@
           </ion-card-header>
           <scroll-header [(selected)]="reports[indexNum].ranktrendsIndex" [items]="reports[indexNum].rankSubjects" (selectedChange)="ranktrends(reports[indexNum].rankSubjects[$event])" *ngIf="reports[indexNum].rankSubjects.length" event="report_ranktrendsFilter"></scroll-header>
           <ion-card-content style="height:220px;padding-right:0;">
-            <echarts-ng2 *ngIf="reports[indexNum].activityRanktrends;else loadingd" [option]="reports[indexNum].activityRanktrends" [style]="{ 'height': '195px'}"></echarts-ng2>
+            <echart *ngIf="reports[indexNum].activityRanktrends;else loadingd" [option]="reports[indexNum].activityRanktrends" style="height:195px"></echart>
             <ng-template #loadingd>
               <loading [status]="reports[indexNum].activityRanktrends"></loading>
             </ng-template>

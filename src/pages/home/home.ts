@@ -71,10 +71,7 @@ export class HomePage {
   ) {}
   ionViewDidLoad() {
 
-    this.userProvider.getUserInfo().then((userInfo: UserInfo) => {
-      this.userInfo = userInfo;
-      console.log(this.userInfo);
-    });
+    this.userProvider.getUserInfo().then((userInfo: UserInfo) => this.userInfo = userInfo);
     this.userProvider.userInfo$.subscribe((userInfo: UserInfo) => this.userInfo = userInfo);
     this.loadData();
   }
@@ -104,6 +101,7 @@ export class HomePage {
   }
 
   open(should) {
+    //if (1) return this.nativePro.success('支付成功').then(() => { this.nativePro.toast('支付成功') })
     this.navCtrl.push(this.package.open ? PACKAGE_PAGE : PACKAGEGUIDE_PAGE);
     this.packageSub && this.packageSub.unsubscribe();
     this.listen = this.paymentPro.achieve$.subscribe(res => {

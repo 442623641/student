@@ -1,7 +1,4 @@
 import { Component, Input } from '@angular/core';
-//import { NavController } from 'ionic-angular';
-//import { HttpHandler } from '../../providers/httpHandler';
-import { LoginPage } from '../../pages/login/login';
 
 /**
  * Generated class for the LoadingPage page.
@@ -22,32 +19,8 @@ export class Loading {
   @Input() set status(obj: any) {
     this.statusValue = this.check(obj);
   }
-  private state: number = 200;
   constructor() {}
 
-  // ngOnInit() {
-  // this.httpHandler.handleError$.subscribe(info => {
-  //   if (!info || !info.status) {
-  //     this.state = 600;
-  //     this.mess = '网路异常，请稍后再试';
-  //   } else {
-  //     this.state = info.status;
-  //     this.mess = info.message || "暂无记录";
-  //   }
-  // });
-
-  // this.httpHandler.handleAuth$.subscribe(info => {
-  //   this.navCtrl.setRoot(LoginPage, {}, { animation: 'md-transition', animate: true });
-  // })
-
-  // this.httpHandler.$invoke.subscribe(() => {
-  //   this.state = 0;
-  // });
-
-  // this.httpHandler.$complete.subscribe(() => {
-  //   this.state = 200;
-  // });
-  // }
   check(obj) {
     let type = Object.prototype.toString.call(obj)
     switch (type) {

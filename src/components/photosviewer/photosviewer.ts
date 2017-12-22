@@ -1,7 +1,7 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
-import Swiper from 'swiper';
-window['Swiper'] = Swiper;
+import Swiper from 'swiper/dist/js/swiper.min.js';
+//window['Swiper'] = Swiper;
 /**
  * Generated class for the PhotosviewerComponent component.
  * Add by leo zhang 201710010101
@@ -41,17 +41,28 @@ export class PhotosviewerComponent {
       zoom: true,
       pagination: {
         el: '#swiper-pagination',
+        type: 'fraction'
       },
       passiveListeners: false,
       on: {
-        slideChange: () => {
-          this.states[this.swiper.activeIndex] === 1 ? this.swiper.zoom.enable() : this.swiper.zoom.disable()
+        click: () => this.swiper.zoom.scale != 1 ? this.swiper.zoom.toggle() : this.viewCtrl.dismiss()
+      },
+      virtual: {
+        cache: false,
+        slides: this.urls,
+        renderSlide: function(slide, index) {
+          return `<div class="swiper-slide">
+                      <div class="swiper-zoom-container">` +
+            (slide.isImg ? `<img src="${slide.url}" onerror="this.src='assets/images/default.png'">` :
+              `<span style="color:white">${slide.url}</span>`) +
+            `</div></div>`;
         },
-      }
+      },
     })
-    this.states[0] !== 1 || this.swiper.zoom.disable();
+    // this.states[0] !== 1 || this.swiper.zoom.disable();
   }
   load(index) {
+    console.log('load')
     this.states[index] = 1;
     this.swiper.zoom.enable();
   }

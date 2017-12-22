@@ -118,7 +118,7 @@ export class DoctorPage {
     setTimeout(() => {
       this.subjectSlider.resize();
       this.content.resize();
-    }, 60);
+    }, 120);
 
     this.topic(this.subject.categoryIndex);
 
@@ -134,6 +134,7 @@ export class DoctorPage {
     }
     this.doctorPro.topic({ guid: this.exam.guid, subject: this.subject.name, th: this.subject.activity.name }).then(res => {
       this.subject.activity.merge(res.question);
+      console.log(this.subject.activity);
     }).catch(ex => {
       console.error(ex);
     });
@@ -145,7 +146,7 @@ export class DoctorPage {
   excellent(index: number = 0) {
     // let topics = this.subject.activity;
     let exc = this.subject.activity.excellent[index];
-    if (exc.value.length > 1) {
+    if (exc.value && exc.value.length > 1) {
       this.subject.activity.nextExcellent(index);
       return;
     }

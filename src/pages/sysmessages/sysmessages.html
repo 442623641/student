@@ -26,10 +26,10 @@
         </div>
         <button ion-item no-lines (touch)="message(item)" event="sysmessages_goSysmessage">查看详情</button>
       </div>
-      <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="messages.length<total">
-        <ion-infinite-scroll-content></ion-infinite-scroll-content>
-      </ion-infinite-scroll>
     </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="messages.length<total">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </ng-template>
   <ng-template #loading>
     <loading [status]="messages"></loading>

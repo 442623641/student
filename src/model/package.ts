@@ -60,7 +60,7 @@ export class PackageO extends Order {
 
 }
 export const PACKAGEOPTIONS: PackageOption[] = [
-  { name: '一年学情套餐', value: 1000, year: 1 },
-  { name: '两年学情套餐', value: 1960, year: 2 },
-  { name: '三年学情套餐', value: 2850, year: 3 }
+  { name: '一年学情套餐', value: 0, year: 1 },
+  { name: '两年学情套餐', value: 0, year: 2 },
+  { name: '三年学情套餐', value: 0, year: 3 }
 ]

@@ -8,21 +8,22 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class ChartsProvider {
-  colors: { primary, line, label, text, shadow } = {
+  colors: { primary, line, label, text, shadow, series: string[] } = {
     primary: '#f66e4f',
     line: "rgba(0,0,0,.05)",
     label: "#666",
     text: '#414a60',
-    shadow: 'rgba(246,110,79,.75)'
+    shadow: 'rgba(246,110,79,.75)',
+    series: ['#f66e4f', "#CC8DFF", "#4CBE86"]
   }
-  shadow: string = 'text-align:left;box-shadow: 1px 5px 10px ' + this.colors.primary + ';'
+  shadow: string = 'padding: 8px 8px 5px 8px;text-align:left;box-shadow: 1px 5px 10px ' + this.colors.primary + ';'
   constructor() {
     console.log('Hello ChartsProvider Provider');
   }
 
   ball(percent: number, score: number) {
     return {
-      series: [{
+      series: {
         color: [this.colors.primary, this.colors.primary],
         type: 'liquidFill',
         radius: '74%',
@@ -57,7 +58,7 @@ export class ChartsProvider {
             formatter: [
               `{a|${score}}`,
               '{b|总分}',
-              `{c|领先了${(percent*100).toFixed(2)}%的考生}`
+              `{c|领先了${(percent*100).toFixed(1)}%的考生}`
             ].join('\n'),
             rich: {
               a: {
@@ -82,7 +83,7 @@ export class ChartsProvider {
         },
         amplitude: '3.5%',
         waveLength: '90%',
-      }]
+      }
     }
   }
 
@@ -189,7 +190,7 @@ export class ChartsProvider {
 
   topicPercents(category, series) {
     return {
-      color: [this.colors.primary],
+      color: [this.colors.series[0]],
       grid: {
         left: '3%',
         right: '4%',
@@ -236,9 +237,10 @@ export class ChartsProvider {
   /**
    *学情分析
    */
-  radar(obj: { legend, indicator, series }) {
-    const icons = ['rect', 'circle', 'triangle'],
-      colour = [this.colors.primary, '#FFEB3B', '#D7D7D7'];
+  radar(obj: { legend, indicator, series, offset }) {
+    //icons = ['rect', 'circle', 'triangle'],
+    //const colour = [this.colors.primary, "#CC8DFF", "#4CBE86"];
+    obj.indicator.push(obj.indicator[0]);
     return {
       legend: {
         top: 0,
@@ -247,7 +249,7 @@ export class ChartsProvider {
         textStyle: {
           color: this.colors.label
         },
-        data: obj.legend.map((item, index) => { return { name: item, icon: icons[index] } }),
+        data: obj.legend //.map((item, index) => { return { name: item, icon: icons[index] } }),
       },
 
       tooltip: {
@@ -262,78 +264,70 @@ export class ChartsProvider {
         },
         backgroundColor: this.colors.shadow,
         extraCssText: this.shadow,
+        formatter: function(params) {
+          if (!params) { return }
+          let index = params[0].dataIndex,
+            res = [];
+          for (let i = 0; i < obj.legend.length; i++) {
+            res.push(`${obj.legend[i]}：${(obj.series[i][index]-obj.offset).toFixed(2)}`);
+          }
+          return res.join('<br>');
+        },
       },
-
       angleAxis: {
-        type: 'category',
-        data: obj.indicator.map((item, index) => item.name),
-        z: 0,
+
+        interval: 1,
+        axisLabel: {
+          formatter: function(value, index) {
+            return obj.indicator[index];
+          },
+          color: this.colors.label,
+        },
         boundaryGap: false,
         color: '#fff',
         splitLine: {
-          show: true,
           lineStyle: {
-            color: this.colors.label,
-            type: 'solid'
+            color: this.colors.line,
           }
         },
         axisLine: {
-          show: true,
-          startAngle: 0,
           lineStyle: {
-            color: this.colors.label,
-            type: 'solid'
-          }
+            color: this.colors.line,
+          },
+          opacity: .6
         },
         axisTick: {
           show: false
         }
+
       },
-
       radiusAxis: {
-        splitLine: {
-          show: true,
-          lineStyle: {
-            color: '#ccc',
-            type: 'solid'
-          }
-        },
-
         splitNumber: 3,
         axisLine: {
-          show: false,
           lineStyle: {
-            color: '#ccc',
+            color: this.colors.line,
           }
         },
-        axisTick: {
-          show: false
-        },
-        axisLabel: {
-          fontSize: 12,
-          align: 'center',
-          verticalAlign: 'bottom',
-          padding: '100'
-        }
       },
 
       polar: {
         center: ['50%', '55%'],
-        radius: '65%'
+        radius: '67%'
       },
 
       series: obj.series.map((item, index) => {
+        item.push(item[0]);
         return {
           type: 'line',
-          data: obj.series[index],
+          data: item.map((sub, subIndex) => { return [sub, subIndex] }), //obj.series[index],
           coordinateSystem: 'polar',
           name: obj.legend[index],
-          stack: 'a',
-          symbol: icons[index],
-          symbolSize: 9,
+          //stack: 'a',
+          //symbol: icons[index],
+          //symbolSize: 7,
           itemStyle: {
             normal: {
-              color: colour[index],
+              color: this.colors.series[index],
             }
           }
         }
@@ -341,78 +335,6 @@ export class ChartsProvider {
 
     }
   }
-  // radar(obj: { legend, indicator, series }) {
-  //   const icons = ['rect', 'circle', 'triangle'];
-  //   return {
-  //     tooltip: {
-  //       trigger: 'item',
-  //       // axisPointer: {
-  //       //     type: 'cross'
-  //       // },
-  //       formatter: function(params) {
-  //         var  res  =  params.name + '<br/>';  
-  //         for (let i = 0; i < obj.legend.length; i++) {
-  //           if (params.name == obj.legend[i]) {
-  //             for (let j = 0; j < obj.series[i].length; j++) {
-  //               res += `<span style="width: 50%;display: inline-block;">${obj.indicator[j]['name']}：${obj.series[i][j]}  </span>`
-  //             }
-  //           }
-  //         }
-  //         return res;
-  //       },
-  //       backgroundColor: 'rgba(246,110,79,.75)',
-  //       extraCssText: 'text-align:left;box-shadow: 1px 5px 10px #f66e4f;font-size:12px;white-space:normal;width:160px;',
-  //     },
-
-
-  //     legend: {
-  //       top: 0,
-  //       itemHeight: 8,
-  //       itemWidth: 12,
-  //       textStyle: {
-  //         color: this.colors.label
-  //       },
-  //       data: obj.legend.map((item, index) => { return { name: item, icon: icons[index] } }),
-  //     },
-
-  //     color: [this.colors.primary, "#FFEB3B", '#D7D7D7'],
-  //     radar: [{
-  //       center: ["50%", "55%"],
-  //       indicator: obj.indicator,
-  //       radius: '75%',
-  //       shape: 'circle',
-  //       name: {
-  //         fontSize: 10,
-  //         color: this.colors.label,
-  //         textStyle: {
-  //           color: this.colors.label,
-  //         }
-  //       },
-  //       nameGap: 5,
-  //       splitArea: {
-  //         areaStyle: {
-  //           color: ['#FEFEFE'],
-  //         }
-  //       },
-  //       axisLine: {
-  //         lineStyle: {
-  //           color: '#ccc'
-  //         }
-  //       },
-  //       splitLine: {
-  //         lineStyle: {
-  //           color: '#E6E6E6'
-  //         }
-  //       }
-  //     }],
-  //     series: [{
-  //       type: 'radar',
-  //       data: obj.series.map((item, index) => { return { symbolSize: 9, value: item, name: obj.legend[index], symbol: icons[index] } }),
-  //     }]
-  //   }
-
-
-  // }
 
   /**
    *层次分析
@@ -453,7 +375,7 @@ export class ChartsProvider {
       //   top: '32%',
       //   containLabel: true
       // },
-      color: ["#3AB87B", "#D8D8D8", "#C0C0C0"],
+      color: this.colors.series,
       textStyle: {
         color: this.colors.label
       },
@@ -517,7 +439,7 @@ export class ChartsProvider {
   /**
    *成绩趋势
    */
-  scoretrend(obj, name, inverse ? ) {
+  scoretrend(obj) {
     return {
       tooltip: {
         trigger: 'axis',
@@ -530,13 +452,9 @@ export class ChartsProvider {
           if (params) {
             let index = params[0].dataIndex;
             let res = obj.category[index] + '<br/>';
-            if (obj.legend.length > 1) {
-              res += '满分:' + obj.full[0][index] + '<br/>';
-              res += obj.legend[0] + '：' + obj.score[0][index] + '<br/>';
-              res += obj.legend[1] + '：' + obj.avg[0][index];
-            } else {
-              res += obj.legend[0] + '：' + obj.series[0][index];
-            }
+            res += '满分：' + obj.full[0][index] + '<br/>';
+            res += obj.legend[0] + '：' + obj.score[0][index] + '<br/>';
+            res += obj.avg[0][index]['name'] + '：' + obj.avg[0][index]['value'];
             return res;
           }
         },
@@ -557,7 +475,7 @@ export class ChartsProvider {
         bottom: 0,
         containLabel: true
       },
-      color: ["#CC8DFF", "#4CBE86"],
+      color: this.colors.series.slice(1),
       xAxis: {
         type: 'category',
         boundaryGap: false,
@@ -570,7 +488,7 @@ export class ChartsProvider {
           lineStyle: {
             color: this.colors.line
           },
-          onZero: !inverse
+          onZero: true
         },
         splitLine: {
           lineStyle: {
@@ -584,7 +502,7 @@ export class ChartsProvider {
             return Math.max(value.min - 10, 0);
           },
           // max: 100,
-          name: name,
+          name: "得分率 %",
           nameTextStyle: {
             color: this.colors.label
           },
@@ -603,8 +521,7 @@ export class ChartsProvider {
               color: this.colors.line
             }
           },
-          inverse: inverse,
-          nameLocation: inverse ? 'start' : 'end',
+          nameLocation: 'end',
           minInterval: 1,
         },
         {
@@ -637,4 +554,114 @@ export class ChartsProvider {
   }
 
 
+
+
+  /**
+   *排名趋势
+   */
+
+  ranktrend(obj, name) {
+    return {
+      tooltip: {
+        trigger: 'axis',
+        backgroundColor: this.colors.shadow,
+        textStyle: {
+          fontSize: 12
+        },
+        extraCssText: this.shadow,
+      },
+      legend: {
+        itemHeight: 10,
+        itemWidth: 20,
+        textStyle: {
+          color: this.colors.text
+        },
+        data: obj.legend,
+        left: 'center'
+      },
+      grid: {
+        top: 35,
+        left: 8,
+        right: 0,
+        bottom: 0,
+        containLabel: true
+      },
+      color: this.colors.series.slice(1),
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        axisLabel: {
+          textStyle: {
+            color: this.colors.label
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            color: this.colors.line
+          },
+          onZero: false
+        },
+        splitLine: {
+          lineStyle: {
+            color: this.colors.line
+          }
+        },
+        data: obj.category.map(item => { return item.length > 6 ? (item.substr(5) + '\n' + item.substr(0, 4)) + '年' : item })
+      },
+      yAxis: [{
+          min: function(value) {
+            return Math.max(value.min - 10, 0);
+          },
+          // max: 100,
+          name: name,
+          nameTextStyle: {
+            color: this.colors.label
+          },
+          axisLabel: {
+            textStyle: {
+              color: this.colors.label
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: this.colors.line
+            }
+          },
+          splitLine: {
+            lineStyle: {
+              color: this.colors.line
+            }
+          },
+          inverse: true,
+          nameLocation: 'start',
+          minInterval: 1,
+        },
+        {
+          type: 'value',
+          position: 'right',
+          axisLine: {
+            lineStyle: {
+              color: this.colors.line
+            }
+          }
+        }
+      ],
+      series: obj.series.map((item, index) => {
+        return {
+          name: obj.legend[index],
+          type: 'line',
+          smooth: true,
+          symbolSize: 7,
+          data: item,
+          label: {
+            normal: {
+              show: false,
+              position: 'top' //值显示
+            }
+          }
+        }
+
+      })
+    }
+  }
 }

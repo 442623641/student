@@ -27,12 +27,9 @@ export class PasswordProvider {
   }
 
   // ---------------------------------------------------------- 找回密码
-  /*
-   * 检测短信验证码
-   */
-  verify(data) {
-    return this.http.post('findpwd/verifyCode', data);
-  }
+
+  
+
 
   /*
    *重新设置密码
@@ -40,5 +37,7 @@ export class PasswordProvider {
   recover(data) {
     return this.http.post('findpwd/updatePwdByTel', data);
   }
+
+
 
 }

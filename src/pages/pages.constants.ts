@@ -16,6 +16,7 @@ export const TRADES_PAGE = 'TradesPage';
 export const COUPON_PAGE = 'CouponPage';
 export const RECHARGE_PAGE = 'RechargePage';
 export const VALIDATION_PAGE = 'ValidationPage';
+export const VALIDATIONMODAL_PAGE = 'ValidationmodalPage';
 //export const CONFIRM_PAGE = 'ConfirmPage';
 export const PERSON_PAGE = 'PersonPage';
 
@@ -43,13 +44,7 @@ export const PACKAGEGUIDE_PAGE = 'PackageguidePage';
 
 export const REPLY_PAGE = 'ReplyPage';
 
-
-
 export const SCHOOLS_PAGE = 'SchoolsPage';
-
-//export const DOWNLINK_PAGE = 'DownlinkPage';
-
-//export const SETPWD_PAGE = 'SetpwdPage';
 
 
 export const ORDERMORE_PAGE = 'OrdermorePage';

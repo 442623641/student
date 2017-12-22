@@ -91,8 +91,8 @@ export class ExamsPage {
         this.navCtrl.insert(start + 1, this.pages.doctor, item, { animate: false }).then(() => {
           this.navCtrl.remove(start + 2, res.len - start - 1).then(() => {
             this.achieveSub.unsubscribe();
-            this.nativePro.showLoading();
-            this.doRefresh();
+            //this.nativePro.showLoading();
+            //this.doRefresh();
           });
         });
       });

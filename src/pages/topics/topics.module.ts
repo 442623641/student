@@ -3,14 +3,14 @@ import { IonicPageModule } from 'ionic-angular';
 import { TopicsPage } from './topics';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
-import { EchartsNg2Module } from 'echarts-ng2';
+import { EchartComponentModule } from '../../components/echart/echart.module';
 @NgModule({
   declarations: [
     TopicsPage,
   ],
   imports: [
     IonicPageModule.forChild(TopicsPage),
-    EchartsNg2Module,
+    EchartComponentModule,
     ComponentsModule,
     DirectivesModule,
   ]

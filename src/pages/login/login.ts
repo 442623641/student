@@ -50,7 +50,7 @@ export class LoginPage {
     this.userPro.login(obj).then(res => {
         if (!res || !res.token) return;
         if (res.school) {
-          this.appCtrl.getRootNav().setRoot(TABS_PAGE, {}, {
+          this.appCtrl.getRootNavs()[0].setRoot(TABS_PAGE, {}, {
             animate: true,
             animation: 'md-transition',
             direction: 'back',

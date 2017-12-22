@@ -26,23 +26,23 @@
 <ion-content #content [fullscreen]="true" (ionScroll)="scrollHandler($event)" padding-bottom>
   <loading [status]="unloading" *ngIf="!unloading;else entry"></loading>
   <ng-template #entry>
-    <ion-slides #subjectSlider (ionSlideDidChange)="onSlideChanged($event)">
-      <ion-slide *ngFor="let ball of balls">
-        <loading [status]="subjects[subjectIndex]" *ngIf="!subjects[subjectIndex];else entryContent" height="80vh"></loading>
+    <ion-slides #subjectSlider (ionSlideDidChange)="onSlideChanged($event)" class="subejct-slider">
+      <ion-slide *ngFor="let ball of balls;let i =index">
+        <loading [status]="subjects[i]" *ngIf="!subjects[i];else entryContent" height="80vh"></loading>
         <ng-template #entryContent>
           <div class="card origin">
             <ion-row class="card-header" justify-content-between>
               <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
             </ion-row>
-            <img-lazy event="doctor_paperViewer" [src]='subjects[subjectIndex].thumbnail' [imgviewer]="{title:exam.name+subjects[subjectIndex].name,images:subjects[subjectIndex].paper}"></img-lazy>
+            <img-lazy event="doctor_paperViewer" [src]='subjects[i].thumbnail' [imgviewer]="{title:exam.name+subjects[i].name,images:subjects[i].paper}"></img-lazy>
           </div>
-          <div class="card percents" *ngIf='subjects[subjectIndex]?.percents'>
+          <div class="card percents" *ngIf='subjects[i]?.percents'>
             <ion-row class="card-header" justify-content-between>
               <ion-col col-4 text-left><i></i>小题得分情况</ion-col>
               <ion-col *ngFor="let le of legend" text-right><i></i>{{le}}</ion-col>
             </ion-row>
             <div class="card-content">
-              <echarts-ng2 [option]='subjects[subjectIndex]?.percents' [style]="{'height': 210+'px'}"></echarts-ng2>
+              <echart [option]='subjects[i]?.percents'></echart>
             </div>
             <ion-row class="card-footer">
               <a (touch)="openPercentModal()" event="doctor_openPercentModal">查看更多</a>
@@ -76,13 +76,17 @@
         <div class="topics-item" *ngIf="!subjects[subjectIndex].activity.objective&&subjects[subjectIndex].activity.answer?.length">
           <p line-bottom ol>正确答案</p>
           <div class="item-content" event="doctor_answerViewer" [imgviewer]="{title:'正确答案',images:subjects[subjectIndex].activity.answer}">
-            <img-lazy [src]="answer.link" *ngFor="let answer of subjects[subjectIndex].activity.answer" [alt]="answer.value"></img-lazy>
+            <ng-container *ngFor="let answer of subjects[subjectIndex].activity.answer">
+              <img-lazy [src]="url" *ngFor="let url of answer.link||[answer.value]" [alt]="url"></img-lazy>
+            </ng-container>
           </div>
         </div>
         <div class="topics-item" *ngIf="!subjects[subjectIndex].activity.objective&&subjects[subjectIndex].activity.reply?.length">
           <p line-bottom ol>我的答案</p>
           <div class="item-content" event="doctor_replyViewer" [imgviewer]="{title:'我的答案',images:subjects[subjectIndex].activity.reply}">
-            <img-lazy [src]="reply.link" *ngFor="let reply of subjects[subjectIndex].activity.reply" [alt]="reply.value"></img-lazy>
+            <ng-container *ngFor="let reply of subjects[subjectIndex].activity.reply">
+              <img-lazy [src]="url" *ngFor="let url of reply.link||[reply.value]" [alt]="url"></img-lazy>
+            </ng-container>
           </div>
         </div>
         <div class="topics-item" *ngIf="subjects[subjectIndex].activity.topic&&subjects[subjectIndex].activity.topic!=''">
@@ -102,20 +106,24 @@
             </a>
           </p>
           <div class="item-content" event="doctor_excellentViewer" [imgviewer]="{title:'优秀答案',images:exc.value[subjects[subjectIndex].activity.excellentNums[i]]}">
-            <img-lazy [src]="url" *ngFor="let url of exc.value[subjects[subjectIndex].activity.excellentNums[i]]" [alt]="url">
-            </img-lazy>
+            <!-- {{exc.value[0][1]}} -->
+            <!-- <ng-container *ngFor="let item of exc.value[subjects[subjectIndex].activity.excellentNums[i]]"> -->
+            <!-- <ng-container > -->
+              <img-lazy *ngFor="let img of exc.value[subjects[subjectIndex].activity.excellentNums[i]]" [src]="img" [alt]="img">
+              </img-lazy>
+            <!-- </ng-container> -->
           </div>
         </div>
         <div class="topics-item" *ngIf="subjects[subjectIndex].activity.analyse.length===1;else analyseSlider;">
           <p line-bottom text-left ol>小题统计</p>
-          <echarts-ng2 [option]="subjects[subjectIndex].activity.analyse[0].options" [style]="{'height': 150+'px'}"></echarts-ng2>
+          <echart [option]="subjects[subjectIndex].activity.analyse[0].options" style="height: 150px"></echart>
         </div>
         <ng-template #analyseSlider>
           <ion-slides spaceBetween="10" pager="true">
             <ion-slide *ngFor="let item of subjects[subjectIndex].activity.analyse;let y=index">
               <div class="topics-item">
                 <p line-bottom text-left ol>{{item.no}}题统计</p>
-                <echarts-ng2 [option]="item.options" [style]="{'height': 150+'px'}"></echarts-ng2>
+                <echart [option]="item.options" style="height: 150px"></echart>
               </div>
             </ion-slide>
           </ion-slides>

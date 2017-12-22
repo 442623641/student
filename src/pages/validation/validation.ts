@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { ValidationProvider } from '../../providers/validation/validation';
 import { NativeProvider } from '../../providers/native';
-import { PASSWORD_PAGE } from '../pages.constants';
-
+import { PASSWORD_PAGE, VALIDATIONMODAL_PAGE } from '../pages.constants';
 @IonicPage()
 @Component({
   selector: 'page-validation',
@@ -13,6 +12,8 @@ import { PASSWORD_PAGE } from '../pages.constants';
 
 
 export class ValidationPage {
+  findpwdtoken: any;
+  num: any;
   ticket: any;
   authForm: FormGroup;
   token: string;
@@ -22,6 +23,7 @@ export class ValidationPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public modalCtrl: ModalController,
     private validationPro: ValidationProvider,
     private nativePro: NativeProvider,
     formBuilder: FormBuilder
@@ -37,49 +39,62 @@ export class ValidationPage {
    *获取token
    */
   code(phone: string) {
-    console.log(this.authForm);
-    //token 验证
-    this.ticket ? this.sendcode(phone) :
-      this.validationPro.getcode()
-      .then(res => {
-        if (!res || !res.token) return;
-        this.ticket = res;
-        this.sendcode(phone);
-      }).catch(ex => this.nativePro.toast('网络延时，请稍后再试'));
+    let modal = this.modalCtrl.create(VALIDATIONMODAL_PAGE);
+    modal.present();
+    modal.onDidDismiss(res => {
+      if (!res) return;
+      this.ticket = res.ticket;
+      this.num = res.code;
+      this.sendcode(phone);
+    })
   }
+
 
   /**
    *发送验证码
    */
+
   private sendcode(phone: string) {
-    this.token = null;
     this.authForm.controls.code.setValue('');
-    this.validationPro.note({ token: this.ticket.token, tel: phone, yzm: this.ticket.img }, this.navParams.get('type')).then(res => {
-      if (!res || !res.token) return;
-      this.token = res.token;
-      this.verify = { code: res.code, phone: phone };
-      let num = 60;
-      this.tips = num + 's后重新获取';
-      const timer = setInterval(() => {
-        num--;
-        if (num <= 0) {
-          this.tips = '获取验证码';
-          clearInterval(timer);
-        } else {
-          this.tips = num + 's后重新获取';
-        }
-      }, 1000);
-    }).catch(err => this.nativePro.toast(err.message));
+    this.validationPro.note({ token: this.ticket.token, tel: phone, yzm: this.num }, this.navParams.get('type'))
+      .then(res => {
+        if (!res || !res.token) return;
+        this.token = res.token;
+        let num = 60;
+        this.tips = num + 's后重新获取';
+        const timer = setInterval(() => {
+          num--;
+          if (num <= 0) {
+            this.tips = '获取验证码';
+            clearInterval(timer);
+          } else {
+            this.tips = num + 's后重新获取';
+          }
+        }, 1000);
+      }).catch(err => this.nativePro.toast(err.message));
   }
 
+
+
+
+
   onSubmit(value: any) {
-    if (this.verify.code != value.code || value.phone != this.verify.phone) return this.nativePro.prompt("请输入正确的验证码");
-    this.navCtrl.push(PASSWORD_PAGE, {
-      type: this.navParams.get('type'),
-      params: Object.assign({
-        token: this.token
-      }, value)
-    });
+    console.log(value.phone);
+    this.validationPro.verify({ token: this.token, tel: value.phone, code: value.code }, this.navParams.get('type')).then(res => {
+        if (res.token) {
+          this.findpwdtoken = res.token;
+        }
+
+        this.navCtrl.push(PASSWORD_PAGE, {
+          type: this.navParams.get('type'),
+          params: Object.assign({
+            token: this.token,
+            pwdtoken: this.findpwdtoken
+          }, value)
+        });
+      })
+      .catch(err => err && this.nativePro.toast("请输入正确的验证码"))
+
   }
 
 }

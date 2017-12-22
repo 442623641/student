@@ -1,0 +1,18 @@
+<ion-card>
+  <ion-card-header>
+    <h2>请输入图形验证码</h2>
+    <button ion-button clear text-right icon-only color="dark" (touch)="viewCtrl.dismiss()" event="validationmodal_close">
+      <ion-icon name="close"></ion-icon>
+    </button>
+  </ion-card-header>
+  <ion-card-content text-center>
+    <div class="code">
+      <input type="text" placeholder="请输入" [(ngModel)]="code" col-6>
+      <img [src]="url" (touch)="refresh()" event="validationmodal_refresh" col-6 no-padding>
+    </div>
+    <button class="btn" ion-button clear item-right icon-only (touch)="refresh()" event="validationmodal_refresh">
+      <ion-icon name="sync" color='dark' style="font-size: 20px"></ion-icon>
+    </button>
+    <button ion-button block [disabled]="!code" style='margin:20px auto 0' (touch)="confirm()" event="validationmodal_enter">确认</button>
+  </ion-card-content>
+</ion-card>

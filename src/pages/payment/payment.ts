@@ -33,7 +33,7 @@ export class PaymentPage {
     private nativePro: NativeProvider
   ) {
     this.params = navParams.get('params');
-    this.amount = (navParams.get('amount') / 10).toFixed(2);
+    this.amount = navParams.get('amount');
   }
 
   checkChange(event) {
@@ -46,23 +46,26 @@ export class PaymentPage {
 
   pay() {
     this.paymentPro.params(Object.assign({ paytype: this.payType }, this.params)).then(order => {
-      console.log(order);
+      // console.log(order);
       this.paymentPro[this.payType](order).then(res => {
-        this.callback('支付成功', res);
-        this.paymentPro.achieve({ len: this.navCtrl.length(), result: res, type: this.params.ordertype });
-      }, error => {
-        //this.paymentPro.achieve({ len: this.navCtrl.length(), result: res });
-        this.callback('支付失败', error);
-        //this.paymentPro.achieve({ len: this.navCtrl.length(), type: this.params.ordertype });
-        //console.log(this.payType + ' fail:' + res);
-      });
-      //get pay params from server side with sign.
-      //const alipayOrder: AlipayOrder = {};
-    }).catch(ex => this.callback('支付失败', ex));
+        this.processing = false;
+        this.nativePro.success('支付成功').then(() => {
+          this.paymentPro.achieve({ len: this.navCtrl.length(), result: res, type: this.params.ordertype, amount: this.amount })
+        })
+        //this.success('支付成功', res), 500);
+        //setTimeout(() => this.paymentPro.achieve({ len: this.navCtrl.length(), result: res, type: this.params.ordertype, amount: this.amount }), 1000);
+      }, error => this.error('支付失败', error));
+    }).catch(ex => this.error('支付失败', ex));
   }
-  callback(msg: string, res ? ) {
-    console.log(res);
-    this.nativePro.prompt(msg);
+  // success(msg: string, res ? ) {
+  //   this.nativePro.success(msg);
+  //   this.processing = false;
+  // }
+
+  error(msg: string, res ? ) {
+    console.error(res)
+    this.nativePro.alert(msg);
     this.processing = false;
   }
+
 }

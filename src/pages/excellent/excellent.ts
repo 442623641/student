@@ -67,6 +67,7 @@ export class ExcellentPage {
     shouldLoading && this.nativePro.showLoading();
     this.tempOption = this.option.clone();
     this.pageview = new Pageview();
+    this.content.scrollToTop();
     this.excellentPro.excellents(Object.assign({}, this.pageview, this.option)).then(res => {
       if (!res || !res.questions || !res.questions.length) return error(res);
       this.total = res.total;
@@ -74,7 +75,6 @@ export class ExcellentPage {
       this.processing = false;
       setTimeout(() => {
         this.nativePro.hideLoading();
-        this.content.scrollToTop();
       }, 350);
     }).catch(ex => error(ex));
 

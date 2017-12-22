@@ -1,7 +1,7 @@
 <!-- Generated template for the PhotosviewerComponent component,add by leo zhang 201710010101 -->
 <ion-content [fullscreen]='true' color="white" hook="PhotosviewerPage">
   <ion-header>
-    <div padding-8 showWhen="ios"></div>
+    <div padding-8 showWhen="ios" style="background: rgba(0, 0, 0, 0.25)"></div>
     <ion-navbar color="transparent">
       <ion-buttons start>
         <button ion-button icon-only (touch)="viewCtrl.dismiss()" clear event="photosviewer_close">
@@ -14,7 +14,7 @@
   <!-- Swiper -->
   <div class="swiper-container" id="swiper-container">
     <div class="swiper-wrapper">
-      <div class="swiper-slide" *ngFor="let item of urls;let i=index">
+      <!-- <div class="swiper-slide" *ngFor="let item of urls;let i=index">
         <div class="swiper-zoom-container" [ngSwitch]="item.isImg">
           <ng-container *ngSwitchCase="true">
             <ion-spinner color="white" *ngIf="!states[i]"></ion-spinner>
@@ -24,8 +24,7 @@
             </ng-template>
           </ng-container>
           <span *ngSwitchCase="false" ion-text color="white">{{item.url}}</span>
-        </div>
-      </div>
+        </div> -->
     </div>
     <div class="swiper-pagination swiper-pagination-white" id='swiper-pagination' *ngIf="urls.length>1"></div>
   </div>

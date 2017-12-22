@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Output, NgZone } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { normalizeURL } from 'ionic-angular';
 import { ActionSheet, ActionSheetOptions } from '@ionic-native/action-sheet';
 import { NativeProvider } from '../../providers/native';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 import { FilePath } from '@ionic-native/file-path';
 /**
  * Generated class for the UploadimgComponent component.
@@ -70,12 +71,16 @@ export class UploadimgComponent {
 
   private add(item) {
     if (!item) return;
-    this.zone.run(() => this.urls = this.urls.concat([this.sanitizer.bypassSecurityTrustResourceUrl(item)]));
-    this.filePath.resolveNativePath(item).then(path => {
+    let add = (path) => {
       this.items.push(path);
       this.onChanged.emit(this.items);
+    }
+    this.zone.run(() => this.urls = this.urls.concat([this.sanitizer.bypassSecurityTrustResourceUrl(item)]));
+
+    this.nativePro.isAndroid() ? this.filePath.resolveNativePath(item).then(path => {
+      add(path)
     }).catch(ex => {
       console.log(ex);
-    })
+    }) : add(normalizeURL(item));
   }
 }

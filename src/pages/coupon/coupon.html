@@ -40,7 +40,7 @@
           </ion-col>
         </ion-row>
         <ion-row class="coupon-date" padding-horizontal nowrap [ngSwitch]="!!v.expired">
-          <ion-col text-left col-7>有效期至{{ v.expiredtime | date:'yyyy年M月dd日' }}</ion-col>
+          <ion-col text-left col-7>有效期至{{ v.expiredtime}}</ion-col>
           <ion-col text-right primary *ngSwitchCase="false">{{ v.days }}天后过期</ion-col>
           <ion-col text-right ion-text *ngSwitchCase="true" class='expired'>已过期</ion-col>
         </ion-row>

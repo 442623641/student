@@ -92,10 +92,13 @@
 
   [ol]:before {
     content: '';
-    padding: 0 2px;
     background: color($colors, primary);
     margin-right: 8px;
-    display: inline;
+    display: inline-block;
+    height: 18px;
+    width: 4px;
+    vertical-align: sub;
+    border-radius: 2px;
   }
 
 
@@ -351,10 +354,9 @@
       font-size: 30px;
       transform: translate3d(0, -2px, 0);
       overflow: visible;
-      animation: icon-zoom 0.32s 80ms;
-      &:before {
-        text-shadow: 0px 0px 12px rgba(color($colors, primary), 0.59);
-      }
+      animation: icon-zoom 0.32s 80ms; //     &:before {
+      //   text-shadow: 0px 0px 12px rgba(color($colors, primary), 0.59);
+      // }
     }
   }
   /* // --------------------------------------------------

@@ -31,7 +31,7 @@
       <ion-row class="card-header" justify-content-between>
         <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
       </ion-row>
-      <img-lazy event="reply_paperViewer" [src]='subjects[subjectIndex].paper' [imgviewer]="{title:exam.name+subjects[subjectIndex].name,images:subjects[subjectIndex].paper}" *ngIf="subjects[subjectIndex]"></img-lazy>
+      <img-lazy event="reply_paperViewer" [src]='subjects[subjectIndex].thumbnail' [imgviewer]="{title:exam.name+subjects[subjectIndex].name,images:subjects[subjectIndex].paper}" *ngIf="subjects[subjectIndex]"></img-lazy>
     </div>
     <ng-template #slider>
       <ion-slides (ionSlideDidChange)="onSlideChanged($event)" #subjectSlider>
@@ -43,16 +43,16 @@
                 <ion-row class="card-header" justify-content-between>
                   <ion-col col-5 text-left><i></i>原始试卷和答案</ion-col>
                 </ion-row>
-                <img-lazy [src]='subjects[i]?.paper' event="reply_itemViewer"></img-lazy>
+                <img-lazy [src]='subjects[subjectIndex].thumbnail' [imgviewer]="{title:exam.name+subjects[subjectIndex].name,images:subjects[subjectIndex].paper}" *ngIf="subjects[subjectIndex]" event="reply_itemViewer"></img-lazy>
               </div>
             </ng-container>
           </ng-template>
         </ion-slide>
       </ion-slides>
     </ng-template>
-    <div class="topics" *ngIf="subjects[subjectIndex]?.name&&subject.category?.length">
+    <div class="topics" *ngIf="subjects[subjectIndex]?.name&&subject.category?.length" style="margin-bottom: 100px">
       <ion-row class="topics-header" line-bottom *ngIf="!stickTopicHeader">
-        <a col-2 class="fixed-button" (touch)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll" *ngIf="subjects[subjectIndex].diff" event="reply_showAll">{{subjects[subjectIndex].showAll?'错题':'全部'}}</a>
+        <a col-2 class="fixed-button" *ngIf="subjects[subjectIndex].diff" (touch)="subjects[subjectIndex].showAll=!subjects[subjectIndex].showAll" event="reply_showAll">{{subjects[subjectIndex].showAll?'错题':'全部'}}</a>
         <ion-col no-padding>
           <scroll-header [items]="subjects[subjectIndex].nos" [(selected)]="subjects[subjectIndex].categoryIndex" (selectedChange)="topic($event)"></scroll-header>
         </ion-col>
@@ -72,7 +72,9 @@
           <div class="topics-item" *ngIf="!subjects[subjectIndex].activity.objective&&subjects[subjectIndex].activity.reply?.length">
             <p line-bottom ol>我的答案</p>
             <div class="item-content">
-              <img-lazy [src]="reply.link" *ngFor="let reply of subjects[subjectIndex].activity.reply"></img-lazy>
+              <ng-container *ngFor="let reply of subjects[subjectIndex].activity.reply">
+                <img-lazy [src]="url" *ngFor="let url of reply.link||[reply.value]" [alt]="url"></img-lazy>
+              </ng-container>
             </div>
           </div>
         </div>
@@ -85,14 +87,6 @@
   <!--  <ng-template #loading>
     <loading [status]="subjects[subjectIndex]"></loading>
   </ng-template> -->
-  <ion-footer text-center>
-    <p>
-      <button ion-button block round [navPush]="pages.package" event="reply_openPackage">开通学情套餐&nbsp;&nbsp;查看错题诊断</button>
-    </p>
-    <button style="height: 2rem" ion-button clear color="white" icon-only (touch)="lantern=true" event="reply_openLantern">
-      <ion-icon name="arrow-down"></ion-icon>
-    </button>
-  </ion-footer>
   <transition name="lantern" [if]="lantern">
     <div class="lantern">
       <ion-fab right>
@@ -100,6 +94,7 @@
           <ion-icon name="close"></ion-icon>
         </button>
       </ion-fab>
+      <div padding-8 showWhen="ios"></div>
       <p><span>深入挖掘</span>
       </p>
       <p>正式利用每一道错题的途径</p>
@@ -112,3 +107,15 @@
     </div>
   </transition>
 </ion-content>
+<transition name="footer" [if]="!lantern">
+  <ion-footer text-center>
+    <ion-toolbar color="transparent">
+      <p>
+        <button ion-button block round [navPush]="pages.package" event="reply_openPackage">开通学情套餐&nbsp;&nbsp;查看错题诊断</button>
+      </p>
+      <button style="height: 2rem" ion-button clear color="white" icon-only (touch)="lantern=true" event="reply_openLantern">
+        <ion-icon name="arrow-down"></ion-icon>
+      </button>
+    </ion-toolbar>
+  </ion-footer>
+</transition>

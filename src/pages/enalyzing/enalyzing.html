@@ -9,7 +9,7 @@
   <ion-navbar>
     <ion-title>错题分析</ion-title>
     <ion-buttons end *ngIf="enalyzingOpt">
-      <button event="enalyzing_filter" ion-button (touch)="showMenu=true">
+      <button ion-button (touch)="showMenu=true" event="enalyzing_filter">
         筛选
       </button>
     </ion-buttons>
@@ -63,10 +63,10 @@
     </ng-container>
   </ng-template>
 </ion-content>
-<ion-footer *ngIf="enalyzingOpt&&enalyzingOpt.unauthorized&&enalyzingOpt.unauthorized==enalyzingOpt.total">
+<ion-footer *ngIf="enalyzingOpt&&enalyzingOpt.unauthorized&&enalyzingOpt.unauthorized==enalyzingOpt.total" no-border>
   <ion-toolbar>
     <ion-title>
-      <button ion-button block [navPush]="pages.package">开通学情套餐</button>
+      <button ion-button block [navPush]="pages.package" event="enalyzing_goPackage">开通学情套餐</button>
     </ion-title>
   </ion-toolbar>
 </ion-footer>

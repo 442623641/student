@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http';
+import { LostParams } from '../../model/elost'
+
 /*
   import { Http } from '@angular/http';
   Generated class for the PaymentProvider provider.
@@ -24,11 +26,17 @@ export class SeptnetpayProvider {
   }
 
   /**
-   *支付错题本
+   *支付电子错题本
    */
-  lost(params: { examguids: string, product: 0 | 1, couponcode ? : string }) {
+  elost(params: { examguids: string, product: 0 | 1, couponcode ? : string }) {
     let api = params.couponcode ? 'buyelecerrobookbycoupon' : 'buyelecerrobookbyxbz';
     return this.http.post('freepayment/' + api, params);
+  }
+  /**
+   *支付错题本
+   */
+  lost(params: LostParams) {
+    return this.http.post('freepayment/buyerrobookbycoupon', params);
   }
 
   /**

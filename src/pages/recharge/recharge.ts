@@ -16,42 +16,36 @@ import { PaymentOption } from '../../model/payment';
 })
 export class RechargePage {
 
-  //pages: any = { payment: PAYMENT_PAGE }
-  //payOptions: PaymentOption;
   options: number[] = [100, 200, 500, 800];
   params: PaymentOption;
   amount: number = 100;
   need: number = 0;
   lastVal: number;
+  MIN = 1;
+  MAX = 10000;
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
-  ) {}
+    navParams: NavParams,
+  ) {
+    this.params = navParams.get('params');
+  }
 
   ionViewDidLoad() {
-    this.params = this.navParams.get('params');
-    if (this.params) {
-      if (this.params.selectxbz) {
-        this.amount = this.need = this.params.selectxbz;
-        if (this.options.indexOf(this.need) == -1) {
-          this.options.push(this.need);
-          this.options = this.options.sort((a, b) => { return a - b; });
-        }
+
+    if (!this.params) {
+      return;
+    }
+    if (this.params.selectxbz) {
+      this.amount = this.need = Math.max(this.params.selectxbz, this.MIN);
+      if (this.options.indexOf(this.need) == -1) {
+        this.options.push(this.need);
+        this.options = this.options.sort((a, b) => { return a - b; });
       }
     }
   }
 
   tap(val) {
     this.amount = val;
-  }
-
-  onInput(e) {
-    if (!e.target.valueAsNumber && e.which) {
-      this.amount = e.target.value = this.lastVal;
-      return;
-    }
-    if (e.target.valueAsNumber > 10000) this.amount = e.target.value = 10000;
-    this.lastVal = e.target.value;
   }
 }

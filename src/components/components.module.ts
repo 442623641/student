@@ -7,12 +7,13 @@ import { Iscroll } from './iscroll/iscroll';
 import { ScrollheaderComponent } from './scrollheader/scrollheader';
 import { SubmitonComponent } from './submiton/submiton';
 import { Loading } from './loading/loading';
-import { AgreecheckComponent } from './agreecheck/agreecheck';
+//import { AgreecheckComponent } from './agreecheck/agreecheck';
 import { CoinComponent } from './coin/coin';
 import { PhotosviewerComponent } from './photosviewer/photosviewer';
 import { TelComponent } from './tel/tel';
 import { CurrencyComponent } from './currency/currency';
 import { DirectivesModule } from '../directives/directives.module';
+//import { EchartComponent } from './echart/echart';
 
 
 @NgModule({
@@ -23,11 +24,12 @@ import { DirectivesModule } from '../directives/directives.module';
     SubmitonComponent,
     Transition,
     Loading,
-    AgreecheckComponent,
+    //AgreecheckComponent,
     CoinComponent,
     PhotosviewerComponent,
     TelComponent,
     CurrencyComponent,
+    //EchartComponent,
   ],
   imports: [
     CommonModule,
@@ -41,11 +43,12 @@ import { DirectivesModule } from '../directives/directives.module';
     SubmitonComponent,
     Transition,
     Loading,
-    AgreecheckComponent,
+    //AgreecheckComponent,
     CoinComponent,
     PhotosviewerComponent,
     TelComponent,
     CurrencyComponent,
+    //EchartComponent,
   ],
   entryComponents: [
     PhotosviewerComponent

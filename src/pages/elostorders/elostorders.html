@@ -7,11 +7,6 @@
 <ion-header>
   <ion-navbar>
     <ion-title>已购错题本</ion-title>
-    <!-- <ion-buttons end>
-      <button ion-button [navPush]="pages.usage">帮助&nbsp;
-        <ion-icon name="help-circle"></ion-icon>
-      </button>
-    </ion-buttons> -->
   </ion-navbar>
 </ion-header>
 <ion-content>
@@ -37,14 +32,6 @@
           <p>消耗学贝：{{item.money}}学贝</p>
           <p>下单时间：{{item.time}}</p>
         </ion-card-content>
-        <!-- <p text-right class="card-footer" line-top [ngSwitch]="!!item.code">
-          <ion-chip *ngSwitchCase="false" color="gray9">
-            <ion-spinner color="white" item-left></ion-spinner>
-            <ion-label padding-right-12>正在生成...</ion-label>
-          </ion-chip>
-          <button ion-button round [navPush]="pages.downlink" [navParams]="{order:item}" *ngSwitchCase="true">
-            查看下载地址</button>
-        </p> -->
       </ion-card>
     </ion-list>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="orders.length<total">

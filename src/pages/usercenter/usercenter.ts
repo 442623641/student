@@ -53,7 +53,7 @@ export class UsercenterPage {
     this.userPro.userInfo$.subscribe((userInfo: UserInfo) => this.userInfo = userInfo);
   }
   recharge() {
-    this.navCtrl.push(this.pages.recharge);
+    this.navCtrl.push(this.pages.recharge, { params: { ordertype: 'coin' } });
     this.rechargeSub = this.paymentPro.achieve$.subscribe(res => {
       let start = this.navCtrl.indexOf(this.viewCtrl);
       this.navCtrl.remove(start + 1, res.len - start - 1);

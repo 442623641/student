@@ -1,0 +1,42 @@
+page-validationmodal {
+  background: rgba(0, 0, 0, .55);
+  text-align: center;
+  .card {
+    border-radius: 4px;
+    width: 310px;
+    margin: 0 auto;
+    margin-top: 50%;
+    .card-header {
+      position: relative;
+      h2 {
+        margin: 0;
+      }
+      .button {
+        position: absolute;
+        right: 16px;
+        top: 0;
+      }
+    }
+    .card-content {
+      position: relative;
+      .btn {
+        position: absolute;
+        right: 16px;
+        top: 0;
+      }
+      .code {
+        width: 83%;
+        height: 4.6rem;
+        display: flex;
+        position: relative;
+        border: solid 1px #e1e1e1;
+        input {
+          padding: 16px;
+          border: none; // width: 50%;
+        } //   img {
+        //   width: 60%;
+        // }
+      }
+    }
+  }
+}

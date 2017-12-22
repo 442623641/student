@@ -32,7 +32,7 @@ export class FeedbackPage {
   submit() {
     this.processing = true;
     let sucess = () => {
-      this.nativepro.prompt('感谢您的反馈');
+      this.nativepro.success('感谢您的反馈');
       setTimeout(() => {
         this.processing = false;
         this.navCtrl.pop()
@@ -42,7 +42,7 @@ export class FeedbackPage {
     if (!this.images.length) {
       return this.appPro.feedback({ desc: this.text, guid: guid })
         .then(res => sucess())
-        .catch(ex => this.nativepro.prompt(ex.message))
+        .catch(ex => this.nativepro.toast(ex.message))
     }
     this.images.forEach((item, index) => {
 

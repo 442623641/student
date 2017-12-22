@@ -63,9 +63,8 @@ export class LostoptionPage {
     this.page.index = res.index;
     this.elost.append(res.exams, !res.end, res.index);
     //this.end = res.end;
-    if (res.end) this.elost.count = this.elost.exams.length;
+    //if (res.end) this.elost.count = this.elost.exams.length;
     this.lostPro.replaceElost(this.elost);
-    console.log(this.elost.exams);
   }
 
   save(shouldClose ? : boolean) {
@@ -75,10 +74,11 @@ export class LostoptionPage {
     }
 
     this.navCtrl.getPrevious().id == LOST_PAGE ? this.nativePro
-      .confirm('是否需要匹配相关知识点？', ['不需要', '需要'], '错题相关知识点')
-      .then(btn => {
-        this.elost.isPromote = !!btn ? 1 : 0;
-        pop()
+      .confirm('是否需要匹配相关知识点练习题？', ['不需要', '需要'], '练习题', false, true)
+      .then((btn: number) => {
+        if (btn < 2) this.elost.isPromote = 0;
+        if (btn == 2) this.elost.isPromote = 1;
+        (btn - 1 >= 0) && pop();
       }) : pop();
   }
 

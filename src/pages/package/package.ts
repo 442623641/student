@@ -32,7 +32,7 @@ export class PackagePage {
     this.package = new PackageO(event, this.options[0]);
     //this.setParams(this.package);
   }
-  ionViewDidLoad() {
+  ngOnInit() {
     //setTimeout(() => {
     this.packagePro.options().then(res => {
       if (!res || !res.length) return this.options = null;
@@ -40,9 +40,9 @@ export class PackagePage {
       this.tap(res[0]);
     }).catch(ex => {
       this.options = null;
-    });
-    //}, 350);
+    }); //}, 350);
   }
+
 
   tap(opt: PackageOption) {
     if (opt.value == this.package.option.value) return;

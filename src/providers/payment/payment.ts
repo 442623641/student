@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http';
 import { SeptnetpayProvider } from './septnetpay';
 import { Storage } from '@ionic/storage';
-
-import { PaymentParams } from '../../model/payment'
+import { MobclickagentProvider } from '../app/mobclickagent'
+//import { LostParams } from '../../model/elost';
+//import { PaymentParams } from '../../model/payment';
 import { Subject } from 'rxjs/Subject';
 import { COIN } from '../providers.constants';
 /* beautify ignore:start */
@@ -30,6 +31,7 @@ export class PaymentProvider {
     private http: HttpProvider,
     private septnetpayPro: SeptnetpayProvider,
     private storage: Storage,
+    private mobclickagent: MobclickagentProvider
   ) {
     console.log('Hello PaymentProvider Provider');
   }
@@ -41,16 +43,15 @@ export class PaymentProvider {
   }
 
   code(data) {
-    return this.http.post('payment/getOrderCode', data);
+    let p = Object.assign({}, data);
+    delete p.amount;
+    return this.http.post('payment/getOrderCode', p);
   }
 
   params(data) {
 
     return this.http.post('payment/getOrderSign', data);
-
   }
-
-
 
   balance() {
     return this.http.get('userinfo/getcoin').then(res => {
@@ -60,7 +61,7 @@ export class PaymentProvider {
     }).catch();
   }
 
-  setLocalBalance(num, delay = 0) {
+  setLocalBalance(num, delay = 500) {
     setTimeout(() => this.balanceSource.next(num), delay);
     return this.storage.set(COIN, num);
   }
@@ -83,6 +84,8 @@ export class PaymentProvider {
           function success(e) {
             console.log('alipay success:' + JSON.stringify(e));
             resolve(e);
+            this.mobclickagent.onEvent("payment_alipay");
+            this.mobclickagent.pay(obj.amount, 0, 2)
           },
           function error(e) {
             console.log('alipay fail:' + JSON.stringify(e));
@@ -99,6 +102,7 @@ export class PaymentProvider {
    *微信支付
    */
   wa(obj): Promise < any > {
+
     if (typeof Wechat === 'undefined') {
       console.log('wepay fail:Wechat cordova plugin is not installed.');
       return Promise.reject('Wechat cordova plugin is not installed.');
@@ -106,13 +110,15 @@ export class PaymentProvider {
     if (this.http.isNative) {
       return new Promise((resolve, reject) => {
         Wechat.sendPaymentRequest(obj,
-          function success(e) {
+          (e) => {
             console.log('wepay success:' + JSON.stringify(e));
             resolve(e);
+            this.mobclickagent.pay(obj.amount, 0, 4);
+            this.mobclickagent.onEvent("payment_wepay");
           },
-          function error(e) {
-            console.log('wepay fail:' + JSON.stringify(e));
-            reject(e);
+          error => {
+            console.log('wepay fail:' + JSON.stringify(error));
+            reject(error);
           });
       })
     } else {
@@ -124,14 +130,18 @@ export class PaymentProvider {
   /**
    *七天支付
    */
-  sa(params: PaymentParams) {
+  sa(params: any) {
+    //this.mobclickagent.pay(0,0,);
+    this.mobclickagent.onEvent("payment_septnetpay");
     switch (params.ordertype) {
       case "package":
         return this.septnetpayPro.package({ couponcode: params.couponcode, year: params.year });
       case "exam":
         return this.septnetpayPro.exam({ examguid: params.examguid });
       case "elecerrorbook":
-        return this.septnetpayPro.lost({ product: params.product, couponcode: params.couponcode, examguids: JSON.stringify(params.examguids) });
+        return this.septnetpayPro.elost({ product: params.product, couponcode: params.couponcode, examguids: JSON.stringify(params.examguids) });
+      case "errorbook":
+        return this.septnetpayPro.lost({ exams: params.exams, couponcode: params.couponcode, area: params.area });
       default:
         console.log('Invalid order type');
         return Promise.reject({ status: 405, message: 'Invalid order type' });

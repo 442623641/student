@@ -18,9 +18,7 @@ export class LostguidePage {
   constructor(private navCtrl: NavController, private viewCtrl: ViewController) {}
   go() {
     this.navCtrl.push(LOST_PAGE).then(() =>
-      setTimeout(() => {
-        this.navCtrl.removeView(this.viewCtrl, { animate: false })
-      }, 300)
+      setTimeout(() => this.navCtrl.removeView(this.viewCtrl, { animate: false }), 300)
     );
   }
 }
