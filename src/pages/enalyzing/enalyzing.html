@@ -66,7 +66,7 @@
 <ion-footer *ngIf="enalyzingOpt&&enalyzingOpt.unauthorized&&enalyzingOpt.unauthorized==enalyzingOpt.total" no-border>
   <ion-toolbar>
     <ion-title>
-      <button ion-button block [navPush]="pages.package" event="enalyzing_goPackage">开通学情套餐</button>
+      <button ion-button block (touch)="this[openButtonState](1)" event="enalyzing_goPackage">{{openButtonState=='refresh'?'点击刷新页面':'开通学情套餐'}}</button>
     </ion-title>
   </ion-toolbar>
 </ion-footer>

@@ -105,7 +105,7 @@ export class ReportPage {
       payment: res.buy,
       weight: res.weight
     }) : null;
-    console.log(JSON.stringify(this.report.learnanalysis));
+    //console.log(JSON.stringify(this.report.learnanalysis));
   }
 
   get report(): ReportOptions {

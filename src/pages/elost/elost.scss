@@ -18,7 +18,8 @@ page-elost {
       .name {
         background: color($colors, primary);
         color: #fff;
-        padding: 5px 10px;
+        padding: 3px 10px;
+        display: inline-block;
         border-radius: 3px;
         margin-left: 16px;
       }
@@ -29,8 +30,9 @@ page-elost {
         color: #fff;
         font-size: 1.5rem; //padding: 16px;
         text-align: center;
-        span[primary] {
+        span {
           font-size: 1.7rem;
+          padding: 0 2px;
         }
       }
       background-size: cover !important;

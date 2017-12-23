@@ -1,5 +1,10 @@
 page-sysmessages {
   .block {
+    background-color: #fff;
+    margin-top: 10px;
+    .row {
+      padding: 6px 11px;
+    }
     .item {
       min-height: 4rem;
     }
@@ -12,7 +17,6 @@ page-sysmessages {
       font-size: .8rem;
     }
     .block-content {
-      background-color: #fff;
       border-bottom: 1px solid #f2f2f2;
       .paragraph {
         color: color($colors, gray9);
@@ -20,6 +24,7 @@ page-sysmessages {
         max-height: 8rem;
         overflow: hidden;
         position: relative;
+        text-align: justify;
         .ellipsis {
           position: absolute;
           bottom: 0;
@@ -28,7 +33,7 @@ page-sysmessages {
           font-weight: bold;
           margin-left: 1px;
           letter-spacing: 4px;
-          color: color($colors, gray9);
+          color: rgba(color($colors, gray9), .8);
           padding-left: 40px;
         }
       }
@@ -44,7 +49,7 @@ page-sysmessages {
     height: .8rem;
     border-radius: .4rem;
     background-color: color($colors, primary);
-    margin-right: .6rem;
+    margin-right: .2rem;
     &.read {
       background-color: color($colors, text);
     }

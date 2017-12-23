@@ -14,7 +14,7 @@ export class ChartsProvider {
     label: "#666",
     text: '#414a60',
     shadow: 'rgba(246,110,79,.75)',
-    series: ['#f66e4f', "#CC8DFF", "#4CBE86"]
+    series: ['#f66e4fc7', "#CC8DFFC7", "#4CBE86C7"]
   }
   shadow: string = 'padding: 8px 8px 5px 8px;text-align:left;box-shadow: 1px 5px 10px ' + this.colors.primary + ';'
   constructor() {
@@ -275,7 +275,9 @@ export class ChartsProvider {
         },
       },
       angleAxis: {
-
+        splitNumber: obj.indicator.length - 1,
+        maxInterval: 1,
+        minInterval: 1,
         interval: 1,
         axisLabel: {
           formatter: function(value, index) {

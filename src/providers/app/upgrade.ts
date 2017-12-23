@@ -4,7 +4,6 @@ import { NativeProvider } from '../native';
 import { Application } from '../../model/application';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
-import { Platform } from 'ionic-angular';
 /*
   Generated class for the AppProvider provider.
 
@@ -17,13 +16,16 @@ export class UpgradeProvider {
   remoteVersion: string;
   updating: boolean;
   constructor(
-    platform: Platform,
     private http: HttpProvider,
     private nativePro: NativeProvider,
     private file: File,
     private fileOpener: FileOpener,
   ) {
     console.log('Hello UpgradeProvider Provider');
+  }
+
+  setVersion(version) {
+    this.localVersion = version;
   }
 
   checkUpdate(version ? : string): Promise < any > {

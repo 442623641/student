@@ -86,13 +86,15 @@ export class CouponPage {
       if (this.codes === v.couponCode) {
         this.nativePro.toast('该优惠券已存在');
         this.values = v.couponCode;
+        this.codes = '';
       }
     });
 
     //不是则判断优惠券是否合法 合法则添加 不合法报错
     this.couponpro.wincoupon({ code: this.codes }).then(res => {
-      res && res.couponCode ? this.coupons.unshift(res) : this.nativePro.toast('该优惠劵不存在');
-    }).catch(err => this.nativePro.toast('该优惠劵不存在'));
+        res && res.couponCode ? (this.coupons.unshift(res), this.codes = '') : this.nativePro.toast('该优惠劵不存在');
+      })
+      .catch(err => this.nativePro.toast('该优惠劵不存在'));
   }
 
   /**

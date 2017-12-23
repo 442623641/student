@@ -66,7 +66,7 @@ export class LostProvider {
    *获取价格
    */
   price(data): Promise < any > {
-    return this.http.get('errorbook/getPageCount', data);
+    return this.http.post('errorbook/getPageCount', data);
   }
 
   /**

@@ -1,3 +1,8 @@
 page-lost {
   @extend page-elost;
+  .mess {
+    currency {
+      color: #fff !important;
+    }
+  }
 }

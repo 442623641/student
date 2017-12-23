@@ -176,7 +176,7 @@ export class HttpProvider {
 
     body = body || {};
     url = this.url(url);
-    return this.nativeHttp.post(url, body, { Token: this.token, Version: this.version })
+    return this.nativeHttp.post(url, this.serializer(body), { Token: this.token, Version: this.version })
       .then(res => this.json(res))
       .catch(err => this.catchError(err));
   }
@@ -203,17 +203,28 @@ export class HttpProvider {
   }
 
 
-
   private toParams(obj ? : any) {
-    if (typeof obj == 'undefined') return;
+    if (!obj) return;
     let ret = [],
       keys = Object.keys(obj);
     keys.forEach(key => obj[key] === undefined || ret.push(this.toQueryPair(key, typeof obj[key] == 'object' ? JSON.stringify(obj[key]) : obj[key])));
     return ret.join('&');
   }
 
+  private serializer(obj ? : any) {
+    if (!obj) return;
+    let sobj = {},
+      keys = Object.keys(obj);
+    keys.forEach(key => {
+      if (obj[key] !== undefined) {
+        sobj[key] = typeof obj[key] == 'object' ? JSON.stringify(obj[key]) : obj[key];
+      }
+    });
+    return sobj;
+  }
+
   private toQueryPair(key, value) {
-    if (typeof value == 'undefined') return;
+    if (typeof value === undefined) return;
     return key + '=' + encodeURIComponent(value === null ? '' : String(value));
   }
 

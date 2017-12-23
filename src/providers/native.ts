@@ -70,7 +70,11 @@ export class NativeProvider {
    */
   toast = (message: string = '操作完成', duration: number = 2000, positon: string = "top") => {
     if (this.native) {
-      return this.ntoast.show(message, String(duration), positon).subscribe();
+      return this.ntoast
+        .show(message, String(duration), positon)
+        .subscribe(res => {
+          console.log(res);
+        });
     } else {
       return this.toastCtrl.create({
         message: message,

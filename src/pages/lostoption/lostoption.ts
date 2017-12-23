@@ -40,7 +40,7 @@ export class LostoptionPage {
 
     //this.end = false;
     this.page = { index: 0, viewlength: 10 };
-    this.lostPro.exams(Object.assign({ subject: this.elost.name, type: this.elost.type }, this.page)).then(res => {
+    this.lostPro.exams({ subject: this.elost.name, type: this.elost.type, index: this.elost.index || 0, viewlength: 10 }).then(res => {
       if (!res || !res.exams || !res.exams.length) return this.elost.state = null;
       this.fill(res)
     }).catch(ex => {
@@ -50,7 +50,7 @@ export class LostoptionPage {
   }
 
   doInfinite(event) {
-    this.lostPro.exams(Object.assign({ subject: this.elost.name, type: this.elost.type }, this.page)).then(res => {
+    this.lostPro.exams({ subject: this.elost.name, type: this.elost.type, index: this.elost.index, viewlength: 10 }).then(res => {
       event.complete();
       if (!res || !res.exams || !res.exams.length) return;
       this.fill(res)
@@ -60,10 +60,7 @@ export class LostoptionPage {
     })
   }
   fill(res) {
-    this.page.index = res.index;
-    this.elost.append(res.exams, !res.end, res.index);
-    //this.end = res.end;
-    //if (res.end) this.elost.count = this.elost.exams.length;
+    this.elost.append(res.exams, res.end, res.index);
     this.lostPro.replaceElost(this.elost);
   }
 

@@ -11,13 +11,13 @@
   <ng-template [ngIf]="messages" [ngIfElse]="loading">
     <ion-list>
       <div class="block" *ngFor="let item of messages">
-        <ion-row line-top margin-top-10 padding-horizontal-10 justify-content-between>
+        <ion-row line-top justify-content-between>
           <ion-col text-left>
             <i [class.read]="item.state"></i> 系统通知
           </ion-col>
           <ion-col text-right ion-text color="gray9">{{item.createdtime}}</ion-col>
         </ion-row>
-        <div class="block-content" padding-horizontal padding-bottom-12>
+        <div class="block-content" padding-horizontal padding-bottom-12 line-top>
           <h6 no-margin padding-bottom-12 padding-top class="font-weight-normal">{{item.title}}</h6>
           <p class="paragraph">
             {{item.description}}

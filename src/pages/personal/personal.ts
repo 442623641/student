@@ -31,6 +31,7 @@ export class PersonalPage {
   userInfo: UserInfo;
   db: UserInfo;
   graduated: boolean;
+  _graduated: number = 0;
   processing: any;
   refreshSub: any;
 
@@ -122,7 +123,9 @@ export class PersonalPage {
         citycode: this.userInfo.city,
         school: this.userInfo.schoolGuid,
         role: this.userInfo.role,
-        grade: this.userInfo.grade
+        grade: this.userInfo.grade,
+        isgradute: this._graduated,
+
       }).then(res => {
         this.processing = undefined;
         this.userPro.setUserInfo(this.userInfo);
@@ -139,6 +142,7 @@ export class PersonalPage {
   rebinding() {
     this.db = { name: this.userInfo.name };
     this.userInfo = { name: this.db.name };
+    this._graduated = 1;
     this.graduated = false;
   }
 }

@@ -65,7 +65,7 @@ export class LostPage {
   }
 
   ionViewDidLoad() {
-    setTimeout(() => this.doRefresh(), 300);
+    setTimeout(() => this.doRefresh(), 450);
   }
 
   print(item) {
@@ -87,7 +87,7 @@ export class LostPage {
       return item.name == res.name
     });
     if (!this.losts[index]) return;
-    this.losts[index] = res;
+    this.losts[index] = new Elost(res);
     this.checkeds = this.losts.filter(item => { return item['visible'] = !!item.echeckeds; });
     return this.losts[index];
   }
@@ -156,8 +156,14 @@ export class LostPage {
    */
   dopay() {
     let subjects = [];
-    this.checkeds.forEach(item => item.echeckeds && subjects.push({ name: item.name, exams: item.exams.filter(i => { return i.checked; }) }))
-    this.navCtrl.push(this.pages.lostpay, { params: new LostParams(this.checkeds, this.amount) });
+    this.checkeds.forEach(item => {
+      item.echeckeds && subjects.push(Object.assign({}, item, {
+        exams: item.exams.filter(exam => {
+          return exam.checked
+        })
+      }));
+    })
+    this.navCtrl.push(this.pages.lostpay, { params: new LostParams(subjects, this.amount) });
     this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
       let start = this.navCtrl.indexOf(this.viewCtrl);
       this.navCtrl.insert(start + 1, this.pages.lostOrders, {}, { animate: false }).then(() => {

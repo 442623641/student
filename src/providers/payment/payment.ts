@@ -94,7 +94,7 @@ export class PaymentProvider {
       })
     } else {
       console.log('alipay fail:找不到应用');
-      return Promise.reject({ message: '找不到应用' });
+      return Promise.resolve({ message: '找不到应用' });
     }
   }
 

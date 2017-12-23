@@ -39,6 +39,7 @@ export class EnalyzingPage {
   tempOption: EOptions;
   achieveSub: any;
   modal: any;
+  openButtonState: 'openPackage' | 'refresh' = 'openPackage';
   constructor(
     public enalyzingPro: EnalyzingProvider,
     public nativePro: NativeProvider,
@@ -50,17 +51,29 @@ export class EnalyzingPage {
   ) {}
 
   ionViewDidLoad() {
+    this.refresh();
+  }
+
+  refresh(shouldHideLoading ? ) {
+    shouldHideLoading && this.nativePro.showLoading();
     setTimeout(() => {
       this.enalyzingPro.index().then(res => {
         if (!res || !res.subject) return this.enalyzingOpt = null;
-
         this.subjectNames = res.subject;
         this.enalyzingOpt = new EnalyzingOptions(res, { subject: this.subjectNames[0] });
         this.tempOption = this.enalyzingOpt.option.clone();
         this.affix();
         this.openPackageModal();
+        if (shouldHideLoading) {
+          this.nativePro.hideLoading();
+          if (this.enalyzingOpt.total && this.enalyzingOpt.unauthorized > 0) this.openButtonState = "refresh";
+        }
+        setTimeout(() => this.content.resize(), 300);
       }).catch(ex => {
         this.enalyzingOpt = null;
+        shouldHideLoading && this.nativePro.hideLoading();
+
+        return Promise.reject({});
       });
     }, 450);
   }
@@ -177,6 +190,10 @@ export class EnalyzingPage {
       this.affixOpt = index > -1 ? this.enalyzingOpt.exams[index] : null;
     });
   }
+
+  open() {
+    this[this.openButtonState]();
+  }
   /**
    *查看
    */
@@ -184,15 +201,21 @@ export class EnalyzingPage {
     if (!this.enalyzingOpt.unauthorized || this.enalyzingOpt.unauthorized == this.enalyzingOpt.total) return;
     this.modal = this.modalCtrl.create(ENALYZINGMODAL_PAGE, { option: { total: this.enalyzingOpt.total, unauthorized: this.enalyzingOpt.unauthorized } });
     this.modal.present();
-    this.modal.onDidDismiss(res => res && res.open &&
-      this.navCtrl.push(PACKAGE_PAGE).then(() => {
-        this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
-          this.achieveSub.unsubscribe();
-          let start = this.navCtrl.indexOf(this.viewCtrl);
-          this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {});
-        });
-      })
-    )
+    this.modal.onDidDismiss(res => res && res.open && this.openPackage());
+  }
+
+  openPackage() {
+    this.navCtrl.push(PACKAGE_PAGE).then(() => {
+      this.achieveSub = this.paymentPro.achieve$.subscribe(res => {
+        this.achieveSub.unsubscribe();
+        let start = this.navCtrl.indexOf(this.viewCtrl);
+        this.navCtrl.remove(start + 1, res.len - start - 1).then(() => {
+          this.refresh(true);
+        }).catch(ex => {
+          this.refresh(true);
+        })
+      });
+    })
   }
   ionViewDidEnter() {
     this.achieveSub && this.achieveSub.unsubscribe();

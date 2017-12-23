@@ -18,9 +18,9 @@
       <div [attr.name]="item.name">
         <span class="name">{{item.name}}</span>
         <div class="mess" *ngSwitchCase="false">
-          {{item.name}}共有<span primary>{{item.count}}</span>次考试，如需定制本科错题本，请点击下方“申请定制”选择需要定制的内容</div>
+          {{item.name}}共有<span>{{item.count}}</span>次考试，如需定制本科错题本，请点击下方“申请定制”选择需要定制的内容</div>
         <div class="mess" *ngSwitchCase="true">
-          您共选择了<span primary>{{item.echeckeds}}</span>次考试，共<span primary>{{item.icheckeds}}</span>道错题</div>
+          您共选择了<span>{{item.echeckeds}}</span>次考试，共<span>{{item.icheckeds}}</span>道错题</div>
       </div>
       <a *ngSwitchCase="false" (touch)="print(item)" class="card-footer" event="elost_goOptions">申请定制</a>
       <a *ngSwitchCase="true" (touch)="print(item)" class="card-footer" event="elost_goOptions">修 改</a>
@@ -35,7 +35,7 @@
     <ion-toolbar color="transparent" no-padding>
       <ion-item-group [style.maxHeight.px]="showTips?checkeds.length*45:0" *ngIf="!!checkedsCount">
         <transition name="block" [if]="item.visible" *ngFor="let item of checkeds;let i=index;" (afterLeave)="item.checkedAll=false">
-          <p line-bottom><a ion-text color="text" event="elost_goOptions" (touch)="print(item)">{{item.name}}（选择<span primary>{{item.echeckeds}}</span>次考试），共<span primary>{{item.icheckeds}}</span>道错题</a>
+          <p line-bottom><a ion-text color="text" event="elost_goOptions" (touch)="print(item)">{{item.name}}（选择<span>{{item.echeckeds}}</span>次考试），共<span>{{item.icheckeds}}</span>道错题</a>
             <a float-right padding-horizontal (touch)="item.visible=false" ion-text color="gray9" event="elost_del">
               <ion-icon name="trash-outline"></ion-icon>
             </a>

@@ -73,7 +73,7 @@ export class ElostPage {
       return item.name == res.name
     });
     if (!this.losts[index]) return;
-    this.losts[index] = res;
+    this.losts[index] = new Elost(res);
     this.checkeds = this.losts.filter(item => { return item['visible'] = !!item.echeckeds; });
     return this.losts[index];
   }
@@ -82,10 +82,7 @@ export class ElostPage {
     this.checkeds.length = 0;
     this.lostPro.subjects().then(res => {
       event && event.complete();
-      if (!res || !res.length) {
-        this.losts = null;
-        return;
-      }
+      if (!res || !res.length) { return this.losts = null; }
       this.losts = res.map(item => { return new Elost(item) });
       //console.log(res);
     }).catch(e => this.losts = null);

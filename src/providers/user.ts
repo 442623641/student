@@ -10,6 +10,8 @@ import { UserInfo } from "../model/userInfo";
 import { StaticProvider } from "./static/static";
 import { Subject } from 'rxjs/Subject';
 import { MobclickagentProvider } from './app/mobclickagent';
+import { UpgradeProvider } from './app/upgrade';
+
 @Injectable()
 export class UserProvider {
   private userInfoSource = new Subject < any > ();
@@ -20,13 +22,17 @@ export class UserProvider {
     private storage: Storage,
     private httpHandler: HttpHandler,
     private staticPro: StaticProvider,
-    private analyticsPro: MobclickagentProvider
+    private analyticsPro: MobclickagentProvider,
+    private upgradePro: UpgradeProvider
+
   ) {
     console.log('Hello UserProvider Provider');
   }
 
   //初始数据
   initialize(userInfo, login: any) {
+    //检测更新
+    setTimeout(() => this.upgradePro.checkUpdate(), 8000);
     this.setLogin(login);
     userInfo && this.http.setToken(userInfo.token);
     return userInfo && userInfo.school ? Promise.all([this.staticPro.getAddressName(userInfo.city), this.staticPro.getGradeName(userInfo.grade)])

@@ -60,8 +60,9 @@ export class AppProvider {
 
       console.log(`The ${version} version of the【小七助手】is ready`);
       this.http.setVersion(version);
+      this.upgradePro.setVersion(version);
       //检查更新
-      setTimeout(() => this.upgradePro.checkUpdate(version), 3000);
+      //setTimeout(() => this.upgradePro.checkUpdate(version), 5000);
     })
   }
 

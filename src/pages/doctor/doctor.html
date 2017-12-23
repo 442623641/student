@@ -106,12 +106,8 @@
             </a>
           </p>
           <div class="item-content" event="doctor_excellentViewer" [imgviewer]="{title:'优秀答案',images:exc.value[subjects[subjectIndex].activity.excellentNums[i]]}">
-            <!-- {{exc.value[0][1]}} -->
-            <!-- <ng-container *ngFor="let item of exc.value[subjects[subjectIndex].activity.excellentNums[i]]"> -->
-            <!-- <ng-container > -->
               <img-lazy *ngFor="let img of exc.value[subjects[subjectIndex].activity.excellentNums[i]]" [src]="img" [alt]="img">
               </img-lazy>
-            <!-- </ng-container> -->
           </div>
         </div>
         <div class="topics-item" *ngIf="subjects[subjectIndex].activity.analyse.length===1;else analyseSlider;">
