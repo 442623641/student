@@ -1,13 +1,16 @@
   page-usercenter {
     .fixed-content {
       margin-top: 0 !important;
+      background: color($colors, primary);
+    }
+    .has-refresher>.scroll-content {
+      border-top-color: color($colors, primary);
     }
     .scroll-content {
       padding-top: 0 !important;
-    }
-    .content {
-      background: linear-gradient(to bottom, color($colors, primary) 0%, color($colors, primary) 19%, $background-color 20%, $background-color 100%);
-    }
+    } // .fixed-content {
+    //   background: color($colors, primary); //background: linear-gradient(to bottom, color($colors, primary) 0%, color($colors, primary) 19%, $background-color 20%, $background-color 100%);
+    // }
     .banner {
       padding: 16px;
       color: #fff;

@@ -1,8 +1,15 @@
 page-home {
-  .content {
-    background: linear-gradient(to bottom, color($colors, primary) 0%, color($colors, primary) 25%, $background-color 26%, $background-color 100%);
+  // .content {
+  //   background: linear-gradient(to bottom, color($colors, primary) 0%, color($colors, primary) 25%, $background-color 26%, $background-color 100%);
+  // }
+  .fixed-content {
+    background: color($colors, primary);
+  }
+  .has-refresher>.scroll-content {
+    border-top-color: color($colors, primary);
   }
   .header {
+
     padding: 20px 16px;
     color: white; //height: 13rem;
     background: color($colors, primary);
