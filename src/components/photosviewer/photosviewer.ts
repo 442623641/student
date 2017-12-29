@@ -43,13 +43,19 @@ export class PhotosviewerComponent {
         el: '#swiper-pagination',
         type: 'fraction'
       },
+      slideToClickedSlide: false,
       passiveListeners: false,
       on: {
         click: () => this.swiper.zoom.scale != 1 ? this.swiper.zoom.toggle() : this.viewCtrl.dismiss(),
         slideChange: () => {
           this.swiper.zoom.disable();
-          this.swiper.zoom.enable();
-          //setTimeout(() => this.swiper.zoom.enable(), 0);
+          setTimeout(() => {
+            this.swiper.virtual.update();
+            this.swiper.zoom.enable();
+            this.swiper.update();
+            this.swiper.detachEvents(); //移除所有slide监听事件
+            this.swiper.attachEvents(); //重新绑定所有监听事件。
+          }, 120);
           //this.states[this.swiper.activeIndex] !== 1 ? this.swiper.zoom.disable() : this.swiper.zoom.enable();
         }
       },

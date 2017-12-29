@@ -19,7 +19,7 @@
     <div class="banner">
       <h3>{{latest.name}}</h3>
       <p ion-text color="gray9">发布时间：{{latest.time}}</p>
-      <liquid [option]="latest" (touch)="toReport(latest)" event="exams_goLatestReport"></liquid>
+      <liquid [score]="latest.score" [percent]="latest.percent" (touch)="toReport(latest)" event="exams_goLatestReport"></liquid>
       <!-- <echart [option]="waterball" ></echart> -->
       <ion-row justify-content-between>
         <ion-col col-6>

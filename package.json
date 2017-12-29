@@ -42,6 +42,7 @@
     "Umeng": "cordova-plugin-umeng",
     "call-number": "~1.0.1",
     "cordova-android": "~7.0.0",
+    "cordova-ios": "~4.5.4",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-add-swift-support": "^1.7.0",
     "cordova-plugin-advanced-http": "^1.9.0",
@@ -79,8 +80,7 @@
     "sw-toolbox": "3.6.0",
     "swiper": "^4.0.7",
     "umeng-analytics-sdk": "file:cordova-plugin-umeng",
-    "zone.js": "0.8.19",
-    "cordova-ios": "~4.5.4"
+    "zone.js": "0.8.19"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.7",
@@ -108,9 +108,6 @@
       "cordova-plugin-themeablebrowser": {},
       "cordova-plugin-file-opener2": {},
       "call-number": {},
-      "cordova-plugin-wechat": {
-        "WECHATAPPID": "wx23458de60c84cbdc"
-      },
       "cordova-plugin-alipay-v2": {
         "APP_ID": "2017092908987068"
       },
@@ -120,7 +117,10 @@
       "org.pbernasconi.progressindicator": {},
       "cordova-plugin-camera": {},
       "cordova-plugin-contacts": {},
-      "cordova-plugin-statusbar": {}
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-wechat": {
+        "WECHATAPPID": "wx23458de60c84cbdc"
+      }
     },
     "platforms": [
       "android",

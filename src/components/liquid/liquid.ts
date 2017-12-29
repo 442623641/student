@@ -12,17 +12,24 @@ import { Component, Input, ElementRef } from '@angular/core';
 })
 export class LiquidComponent {
   styles: string;
+  percentStr: string;
+  _percent: number;
+  @Input() score: number;
+  @Input() set percent(val) {
+    if (val !== undefined) {
+      this._percent = val;
+      this.percentStr = (val * 100).toFixed(1) + '%';
+    }
+  }
 
-  @Input() option: { score: number, percent: number } = { score: 0, percent: 100 };
-  percent: string = '0%';
 
   constructor(private el: ElementRef) {
     console.log('Hello LiquidComponent Component');
   }
   ngAfterViewInit() {
-    this.percent = (this.option.percent * 100).toFixed(1) + '%';
+
     let style = document.createElement("style");
-    style.innerHTML = `liquid .water::after,liquid .water::before{top: -${(100+this.option.percent*100).toFixed(1)}% !important}`;
+    style.innerHTML = `liquid .water::after,liquid .water::before{top: -${(100+this._percent*100).toFixed(1)}% !important}`;
     this.el.nativeElement.insertBefore(style, this.el.nativeElement.firstChild);
   }
 

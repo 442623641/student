@@ -113,9 +113,6 @@
     <plugin name="cordova-plugin-themeablebrowser" spec="^0.2.17" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
     <plugin name="call-number" spec="~1.0.1" />
-    <plugin name="cordova-plugin-wechat" spec="^2.1.0">
-        <variable name="WECHATAPPID" value="wx23458de60c84cbdc" />
-    </plugin>
     <plugin name="cordova-plugin-alipay-v2" spec="0.0.4">
         <variable name="APP_ID" value="2017092908987068" />
     </plugin>
@@ -126,4 +123,7 @@
     <plugin name="cordova-plugin-camera" spec="^3.0.0" />
     <plugin name="cordova-plugin-contacts" spec="^3.0.1" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.0" />
+    <plugin name="cordova-plugin-wechat" spec="^2.1.0">
+        <variable name="WECHATAPPID" value="wx23458de60c84cbdc" />
+    </plugin>
 </widget>

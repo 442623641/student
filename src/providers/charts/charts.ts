@@ -14,7 +14,7 @@ export class ChartsProvider {
     label: "#666",
     text: '#414a60',
     shadow: 'rgba(246,110,79,.75)',
-    series: ['#f66e4fc7', "#CC8DFFC7", "#4CBE86C7"]
+    series: ['rgba(246, 110, 79,.7)', "rgba(204, 141, 255,.7)", "rgba(76, 190, 134,.7)"]
   }
   shadow: string = 'padding: 8px 8px 5px 8px;text-align:left;box-shadow: 1px 5px 10px ' + this.colors.primary + ';'
   constructor() {
