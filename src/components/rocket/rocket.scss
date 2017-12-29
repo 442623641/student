@@ -63,6 +63,7 @@ rocket {
     transform: translate(-50%, -50%);
     width: 140px;
     z-index: 10;
+    overflow: visible;
   }
 
   [state=ready],

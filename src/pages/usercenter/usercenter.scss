@@ -5,6 +5,9 @@
     .scroll-content {
       padding-top: 0 !important;
     }
+    .content {
+      background: linear-gradient(to bottom, color($colors, primary) 0%, color($colors, primary) 24%, $background-color 25%, $background-color 100%);
+    }
     .banner {
       padding: 16px;
       color: #fff;
@@ -70,5 +73,12 @@
 
     [name=ifeedback] {
       color: #78be54;
+    }
+    .refresher-pulling-icon,
+    .refresher-refreshing-icon {
+      color: #fff;
+      line {
+        stroke: #fff !important;
+      }
     }
   }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { EchartComponent } from './echart';
-import 'echarts-liquidfill';
 @NgModule({
   declarations: [
     EchartComponent

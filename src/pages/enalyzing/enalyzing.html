@@ -78,7 +78,7 @@
       </ion-col>
     </ion-row>
   </ion-item-group>
-  <ion-item-group margin-top>
+  <ion-item-group margin-top-10>
     <ion-item-divider color="light">时间</ion-item-divider>
     <ion-row justify-content-between>
       <a col-5 *ngFor="let item of times" [attr.seleted]="tempOption.month == item.month" (touch)="tempOption.month = item.month" event="enalyzing_pickMonth">{{item.name}}</a>
@@ -86,7 +86,7 @@
   </ion-item-group>
   <!-- </ion-content> -->
   <ion-footer>
-    <p margin>
+    <p margin-12>
       <button ion-button block (touch)="save()" event="enalyzing_save">确 定</button>
     </p>
   </ion-footer>

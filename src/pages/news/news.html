@@ -10,8 +10,8 @@
   </ion-refresher>
   <ion-item-group padding-vertical>
     <button ion-item [navPush]="pages.claim" event="news_goClaim">
-      <ion-avatar item-start class="circle-blue" text-end>
-        <ion-icon item-left name="paper" color="white" class="relative"></ion-icon>
+      <ion-avatar item-start class="circle-blue">
+        <ion-icon name="paper" color="white" class="relative"></ion-icon>
       </ion-avatar>
       <h2>认领消息</h2>
       <p>共{{news.unclaimed}}认领消息</p>
@@ -20,7 +20,7 @@
     </button>
     <button [navPush]="pages.smessage" ion-item event="news_goSmessage">
       <ion-avatar item-start class="circle-yellow">
-        <ion-icon item-left name="chatbubbles" color="white" class="relative-left"></ion-icon>
+        <ion-icon name="chatbubbles" color="white"></ion-icon>
       </ion-avatar>
       <h2>系统消息</h2>
       <p>共{{news.systemcount}}条系统消息</p>

@@ -9,12 +9,11 @@ page-lostguide {
     width: 100%;
     background: url("../assets/images/bookbanner.png") no-repeat center;
     background-size: cover;
-    height: 26rem;
-    position: relative;
+    height: 310px; // position: relative;
     text-align: center;
     p {
       display: inline-block;
-      margin-top: 6rem;
+      margin-top: 7rem;
       padding: 6px 0;
       border-bottom: 1px solid #fff;
       border-top: 1px solid #fff;
@@ -65,12 +64,12 @@ page-lostguide {
   }
   .err-show {
     .item {
-      span{
-        word-break:break-all;
+      span {
+        word-break: break-all;
         white-space: normal;
       }
       h1 {
-         font-size: 2rem;
+        font-size: 2rem;
         &::before {
           content: '';
           width: 5px;
@@ -113,8 +112,7 @@ page-lostguide {
     border-radius: 10px;
     p:nth-of-type(1) {
       font-size: 2rem;
-    }
-    // span {
+    } // span {
     //   color: #c7eb5e;
     // }
     p {

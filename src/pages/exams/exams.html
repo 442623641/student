@@ -9,17 +9,18 @@
     <ion-title>成绩分析</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content fullscreen="true">
+<ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
   <loading [status]="latest" *ngIf="!latest;else entry" [mess]="unclaimed?'您有未认领考试，请先完成认领，我们再为您匹配数据':' 您没有任何考试信息，请去核实考试信息'"></loading>
   <ng-template #entry>
-    <div class="banner" *ngIf="waterball">
+    <div class="banner">
       <h3>{{latest.name}}</h3>
       <p ion-text color="gray9">发布时间：{{latest.time}}</p>
-      <echart [option]="waterball" (touch)="toReport(latest)" event="exams_goLatestReport"></echart>
+      <liquid [option]="latest" (touch)="toReport(latest)" event="exams_goLatestReport"></liquid>
+      <!-- <echart [option]="waterball" ></echart> -->
       <ion-row justify-content-between>
         <ion-col col-6>
           <button ion-button outline block (touch)="toReport(latest)" event="exams_goLatestReport">学情报告</button>

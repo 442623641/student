@@ -21,11 +21,17 @@ export class SetupPage {
     aboutus: ABOUTUS_PAGE
 
   };
+  remoteVersion: string;
+  localVersion: string;
   constructor(
     private userProvider: UserProvider,
     private upgradePro: UpgradeProvider,
     private nativePro: NativeProvider
-  ) {}
+  ) {
+    this.remoteVersion = upgradePro.remoteVersion;
+    this.localVersion = upgradePro.localVersion;
+  }
+  
   logout() {
     this.userProvider.logout();
   }

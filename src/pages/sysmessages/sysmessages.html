@@ -21,7 +21,7 @@
           <h6 no-margin padding-bottom-12 padding-top class="font-weight-normal">{{item.title}}</h6>
           <p class="paragraph">
             {{item.description}}
-            <span class="ellipsis" *ngIf="item.description.length > 45">...</span>
+            <!-- <span class="ellipsis" *ngIf="item.description.length > 45">...</span> -->
           </p>
         </div>
         <button ion-item no-lines (touch)="message(item)" event="sysmessages_goSysmessage">查看详情</button>

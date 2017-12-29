@@ -4,14 +4,12 @@ import { ExamsPage } from './exams';
 import { ComponentsModule } from '../../components/components.module';
 import { DirectivesModule } from '../../directives/directives.module';
 import { EchartComponentModule } from '../../components/echart/echart.module';
-/**
- *echarts module
- */
-//import { EchartsNg2Module } from 'echart';
-import 'echarts-liquidfill';
+import { LiquidComponent } from '../../components/liquid/liquid';
+
 @NgModule({
   declarations: [
     ExamsPage,
+    LiquidComponent,
   ],
   imports: [
     //EchartsNg2Module,
@@ -20,6 +18,9 @@ import 'echarts-liquidfill';
     DirectivesModule,
     EchartComponentModule
   ],
+  exports: [
+    LiquidComponent
+  ]
 
 })
 export class ExamsPageModule {}

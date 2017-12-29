@@ -64,14 +64,14 @@
       <a col-3 *ngFor="let item of subjectNames" [attr.seleted]="tempOption.subject == item" (touch)="tempOption.subject = item" event="excellent_pickSubject">{{item}}</a>
     </ion-row>
   </ion-item-group>
-  <ion-item-group margin-top>
+  <ion-item-group margin-top-10>
     <ion-item-divider color="light">年级</ion-item-divider>
     <ion-row justify-content-between>
       <a col-5 *ngFor="let item of grades" [attr.seleted]="tempOption.grade == item.code" (touch)="tempOption.grade = item.code" event="excellent_pickGrade">{{item.name}}</a>
     </ion-row>
   </ion-item-group>
   <ion-footer>
-    <p margin>
+    <p margin-12>
       <button ion-button block (touch)="save()" event="excellent_save">确 定</button>
     </p>
   </ion-footer>

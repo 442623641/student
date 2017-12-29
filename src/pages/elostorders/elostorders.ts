@@ -88,7 +88,7 @@ export class ElostordersPage {
   }
 
   share(item) {
-    this.nativePro.share(item.url, '七天网络错题本 提取码：' + item.code + '\n');
+    this.nativePro.share('', '小七助学错题本 提取码：' + item.code + '\n' + item.url);
   }
 
 }

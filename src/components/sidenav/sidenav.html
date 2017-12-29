@@ -1,10 +1,11 @@
 <!-- Generated template for the SidenavComponent component,add by leo zhang 201710010101 -->
 <transition name="nav" [if]="open">
   <div class="menu-inner">
+    <p padding-10 style="background: rgba(0,0,0,.15)" showWhen="ios"></p>
     <ion-header no-border>
       <ion-toolbar color="white">
         <ion-buttons start>
-          <button ion-button icon-only clear color="text" (tap)="open=false">
+          <button ion-button icon-only clear color="text" (tap)="open=false" padding-right>
             <ion-icon name="arrow-back"></ion-icon>
           </button>
         </ion-buttons>

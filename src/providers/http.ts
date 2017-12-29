@@ -22,7 +22,8 @@ export class HttpProvider {
   version: string = '1.0.0';
 
   isNative: boolean;
-  domin: string = 'http://studentapp.septnet.cc/';
+  //domin: string = 'https://studentapp.7net.cc/';
+  domin = 'http://studentapp.septnet.cc/'
   token: string;
 
   /*
@@ -52,14 +53,14 @@ export class HttpProvider {
   ) {
     //this.init();
     this.isNative = this.platform.is('mobile') && !this.platform.is('mobileweb');
-    this.initialize(this.version);
+    //this.initialize(this.version);
   }
 
   enableSSL(): Promise < any > {
 
     if (this.isNative && this.domin.indexOf('https') > -1) {
-      this.nativeHttp.enableSSLPinning(true);
-      return this.nativeHttp.acceptAllCerts(true);
+      this.nativeHttp.acceptAllCerts(true)
+      return this.nativeHttp.enableSSLPinning(true);;
     } else {
       return Promise.resolve();
     }
@@ -74,13 +75,18 @@ export class HttpProvider {
       //真机环境
       this.get = this.nativeGet;
       this.post = this.nativePost;
+      if (this.domin.indexOf('https') > -1) {
+        this.nativeHttp.acceptAllCerts(true)
+        return this.nativeHttp.enableSSLPinning(true);
+      }
+      return Promise.resolve();
     } else {
       //web环境
       this.domin = window.location.origin + '/';
       this.get = this.webGet;
       this.post = this.webPost;
+      return Promise.resolve();
     }
-    return this.enableSSL();
   }
 
   setToken(token: string) {

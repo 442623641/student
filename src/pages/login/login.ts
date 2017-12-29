@@ -31,8 +31,9 @@ export class LoginPage {
     private appCtrl: App,
     formBuilder: FormBuilder
   ) {
+    // Validators.pattern("^1[123456789][0-9]{9}$")
     this.authForm = formBuilder.group({
-      usercode: ['', Validators.compose([Validators.minLength(11), Validators.maxLength(11), Validators.required, Validators.pattern("^1[34578][0-9]{9}$")])],
+      usercode: ['', Validators.compose([Validators.minLength(11), Validators.maxLength(11), Validators.required, Validators.pattern("^1[0-9]{10}$")])],
       pwd: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(50)])],
     });
     this.authForm.valueChanges.subscribe(res => {

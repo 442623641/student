@@ -13,6 +13,7 @@ import { PhotosviewerComponent } from './photosviewer/photosviewer';
 import { TelComponent } from './tel/tel';
 import { CurrencyComponent } from './currency/currency';
 import { DirectivesModule } from '../directives/directives.module';
+//import { LiquidComponent } from './liquid/liquid';
 //import { EchartComponent } from './echart/echart';
 
 

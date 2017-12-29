@@ -53,9 +53,10 @@ export class FeedbackPage {
           index == this.images.length - 1 && sucess()
         })
         .catch(err => {
-          console.error(err);
+          this.processing = false;
+          this.nativepro.toast(err.message);
+          console.log(err);
         });
-      //}).catch(err => console.error(err));
     })
   }
 

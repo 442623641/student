@@ -8,7 +8,7 @@
   <ion-navbar>
     <ion-title>{{exam.name}}</ion-title>
     <ion-buttons end *ngIf="showNavButton">
-      <button ion-button [navPush]='pages.report' [navParams]="exam">
+      <button ion-button [navPush]='pages.report' [navParams]="exam" event="doctor_goReport">
         学情报告
       </button>
     </ion-buttons>
@@ -106,8 +106,8 @@
             </a>
           </p>
           <div class="item-content" event="doctor_excellentViewer" [imgviewer]="{title:'优秀答案',images:exc.value[subjects[subjectIndex].activity.excellentNums[i]]}">
-              <img-lazy *ngFor="let img of exc.value[subjects[subjectIndex].activity.excellentNums[i]]" [src]="img" [alt]="img">
-              </img-lazy>
+            <img-lazy *ngFor="let img of exc.value[subjects[subjectIndex].activity.excellentNums[i]]" [src]="img" [alt]="img">
+            </img-lazy>
           </div>
         </div>
         <div class="topics-item" *ngIf="subjects[subjectIndex].activity.analyse.length===1;else analyseSlider;">

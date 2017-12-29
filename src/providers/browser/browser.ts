@@ -25,14 +25,17 @@ export class BrowserProvider {
       statusbar: {
         color: '#f66e4f'
       },
+      // clearcache: 'yes',
+      // clearsessioncache: 'yes',
       //hidden: 'yes',
       toolbar: {
         height: 44,
-        color: '#f66e4f'
+        color: '#f66e4f',
       },
       title: {
         color: '#ffffff',
-        showPageTitle: true
+        showPageTitle: true,
+        staticText: obj.title
       },
       backButton: {
         // wwwImage: 'assets/images/close.png',

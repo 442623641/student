@@ -52,6 +52,11 @@ export class UsercenterPage {
     this.userPro.getUserInfo().then(res => this.userInfo = res);
     this.userPro.userInfo$.subscribe((userInfo: UserInfo) => this.userInfo = userInfo);
   }
+  doRefresh(event) {
+    this.paymentPro.balance()
+      .then(res => event.complete())
+      .catch(ex => event.complete())
+  }
   recharge() {
     this.navCtrl.push(this.pages.recharge, { params: { ordertype: 'coin' } });
     this.rechargeSub = this.paymentPro.achieve$.subscribe(res => {

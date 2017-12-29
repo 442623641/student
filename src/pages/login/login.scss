@@ -9,16 +9,6 @@ page-login {
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: 0 100%;
-
-    &:after {
-      content: '';
-      height: 1px;
-      width: 100%;
-      background: #fff;
-      top: -1px;
-      bottom: top;
-      align-self: flex-end;
-    }
   }
 
   ion-grid {
@@ -40,18 +30,21 @@ page-login {
     }
   }
   form {
-    width: 100%;
+    //width: 100%;
     background: #fff;
+    transform: translate3d(0, -1px, 0);
   }
   submiton {
     display: block;
     width: 100%;
   }
 
-  .item .label {
-    // text-align: center; // width: 25px;
-    .icon {
-      font-size: 1.8em;
+  .item {
+    z-index: 10;
+    .label {
+      .icon {
+        font-size: 1.8em;
+      }
     }
   }
   .forgot {
@@ -59,9 +52,13 @@ page-login {
     position: absolute;
     bottom: 0;
     width: 100%;
-  }
-  .fadeout~rocket .loader {
-    top: 7vh;
-    transition: top .5s;
-  }
+  } // .fadeout~rocket .loader {
+  //   top: 7vh;
+  //   transition: top .5s;
+  // }
+}
+
+.platform-android page-login .fadeout~rocket .loader {
+  top: 7vh;
+  transition: top .5s;
 }

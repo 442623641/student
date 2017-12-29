@@ -60,8 +60,8 @@ export class UploadimgComponent {
     //saveToPhotoAlbum: true, //是否保存到相册
     //  sourceType: sourceType, //是打开相机拍照还是打开相册选择 0 PHOTOLIBRARY :, 相册选择, 1 CAMERA : 拍照,SAVEDPHOTOALBUM : 2
     //}
-    this.camera.getPicture({ sourceType: sourceType }).then(res => {
-      console.log(res);
+    this.camera.getPicture({ sourceType: sourceType, quality: 20 }).then(res => {
+      //console.log(res);
       if (this.items.indexOf(res) > -1) return this.nativePro.toast('改图片已经存在');
       this.add(res);
     }).catch((err) => {
@@ -72,15 +72,16 @@ export class UploadimgComponent {
   private add(item) {
     if (!item) return;
     let add = (path) => {
+      //console.log(path);
       this.items.push(path);
       this.onChanged.emit(this.items);
     }
-    this.zone.run(() => this.urls = this.urls.concat([this.sanitizer.bypassSecurityTrustResourceUrl(item)]));
+    this.zone.run(() => this.urls = this.urls.concat([this.nativePro.isAndroid() ? this.sanitizer.bypassSecurityTrustResourceUrl(item) : normalizeURL(item)]));
 
     this.nativePro.isAndroid() ? this.filePath.resolveNativePath(item).then(path => {
       add(path)
     }).catch(ex => {
       console.log(ex);
-    }) : add(normalizeURL(item));
+    }) : add(item);
   }
 }

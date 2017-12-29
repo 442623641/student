@@ -48,7 +48,7 @@ export class PaymentPage {
     this.paymentPro.params(Object.assign({ paytype: this.payType }, this.params)).then(order => {
       // console.log(order);
       this.paymentPro[this.payType](order).then(res => {
-        this.processing = false;
+        this.processing = undefined;
         this.nativePro.success('支付成功').then(() => {
           this.paymentPro.achieve({ len: this.navCtrl.length(), result: res, type: this.params.ordertype, amount: this.amount })
         })

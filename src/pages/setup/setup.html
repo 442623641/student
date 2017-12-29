@@ -14,9 +14,9 @@
   <ion-list margin-top no-lines>
     <button ion-item (touch)="checkUpdate()" event="setup_checkVersion">
       <ion-icon name="sync" item-start></ion-icon>
-      版本 {{upgradePro.localVersion}}
+      版本 {{localVersion}}
       <ion-spinner item-end *ngIf="upgradePro.updating"></ion-spinner>
-      <ion-note item-end>{{upgradePro.updating?'正在更新...':upgradePro.localVersion!=upgradePro.remoteVersion?('最新版本'+upgradePro.remoteVersion):'已是最新版本'}}</ion-note>
+      <ion-note item-end>{{upgradePro.updating?'正在更新...':localVersion!=remoteVersion?('最新版本'+remoteVersion):'已是最新版本'}}</ion-note>
     </button>
     <button ion-item [navPush]="pages.aboutus" no-lines event="setup_goAbout">
       <ion-icon name="information-circle-outline" item-start></ion-icon>

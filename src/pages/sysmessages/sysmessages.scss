@@ -24,18 +24,17 @@ page-sysmessages {
         max-height: 8rem;
         overflow: hidden;
         position: relative;
-        text-align: justify;
-        .ellipsis {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          background: linear-gradient(to right, transparent, #fff 55%);
-          font-weight: bold;
-          margin-left: 1px;
-          letter-spacing: 4px;
-          color: rgba(color($colors, gray9), .8);
-          padding-left: 40px;
-        }
+        text-align: justify; // .ellipsis {
+        //   position: absolute;
+        //   bottom: 0;
+        //   right: 0;
+        //   background: linear-gradient(to right, rgba(255, 255, 255, .6), #fff 55%);
+        //   font-weight: bold;
+        //   margin-left: 1px;
+        //   letter-spacing: 4px;
+        //   color: rgba(color($colors, gray9), .8);
+        //   padding-left: 40px;
+        // }
       }
       .font-weight-normal {
         font-weight: normal;

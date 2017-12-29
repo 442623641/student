@@ -48,7 +48,7 @@ page-report {
     }
     padding-bottom: 16px;
     &.learnanalysis {
-      overflow: visible; // padding: 0;
+      //overflow: visible; // padding: 0;
       .card-content {
         overflow: visible;
         padding: 0;
@@ -221,9 +221,10 @@ page-report {
     // width: 100%; //background: rgba(255, 255, 255, .85);
     transform: translate3d(0, 0, 1px);
     &~ion-backdrop {
-      @extend .blur;
+
       top: 48px;
       background: #fff;
+      @extend .blur;
       opacity: .93; // filter: blur(15px);
       height: calc(100% - 48px);
       z-index: 3;

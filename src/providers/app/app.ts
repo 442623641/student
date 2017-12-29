@@ -59,8 +59,10 @@ export class AppProvider {
     return this.nativePro.version().then(version => {
 
       console.log(`The ${version} version of the【小七助手】is ready`);
-      this.http.setVersion(version);
+      //this.http.setVersion(version);
       this.upgradePro.setVersion(version);
+      return this.http.initialize(version).then(res => { console.log(res) }).catch(ex => console.log(ex));
+
       //检查更新
       //setTimeout(() => this.upgradePro.checkUpdate(version), 5000);
     })

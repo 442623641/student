@@ -29,7 +29,7 @@ export class ValidationPage {
     formBuilder: FormBuilder
   ) {
     this.authForm = formBuilder.group({
-      phone: [this.navParams.get('phone') || '', Validators.compose([Validators.minLength(11), Validators.maxLength(11), Validators.required, Validators.pattern("^1[34578][0-9]{9}$")])],
+      phone: [this.navParams.get('phone') || '', Validators.compose([Validators.minLength(11), Validators.maxLength(11), Validators.required, Validators.pattern("^1[0-9]{10}$")])],
       code: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(6)])],
     });
     //this.authForm.controls.phone.setValue('18225605425');

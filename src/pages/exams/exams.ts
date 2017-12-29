@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Pageview } from '../../model/pageview';
 import { ExamsProvider } from '../../providers/exams/exams';
-import { ChartsProvider } from '../../providers/charts/charts';
+//import { ChartsProvider } from '../../providers/charts/charts';
 import { NotifyProvider } from '../../providers/notify/notify';
 import { PaymentProvider } from '../../providers/payment/payment';
 import { NativeProvider } from '../../providers/native';
@@ -29,7 +29,7 @@ export class ExamsPage {
   latest: any;
   exams: any[] = [];
   total: number;
-  waterball: any;
+  //waterball: any;
   option: any;
   achieveSub: any;
   unclaimed: number = 0;
@@ -37,7 +37,7 @@ export class ExamsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public examsPro: ExamsProvider,
-    public chartsPro: ChartsProvider,
+    //public chartsPro: ChartsProvider,
     private paymentPro: PaymentProvider,
     private viewCtrl: ViewController,
     private nativePro: NativeProvider,
@@ -65,7 +65,7 @@ export class ExamsPage {
       if (!res || !res.latest) return error(res);
       this.latest = res.latest;
       this.total = res.total;
-      this.waterball = this.chartsPro.ball(this.latest.percent, this.latest.score);
+      // this.waterball = this.chartsPro.ball(this.latest.percent, this.latest.score);
       this.exams = res.exams;
       event && event.complete();
     }).catch(ex => error(ex));

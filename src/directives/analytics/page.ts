@@ -14,8 +14,10 @@ export class PageDirective {
   @Input() hook: string;
   enterSubscribe: any;
   leaveSubscribe: any;
-  constructor(analyticsPro: MobclickagentProvider, viewCtrl: ViewController) {
-    setTimeout(() => this.init(analyticsPro, viewCtrl), 120);
+  pageName: string;
+  constructor(private analyticsPro: MobclickagentProvider, private viewCtrl: ViewController) {
+    //setTimeout(() => this.init(analyticsPro, viewCtrl), 120);
+
   }
 
   init(analyticsPro: MobclickagentProvider, viewCtrl: ViewController) {
@@ -31,9 +33,15 @@ export class PageDirective {
     })
   }
 
+  ngAfterViewInit() {
+    this.pageName = this.hook || this.viewCtrl.id;
+    this.analyticsPro.onPageBegin(this.pageName);
+  }
+
   ngOnDestroy() {
-    this.enterSubscribe && this.enterSubscribe.unsubscribe();
-    this.leaveSubscribe && this.leaveSubscribe.unsubscribe();
+    //this.enterSubscribe && this.enterSubscribe.unsubscribe();
+    //this.leaveSubscribe && this.leaveSubscribe.unsubscribe();
+    this.analyticsPro.onPageEnd(this.pageName);
   }
 
 }

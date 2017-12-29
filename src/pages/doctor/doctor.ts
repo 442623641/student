@@ -132,12 +132,11 @@ export class DoctorPage {
     if (this.subject.activity.fullString) {
       return;
     }
-    this.doctorPro.topic({ guid: this.exam.guid, subject: this.subject.name, th: this.subject.activity.name }).then(res => {
-      this.subject.activity.merge(res.question);
-      console.log(this.subject.activity);
-    }).catch(ex => {
-      console.error(ex);
-    });
+    this.doctorPro.topic({ guid: this.exam.guid, subject: this.subject.name, th: this.subject.activity.name })
+      .then(res => this.subject.activity.merge(res.question))
+      .catch(ex => {
+        console.error(ex);
+      });
   }
 
   /**
