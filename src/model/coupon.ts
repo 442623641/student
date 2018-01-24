@@ -1,5 +1,5 @@
 export interface CouPon {
-  viewindex ? : number;
+  viewindex ? : number=1;
   viewlength ? : number;
   lastime ? : string;
   isexpired ? : number;
@@ -9,3 +9,4 @@ export interface CouPon {
    */
   type ? : 0 | 1 | 2 | 3;
 }
+

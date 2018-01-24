@@ -24,11 +24,12 @@ export class DoctorProvider {
   }
 
   topic(data: any) {
+    this.excellent();
 
     return this.http.get('question/topic', data);
   }
 
-  excellent(data: any) {
-    return this.http.get('question/excellent', data);
+  excellent(data ? : any) {
+    return this.http.get('question/excellent', data.name);
   }
 }

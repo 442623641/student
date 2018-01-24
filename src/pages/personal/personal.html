@@ -19,18 +19,18 @@
     <!-- address -->
     <ng-template [ngIf]="!!db.city" [ngIfElse]="citybinding">
       <ion-item>
-        <ion-icon name="pin" item-start></ion-icon>
+        <ion-icon name="pin-outline" item-start></ion-icon>
         {{userInfo.cityName}}
       </ion-item>
     </ng-template>
     <ng-template #citybinding>
       <ng-container [ngSwitch]="!!userInfo.city">
         <button ion-item *ngSwitchCase="false" (touch)="openPicker('city')" event="personal_pickerCity">
-          <ion-icon name="pin" item-start></ion-icon>
+          <ion-icon name="pin-outline" item-start></ion-icon>
           <ion-note>选择省市，绑定后不可修改</ion-note>
         </button>
         <button ion-item *ngSwitchCase="true" (touch)="openPicker('city')" event="personal_pickerCity">
-          <ion-icon name="pin" item-start></ion-icon>
+          <ion-icon name="pin-outline" item-start></ion-icon>
           <ion-label>{{userInfo.cityName}}</ion-label>
         </button>
       </ng-container>
@@ -39,18 +39,18 @@
     <!-- school -->
     <ng-template [ngIf]="!!db.school" [ngIfElse]="schoolbinding">
       <ion-item>
-        <ion-icon name="podium" item-start></ion-icon>
+        <ion-icon name="podium-outline" item-start></ion-icon>
         <ion-label>{{userInfo.school}}</ion-label>
       </ion-item>
     </ng-template>
     <ng-template #schoolbinding>
       <ng-container [ngSwitch]="!!userInfo.school">
         <button ion-item [navPush]="pages.schools" [navParams]="{city:userInfo.city}" [attr.disabled]="!!userInfo.city?null:''" *ngSwitchCase="false" event="personal_goSchools">
-          <ion-icon name="podium" item-start></ion-icon>
+          <ion-icon name="podium-outline" item-start></ion-icon>
           <ion-note>选择学校，绑定后不可修改</ion-note>
         </button>
         <button ion-item *ngSwitchCase="true" [navPush]="pages.schools" [navParams]="{city:userInfo.city}" event="personal_goSchools">
-          <ion-icon name="podium" item-start></ion-icon>
+          <ion-icon name="podium-outline" item-start></ion-icon>
           <ion-label>{{userInfo.school}}</ion-label>
         </button>
       </ng-container>
@@ -59,11 +59,11 @@
     <!-- grade -->
     <ng-container [ngSwitch]="!!db.gradeName">
       <ion-item *ngSwitchCase="true">
-        <ion-icon name="bookmark" item-start></ion-icon>
+        <ion-icon name="bookmark-outline" item-start></ion-icon>
         {{userInfo.gradeName}}
       </ion-item>
       <button ion-item *ngSwitchCase="false" (touch)="openPicker('grade')" [ngSwitch]="!!userInfo.gradeName" event="personal_pickGrade">
-        <ion-icon name="bookmark" item-start></ion-icon>
+        <ion-icon name="bookmark-outline" item-start></ion-icon>
         <ion-note *ngSwitchCase="false">选择年级，绑定后不可修改</ion-note>
         <ion-label *ngSwitchCase="true">{{userInfo.gradeName}}</ion-label>
       </button>

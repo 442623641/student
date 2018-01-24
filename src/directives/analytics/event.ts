@@ -8,7 +8,7 @@ import { MobclickagentProvider } from '../../providers/app/mobclickagent';
  * Directives.
  */
 @Directive({
-  selector: '[touch],[event]' // Attribute selector
+  selector: '[touch],[event]:not([touch])' // Attribute selector
 })
 export class EventDirective {
   @Output('touch') touch: EventEmitter < any > = new EventEmitter < any > ();
@@ -44,6 +44,7 @@ export class EventDirective {
     });
     this.islisten = true;
   }
+  
   private unbind() {
     if (!this.islisten) return;
     typeof this.listen === "function" && this.listen();

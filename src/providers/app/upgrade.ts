@@ -100,6 +100,6 @@ export class UpgradeProvider {
    *应用配置信息
    */
   preferences() {
-    return this.http.get('index/getAppVersion');
+    return this.http.get('index/getAppVersion', { platform: this.nativePro.isIos() ? 'ios' : 'android' });
   }
 }

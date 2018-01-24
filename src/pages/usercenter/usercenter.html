@@ -11,6 +11,7 @@
   </ion-refresher>
   <ng-container *ngIf="userInfo">
     <div class="banner">
+      <p style="padding: 10px" showWhen="ios"></p>
       <div class="avatar"><img src="assets/images/avatar.png"></div>
       <p>{{userInfo?.name}}</p>
       <p>{{desc}}</p>
