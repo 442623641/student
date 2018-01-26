@@ -3,7 +3,7 @@ This is a septnet student projects.
 
 ## student 学生端
 </br>
-DEMO(https://youtu.be/LPIh65inWR8)
+[DEMO](https://youtu.be/LPIh65inWR8)
 </br>
  
 </br>
