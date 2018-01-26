@@ -2,6 +2,9 @@ This is a septnet student projects.
 
 
 ## student 学生端
+ 
+[![asciicast](resources/screenshot.png)](https://youtu.be/LPIh65inWR8)
+ 
 </br>
 [DEMO](https://youtu.be/LPIh65inWR8)
 </br>
