@@ -6,6 +6,8 @@ This is a septnet student projects.
 <img src="resources/d2.PNG" width="230"/>&nbsp;
 <img src="resources/d3.PNG" width="230"/>&nbsp;
 </br>
+------------------------------------------------------------------------------------------------------------------------
+</br>
 <img src="resources/d4.PNG" width="230"/>&nbsp;
 <img src="resources/d5.PNG" width="230"/>&nbsp;
 <img src="resources/d6.PNG" width="230"/>&nbsp;
