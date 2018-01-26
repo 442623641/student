@@ -1,10 +1,7 @@
 This is a septnet student projects.
 
-[首页-简书](http://www.jianshu.com)
-## student 学生端
-</br>
 [DEMO](https://youtu.be/LPIh65inWR8)
-</br>
+## student 学生端
  
 </br>
 <img src="resources/d1.PNG" width="235"/>&nbsp;
